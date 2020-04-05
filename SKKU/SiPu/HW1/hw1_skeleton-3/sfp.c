@@ -3,6 +3,23 @@
 #include <string.h>
 #include <stdio.h>
 
+typedef union{
+    int i;
+    struct{
+        unsigned num;
+        unsigned sign;
+    }raw;
+}myint;
+
+typedef union {//float 원큐에 파싱하는 용도
+    float f;
+    struct{
+        unsigned frac;
+        unsigned exp;
+        unsigned sign;
+    }raw;
+}myfloat;
+
 /*
 32비트 int를 sfp로 바꾸는 함수.
 sfp의 범위를 초과한다면 양 또는 음의 무한을 반환. 무한의 부호는 중요하다.
@@ -10,6 +27,19 @@ round toward zero 가 요구된다.
 0의 경우, 양의 0.0으로 변환하라
 */
 sfp int2sfp(int input){
+    unsigned bias=63;
+    unsigned sign=0; unsigned exp=0; unsigned frac=0;
+    unsigned ret=0;
+    // if(범위초과)
+    //     return NaN;
+    (input<0)?(sign=1):(sign=0);
+    if(sign){
+
+    }
+    else{//0 또는 양의 정수라면
+        myint parsed = (myint)input;
+        frac=parsed.raw.num;
+    }
 }
 
 /*
@@ -20,6 +50,14 @@ TMax와 TMin은 int형의 최대 및 최소값이다.
 round toward zero를 사용하라.
 */
 int sfp2int(sfp input){
+    unsigned bias=63;
+    unsigned sign=0; unsigned exp=0; unsigned frac=0;
+    if(exp==0||exp==127){//exp가 전부 0이거나 전부 1(7bit)인 경우는 따로 처리해야한다.
+
+    }
+    else{
+
+    }
 }
 
 /*
