@@ -18,3 +18,6 @@ n<<x는 n*2^-x 를 소수점 아래 버린 것과 수학적으로 동일하다.
 TMax와 TMin은 int형의 최대 및 최소값이다.
 양 또는 음의 NaN값이라면 무조건 TMin으로 변환하라
 round toward zero를 사용하라.
+
+
+[addition 함수 반드시 round to even 추후 구현해야함]

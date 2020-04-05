@@ -149,6 +149,36 @@ float를 sfp로 바꾸는 함수.
 예외의 경우 처리는 int2sfp를 따른다.
 */
 sfp float2sfp(float input){
+    myfloat mf; mf.f=input;
+    mysfp ret;
+    unsigned sign=mf.raw.sign; unsigned exp=mf.raw.exp; unsigned frac=mf.raw.frac;
+
+    ret.raw.sign=sign;
+    if(exp==255){//exp가 all 1 이면
+        if(frac==0){//무한
+            ret.raw.exp=127; ret.raw.frac=0;
+        }
+        else{//NaN
+            ret.raw.exp=127; ret.raw.frac=1;
+        }
+    }
+    else if(exp==0){//denormal이면
+        ret.raw.exp=0;
+        frac>>=7;
+        ret.raw.frac=frac;
+    }
+    else if(exp>=190){//오버플로우
+        ret.raw.exp=0b1111111; ret.raw.frac=0;
+    }
+    else if(exp<63){
+        ret.raw.exp=0; ret.raw.frac=0;
+    }
+    else{
+        exp-=63;
+        frac>>=7;
+        ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
+    }
+    return ret.s;
 }
 
 /*
@@ -156,6 +186,22 @@ sfp를 float로 바꾸는 함수.
 에러의 여지는 없다. float가 sfp의 범위를 전부 커버하기 때문.
 */
 float sfp2float(sfp input){
+    mysfp ms; ms.s=input;
+    myfloat ret;
+    unsigned sign=ms.raw.sign; unsigned exp=ms.raw.exp; unsigned frac=ms.raw.frac;
+
+    ret.raw.sign=sign;
+    if(exp==0){
+        ret.raw.exp=exp;
+        frac<<=7;
+        ret.raw.frac=frac;
+    }
+    else{
+        exp+=63;
+        frac<<=7;
+        ret.raw.exp=exp; ret.raw.frac=frac;
+    }
+    return ret.f;
 }
 
 /*
@@ -167,6 +213,35 @@ add 연산 이전에, 더 작은 sfp 변수를 right shift 해야한다.
 round to even을 최종적으로 한 번 더 사용하라.
 */
 sfp sfp_add(sfp in1, sfp in2){
+    mysfp ms1, ms2;
+    int roundup=0;
+    if(in1<in2){
+        ms1.s=in2; ms2.s=in1;
+    }
+    else{
+        ms1.s=in1; ms2.s=in2;
+    }
+
+    // unsigned tmp=ms1.raw.frac+ms2.raw.frac>>(ms1.raw.exp-ms2.raw.exp);
+    ms2.raw.frac>>=(ms1.raw.exp-ms2.raw.exp);
+    ms1.raw.frac+=ms2.raw.frac;
+    if(ms1.raw.frac>=2){//정규화
+        ms1.raw.frac>>1;
+        if(ms1.raw.exp==126){//오버플로우발생 -> 무한으로 처리
+            ms1.raw.exp==127; ms1.raw.frac=0;
+        }
+        else ms1.raw.exp++;
+    }
+    else if(ms1.raw.frac<1){
+        while(ms1.raw.frac<1){
+            ms1.raw.frac<<1;
+            ms1.raw.exp--;
+        }
+    }
+
+    //round to even 추가 구현은 추후구현
+
+    return ms1.s;
 }
 
 /*
@@ -178,4 +253,22 @@ sfp를 초과하는 결과에 대해서는, 결과를 양 도는 음의 무한�
 sfp를 float나 double로 바꾸는 것은 역시 금지되어있다.
 */
 sfp sfp_mul(sfp in1, sfp in2){
+    mysfp ms1, ms2, ret;
+    int roundup=0;
+    if(in1<in2){
+        ms1.s=in2; ms2.s=in1;
+    }
+    else{
+        ms1.s=in1; ms2.s=in2;
+    }
+    ret.raw.sign=ms1.raw.sign^ms2.raw.sign;
+    if(ms1.raw.exp+ms2.raw.exp<127){
+        ret.raw.exp=ms1.raw.exp+ms2.raw.exp;
+        ret.raw.frac=ms1.raw.frac*ms2.raw.frac;
+    }
+    else if(ms1.raw.exp+ms2.raw.exp>=127){//오버플로우
+        ret.raw.exp=127;
+        ret.raw.frac=0;
+    }
+    return ret.s;
 }
