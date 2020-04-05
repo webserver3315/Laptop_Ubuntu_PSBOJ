@@ -39,6 +39,7 @@ typedef union{
 }myint;
 
 typedef union {//float 원큐에 파싱하는 용도
+    unsigned u;
     float f;
     struct{
         unsigned frac : 23;
@@ -47,9 +48,17 @@ typedef union {//float 원큐에 파싱하는 용도
     }raw;
 }myfloat;
 
-int fraclength(int n, int x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
-    int lbound=1; lbound<<=x;//이상
+int fraclength2(int n, int x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
+    int lbound=0;
+    if(x>0) lbound<<=x;//이상
     int rbound=1; rbound<<=(x+1);//미만
+    if(lbound<=n && n<rbound) return 1;
+    else return 0;
+}
+
+int fraclength(unsigned n, unsigned x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
+    unsigned lbound=0; lbound<<=x;//이상
+    unsigned rbound=1; rbound<<=(x+1);//미만
     if(lbound<=n && n<rbound) return 1;
     else return 0;
 }
@@ -76,33 +85,40 @@ round toward zero 가 요구된다.
 sfp int2sfp(int input){
     unsigned bias=63;
     unsigned sign=0; unsigned exp=0; unsigned frac=0;
+    int shiftnum;
     mysfp ret;
     // if(범위초과)
     //     return NaN;
-    (input<0)?(sign=1):(sign=0);
-    if(sign){
-
-    }
-    else{//0 또는 양의 정수라면, 우선 frac를 얻고 exp를 얻은 뒤 합성하면 끝.
-        int shiftnum=getfraclength(input);//leading 1 제외한 frac 자릿수
-        //exp는 2^(shiftnum+bias), frac는 input을 좌로 32-s비트, 우로 32-s비트 한 것.
-        // exp=1; exp<<=(shiftnum); exp+=63;
-        exp=shiftnum+63;
-        frac=getfracbit(input,shiftnum);
-        printf("exp bit is= %d\n",exp);
-        printf("getfracbit return val = %d\n",frac);
-        mysfp ret;
-        // ret.raw.dummy=0; ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
-        ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
+    sign=input<0;
+    if(input==0){
+        ret.raw.sign=0; ret.raw.exp=0; ret.raw.frac=0;
         return ret.s;
-        //오버플로우는 따로 처리할 것
     }
+    //if(input이 오버플로우일 때)
+    if(sign) input=(~input)+1;//음수면 input에 -1 곱해주기
+
+    if(input==1) shiftnum=0;//1이면 특수처리
+    else shiftnum=getfraclength(input);
+
+    exp=shiftnum+63;
+    frac=getfracbit(input,shiftnum);
+    ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
+    //오버플로우는 따로 처리할 것
+
+    return ret.s;
 }
 
 int main(){
     int n;
     scanf("%d",&n);
-    printf("fraclength = %d",getfraclength(n));
+    printf("fraclength = %d\n",getfraclength(n));
+    float f=n;
+    myfloat myf;
+    myf.f=f;
+    
+    printf("n is converted to f : %lf\n",f);
+        printf("    INT   "U32_TO_BIN_P" is converted into FLOAT   "U32_TO_BIN_P"\n",
+		 	U32_TO_BIN(n), U32_TO_BIN(myf.u));
     printf("    INT   "U32_TO_BIN_P" is converted into SFP   "U24_TO_BIN_P"\n",
 		 	U32_TO_BIN(n), U24_TO_BIN(int2sfp(n)));
     return 0;

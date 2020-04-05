@@ -3,6 +3,9 @@
 #include <string.h>
 #include <stdio.h>
 
+#define TMin (int)-2147483648
+#define TMax (int)2147483647
+
 typedef union{
     unsigned u;
     sfp s;
@@ -23,6 +26,7 @@ typedef union{
 }myint;
 
 typedef union {//float 원큐에 파싱하는 용도
+    unsigned u;
     float f;
     struct{
         unsigned frac : 23;
@@ -31,9 +35,17 @@ typedef union {//float 원큐에 파싱하는 용도
     }raw;
 }myfloat;
 
-int fraclength(int n, int x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
-    int lbound=1; lbound<<=x;//이상
+int fraclength2(int n, int x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
+    int lbound=0;
+    if(x>0) lbound<<=x;//이상
     int rbound=1; rbound<<=(x+1);//미만
+    if(lbound<=n && n<rbound) return 1;
+    else return 0;
+}
+
+int fraclength(unsigned n, unsigned x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
+    unsigned lbound=0; lbound<<=x;//이상
+    unsigned rbound=1; rbound<<=(x+1);//미만
     if(lbound<=n && n<rbound) return 1;
     else return 0;
 }
@@ -60,22 +72,27 @@ round toward zero 가 요구된다.
 sfp int2sfp(int input){
     unsigned bias=63;
     unsigned sign=0; unsigned exp=0; unsigned frac=0;
+    int shiftnum;
     mysfp ret;
     // if(범위초과)
     //     return NaN;
-    (input<0)?(sign=1):(sign=0);
-    if(sign){
+    sign=input<0;
+    if(input==0){
+        ret.raw.sign=0; ret.raw.exp=0; ret.raw.frac=0;
+        return ret.s;
+    }
+    //if(input이 오버플로우일 때)
+    if(sign) input=(~input)+1;//음수면 input에 -1 곱해주기
 
-    }
-    else{//0 또는 양의 정수라면, 우선 frac를 얻고 exp를 얻은 뒤 합성하면 끝.
-        int shiftnum=getfraclength(input);//leading 1 제외한 frac 자릿수
-        //exp는 2^(shiftnum+bias), frac는 input을 좌로 32-s비트, 우로 32-s비트 한 것.
-        exp=1; exp<<=(shiftnum+63);
-        frac=getfracbit(input,shiftnum);
-        mysfp ret;
-        ret.raw.dummy=0; ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
-        //오버플로우는 따로 처리할 것
-    }
+    if(input==1) shiftnum=0;//1이면 특수처리
+    else shiftnum=getfraclength(input);
+
+    exp=shiftnum+63;
+    frac=getfracbit(input,shiftnum);
+    ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
+    //오버플로우는 따로 처리할 것
+
+    return ret.s;
 }
 
 /*
@@ -88,12 +105,43 @@ round toward zero를 사용하라.
 int sfp2int(sfp input){
     unsigned bias=63;
     unsigned sign=0; unsigned exp=0; unsigned frac=0;
-    if(exp==0||exp==127){//exp가 전부 0이거나 전부 1(7bit)인 경우는 따로 처리해야한다.
+    mysfp ms=(mysfp)input;
+    myint ret;
 
+    sign=ms.raw.sign; exp=ms.raw.exp; frac=ms.raw.frac;
+    ret.raw.sign=sign;
+
+    if(exp==0){//denorm이면 무조건 정수때릴때 0이다.
+        ret=(myint)0;
+        return ret.i;
+    }
+    else if(exp<0b0111111){//denorm 아닌데 소수일 경우
+        ret=(myint)0;
+        return ret.i;
+    }
+    else if(exp==127){//특수케이스 - exp가 전부 1
+        if(frac==0 && sign==0){//양의 무한
+            ret=(myint)TMax;
+        }
+        else if(frac==0 && sign!=0){//음의 무한
+            ret=(myint)TMin;
+        }
+        else{//frac!=0 -> NaN은 부호불문 TMin으로 바꾸라고 되어있다.
+            ret=(myint)TMin;
+        }
+        return ret.i;
     }
     else{
-
+        exp-=63;
+        frac>>=16-exp;
+        unsigned leading1=1<<exp;
+        frac+=leading1;
+        if(sign){
+            frac=(~frac)+1;
+        }
+        ret.raw.num=frac;
     }
+    return ret.i;
 }
 
 /*
