@@ -76,11 +76,11 @@ sfp float2sfp(float input){
     else if(exp>=190){//오버플로우
         ret.raw.exp=0b1111111; ret.raw.frac=0;
     }
-    else if(exp<63){
+    else if(exp<64){
         ret.raw.exp=0; ret.raw.frac=0;
     }
     else{
-        exp-=63;
+        exp-=64;
         frac>>=7;
         ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
     }
@@ -103,7 +103,7 @@ float sfp2float(sfp input){
         ret.raw.frac=frac;
     }
     else{
-        exp+=63;
+        exp+=64;
         frac<<=7;
         ret.raw.exp=exp; ret.raw.frac=frac;
     }

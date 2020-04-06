@@ -18,6 +18,17 @@ typedef union{
 }mysfp;
 
 typedef union{
+    unsigned long long ull;
+    struct{
+        unsigned frac : 16;
+        unsigned leading1 : 1;
+        unsigned dummy : 14;
+        unsigned sign : 1;
+        // unsigned dummy : 8;
+    }raw;
+}myll;
+
+typedef union{
     int i;
     struct{
         unsigned num : 31;
@@ -170,11 +181,11 @@ sfp float2sfp(float input){
     else if(exp>=190){//오버플로우
         ret.raw.exp=0b1111111; ret.raw.frac=0;
     }
-    else if(exp<63){
+    else if(exp<64){
         ret.raw.exp=0; ret.raw.frac=0;
     }
     else{
-        exp-=63;
+        exp-=64;
         frac>>=7;
         ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
     }
@@ -197,13 +208,12 @@ float sfp2float(sfp input){
         ret.raw.frac=frac;
     }
     else{
-        exp+=63;
+        exp+=64;
         frac<<=7;
         ret.raw.exp=exp; ret.raw.frac=frac;
     }
     return ret.f;
 }
-
 /*
 두 sfp형을 더한다.
 두 개의 sfp 타입이 input으로 주어지며, 결과 또한 sfp
@@ -223,16 +233,22 @@ sfp sfp_add(sfp in1, sfp in2){
     }
 
     // unsigned tmp=ms1.raw.frac+ms2.raw.frac>>(ms1.raw.exp-ms2.raw.exp);
-    ms2.raw.frac>>=(ms1.raw.exp-ms2.raw.exp);
+    int shiftnum=(ms1.raw.exp-ms2.raw.exp);
+    ms2.raw.frac>>=shiftnum;
+    ms2.raw.frac|=(1<<(16-shiftnum));
     ms1.raw.frac+=ms2.raw.frac;
-    if(ms1.raw.frac>=2){//정규화
+    // printf("ms1.raw.frac == %d\n",ms2.raw.frac);
+    
+    int mantissaoverflow=0;
+    int mantissaunderflow=0;
+    if(mantissaoverflow){//frac값이 오버플로우되었으면 자릿수 올려줘야한다.
         ms1.raw.frac>>1;
         if(ms1.raw.exp==126){//오버플로우발생 -> 무한으로 처리
             ms1.raw.exp==127; ms1.raw.frac=0;
         }
         else ms1.raw.exp++;
     }
-    else if(ms1.raw.frac<1){
+    else if(mantissaunderflow){
         while(ms1.raw.frac<1){
             ms1.raw.frac<<1;
             ms1.raw.exp--;
@@ -252,7 +268,7 @@ fraction part를 계산하는데, unsigned long long이나 double 같은 64비�
 sfp를 초과하는 결과에 대해서는, 결과를 양 도는 음의 무한으로 구현한다. 부호는 중요하다.
 sfp를 float나 double로 바꾸는 것은 역시 금지되어있다.
 */
-sfp sfp_mul(sfp in1, sfp in2){
+sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케할지 따로 구현해야한다.
     mysfp ms1, ms2, ret;
     int roundup=0;
     if(in1<in2){
@@ -262,11 +278,29 @@ sfp sfp_mul(sfp in1, sfp in2){
         ms1.s=in1; ms2.s=in2;
     }
     ret.raw.sign=ms1.raw.sign^ms2.raw.sign;
-    if(ms1.raw.exp+ms2.raw.exp<127){
-        ret.raw.exp=ms1.raw.exp+ms2.raw.exp;
-        ret.raw.frac=ms1.raw.frac*ms2.raw.frac;
+    int expplus = ms1.raw.exp+ms2.raw.exp-63;//127 넘기면 바로 오버플로우되나? 아니면 일단은 유지되나? -> 129도 가능.
+    // printf("[TEST] expplus = %d\n",expplus);
+
+    ret.raw.exp=expplus;
+    unsigned signif1=ms1.raw.frac|(1ul<<16);
+    unsigned signif2=ms2.raw.frac|(1ul<<16);
+    long long fracmult=(unsigned long long)signif1*signif2;
+    // printf("signif1 is %d, signif2 is %d\n",signif1, signif2);
+    // printf("First, fracmult is %lld\n", fracmult);
+    fracmult>>=16;
+    // printf("2nd fracmult is %lld\n", fracmult);
+    // printf("comparing with %d\n",1<<17);
+    if(fracmult>=(1<<17)){//frac값이 오버플로우되었으면 자릿수 올려줘야한다.
+        printf("Mantissa Overflow!\n");
+        ms1.raw.frac>>1;
+        ms1.raw.exp++;
     }
-    else if(ms1.raw.exp+ms2.raw.exp>=127){//오버플로우
+
+    printf("Finally, fracmult is %lld\n", fracmult);
+    ret.raw.frac=fracmult;
+    
+    if(expplus>=127){//exp 오버플로우
+        printf("Exponent Overflow!\n");
         ret.raw.exp=127;
         ret.raw.frac=0;
     }
