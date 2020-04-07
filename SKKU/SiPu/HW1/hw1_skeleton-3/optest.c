@@ -318,19 +318,27 @@ sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케
         ms1.s=in2; ms2.s=in1;
     }
     ret.raw.sign=ms1.raw.sign^ms2.raw.sign;
+    if((ms1.raw.exp==0&&ms1.raw.frac==0)||(ms2.raw.exp==0&&ms2.raw.frac==0)){//둘 중 하나가 숫자 0이면
+        ret.raw.exp=0; ret.raw.frac=0;
+        return ret.s;
+    }
+
     if(ms1.raw.exp+ms2.raw.exp<63){//너무 작아서 표현불가. 일단 레퍼가 불명확해서 0으로 리턴함. 혹시 아니라면 정정할 것
         ret.raw.exp=0; ret.raw.frac=0;
         return ret.s;
     }
-    else if(ms1.raw.exp+ms2.raw.exp==63){//denormal이 예상답
-
-    }
+    else ret.raw.exp=ms1.raw.exp+ms2.raw.exp-63;
 
     if(ms1.raw.exp) signif1=ms1.raw.frac|(1<<16); else signif1=ms1.raw.frac;
     if(ms2.raw.exp) signif2=ms2.raw.frac|(1<<16); else signif2=ms2.raw.frac;
     unsigned long long signif=(unsigned long long)signif1*signif2;
-    if((ms1.raw.exp==0&&ms1.raw.frac==0)||(ms2.raw.exp==0&&ms2.raw.frac==0)){
-        ret.raw.exp=0; ret.raw.frac=0;
+    
+    if(signif==0){
+        if(ret.raw.exp<=0 || ret.raw.exp>=(1<<7)-1){//<=0의 경우는 추가고려가 일단은 필요
+            //exponent Overflow
+            ret.raw.exp=(1<<7)-1;
+        }
+        ret.raw.frac=0;
         return ret.s;
     }
 
