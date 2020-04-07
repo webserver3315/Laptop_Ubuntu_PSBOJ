@@ -165,29 +165,37 @@ sfp float2sfp(float input){
     unsigned sign=mf.raw.sign; unsigned exp=mf.raw.exp; unsigned frac=mf.raw.frac;
 
     ret.raw.sign=sign;
-    if(exp==255){//exp가 all 1 이면
+    if(exp==255){//exp가 all 1 이면 문답무용 무한이나 비숫자
         if(frac==0){//무한
             ret.raw.exp=127; ret.raw.frac=0;
         }
         else{//NaN
             ret.raw.exp=127; ret.raw.frac=1;
         }
+        return ret.s;
     }
-    else if(exp==0){//denormal이면
-        ret.raw.exp=0;
-        frac>>=7;
-        ret.raw.frac=frac;
+    if(exp==0&&frac==0){
+        ret.raw.exp=exp; ret.raw.frac=frac;
+        return ret.s;
     }
-    else if(exp>=190){//오버플로우
+
+    if(exp>=190){//오버플로우
         ret.raw.exp=0b1111111; ret.raw.frac=0;
     }
-    else if(exp<64){
+    else if(exp==64){//normal float -> denormal sfp이면
+        ret.raw.exp=0;
+        frac>>=8;
+        frac|=(1<<15);//denormal이므로 frac에 leading 1 포함시켜야됨
+        ret.raw.frac=frac;
+    }
+    else if(exp<64){//너무 0에 가까운 수라서 sfp로 표현할 수 없을 경우도, range 초과로 인식해서 무한으로 취급해야 하나?
         ret.raw.exp=0; ret.raw.frac=0;
+        // ret.raw.exp=0b1111111; ret.raw.frac=0;
     }
     else{
         exp-=64;
         frac>>=7;
-        ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
+        ret.raw.exp=exp; ret.raw.frac=frac;
     }
     return ret.s;
 }
@@ -199,18 +207,25 @@ sfp를 float로 바꾸는 함수.
 float sfp2float(sfp input){
     mysfp ms; ms.s=input;
     myfloat ret;
-    unsigned sign=ms.raw.sign; unsigned exp=ms.raw.exp; unsigned frac=ms.raw.frac;
-
-    ret.raw.sign=sign;
-    if(exp==0){
-        ret.raw.exp=exp;
-        frac<<=7;
-        ret.raw.frac=frac;
+    ret.raw.sign=ms.raw.sign; ret.raw.exp=ms.raw.exp; ret.raw.frac=ms.raw.frac;
+    if(ms.raw.exp==0){//denormal -> normal로 가는 예외적 경우와 denormal -> denormal 인 경우를 구분해야한다
+        //denormal sfp-> denormal float 이 되는 경우는 존재하지 않는다.
+        if(ms.raw.frac==0){
+            return ret.f;//진또 0
+        }
+        ret.raw.exp=64;
+        unsigned signif=ret.raw.frac;
+        signif<<=8;
+        while(0==(signif&(1<<23))){
+            signif<<=1;
+            ret.raw.exp--;
+            // printf("[Tracking] SFP is "U24_TO_BIN_P", FLOAT is "U32_TO_BIN_P"\n", U24_TO_BIN(ms.s), U32_TO_BIN(ret.u));
+        }
+        ret.raw.frac=signif;
     }
     else{
-        exp+=64;
-        frac<<=7;
-        ret.raw.exp=exp; ret.raw.frac=frac;
+        ret.raw.exp+=64;
+        ret.raw.frac<<=7;
     }
     return ret.f;
 }
@@ -222,61 +237,66 @@ add 연산 이전에, 더 작은 sfp 변수를 right shift 해야한다.
 함수 내부에서 sfp를 float나 double로 바꾸는 것은 금지되어있다.
 round to even을 최종적으로 한 번 더 사용하라.
 */
-sfp sfp_add(sfp in1, sfp in2){
+sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 것 같다. 0이랑 연산도 곱과 같이 디버깅해야함
     mysfp ms1, ms2, ret;
-    if(in1>in2){
-        ms1.s=in1; ms2.s=in2;
-    }
-    else{
+    ms1.s=in1; ms2.s=in2;
+    if(ms1.raw.exp<ms2.raw.exp || (ms1.raw.exp==ms2.raw.exp&&ms1.raw.frac<ms2.raw.frac)){//exp 대소 역전이면 스왑
         ms1.s=in2; ms2.s=in1;
     }
-    ret.raw.exp=ms1.raw.exp+ms2.raw.exp-63;
-    unsigned signif1=ms1.raw.frac|(1<<16); unsigned signif2=ms2.raw.frac|(1<<16);
-    unsigned long long signif=(unsigned long long)signif1*signif2;
-    //GSB 따져야한다.
-    unsigned G, R, S;
-    G=(1<<16)&signif; R=(1<<15)&signif; S=((1<<15)-1)&signif;
-    //R이 1이고 S가 0이라면 R2E에 따라 고민필요. G 참조해서 올릴지 말지 결정
-    //R이 1이고 S가 1이면 무조건 올림
-    //R이 0이라면 걍 버림.
-    if(R==0){
-        signif>>=16;
-    }
-    else{
-        if(S==0){//고민필요
-            signif>>=16;
-            if(G!=0){
-                signif++;
-            }
-        }
-        else{
-            signif>>=16;
-            signif++;
-        }
-    }
-    if(signif>=(1<<17)){
-        //이 때의 right shift도 round to even 적용
-        if(signif&1){
-            if(signif&2){
-                signif++;
-            }
-        }
-        signif>>=1;
-        ret.raw.exp++;
-    }
-    while(signif<(1<<16)){
-        signif<<=1;
-        ret.raw.exp--;
-    }
-
-    if(ret.raw.exp<=0 || ret.raw.exp>=(1<<7)-1){//<=0의 경우는 추가고려가 일단은 필요
-        //exponent Overflow
-        ret.raw.exp=(1<<7)-1;
-        ret.raw.frac=0;
+    if((ms1.raw.exp==127&&ms1.raw.frac!=0)||(ms2.raw.exp==127&&ms2.raw.frac!=0)){//NaN이면
+        ret.raw.sign=0; ret.raw.exp=127; ret.raw.exp=1;
         return ret.s;
     }
-    signif&=(0xFFFF);//leading 1 제거
-    ret.raw.frac=signif;
+
+    unsigned shiftnum=ms1.raw.exp-ms2.raw.exp;
+    ms2.raw.frac>>=shiftnum;//나중에 RtE 구현해야함
+    unsigned long long signif, signif1, signif2;
+    if(ms1.raw.exp) signif1=ms1.raw.frac|0x10000; else signif1=ms1.raw.frac;
+    if(ms2.raw.exp) signif2=ms2.raw.frac|(1<<16-shiftnum); else signif2=ms2.raw.frac;
+    if(ms1.raw.sign==ms2.raw.sign){
+        ret.raw.sign=ms1.raw.sign;
+        ret.raw.exp=ms1.raw.exp;
+        signif=signif1+signif2;
+    }
+    else{
+        if(ms1.raw.sign){//음수결과
+            ret.raw.sign=1;
+            ret.raw.exp=ms1.raw.exp;
+            signif=signif2-signif1;
+        }
+        else{//양수결과
+            ret.raw.sign=0;
+            ret.raw.exp=ms1.raw.exp;
+            signif=signif1-signif2;
+        }
+    }
+
+    if(ret.raw.exp){
+        if(signif>=(1<<17)){//significand Overflow
+            signif>>=1;//나중에 RtE 구현해야함
+            ret.raw.exp++;
+            printf("significand overflow : signif = %lld\n",signif);
+        }
+        while(signif<(1<<16)){//significand Underflow
+            signif<<=1;
+            ret.raw.exp--;
+            printf("significand underflow : signif = %lld\n",signif);
+            if(ret.raw.exp==1) break;
+        }
+        signif&=0xFFFF;
+        ret.raw.frac=signif;
+
+        if(ret.raw.exp>=127){//exponent Overflow
+            ret.raw.exp=127; ret.raw.frac=0;
+        }
+    }
+    else{//denormalized라면
+        if(signif>=(1<<16)){
+            signif<<=1;
+            ret.raw.exp++;
+        }
+        ret.raw.frac=signif;
+    }
     return ret.s;
 }
 
@@ -291,19 +311,29 @@ sfp를 float나 double로 바꾸는 것은 역시 금지되어있다.
 sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케할지 따로 구현해야한다.
     mysfp ms1, ms2, ret;
     unsigned signif1, signif2;
-    if(in1>in2){
+    if(in1>in2){//근데 signbit 차이로 1이 크다고 인식해버리면 곤란한데. sign 1는 -1이니까.
         ms1.s=in1; ms2.s=in2;
     }
     else{
         ms1.s=in2; ms2.s=in1;
     }
     ret.raw.sign=ms1.raw.sign^ms2.raw.sign;
-    ret.raw.exp=ms1.raw.exp+ms2.raw.exp-63;
-    if(ms1.raw.exp) signif1=ms1.raw.frac|(1<<16);//denormal이면 leading 1 없으므로 따로 처리
-    else signif1=ms1.raw.frac;
-    if(ms2.raw.exp) signif2=ms2.raw.frac|(1<<16);
-    else signif2=ms2.raw.frac;
+    if(ms1.raw.exp+ms2.raw.exp<63){//너무 작아서 표현불가. 일단 레퍼가 불명확해서 0으로 리턴함. 혹시 아니라면 정정할 것
+        ret.raw.exp=0; ret.raw.frac=0;
+        return ret.s;
+    }
+    else if(ms1.raw.exp+ms2.raw.exp==63){//denormal이 예상답
+
+    }
+
+    if(ms1.raw.exp) signif1=ms1.raw.frac|(1<<16); else signif1=ms1.raw.frac;
+    if(ms2.raw.exp) signif2=ms2.raw.frac|(1<<16); else signif2=ms2.raw.frac;
     unsigned long long signif=(unsigned long long)signif1*signif2;
+    if((ms1.raw.exp==0&&ms1.raw.frac==0)||(ms2.raw.exp==0&&ms2.raw.frac==0)){
+        ret.raw.exp=0; ret.raw.frac=0;
+        return ret.s;
+    }
+
     //GSB 따져야한다.
     unsigned G, R, S;
     G=(1<<16)&signif; R=(1<<15)&signif; S=((1<<15)-1)&signif;
@@ -348,7 +378,7 @@ sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케
     }
     signif&=(0xFFFF);//leading 1 제거
     ret.raw.frac=signif;
-    return ret.s;
+    return ret.s;    
 }
 
 
