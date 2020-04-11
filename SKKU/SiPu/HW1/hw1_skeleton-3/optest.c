@@ -289,8 +289,9 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     unsigned long long signif, signif1, signif2;
     if(ms1.raw.exp) signif1=ms1.raw.frac|0x10000; else signif1=ms1.raw.frac;
     if(ms2.raw.exp){
-        if(shiftnum<16) signif2=ms2.raw.frac|(1<<16-shiftnum);
-        else signif2=ms2.raw.frac|1<<16;
+        // if(shiftnum<16) signif2=ms2.raw.frac|(1<<16-shiftnum);
+        // else signif2=ms2.raw.frac|1<<16;//이거 왜 넣은거야???
+        signif2=ms2.raw.frac|0x10000;
     }
     else signif2=ms2.raw.frac;
     // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
@@ -313,7 +314,7 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     else if(shiftnum<18){
         unsigned G, R, S;
         G=(1<<shiftnum)&signif2; R=(1<<(shiftnum-1))&signif2; S=(1<<(shiftnum-1)-1)&signif2;
-        printf("G, R, S : %u %u %u\n",G,R,S);
+        // printf("G, R, S : %u %u %u\n",G,R,S);
         if(R==0){//무조건 버림
             signif2>>=shiftnum;
             ms2.raw.frac=signif2;
@@ -338,27 +339,35 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     }
     // printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
 
-    //부호조정
+    // printf("ms1_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
+    // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+
+    // printf("signif1 == %llu\n",signif1);
+    // printf("signif2 == %llu\n",signif2);
+    //부호처리
     if(ms1.raw.sign==ms2.raw.sign){
         ret.raw.sign=ms1.raw.sign;
         ret.raw.exp=ms1.raw.exp;
         signif=signif1+signif2;
     }
     else{
-        if(ms1.raw.sign){//음수결과
-            ret.raw.sign=1;
-            ret.raw.exp=ms1.raw.exp;
-            signif=signif2-signif1;
-        }
-        else{//양수결과
+        if(ms1.raw.sign==0){//양수결과
             ret.raw.sign=0;
             ret.raw.exp=ms1.raw.exp;
             signif=signif1-signif2;
         }
+        else{//음수결과
+            ret.raw.sign=1;
+            ret.raw.exp=ms1.raw.exp;
+            signif=signif2-signif1;
+        }
     }
-    // printf("SFP_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
+    // printf("ms1_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
+    // printf("ms2_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+    // printf("SFP_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
+    // printf("signif == %llu\n",signif);
 
-    //Normalize Result 구현
+    //Renormalize Result 구현
     if(signif<(1<<16)){//당연히 이 상황이면 exp도 0이라는거겠지?
         while(signif<(1<<16)&&ret.raw.exp!=0){
             signif<<=1;
@@ -381,6 +390,10 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         return ret.s;
     }
     else{
+        if(ret.raw.exp==0){//denormalized인데 M이 1 이상 2 미만이 나왔다면
+            signif&=0xFFFF;//leading 1 제거
+            ret.raw.exp=1;
+        }
         ret.raw.frac=signif;
         return ret.s;
     }
