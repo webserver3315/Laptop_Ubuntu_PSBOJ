@@ -6,8 +6,9 @@ int lcm(int a, int b) {
 	if (a < b) {
 		int tmp = b;  b = a; a = tmp;
 	}
+	int motoa=a;
 	while (a % b != 0) {
-		a += a;
+		a += motoa;
 	}
 	return a;
 }
