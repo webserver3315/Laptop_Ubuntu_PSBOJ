@@ -141,12 +141,11 @@ int sfp2int(sfp input){
     }
     else{
         exp-=63;//exp는 무조건 0 아니면 양수임이 보장
-        if(32<=exp){
-            ret=(myint)TMax;
+        if(31<=exp){//int에 절대 못담는 큰 수. 애초에 31비트인데 2^31 이상을 담을 수 있을 리 없다.
+            if(ret.raw.sign) ret=(myint)TMin; else ret=(myint)TMax;
             return ret.i;
         }
-        if(exp<=16) frac>>=16-exp;
-        else frac>>=16;
+        if(exp<=16) frac>>=16-exp; else frac>>=16;
         unsigned leading1=1<<exp;
         frac+=leading1;
         if(sign){
@@ -285,20 +284,21 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     }
 
     unsigned shiftnum=ms1.raw.exp-ms2.raw.exp;//16-shiftnum이 음수가 될 수도 있는지 확인
-    printf("shiftnum = %u\n",shiftnum);
+    // printf("shiftnum = %u\n",shiftnum);
     //RtE를 통한 >>=shiftnum 구현
     unsigned long long signif, signif1, signif2;
     if(ms1.raw.exp) signif1=ms1.raw.frac|0x10000; else signif1=ms1.raw.frac;
     if(ms2.raw.exp){
-        if(shiftnum<16) signif2=ms2.raw.frac|(1<<16-shiftnum);
-        else signif2=ms2.raw.frac|1<<16;
+        // if(shiftnum<16) signif2=ms2.raw.frac|(1<<16-shiftnum);
+        // else signif2=ms2.raw.frac|1<<16;//이거 왜 넣은거야???
+        signif2=ms2.raw.frac|0x10000;
     }
     else signif2=ms2.raw.frac;
-    printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
-    printf("ms1.raw.frac : %d\n", ms1.raw.frac);
-    printf("ms2.raw.frac : %d\n", ms2.raw.frac);
-    printf("signif1 : %llu\n", signif1);
-    printf("signif2 : %llu\n", signif2);
+    // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+    // printf("ms1.raw.frac : %d\n", ms1.raw.frac);
+    // printf("ms2.raw.frac : %d\n", ms2.raw.frac);
+    // printf("signif1 : %llu\n", signif1);
+    // printf("signif2 : %llu\n", signif2);
     if(shiftnum==0){
         //아무것도 안함
     }
@@ -314,7 +314,7 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     else if(shiftnum<18){
         unsigned G, R, S;
         G=(1<<shiftnum)&signif2; R=(1<<(shiftnum-1))&signif2; S=(1<<(shiftnum-1)-1)&signif2;
-        printf("G, R, S : %u %u %u\n",G,R,S);
+        // printf("G, R, S : %u %u %u\n",G,R,S);
         if(R==0){//무조건 버림
             signif2>>=shiftnum;
             ms2.raw.frac=signif2;
@@ -337,29 +337,37 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     else{//18 길이 이상 우시프트면 걍 싹다 버리면 된다. R이 0이기 때문에 RtE적용해도 변화없음.
         ms2.raw.frac>>=16;
     }
-    printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+    // printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
 
-    //부호조정
+    // printf("ms1_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
+    // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+
+    // printf("signif1 == %llu\n",signif1);
+    // printf("signif2 == %llu\n",signif2);
+    //부호처리
     if(ms1.raw.sign==ms2.raw.sign){
         ret.raw.sign=ms1.raw.sign;
         ret.raw.exp=ms1.raw.exp;
         signif=signif1+signif2;
     }
     else{
-        if(ms1.raw.sign){//음수결과
-            ret.raw.sign=1;
-            ret.raw.exp=ms1.raw.exp;
-            signif=signif2-signif1;
-        }
-        else{//양수결과
+        if(ms1.raw.sign==0){//양수결과
             ret.raw.sign=0;
             ret.raw.exp=ms1.raw.exp;
             signif=signif1-signif2;
         }
+        else{//음수결과
+            ret.raw.sign=1;
+            ret.raw.exp=ms1.raw.exp;
+            signif=signif2-signif1;
+        }
     }
-    printf("SFP_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
+    // printf("ms1_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
+    // printf("ms2_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+    // printf("SFP_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
+    // printf("signif == %llu\n",signif);
 
-    //Normalize Result 구현
+    //Renormalize Result 구현
     if(signif<(1<<16)){//당연히 이 상황이면 exp도 0이라는거겠지?
         while(signif<(1<<16)&&ret.raw.exp!=0){
             signif<<=1;
@@ -382,6 +390,10 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         return ret.s;
     }
     else{
+        if(ret.raw.exp==0){//denormalized인데 M이 1 이상 2 미만이 나왔다면
+            signif&=0xFFFF;//leading 1 제거
+            ret.raw.exp=1;
+        }
         ret.raw.frac=signif;
         return ret.s;
     }
@@ -505,8 +517,10 @@ int main(){
     // scanf("%u",&mys2.u);
     // mys1.raw.sign=0; mys1.raw.exp=0b0000001; mys1.raw.frac=1;
     // mys2.raw.sign=1; mys2.raw.exp=0b0000001; mys2.raw.frac=0;
-    mys1.raw.sign=0; mys1.raw.exp=0b1010001; mys1.raw.frac=0;
-    mys2.raw.sign=0; mys2.raw.exp=0b1000000; mys2.raw.frac=0x8000;
+    // mys1.raw.sign=0; mys1.raw.exp=0b1010001; mys1.raw.frac=0;
+    // mys2.raw.sign=0; mys2.raw.exp=0b1000000; mys2.raw.frac=0x8000;
+    mys1.raw.sign=0; mys1.raw.exp=0b0000000; mys1.raw.frac=0xFFFF;
+    mys2.raw.sign=0; mys2.raw.exp=0b0000000; mys2.raw.frac=0xFFFF;
     res.s=sfp_add(mys1.s, mys2.s);
     printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.s));
     printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.s));

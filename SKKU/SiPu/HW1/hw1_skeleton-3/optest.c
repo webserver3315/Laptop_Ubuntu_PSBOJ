@@ -141,12 +141,11 @@ int sfp2int(sfp input){
     }
     else{
         exp-=63;//exp는 무조건 0 아니면 양수임이 보장
-        if(32<=exp){
-            ret=(myint)TMax;
+        if(31<=exp){//int에 절대 못담는 큰 수. 애초에 31비트인데 2^31 이상을 담을 수 있을 리 없다.
+            if(ret.raw.sign) ret=(myint)TMin; else ret=(myint)TMax;
             return ret.i;
         }
-        if(exp<=16) frac>>=16-exp;
-        else frac>>=16;
+        if(exp<=16) frac>>=16-exp; else frac>>=16;
         unsigned leading1=1<<exp;
         frac+=leading1;
         if(sign){
@@ -285,7 +284,7 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     }
 
     unsigned shiftnum=ms1.raw.exp-ms2.raw.exp;//16-shiftnum이 음수가 될 수도 있는지 확인
-    printf("shiftnum = %u\n",shiftnum);
+    // printf("shiftnum = %u\n",shiftnum);
     //RtE를 통한 >>=shiftnum 구현
     unsigned long long signif, signif1, signif2;
     if(ms1.raw.exp) signif1=ms1.raw.frac|0x10000; else signif1=ms1.raw.frac;
@@ -294,11 +293,11 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         else signif2=ms2.raw.frac|1<<16;
     }
     else signif2=ms2.raw.frac;
-    printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
-    printf("ms1.raw.frac : %d\n", ms1.raw.frac);
-    printf("ms2.raw.frac : %d\n", ms2.raw.frac);
-    printf("signif1 : %llu\n", signif1);
-    printf("signif2 : %llu\n", signif2);
+    // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+    // printf("ms1.raw.frac : %d\n", ms1.raw.frac);
+    // printf("ms2.raw.frac : %d\n", ms2.raw.frac);
+    // printf("signif1 : %llu\n", signif1);
+    // printf("signif2 : %llu\n", signif2);
     if(shiftnum==0){
         //아무것도 안함
     }
@@ -337,7 +336,7 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     else{//18 길이 이상 우시프트면 걍 싹다 버리면 된다. R이 0이기 때문에 RtE적용해도 변화없음.
         ms2.raw.frac>>=16;
     }
-    printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
+    // printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
 
     //부호조정
     if(ms1.raw.sign==ms2.raw.sign){
@@ -357,7 +356,7 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
             signif=signif1-signif2;
         }
     }
-    printf("SFP_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
+    // printf("SFP_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
 
     //Normalize Result 구현
     if(signif<(1<<16)){//당연히 이 상황이면 exp도 0이라는거겠지?
