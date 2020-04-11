@@ -274,26 +274,21 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     //대소비교
     mysfp tmp1, tmp2;
     tmp1.s=in1; tmp2.s=in2;
-    if(tmp1.raw.sign) tmp1.raw.sign=0; else tmp1.raw.sign=1;//비교편의상 양수일 경우 sign=1이도록 변경
-    if(tmp2.raw.sign) tmp2.raw.sign=0; else tmp2.raw.sign=1;
+    tmp1.raw.sign=0; tmp2.raw.sign=0;
     if(tmp1.u>tmp2.u){
         ms1.s=in1; ms2.s=in2;
     }
     else{
         ms1.s=in2; ms2.s=in1;
-    }
-
-    unsigned shiftnum=ms1.raw.exp-ms2.raw.exp;//16-shiftnum이 음수가 될 수도 있는지 확인
+    }//절대value만 ms1이 크지, 부호영향으로 ms1이 음이면 오히려 ms2보다 실제로는 더 작을 수도 있음!!!
+    unsigned tmpexp1=ms1.raw.exp; unsigned tmpexp2=ms2.raw.exp;
+    if(tmpexp1==0) tmpexp1++; if(tmpexp2==0) tmpexp2++;
+    unsigned shiftnum=tmpexp1-tmpexp2;
     // printf("shiftnum = %u\n",shiftnum);
     //RtE를 통한 >>=shiftnum 구현
     unsigned long long signif, signif1, signif2;
     if(ms1.raw.exp) signif1=ms1.raw.frac|0x10000; else signif1=ms1.raw.frac;
-    if(ms2.raw.exp){
-        // if(shiftnum<16) signif2=ms2.raw.frac|(1<<16-shiftnum);
-        // else signif2=ms2.raw.frac|1<<16;//이거 왜 넣은거야???
-        signif2=ms2.raw.frac|0x10000;
-    }
-    else signif2=ms2.raw.frac;
+    if(ms2.raw.exp) signif2=ms2.raw.frac|0x10000; else signif2=ms2.raw.frac;
     // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
     // printf("ms1.raw.frac : %d\n", ms1.raw.frac);
     // printf("ms2.raw.frac : %d\n", ms2.raw.frac);
@@ -335,7 +330,8 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         }
     }
     else{//18 길이 이상 우시프트면 걍 싹다 버리면 된다. R이 0이기 때문에 RtE적용해도 변화없음.
-        ms2.raw.frac>>=16;
+        signif2>>=16;
+        ms2.raw.frac>>=signif2;
     }
     // printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
 
@@ -351,35 +347,29 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         signif=signif1+signif2;
     }
     else{
-        if(ms1.raw.sign==0){//양수결과
-            ret.raw.sign=0;
-            ret.raw.exp=ms1.raw.exp;
-            signif=signif1-signif2;
-        }
-        else{//음수결과
-            ret.raw.sign=1;
-            ret.raw.exp=ms1.raw.exp;
-            signif=signif2-signif1;
-        }
+        ret.raw.sign=ms1.raw.sign;
+        ret.raw.exp=ms1.raw.exp;
+        signif=signif1-signif2;
     }
     // printf("ms1_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
     // printf("ms2_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
     // printf("SFP_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
     // printf("signif == %llu\n",signif);
-
+    // printf("ret raw exp == %u\n",ret.raw.exp);
     //Renormalize Result 구현
-    if(signif<(1<<16)){//당연히 이 상황이면 exp도 0이라는거겠지?
-        while(signif<(1<<16)&&ret.raw.exp!=0){
+    if(signif<(1<<16)){//M이 1 미만
+        while(signif<(1<<16)&&ret.raw.exp>1){
             signif<<=1;
             ret.raw.exp--;
         }
-        if(signif>=(1<<16)){
+        if(signif>=(1<<16)){//exp에서 땡겨와서 normal 신분은 건졌을 경우
             if(ret.raw.exp) signif&=0xFFFF;//leading 1 삭제
         }
+        if(signif<(1<<16)) ret.raw.exp=0;//여기까지 왔는데 M이 1 미만이라는건 exp가 0이라고밖에 설명안된다.
         ret.raw.frac=signif;
         return ret.s;
     }
-    else if(signif>=(1<<17)){//signif가 과도하므로 exp로 환전해야 함
+    else if(signif>=(1<<17)){//M이 2 이상
         unsigned G, R, S;
         G=signif&0b10; R=signif&0b1; S=0;
         if(R&&G){
@@ -423,17 +413,23 @@ sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케
     }
 
     ret.raw.sign=ms1.raw.sign^ms2.raw.sign;
-    if((ms1.raw.exp==(1<<7)-1&&ms1.raw.frac!=0)||(ms2.raw.exp==(1<<7)-1&&ms2.raw.frac!=0)){//둘 중 하나라도 NaN이면 닥치고 NaN 리턴
+    if(((ms1.raw.exp==0b1111111&&(ms1.raw.frac!=0))||((ms2.raw.exp==0b1111111&&(ms2.raw.frac!=0))))){//둘 중 하나라도 NaN이면 닥치고 NaN 리턴
         ret.raw.exp=(1<<7)-1; ret.raw.frac=1;
         return ret.s;
     }
-
     if((ms1.raw.exp==0&&ms1.raw.frac==0)||(ms2.raw.exp==0&&ms2.raw.frac==0)){//둘 중 하나가 숫자 0이면
-        ret.raw.exp=0; ret.raw.frac=0;
+        if((ms1.raw.exp==0b1111111&&ms1.raw.frac==0)||(ms2.raw.exp==0b1111111&&ms2.raw.frac==0)){//무한과 0의 곱은 nan이다.
+            ret.raw.exp=0b1111111; ret.raw.frac=1; return ret.s;
+        }
+        ret.raw.exp=0; ret.raw.frac=0;//그 외에는 0
         return ret.s;
     }
+    if(((ms1.raw.exp==0b1111111)&&(ms1.raw.frac==0))||((ms1.raw.exp==0b1111111)&&(ms2.raw.frac==0))){
+        ret.raw.exp=0b1111111; ret.raw.frac=0; return ret.s;
+    }
 
-    if(ms1.raw.exp+ms2.raw.exp<63){//underflow -> 0리턴(무한아니다!!!)
+    //exp계산
+    if(ms1.raw.exp+ms2.raw.exp<63){//underflow -> 0리턴(무한리턴아니다!!!)
         ret.raw.exp=0; ret.raw.frac=0;
         return ret.s;
     }
@@ -442,15 +438,6 @@ sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케
     if(ms1.raw.exp) signif1=ms1.raw.frac|(1<<16); else signif1=ms1.raw.frac;
     if(ms2.raw.exp) signif2=ms2.raw.frac|(1<<16); else signif2=ms2.raw.frac;
     unsigned long long signif=(unsigned long long)signif1*signif2;
-    
-    if(signif==0){
-        if(ret.raw.exp<=0 || ret.raw.exp>=(1<<7)-1){//<=0의 경우는 추가고려가 일단은 필요
-            //exponent Overflow
-            ret.raw.exp=(1<<7)-1;
-        }
-        ret.raw.frac=0;
-        return ret.s;
-    }
 
     //GSB 따져야한다.
     unsigned G, R, S;
@@ -475,20 +462,16 @@ sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케
     }
     if(signif>=(1<<17)){
         //이 때의 right shift도 round to even 적용
-        if(signif&1){
-            if(signif&2){
-                signif++;
-            }
-        }
+        if((signif&1)&&(signif&2)) signif++;
         signif>>=1;
         ret.raw.exp++;
     }
-    while(signif<(1<<16)){
+    while(signif<(1<<16)&&ret.raw.exp>1){
         signif<<=1;
         ret.raw.exp--;
     }
 
-    if(ret.raw.exp<=0 || ret.raw.exp>=(1<<7)-1){//<=0의 경우는 추가고려가 일단은 필요
+    if(ret.raw.exp>=(1<<7)-1){
         //exponent Overflow
         ret.raw.exp=(1<<7)-1;
         ret.raw.frac=0;
@@ -511,20 +494,129 @@ int main(){
 	sfp add_sfp;
 	sfp mul_sfp;
 
-    mysfp mys1, mys2, res;
+    mysfp mys1, mys2, res, res2;
     mys1.u=0; mys2.u=0; res.u=0;
     // scanf("%u",&mys1.u);
     // scanf("%u",&mys2.u);
+
+    //mys1 + mys2 = 00000000_00000000_00000001, mys1 * mys2 = 10000000_00000000_00000000
     // mys1.raw.sign=0; mys1.raw.exp=0b0000001; mys1.raw.frac=1;
     // mys2.raw.sign=1; mys2.raw.exp=0b0000001; mys2.raw.frac=0;
+
+    //오해성 테케
     // mys1.raw.sign=0; mys1.raw.exp=0b1010001; mys1.raw.frac=0;
     // mys2.raw.sign=0; mys2.raw.exp=0b1000000; mys2.raw.frac=0x8000;
-    mys1.raw.sign=0; mys1.raw.exp=0b0000000; mys1.raw.frac=0xFFFF;
-    mys2.raw.sign=0; mys2.raw.exp=0b0000000; mys2.raw.frac=0xFFFF;
+
+    //Anonymous 테케
+    // mys1.raw.sign=0; mys1.raw.exp=0b0000000; mys1.raw.frac=0b0010001000001000;
+    // mys2.raw.sign=0; mys2.raw.exp=0b0111111; mys2.raw.frac=0b0000100010000001;
+
+    //mys1 + mys2 = 00000001_11111111_11111110, mys1 * mys2 = 00000000_00000000_0000000
+    // mys1.raw.sign=0; mys1.raw.exp=0b0000000; mys1.raw.frac=0xFFFF;
+    // mys2.raw.sign=0; mys2.raw.exp=0b0000000; mys2.raw.frac=0xFFFF;
+
+    //mys1 + mys2 = 10111111_11111111_11111111, mys1 * mys2 = 10000000_00000000_00000010
+    // mys1.raw.sign=0; mys1.raw.exp=0b0000000; mys1.raw.frac=1;
+    // mys2.raw.sign=1; mys2.raw.exp=0b0111111; mys2.raw.frac=0xFFFF;
+
+    //sfp mul Special Cases
+    mys1.raw.sign=0; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=0; mys2.raw.exp=0b1111111; mys2.raw.frac=0;
     res.s=sfp_add(mys1.s, mys2.s);
-    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.s));
-    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.s));
-    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.s));
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+    mys1.raw.sign=0; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=1; mys2.raw.exp=0b1111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=0; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=0; mys2.raw.exp=0b0111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=0; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=1; mys2.raw.exp=0b0111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=1; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=1; mys2.raw.exp=0b1111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=1; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=0; mys2.raw.exp=0b0111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=1; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=1; mys2.raw.exp=0b0111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=1; mys1.raw.exp=0b1111111; mys1.raw.frac=0;
+    mys2.raw.sign=0; mys2.raw.exp=0b0000000; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
+
+    mys1.raw.sign=0; mys1.raw.exp=0b1111111; mys1.raw.frac=1;
+    mys2.raw.sign=0; mys2.raw.exp=0b0111111; mys2.raw.frac=0;
+    res.s=sfp_add(mys1.s, mys2.s);
+    res2.s=sfp_mul(mys1.s, mys2.s);
+    printf("mys1 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys1.u));
+    printf("mys2 : "U24_TO_BIN_P"\n", U24_TO_BIN(mys2.u));
+    printf("mys1 + mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res.u));
+    printf("mys1 * mys2 = "U24_TO_BIN_P"\n", U24_TO_BIN(res2.u));
+    printf("\n");
+
 
 	return 0;
 }
