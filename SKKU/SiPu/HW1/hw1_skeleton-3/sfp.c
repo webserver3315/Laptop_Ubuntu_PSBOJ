@@ -311,7 +311,11 @@ sfp를 float나 double로 바꾸는 것은 역시 금지되어있다.
 sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케할지 따로 구현해야한다.
     mysfp ms1, ms2, ret;
     unsigned signif1, signif2;
-    if(in1>in2){//근데 signbit 차이로 1이 크다고 인식해버리면 곤란한데. sign 1는 -1이니까.
+    mysfp tmp1, tmp2;
+    tmp1.s=in1; tmp2.s=in2;
+    if(tmp1.raw.sign) tmp1.raw.sign=0; else tmp1.raw.sign=1;//비교편의상 양수일 경우 sign=1이도록 변경
+    if(tmp2.raw.sign) tmp2.raw.sign=0; else tmp2.raw.sign=1;
+    if(tmp1.u>tmp2.u){
         ms1.s=in1; ms2.s=in2;
     }
     else{

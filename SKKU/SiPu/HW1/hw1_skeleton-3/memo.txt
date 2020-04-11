@@ -23,6 +23,11 @@ round toward zero를 사용하라.
 [완료]
 sfp_mul, add NaN 연산 예외처리완료
 
+float2sfp에서 sfp로 표현할 수 없는 0에 가까운 수, 즉 underflow가 나면 0을 반환한다. 무한이 아니라
+
+sfp add, mult 함수 Special Value 예외처리 완료
+sfp add, mult 함수에서 ms1 ms2 대소비교 함수 sign bit 반영토록 업데이트 완료
+
 
 [진행중]
 addition 함수 반드시 round to even 추후 구현해야 한다
@@ -31,10 +36,12 @@ sfp2int에서 argument로 넘어오는 sfp값의 범위가 int값의 범위를 �
 
 denormalized, normalized 관계없이 sfp로 표현할 수 있는 범위인지 판별해야한다.
 
-float2sfp에서 sfp로 표현할 수 없는 0에 가까운 수, 즉 underflow가 나면 0을 반환한다. 무한이 아니라.
-
 오해성 테케 i 262144 i 3 뚫기
+모범답안: 0_1010001_00000000_00000001
 
 Anonymous 테케 sfp 00000000_00100010_00001000 + sfp 00111111_00001000_10000001
 결과: sfp 00111111_00001000_10000001
+
++0 과 -0을 더하는 경우 round to even을 적용하여 +0을 반환
+
 
