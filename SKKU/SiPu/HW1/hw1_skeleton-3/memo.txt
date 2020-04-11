@@ -20,4 +20,21 @@ TMax와 TMin은 int형의 최대 및 최소값이다.
 round toward zero를 사용하라.
 
 
-[addition 함수 반드시 round to even 추후 구현해야함]
+[완료]
+sfp_mul, add NaN 연산 예외처리완료
+
+
+[진행중]
+addition 함수 반드시 round to even 추후 구현해야 한다
+
+sfp2int에서 argument로 넘어오는 sfp값의 범위가 int값의 범위를 넘지 않더라도 int값을 초과하거나 발생하지 않을 denormalized한 상황을 처리해줘야한다.
+
+denormalized, normalized 관계없이 sfp로 표현할 수 있는 범위인지 판별해야한다.
+
+float2sfp에서 sfp로 표현할 수 없는 0에 가까운 수, 즉 underflow가 나면 0을 반환한다. 무한이 아니라.
+
+오해성 테케 i 262144 i 3 뚫기
+
+Anonymous 테케 sfp 00000000_00100010_00001000 + sfp 00111111_00001000_10000001
+결과: sfp 00111111_00001000_10000001
+

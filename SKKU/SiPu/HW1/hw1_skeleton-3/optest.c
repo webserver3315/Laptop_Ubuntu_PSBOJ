@@ -75,7 +75,7 @@ unsigned getfracbit(int n, int s){
 }
 
 /*
-32비트 int를 sfp로 바꾸는 함수.
+32비트 int를 sfp로 바꾸는 함수.X
 sfp의 범위를 초과한다면 양 또는 음의 무한을 반환. 무한의 부호는 중요하다.
 round toward zero 가 요구된다.
 0의 경우, 양의 0.0으로 변환하라
@@ -188,9 +188,8 @@ sfp float2sfp(float input){
         frac|=(1<<15);//denormal이므로 frac에 leading 1 포함시켜야됨
         ret.raw.frac=frac;
     }
-    else if(exp<64){//너무 0에 가까운 수라서 sfp로 표현할 수 없을 경우도, range 초과로 인식해서 무한으로 취급해야 하나?
+    else if(exp<64){//언더플로우는 0을 리턴시킨다.
         ret.raw.exp=0; ret.raw.frac=0;
-        // ret.raw.exp=0b1111111; ret.raw.frac=0;
     }
     else{
         exp-=64;
@@ -243,10 +242,11 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     if(ms1.raw.exp<ms2.raw.exp || (ms1.raw.exp==ms2.raw.exp&&ms1.raw.frac<ms2.raw.frac)){//exp 대소 역전이면 스왑
         ms1.s=in2; ms2.s=in1;
     }
-    if((ms1.raw.exp==127&&ms1.raw.frac!=0)||(ms2.raw.exp==127&&ms2.raw.frac!=0)){//NaN이면
-        ret.raw.sign=0; ret.raw.exp=127; ret.raw.exp=1;
+    if((ms1.raw.exp==(1<<7)-1&&ms1.raw.frac!=0)||(ms2.raw.exp==(1<<7)-1&&ms2.raw.frac!=0)){//둘 중 하나라도 NaN이면 닥치고 NaN 리턴
+        ret.raw.sign=0; ret.raw.exp=(1<<7)-1; ret.raw.frac=1;
         return ret.s;
     }
+
 
     unsigned shiftnum=ms1.raw.exp-ms2.raw.exp;
     ms2.raw.frac>>=shiftnum;//나중에 RtE 구현해야함
@@ -318,12 +318,17 @@ sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케
         ms1.s=in2; ms2.s=in1;
     }
     ret.raw.sign=ms1.raw.sign^ms2.raw.sign;
+    if((ms1.raw.exp==(1<<7)-1&&ms1.raw.frac!=0)||(ms2.raw.exp==(1<<7)-1&&ms2.raw.frac!=0)){//둘 중 하나라도 NaN이면 닥치고 NaN 리턴
+        ret.raw.exp=(1<<7)-1; ret.raw.frac=1;
+        return ret.s;
+    }
+
     if((ms1.raw.exp==0&&ms1.raw.frac==0)||(ms2.raw.exp==0&&ms2.raw.frac==0)){//둘 중 하나가 숫자 0이면
         ret.raw.exp=0; ret.raw.frac=0;
         return ret.s;
     }
 
-    if(ms1.raw.exp+ms2.raw.exp<63){//너무 작아서 표현불가. 일단 레퍼가 불명확해서 0으로 리턴함. 혹시 아니라면 정정할 것
+    if(ms1.raw.exp+ms2.raw.exp<63){//underflow -> 0리턴(무한아니다!!!)
         ret.raw.exp=0; ret.raw.frac=0;
         return ret.s;
     }
