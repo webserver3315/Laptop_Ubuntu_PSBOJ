@@ -60,7 +60,6 @@ dn - n = dn 되는 경우 예외처리 안되어있다.
     mys1 + mys2 = 10000000_11111111_11111111이 답일 것
 sign 때고 절댓값 큰 거에서 작은거 무조건 빼. 부호는 절댓값 큰거를 따라가면 되잖아.
 
-[진행중]
 dn * n 처리 되어있나?
 
     mys1.raw.sign=0; mys1.raw.exp=0b0000000; mys1.raw.frac=1;
@@ -70,3 +69,5 @@ dn * n 처리 되어있나?
     mys2.raw.sign=1; mys2.raw.exp=0b0111111; mys2.raw.frac=0xFFFF;
 
 
+[진행중]
+i 0 i 1 i -1 변환 문제있다
