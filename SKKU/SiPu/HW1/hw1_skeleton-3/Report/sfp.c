@@ -323,6 +323,9 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         }
         else signif>>=1;
         ret.raw.exp++;
+        if(ret.raw.exp==0b1111111){//오버플로우
+            ret.raw.frac=0; return ret.s;
+        }
         ret.raw.frac=signif;
         return ret.s;
     }
