@@ -100,10 +100,10 @@ int sfp2int(sfp input){
         ret=(myint)0;
         return ret.i;
     }
-    else if(exp==0b0111111){//전부 1이면
+    else if(exp==0b1111111){//전부 1이면
         if(frac==0){
-            if(sign) return TMax;
-            else return TMin;
+            if(sign) return TMin;
+            else return TMax;
         }
         else{
             return TMin;
