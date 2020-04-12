@@ -74,25 +74,16 @@ unsigned getfracbit(int n, int s){
     return u;
 }
 
-/*
-32비트 int를 sfp로 바꾸는 함수.X
-sfp의 범위를 초과한다면 양 또는 음의 무한을 반환. 무한의 부호는 중요하다.
-round toward zero 가 요구된다.
-0의 경우, 양의 0.0으로 변환하라
-*/
 sfp int2sfp(int input){
     unsigned bias=63;
     unsigned sign=0; unsigned exp=0; unsigned frac=0;
     int shiftnum;
     mysfp ret;
-    // if(범위초과)
-    //     return NaN;
     sign=input<0;
     if(input==0){
         ret.raw.sign=0; ret.raw.exp=0; ret.raw.frac=0;
         return ret.s;
     }
-    //if(input이 오버플로우일 때)
     if(sign) input=(~input)+1;//음수면 input에 -1 곱해주기
 
     if(input==1) shiftnum=0;//1이면 특수처리
@@ -101,18 +92,9 @@ sfp int2sfp(int input){
     exp=shiftnum+63;
     frac=getfracbit(input,shiftnum);
     ret.raw.sign=sign; ret.raw.exp=exp; ret.raw.frac=frac;
-    //오버플로우는 따로 처리할 것
-
     return ret.s;
 }
 
-/*
-sfp를 32비트 int로 바꾸는 함수.
-양의 무한과 음의 무한은 각각 TMax, TMin 으로 변환된다.
-TMax와 TMin은 int형의 최대 및 최소값이다.
-양 또는 음의 NaN값이라면 무조건 TMin으로 변환하라
-round toward zero를 사용하라.
-*/
 int sfp2int(sfp input){
     unsigned bias=63;
     unsigned sign=0; unsigned exp=0; unsigned frac=0;
@@ -156,17 +138,13 @@ int sfp2int(sfp input){
     return ret.i;
 }
 
-/*
-float를 sfp로 바꾸는 함수.
-예외의 경우 처리는 int2sfp를 따른다.
-*/
 sfp float2sfp(float input){
     myfloat mf; mf.f=input;
     mysfp ret;
     unsigned sign=mf.raw.sign; unsigned exp=mf.raw.exp; unsigned frac=mf.raw.frac;
 
     ret.raw.sign=sign;
-    if(exp==255){//exp가 all 1 이면 문답무용 무한이나 비숫자
+    if(exp==255){//exp가 all 1 이면 문답무용 무한이나 NaN
         if(frac==0){//무한
             ret.raw.exp=127; ret.raw.frac=0;
         }
@@ -200,10 +178,6 @@ sfp float2sfp(float input){
     return ret.s;
 }
 
-/*
-sfp를 float로 바꾸는 함수.
-에러의 여지는 없다. float가 sfp의 범위를 전부 커버하기 때문.
-*/
 float sfp2float(sfp input){
     mysfp ms; ms.s=input;
     myfloat ret;
@@ -219,7 +193,6 @@ float sfp2float(sfp input){
         while(0==(signif&(1<<23))){
             signif<<=1;
             ret.raw.exp--;
-            // printf("[Tracking] SFP is "U24_TO_BIN_P", FLOAT is "U32_TO_BIN_P"\n", U24_TO_BIN(ms.s), U32_TO_BIN(ret.u));
         }
         ret.raw.frac=signif;
     }
@@ -229,14 +202,7 @@ float sfp2float(sfp input){
     }
     return ret.f;
 }
-/*
-두 sfp형을 더한다.
-두 개의 sfp 타입이 input으로 주어지며, 결과 또한 sfp
-add 연산 이전에, 더 작은 sfp 변수를 right shift 해야한다.
-만일 이 과정에서 몇몇 비트가 fraction의 범위를 초과한다면, round toward even을 사용하라.
-함수 내부에서 sfp를 float나 double로 바꾸는 것은 금지되어있다.
-round to even을 최종적으로 한 번 더 사용하라.
-*/
+
 sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 것 같다. 0이랑 연산도 곱과 같이 디버깅해야함
     mysfp ms1, ms2, ret;
     ms1.s=in1; ms2.s=in2;
@@ -284,16 +250,11 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     unsigned tmpexp1=ms1.raw.exp; unsigned tmpexp2=ms2.raw.exp;
     if(tmpexp1==0) tmpexp1++; if(tmpexp2==0) tmpexp2++;
     unsigned shiftnum=tmpexp1-tmpexp2;
-    // printf("shiftnum = %u\n",shiftnum);
+    
     //RtE를 통한 >>=shiftnum 구현
     unsigned long long signif, signif1, signif2;
     if(ms1.raw.exp) signif1=ms1.raw.frac|0x10000; else signif1=ms1.raw.frac;
     if(ms2.raw.exp) signif2=ms2.raw.frac|0x10000; else signif2=ms2.raw.frac;
-    // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
-    // printf("ms1.raw.frac : %d\n", ms1.raw.frac);
-    // printf("ms2.raw.frac : %d\n", ms2.raw.frac);
-    // printf("signif1 : %llu\n", signif1);
-    // printf("signif2 : %llu\n", signif2);
     if(shiftnum==0){
         //아무것도 안함
     }
@@ -309,7 +270,6 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     else if(shiftnum<18){
         unsigned G, R, S;
         G=(1<<shiftnum)&signif2; R=(1<<(shiftnum-1))&signif2; S=(1<<(shiftnum-1)-1)&signif2;
-        // printf("G, R, S : %u %u %u\n",G,R,S);
         if(R==0){//무조건 버림
             signif2>>=shiftnum;
             ms2.raw.frac=signif2;
@@ -333,13 +293,6 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         signif2>>=16;
         ms2.raw.frac>>=signif2;
     }
-    // printf("ms2_AFTER : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
-
-    // printf("ms1_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
-    // printf("ms2_Before : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
-
-    // printf("signif1 == %llu\n",signif1);
-    // printf("signif2 == %llu\n",signif2);
     //부호처리
     if(ms1.raw.sign==ms2.raw.sign){
         ret.raw.sign=ms1.raw.sign;
@@ -351,11 +304,6 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
         ret.raw.exp=ms1.raw.exp;
         signif=signif1-signif2;
     }
-    // printf("ms1_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms1.u));
-    // printf("ms2_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ms2.u));
-    // printf("SFP_After  : "U24_TO_BIN_P"\n", U24_TO_BIN(ret.u));
-    // printf("signif == %llu\n",signif);
-    // printf("ret raw exp == %u\n",ret.raw.exp);
     //Renormalize Result 구현
     if(signif<(1<<16)){//M이 1 미만
         while(signif<(1<<16)&&ret.raw.exp>1){
@@ -389,14 +337,6 @@ sfp sfp_add(sfp in1, sfp in2){//NaN 다루는 것도 구현할 필요가 있을 
     }
 }
 
-/*
-두 sfp형을 더한다.
-두 개의 sfp 타입이 input을 주어지며, 결과 또한 sfp
-fraction part를 계산하는데, unsigned long long이나 double 같은 64비트 자료형을 이용해도 된다.
-계산 뒤, 정규화는 round toward even 을 통해서 구현한다.
-sfp를 초과하는 결과에 대해서는, 결과를 양 도는 음의 무한으로 구현한다. 부호는 중요하다.
-sfp를 float나 double로 바꾸는 것은 역시 금지되어있다.
-*/
 sfp sfp_mul(sfp in1, sfp in2){//만약 이게 denormal간의 연산이면 어케할지 따로 구현해야한다.
     mysfp ms1, ms2, ret;
     unsigned signif1, signif2;
