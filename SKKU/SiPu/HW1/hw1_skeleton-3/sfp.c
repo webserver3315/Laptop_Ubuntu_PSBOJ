@@ -46,14 +46,6 @@ typedef union {//float 원큐에 파싱하는 용도
     }raw;
 }myfloat;
 
-int fraclength2(int n, int x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
-    int lbound=0;
-    if(x>0) lbound<<=x;//이상
-    int rbound=1; rbound<<=(x+1);//미만
-    if(lbound<=n && n<rbound) return 1;
-    else return 0;
-}
-
 int fraclength(unsigned n, unsigned x){//x is n's fraclength -> 1:true, 0:false, for int to sfp
     unsigned lbound=0; lbound<<=x;//이상
     unsigned rbound=1; rbound<<=(x+1);//미만
