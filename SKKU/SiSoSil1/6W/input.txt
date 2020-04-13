@@ -1,0 +1,6 @@
+5 3
+Lee 92
+Shin 89
+Song 85
+Jeong 100
+Ahn 92
