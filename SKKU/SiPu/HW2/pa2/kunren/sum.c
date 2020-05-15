@@ -4,6 +4,8 @@ int sum(int a, int b){
 }
 
 int main(){
-
-    return 0;
+    int a=1; int b=2;
+    int c=sum(1,2);
+    printf("%d\n",c);
+    return c;
 }

@@ -17,7 +17,7 @@ _start:
 
     movl (%r9), cl ;cl은 r9가 가리키는 문자열에서 오직 한 바이트만 받는다는 뜻.
     movzx cl, %r9 ;cl에는 한 아스키코드만 담겨있는데, 이를 r9로
-    sub $0x30, %r9;
+    sub $0x30, %r9
 
 _done:
 
