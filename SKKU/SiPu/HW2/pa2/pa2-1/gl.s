@@ -100,25 +100,27 @@ jge .L4 # else goto L4
 
 .L5:
 movq %r8, %r9 # r9 = i, r8 = j, i=j
+leaq 1(%r9), %r9
 jmp .L2 # 반목문 돌입
 
 .L2: # 반복문
+dec %r9
 cmpq $0, %r9 # i<=0이면 break
 jle done #  break
 
 movq %rdi, %rax # idiv 하려고 n, 즉 rdi값을 rax에 저장
 cqto # oct word로 rax 값을 sign extension하고
 idivq %r9 # rax에 든 n값을 i로 나눈다. 나머지는 rdx에 저장됨
-cmpq $0, %rdx # n%i == 0
-je done # break
+cmpq $0, %rdx # n%i != 0
+jne .L2 # continue
 
 movq %rsi, %rax # idiv 하려고 m, 즉 rsi값을 rax에 저장
 cqto # oct word로 rax 값을 sign extension하고
-idivq %r8 # rax에 든 m값을 i로 나눈다. 나머지는 rdx에 저장됨
-cmpq $0, %rdx # m%i==0
-je done # break
+idivq %r9 # rax에 든 m값을 i로 나눈다. 나머지는 rdx에 저장됨
+cmpq $0, %rdx # m%i!=0
+jne .L2 # continue
 
-jmp .L2 # else Loop again
+jmp done # 조건문 다 뚫었다면, i는 gcd라는것
 ret
 
 .L3:
@@ -130,6 +132,7 @@ movq %rsi, %r8 # else, let r8 == j and put m into j
 jmp .L5
 
 done:
+movq %r9, %rax # i를 rax에 저장한 뒤, 리턴
 ret
 
 _lcm:
