@@ -6,7 +6,7 @@ TA: 	Sunghwan Kim(sunghwan.kim@csi.skku.edu)
 	Jiwon Woo(jiwon.woo@csi.skku.edu)
 Semiconductor Building #400509
 Author: Sunghwan Kim
-Description: Find nth fibonacci number
+Description: Find nth factnacci number
 ***Copyright (c) 2020 SungKyunKwan Univ. CSI***
 */
 
@@ -14,7 +14,7 @@ Description: Find nth fibonacci number
 buffer: 	.space 	4
 BUFSIZE: 	.int 	4
 file_in:	.string "pa2-2.in"
-msg_print:	.string "fibo[%d] = %d\n"
+msg_print:	.string "fact[%d] = %d\n"
 msg_nl:		.string "\n"
 
 /* code section start */
@@ -41,11 +41,11 @@ movq $3, %rax
 movq %rbx, %rdi
 syscall
 
-/* === call fibo() === */
+/* === call fact() === */
 push %rax
 movq $buffer, %r12
 movl (%r12), %edi	/* Corrected */
-call _fibo
+call _fact
 movq %rax, %rbx
 pop %rax
 
@@ -61,8 +61,18 @@ movq $60, %rax
 movq $0, %rdi
 syscall
 
-_fibo:
+_fact:
 /* ============= Start of your code ================== */
-
+	pushq %rbx
+    movq %rdi, %rbx
+    movl $1, %eax
+    cmpq $1, %rdi
+    jle .L35
+    leaq -1(%rdi), %rdi
+    call _fact
+    imulq %rbx, %rax
+.L35:
+    popq %rbx
+    ret
 /* ============== End of your code =================== */
-ret
+
