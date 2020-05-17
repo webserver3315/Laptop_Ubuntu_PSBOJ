@@ -95,8 +95,7 @@ _gcd:
 /* ============= Start of your code ================== */
 cmpq %rsi, %rdi # rsi -> m, rdi -> n
 jl .L3 # if n<m, goto L3
-; cmpq %rsi, %rdi # rsi -> m, rdi -> n
-jge .L4 # else goto L4
+jmp .L4 # else goto L4
 
 .L5:
 movq %r8, %r9 # r9 = i, r8 = j, i=j

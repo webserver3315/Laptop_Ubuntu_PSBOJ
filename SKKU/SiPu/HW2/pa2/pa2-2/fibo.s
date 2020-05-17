@@ -70,16 +70,16 @@ _fibo:
 /* ============== End of your code =================== */
 
 recur:
-    push %rdx # save rdx : local variable
+    push %rbx # save rbx : local variable
     dec %rdi # decrease rdi : n--
     call _fibo # recursive, and return address saved next
-    movq %rax, %rdx # rdx saves fib(n-1)
+    movq %rax, %rbx # rbx saves fib(n-1)
     dec %rdi # decrease rdi again : fib(n-2)
     call _fibo # rax will save fib(n-2)
-    add %rdx, %rax # rax(==fib(n-2))+=rdx(==fib(n-1))
+    add %rbx, %rax # rax(==fib(n-2))+=rbx(==fib(n-1))
 
     add $2, %rdi # restore rdi to n
-    popq %rdx # restore rdx, which saved
+    popq %rbx # restore rbx, which saved
 
     ret
 
