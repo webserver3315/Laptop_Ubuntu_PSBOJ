@@ -137,6 +137,47 @@ ret
 
 _lcm:
 /* ============= Start of your code ================== */
+cmpq %rsi, %rdi # rsi -> m, rdi -> n
+jg .L13 # if n>m, goto L13
+jmp .L14 # else goto L14
 
-/* ============== End of your code =================== */
+.L15: # 반복문 돌입 전 준비단계
+movq %r8, %r9 # r9 = i, r8 = j, i=j
+movq %r9, %rax
+imulq %r8 # r8 * rax 를 rax 및 rdx에 저장
+movq %rax, %r10 # m*n값을 r10에 저장
+subq %r8, %r9 # r9 - r8 = i - j
+jmp .L12 # 반목문 돌입
+
+.L12: # 반복문
+addq %r8, %r9
+cmpq %r10, %r9 # i>m*n이면 break
+jg done2 #  break
+
+movq %r9, %rax # i 를 rax에 저장. 나누기 위함
+cqto 
+idivq %rdi # rdi로 rax를 나누기 -> i(rax)%n(rdi)
+cmpq $0, %rdx # 결과가 0이 아니라면 일단 통과
+jne .L12 # continue
+
+movq %r9, %rax # i를 다시 r9에 저장
+cqto # oct word로 rax 값을 sign extension하고
+idivq %rsi # rsi값으로 rax를 나눈다. 즉 i를 m으로 나눈다
+cmpq $0, %rdx # m%i!=0
+jne .L12 # continue
+
+jmp done2 # 조건문 다 뚫었다면, i는 m%i==0 이면서도 n%i==0이라는 것
+ret
+
+.L13:
+movq %rdi, %r8 # let r8 == j and put n into j
+jmp .L15
+
+.L14:
+movq %rsi, %r8 # else, let r8 == j and put m into j
+jmp .L15
+
+done2:
+# i 를 리턴한다는건 gcd와 똑같음
+mov %r9, %rax
 ret
