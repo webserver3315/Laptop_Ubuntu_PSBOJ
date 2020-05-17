@@ -6,7 +6,7 @@ TA: 	Sunghwan Kim(sunghwan.kim@csi.skku.edu)
 	Jiwon Woo(jiwon.woo@csi.skku.edu)
 Semiconductor Building #400509
 Author: Sunghwan Kim
-Description: Find nth factnacci number
+Description: Find nth fibonacci number
 ***Copyright (c) 2020 SungKyunKwan Univ. CSI***
 */
 
@@ -14,7 +14,7 @@ Description: Find nth factnacci number
 buffer: 	.space 	4
 BUFSIZE: 	.int 	4
 file_in:	.string "pa2-2.in"
-msg_print:	.string "fact[%d] = %d\n"
+msg_print:	.string "fibo[%d] = %d\n"
 msg_nl:		.string "\n"
 
 /* code section start */
@@ -41,11 +41,11 @@ movq $3, %rax
 movq %rbx, %rdi
 syscall
 
-/* === call fact() === */
+/* === call fibo() === */
 push %rax
 movq $buffer, %r12
 movl (%r12), %edi	/* Corrected */
-call _fact
+call _fibo
 movq %rax, %rbx
 pop %rax
 
@@ -61,18 +61,25 @@ movq $60, %rax
 movq $0, %rdi
 syscall
 
-_fact:
+_fibo:
 /* ============= Start of your code ================== */
-	pushq %rbx
-    movq %rdi, %rbx
-    movl $1, %eax
-    cmpq $1, %rdi
-    jle .L35
-    leaq -1(%rdi), %rdi
-    call _fact
-    imulq %rbx, %rax
-.L35:
-    popq %rbx
+    cmp $1, %rdi # 1 < %rdi?
+    jg recur # bigger than 1 -> recursive
+    movq $1, %rax # else: return 1
     ret
 /* ============== End of your code =================== */
+
+recur:
+    push %rdx # save rdx : local variable
+    dec %rdi # decrease rdi : n--
+    call _fibo # recursive, and return address saved next
+    movq %rax, %rdx # rdx saves fib(n-1)
+    dec %rdi # decrease rdi again : fib(n-2)
+    call _fibo # rax will save fib(n-2)
+    add %rdx, %rax # rax(==fib(n-2))+=rdx(==fib(n-1))
+
+    add $2, %rdi # restore rdi to n
+    popq %rdx # restore rdx, which saved
+
+    ret
 
