@@ -82,10 +82,54 @@ movq $60, %rax
 movq $0, %rdi
 syscall
 
+
+/*
+n - rdi
+m - rsi
+i - r9
+j - r8
+rax - 나눗셈용 버퍼
+*/
+
 _gcd:
 /* ============= Start of your code ================== */
+cmpq %rsi, %rdi # rsi -> m, rdi -> n
+jl .L3 # if n<m, goto L3
+; cmpq %rsi, %rdi # rsi -> m, rdi -> n
+jge .L4 # else goto L4
 
-/* ============== End of your code =================== */
+.L5:
+movq %r8, %r9 # r9 = i, r8 = j, i=j
+jmp .L2 # 반목문 돌입
+
+.L2: # 반복문
+cmpq $0, %r9 # i<=0이면 break
+jle done #  break
+
+movq %rdi, %rax # idiv 하려고 n, 즉 rdi값을 rax에 저장
+cqto # oct word로 rax 값을 sign extension하고
+idivq %r9 # rax에 든 n값을 i로 나눈다. 나머지는 rdx에 저장됨
+cmpq $0, %rdx # n%i == 0
+je done # break
+
+movq %rsi, %rax # idiv 하려고 m, 즉 rsi값을 rax에 저장
+cqto # oct word로 rax 값을 sign extension하고
+idivq %r8 # rax에 든 m값을 i로 나눈다. 나머지는 rdx에 저장됨
+cmpq $0, %rdx # m%i==0
+je done # break
+
+jmp .L2 # else Loop again
+ret
+
+.L3:
+movq %rdi, %r8 # let r8 == j and put n into j
+jmp .L5
+
+.L4:
+movq %rsi, %r8 # else, let r8 == j and put m into j
+jmp .L5
+
+done:
 ret
 
 _lcm:
