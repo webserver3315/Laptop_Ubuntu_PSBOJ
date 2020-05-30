@@ -1,16 +1,13 @@
 
-OBJ = obj/main.o obj/one.o obj/two.o
+OBJ = src/one.o src/two.o src/three.o
 
 all: main
 
-main: $(OBJ) lib/libthree.so
-	gcc obj/main.o obj/one.o obj/two.o -L./lib -lthree -o main
+main: $(OBJ) src/main.o src/one.o src/two.o src/three.o
+	gcc src/main.o src/one.o src/two.o src/three.o -o main
 
 obj/%.o: src/%.c
 	gcc -c $< -o $@
 
-lib/libthree.so: src/three.c
-	gcc -shared src/three.c -o lib/libthree.so
-
 clean:
-	rm -f main lib/libthree.so obj/main.o obj/one.o obj/two.o
+	rm -f main src/one.o src/two.o src/three.o
