@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-#include <string.h>
-#include <utility>
-#include <algorithm>
-#include <deque>
-#include <vector>
+#include "bits/stdc++.h"
 #define pii pair<int,int>
 #define ff first
 #define ss second
@@ -122,6 +116,7 @@ int DFS(int start) {
 			DFS(i + 1);
 			KatsuseiVirus.pop_back();
 		}
+		return 0;
 	}
 }
 
