@@ -1,0 +1,12623 @@
+raw_query is "he is"
+
+'6:0 500' 
+'he' 
+
+'10:0 Written' 
+'he' 
+
+'12:0 Scott' 
+'he' 
+
+'18:0 First' 
+'he' 
+
+'22:0 SIMPLE' 
+'he' 
+
+'23:0 WITH' 
+'he' 
+
+'24:0 number' 
+'he' 
+
+'27:0 (478)' 
+'he' 
+
+'28:0 EXT.' 
+'he' 
+
+'30:0 For' 
+'he' 
+
+'31:0 park' 
+'he' 
+
+'32:0 a' 
+'he' 
+
+'35:0 CLOSE' 
+'he' 
+
+'36:0 words' 
+'he' 
+
+'37:0 to' 
+'he' 
+
+'39:0 A' 
+'he' 
+
+'41:0 NARRATOR' 
+'he' 
+
+'42:0 This' 
+'he' 
+
+'44:0 CUT' 
+'he' 
+
+'47:0 (1)' 
+'he' 
+
+'48:0 INT' 
+'he' 
+
+'50:0 The' 
+'he' 
+
+'51:0 conference' 
+'he' 
+
+'52:0 sized' 
+'he' 
+
+'53:0 shirt' 
+'he' 
+
+'54:0 balance' 
+'he' 
+
+'56:0 NARRATOR' 
+'he' 
+
+'57:0 The' 
+'he' 
+
+'58:0 Jersey,' 
+'he' 
+
+'59:0 never' 
+'he' 
+
+'60:0 he' 
+'he' 
+
+'62:0 CUT' 
+'he' 
+
+'65:0 INT' 
+'he' 
+
+'67:0 PRE-TEEN' 
+'he' 
+
+'68:0 walls' 
+'he' 
+
+'69:0 we' 
+'he' 
+
+'71:0 4.' 
+'he' 
+
+'75:0 NARRATOR' 
+'he' 
+
+'76:0 This' 
+'he' 
+
+'77:0 exposure' 
+'he' 
+
+'78:0 and' 
+'he' 
+
+'79:0 movie,' 
+'he' 
+
+'81:0 CUT' 
+'he' 
+
+'84:0 INT' 
+'he' 
+
+'86:0 The' 
+'he' 
+
+'87:0 in' 
+'he' 
+
+'88:0 like' 
+'he' 
+
+'89:0 get' 
+'he' 
+
+'91:0 NARRATOR' 
+'he' 
+
+'92:0 The' 
+'he' 
+
+'93:0 Shinnecock,' 
+'he' 
+
+'94:0 this' 
+'he' 
+
+'96:0 CUT' 
+'he' 
+
+'99:0 INT' 
+'he' 
+
+'101:0 Teenage' 
+'he' 
+
+'102:0 extends' 
+'he' 
+
+'104:0 NARRATOR' 
+'he' 
+
+'105:0 Since' 
+'he' 
+
+'106:0 parents'' 
+'he' 
+
+'107:0 two' 
+'he' 
+
+'108:0 blonde' 
+'he' 
+
+'110:0 She' 
+'he' 
+
+'112:0 NARRATOR' 
+'he' 
+
+'113:0 The' 
+'he' 
+
+'114:0 cut' 
+'he' 
+
+'116:0 CUT' 
+'he' 
+
+'119:0 SPLITSCREEN.' 
+'he' 
+
+'121:0 On' 
+'he' 
+
+'122:0 some' 
+'he' 
+
+'123:0 takes' 
+'he' 
+
+'124:0 narrow' 
+'he' 
+
+'126:0 5.' 
+'he' 
+
+'130:0 NARRATOR' 
+'he' 
+
+'131:0 Tom' 
+'he' 
+
+'132:0 a' 
+'he' 
+
+'133:0 an' 
+'he' 
+
+'134:0 one' 
+'he' 
+
+'136:0 CU' 
+'he' 
+
+'137:0 face' 
+'he' 
+
+'139:0 NARRATOR' 
+'he' 
+
+'140:0 This' 
+'he' 
+
+'142:0 But' 
+'he' 
+
+'144:0 CUT' 
+'he' 
+
+'146:0 BLACK.' 
+'he' 
+
+'148:0 NARRATOR' 
+'he' 
+
+'149:0 You' 
+'he' 
+
+'150:0 not' 
+'he' 
+
+'153:0 (240)' 
+'he' 
+
+'154:0 EXT' 
+'he' 
+
+'156:0 A' 
+'he' 
+
+'157:0 arrives' 
+'he' 
+
+'158:0 up' 
+'he' 
+
+'161:0 INT' 
+'he' 
+
+'163:0 PAUL' 
+'he' 
+
+'164:0 since' 
+'he' 
+
+'165:0 McKenzie' 
+'he' 
+
+'167:0 PAUL' 
+'he' 
+
+'168:0 I' 
+'he' 
+
+'170:0 The' 
+'he' 
+
+'172:0 GIRL' 
+'he' 
+
+'173:0 You' 
+'he' 
+
+'174:0 he?' 
+'he' 
+
+'176:0 Tom' 
+'he' 
+
+'177:0 insane.' 
+'he' 
+
+'178:0 BY:' 
+'he' 
+
+'180:0 6.' 
+'he' 
+
+'184:0 GIRL' 
+'he' 
+
+'185:0 Thomas.' 
+'he' 
+
+'187:0 Tom' 
+'he' 
+
+'189:0 TOM' 
+'he' 
+
+'190:0 Rachel?' 
+'he' 
+
+'192:0 GIRL' 
+'he' 
+
+'193:0 I'm' 
+'he' 
+
+'195:0 TOM' 
+'he' 
+
+'196:0 Help' 
+'he' 
+
+'198:0 RACHEL' 
+'he' 
+
+'199:0 First,' 
+'he' 
+
+'201:0 Tom' 
+'he' 
+
+'203:0 RACHEL' 
+'he' 
+
+'204:0 Now' 
+'he' 
+
+'206:0 Tom' 
+'he' 
+
+'207:0 either' 
+'he' 
+
+'209:0 RACHEL' 
+'he' 
+
+'210:0 The' 
+'he' 
+
+'212:0 TOM' 
+'he' 
+
+'213:0 I' 
+'he' 
+
+'215:0 RACHEL' 
+'he' 
+
+'216:0 Drink' 
+'he' 
+
+'218:0 She' 
+'he' 
+
+'220:0 MCKENZIE' 
+'he' 
+
+'221:0 What' 
+'he' 
+
+'223:0 RACHEL' 
+'he' 
+
+'224:0 Vodka.' 
+'he' 
+
+'226:0 TOM' 
+'he' 
+
+'227:0 (grimacing' 
+'he' 
+
+'228:0 More.' 
+'he' 
+
+'230:0 He' 
+'he' 
+
+'232:0 TOM' 
+'he' 
+
+'233:0 Does' 
+'he' 
+
+'234:0 gotta' 
+'he' 
+
+'236:0 7.' 
+'he' 
+
+'240:0 RACHEL' 
+'he' 
+
+'241:0 Don't' 
+'he' 
+
+'242:0 the' 
+'he' 
+
+'243:0 happened...' 
+'he' 
+
+'245:0 Tom' 
+'he' 
+
+'248:0 EXT' 
+'he' 
+
+'250:0 Tom' 
+'he' 
+
+'252:0 TOM' 
+'he' 
+
+'253:0 We' 
+'he' 
+
+'256:0 EXT' 
+'he' 
+
+'258:0 Tom' 
+'he' 
+
+'260:0 TOM' 
+'he' 
+
+'261:0 We' 
+'he' 
+
+'264:0 EXT' 
+'he' 
+
+'266:0 Tom' 
+'he' 
+
+'267:0 newspaper,' 
+'he' 
+
+'269:0 TOM' 
+'he' 
+
+'270:0 We' 
+'he' 
+
+'273:0 EXT' 
+'he' 
+
+'275:0 Tom' 
+'he' 
+
+'277:0 TOM' 
+'he' 
+
+'278:0 We' 
+'he' 
+
+'281:0 INT' 
+'he' 
+
+'283:0 Tom' 
+'he' 
+
+'284:0 Ringo' 
+'he' 
+
+'286:0 TOM' 
+'he' 
+
+'287:0 We' 
+'he' 
+
+'289:0 8.' 
+'he' 
+
+'294:0 INT' 
+'he' 
+
+'296:0 TOM' 
+'he' 
+
+'297:0 I' 
+'he' 
+
+'299:0 RACHEL' 
+'he' 
+
+'300:0 And' 
+'he' 
+
+'303:0 INT' 
+'he' 
+
+'305:0 Tom' 
+'he' 
+
+'307:0 TOM' 
+'he' 
+
+'308:0 (to' 
+'he' 
+
+'309:0 Um...you' 
+'he' 
+
+'310:0 crazy,' 
+'he' 
+
+'311:0 (to' 
+'he' 
+
+'312:0 God,' 
+'he' 
+
+'313:0 night.' 
+'he' 
+
+'314:0 ever.' 
+'he' 
+
+'316:0 SUMMER' 
+'he' 
+
+'317:0 I' 
+'he' 
+
+'318:0 other.' 
+'he' 
+
+'321:0 INT' 
+'he' 
+
+'323:0 RACHEL' 
+'he' 
+
+'324:0 Just' 
+'he' 
+
+'326:0 TOM' 
+'he' 
+
+'327:0 Just' 
+'he' 
+
+'329:0 PAUL' 
+'he' 
+
+'330:0 Did' 
+'he' 
+
+'333:0 INT' 
+'he' 
+
+'335:0 SUMMER' 
+'he' 
+
+'336:0 This' 
+'he' 
+
+'337:0 You' 
+'he' 
+
+'338:0 normal?' 
+'he' 
+
+'340:0 TOM' 
+'he' 
+
+'341:0 I' 
+'he' 
+
+'342:0 normal?!' 
+'he' 
+
+'343:0 happy?' 
+'he' 
+
+'345:0 9.' 
+'he' 
+
+'349:0 SUMMER' 
+'he' 
+
+'350:0 You're' 
+'he' 
+
+'352:0 TOM' 
+'he' 
+
+'353:0 You're' 
+'he' 
+
+'355:0 SUMMER' 
+'he' 
+
+'356:0 All' 
+'he' 
+
+'358:0 TOM' 
+'he' 
+
+'359:0 That' 
+'he' 
+
+'362:0 INT' 
+'he' 
+
+'364:0 RACHEL' 
+'he' 
+
+'365:0 Maybe' 
+'he' 
+
+'367:0 PAUL' 
+'he' 
+
+'368:0 A' 
+'he' 
+
+'370:0 RACHEL' 
+'he' 
+
+'371:0 P.M.S.?' 
+'he' 
+
+'373:0 TOM' 
+'he' 
+
+'374:0 (to' 
+'he' 
+
+'375:0 What' 
+'he' 
+
+'377:0 RACHEL' 
+'he' 
+
+'378:0 More' 
+'he' 
+
+'380:0 TOM' 
+'he' 
+
+'381:0 Oh' 
+'he' 
+
+'383:0 MCKENZIE' 
+'he' 
+
+'384:0 Please' 
+'he' 
+
+'387:0 INT' 
+'he' 
+
+'389:0 SUMMER' 
+'he' 
+
+'390:0 This' 
+'he' 
+
+'391:0 mean,' 
+'he' 
+
+'392:0 for' 
+'he' 
+
+'394:0 TOM' 
+'he' 
+
+'395:0 Summer,' 
+'he' 
+
+'396:0 times' 
+'he' 
+
+'397:0 had' 
+'he' 
+
+'398:0 think' 
+'he' 
+
+'400:0 SUMMER' 
+'he' 
+
+'401:0 No...' 
+'he' 
+
+'403:0 10.' 
+'he' 
+
+'407:0 TOM' 
+'he' 
+
+'408:0 (BEAT)' 
+'he' 
+
+'409:0 So' 
+'he' 
+
+'411:0 The' 
+'he' 
+
+'412:0 their' 
+'he' 
+
+'413:0 leaves.' 
+'he' 
+
+'415:0 SUMMER' 
+'he' 
+
+'416:0 Let's' 
+'he' 
+
+'417:0 it' 
+'he' 
+
+'419:0 Without' 
+'he' 
+
+'420:0 watches' 
+'he' 
+
+'421:0 history' 
+'he' 
+
+'423:0 SUMMER' 
+'he' 
+
+'424:0 (mouth' 
+'he' 
+
+'425:0 Mmm,' 
+'he' 
+
+'426:0 great!' 
+'he' 
+
+'428:0 Tom' 
+'he' 
+
+'430:0 SUMMER' 
+'he' 
+
+'431:0 (INNOCENT)' 
+'he' 
+
+'432:0 What?' 
+'he' 
+
+'434:0 Tom' 
+'he' 
+
+'436:0 SUMMER' 
+'he' 
+
+'437:0 Tom,' 
+'he' 
+
+'438:0 my' 
+'he' 
+
+'440:0 THE' 
+'he' 
+
+'443:0 INT' 
+'he' 
+
+'445:0 Silence' 
+'he' 
+
+'447:0 PAUL' 
+'he' 
+
+'448:0 Jesus.' 
+'he' 
+
+'450:0 MCKENZIE' 
+'he' 
+
+'451:0 That's' 
+'he' 
+
+'453:0 TOM' 
+'he' 
+
+'454:0 I' 
+'he' 
+
+'456:0 RACHEL' 
+'he' 
+
+'457:0 You're' 
+'he' 
+
+'459:0 11.' 
+'he' 
+
+'463:0 TOM' 
+'he' 
+
+'464:0 (BEAT)' 
+'he' 
+
+'465:0 I'm' 
+'he' 
+
+'467:0 MCKENZIE' 
+'he' 
+
+'468:0 Or' 
+'he' 
+
+'470:0 RACHEL' 
+'he' 
+
+'471:0 Here.' 
+'he' 
+
+'473:0 Tom' 
+'he' 
+
+'475:0 MCKENZIE' 
+'he' 
+
+'476:0 Come' 
+'he' 
+
+'477:0 You're' 
+'he' 
+
+'478:0 find' 
+'he' 
+
+'480:0 PAUL' 
+'he' 
+
+'481:0 You' 
+'he' 
+
+'482:0 plenty' 
+'he' 
+
+'484:0 TOM' 
+'he' 
+
+'485:0 No.' 
+'he' 
+
+'487:0 PAUL' 
+'he' 
+
+'488:0 Sure' 
+'he' 
+
+'490:0 TOM' 
+'he' 
+
+'491:0 Well' 
+'he' 
+
+'492:0 I've' 
+'he' 
+
+'493:0 jumped' 
+'he' 
+
+'494:0 fucking' 
+'he' 
+
+'495:0 (to' 
+'he' 
+
+'496:0 Sorry.' 
+'he' 
+
+'497:0 no' 
+'he' 
+
+'499:0 Paul' 
+'he' 
+
+'501:0 CUT' 
+'he' 
+
+'504:0 (86)' 
+'he' 
+
+'505:0 EXT' 
+'he' 
+
+'507:0 Tom' 
+'he' 
+
+'509:0 TOM' 
+'he' 
+
+'510:0 I'm' 
+'he' 
+
+'512:0 12.' 
+'he' 
+
+'516:0 PAUL' 
+'he' 
+
+'517:0 (BEAT)' 
+'he' 
+
+'518:0 For' 
+'he' 
+
+'520:0 CUT' 
+'he' 
+
+'523:0 CU' 
+'he' 
+
+'525:0 TOM' 
+'he' 
+
+'526:0 I' 
+'he' 
+
+'528:0 CU' 
+'he' 
+
+'530:0 TOM' 
+'he' 
+
+'531:0 I' 
+'he' 
+
+'533:0 CU' 
+'he' 
+
+'535:0 TOM' 
+'he' 
+
+'536:0 I' 
+'he' 
+
+'538:0 CU' 
+'he' 
+
+'540:0 TOM' 
+'he' 
+
+'541:0 I' 
+'he' 
+
+'542:0 her' 
+'he' 
+
+'544:0 CU' 
+'he' 
+
+'546:0 TOM' 
+'he' 
+
+'547:0 I' 
+'he' 
+
+'548:0 this' 
+'he' 
+
+'550:0 CU' 
+'he' 
+
+'552:0 TOM' 
+'he' 
+
+'553:0 I' 
+'he' 
+
+'554:0 shirt.' 
+'he' 
+
+'556:0 CU' 
+'he' 
+
+'558:0 TOM' 
+'he' 
+
+'559:0 I' 
+'he' 
+
+'560:0 sleeping.' 
+'he' 
+
+'562:0 CU' 
+'he' 
+
+'564:0 TOM' 
+'he' 
+
+'565:0 I' 
+'he' 
+
+'567:0 OVER' 
+'he' 
+
+'568:0 is' 
+'he' 
+
+'570:0 13.' 
+'he' 
+
+'574:0 TOM' 
+'he' 
+
+'575:0 I' 
+'he' 
+
+'576:0 time' 
+'he' 
+
+'578:0 CU' 
+'he' 
+
+'580:0 TOM' 
+'he' 
+
+'581:0 I' 
+'he' 
+
+'582:0 anything's' 
+'he' 
+
+'583:0 know...like' 
+'he' 
+
+'585:0 CUT' 
+'he' 
+
+'588:0 EXT' 
+'he' 
+
+'590:0 Paul' 
+'he' 
+
+'592:0 TOM' 
+'he' 
+
+'593:0 For' 
+'he' 
+
+'594:0 with' 
+'he' 
+
+'596:0 Paul' 
+'he' 
+
+'598:0 PAUL' 
+'he' 
+
+'599:0 Oh' 
+'he' 
+
+'603:0 (1)' 
+'he' 
+
+'604:0 INT' 
+'he' 
+
+'606:0 Tom' 
+'he' 
+
+'607:0 is' 
+'he' 
+
+'609:0 MCKENZIE' 
+'he' 
+
+'610:0 Now' 
+'he' 
+
+'611:0 risque...but' 
+'he' 
+
+'612:0 Greetings' 
+'he' 
+
+'613:0 conservative,' 
+'he' 
+
+'614:0 at' 
+'he' 
+
+'615:0 is' 
+'he' 
+
+'616:0 family' 
+'he' 
+
+'617:0 holiday' 
+'he' 
+
+'619:0 Mckenzie' 
+'he' 
+
+'620:0 Martina' 
+'he' 
+
+'621:0 Maguire".' 
+'he' 
+
+'623:0 14.' 
+'he' 
+
+'627:0 MCKENZIE' 
+'he' 
+
+'628:0 May' 
+'he' 
+
+'630:0 The' 
+'he' 
+
+'631:0 the' 
+'he' 
+
+'633:0 VANCE' 
+'he' 
+
+'634:0 Hmmm.' 
+'he' 
+
+'635:0 McKenzie.' 
+'he' 
+
+'636:0 "Magellan' 
+'he' 
+
+'637:0 some' 
+'he' 
+
+'638:0 think' 
+'he' 
+
+'639:0 some' 
+'he' 
+
+'641:0 Tom' 
+'he' 
+
+'643:0 SUMMER' 
+'he' 
+
+'644:0 Excuse' 
+'he' 
+
+'645:0 call' 
+'he' 
+
+'647:0 And' 
+'he' 
+
+'648:0 hasn't.' 
+'he' 
+
+'649:0 that' 
+'he' 
+
+'651:0 VANCE' 
+'he' 
+
+'652:0 (to' 
+'he' 
+
+'653:0 Everyone' 
+'he' 
+
+'654:0 assistant.' 
+'he' 
+
+'655:0 from...' 
+'he' 
+
+'657:0 SUMMER' 
+'he' 
+
+'658:0 Michigan.' 
+'he' 
+
+'660:0 VANCE' 
+'he' 
+
+'661:0 Right.' 
+'he' 
+
+'662:0 everyone.' 
+'he' 
+
+'663:0 me,' 
+'he' 
+
+'665:0 SUMMER' 
+'he' 
+
+'666:0 Nice' 
+'he' 
+
+'668:0 Summer' 
+'he' 
+
+'670:0 She' 
+'he' 
+
+'671:0 God.' 
+'he' 
+
+'673:0 15.' 
+'he' 
+
+'678:0 (3,' 
+'he' 
+
+'679:0 INT.' 
+'he' 
+
+'681:0 Tom' 
+'he' 
+
+'683:0 TOM' 
+'he' 
+
+'684:0 What' 
+'he' 
+
+'685:0 girl?' 
+'he' 
+
+'687:0 MCKENZIE' 
+'he' 
+
+'688:0 Who?' 
+'he' 
+
+'690:0 TOM' 
+'he' 
+
+'691:0 The' 
+'he' 
+
+'692:0 office.' 
+'he' 
+
+'694:0 MCKENZIE' 
+'he' 
+
+'695:0 Dude.' 
+'he' 
+
+'696:0 hell!' 
+'he' 
+
+'698:0 TOM' 
+'he' 
+
+'699:0 (DISAPPOINTED)' 
+'he' 
+
+'700:0 Really?' 
+'he' 
+
+'702:0 MCKENZIE' 
+'he' 
+
+'703:0 Patel' 
+'he' 
+
+'704:0 copy' 
+'he' 
+
+'705:0 having' 
+'he' 
+
+'707:0 TOM' 
+'he' 
+
+'708:0 Maybe' 
+'he' 
+
+'710:0 MCKENZIE' 
+'he' 
+
+'711:0 And' 
+'he' 
+
+'712:0 than' 
+'he' 
+
+'714:0 TOM' 
+'he' 
+
+'715:0 Damn.' 
+'he' 
+
+'717:0 MCKENZIE' 
+'he' 
+
+'718:0 I' 
+'he' 
+
+'720:0 TOM' 
+'he' 
+
+'721:0 That' 
+'he' 
+
+'722:0 pretty' 
+'he' 
+
+'723:0 treat' 
+'he' 
+
+'724:0 with' 
+'he' 
+
+'726:0 16.' 
+'he' 
+
+'730:0 MCKENZIE' 
+'he' 
+
+'731:0 Dunno.' 
+'he' 
+
+'733:0 TOM' 
+'he' 
+
+'734:0 Like,' 
+'he' 
+
+'735:0 cheekbones' 
+'he' 
+
+'737:0 MCKENZIE' 
+'he' 
+
+'738:0 ...and' 
+'he' 
+
+'740:0 TOM' 
+'he' 
+
+'741:0 And' 
+'he' 
+
+'742:0 breasts...Just' 
+'he' 
+
+'743:0 she' 
+'he' 
+
+'744:0 center' 
+'he' 
+
+'746:0 MCKENZIE' 
+'he' 
+
+'747:0 (as' 
+'he' 
+
+'748:0 Women.' 
+'he' 
+
+'750:0 TOM' 
+'he' 
+
+'751:0 Ugh.' 
+'he' 
+
+'752:0 haven't' 
+'he' 
+
+'753:0 her' 
+'he' 
+
+'756:0 INT.' 
+'he' 
+
+'758:0 Tom' 
+'he' 
+
+'759:0 and' 
+'he' 
+
+'760:0 the' 
+'he' 
+
+'762:0 SUMMER' 
+'he' 
+
+'763:0 The' 
+'he' 
+
+'765:0 Tom,' 
+'he' 
+
+'766:0 unenthusiastic' 
+'he' 
+
+'768:0 SUMMER' 
+'he' 
+
+'769:0 I' 
+'he' 
+
+'771:0 Tom,' 
+'he' 
+
+'773:0 TOM' 
+'he' 
+
+'774:0 Sorry?' 
+'he' 
+
+'776:0 SUMMER' 
+'he' 
+
+'777:0 I' 
+'he' 
+
+'778:0 good' 
+'he' 
+
+'780:0 A' 
+'he' 
+
+'782:0 17.' 
+'he' 
+
+'786:0 TOM' 
+'he' 
+
+'787:0 (AMAZED)' 
+'he' 
+
+'788:0 You' 
+'he' 
+
+'790:0 SUMMER' 
+'he' 
+
+'791:0 (SINGING)' 
+'he' 
+
+'792:0 "To' 
+'he' 
+
+'793:0 heavenly' 
+'he' 
+
+'795:0 The' 
+'he' 
+
+'797:0 TOM' 
+'he' 
+
+'798:0 (accidentally' 
+'he' 
+
+'799:0 Oh' 
+'he' 
+
+'802:0 (8)' 
+'he' 
+
+'803:0 INT' 
+'he' 
+
+'805:0 The' 
+'he' 
+
+'806:0 they' 
+'he' 
+
+'807:0 knows' 
+'he' 
+
+'808:0 everyone' 
+'he' 
+
+'810:0 TOM' 
+'he' 
+
+'811:0 Hi.' 
+'he' 
+
+'813:0 SUMMER' 
+'he' 
+
+'814:0 Hello.' 
+'he' 
+
+'816:0 TOM' 
+'he' 
+
+'817:0 So,' 
+'he' 
+
+'819:0 SUMMER' 
+'he' 
+
+'820:0 Tom.' 
+'he' 
+
+'822:0 TOM' 
+'he' 
+
+'823:0 Yeah!' 
+'he' 
+
+'825:0 SUMMER' 
+'he' 
+
+'826:0 The' 
+'he' 
+
+'828:0 TOM' 
+'he' 
+
+'829:0 Both...' 
+'he' 
+
+'831:0 SUMMER' 
+'he' 
+
+'832:0 I'm' 
+'he' 
+
+'833:0 How' 
+'he' 
+
+'835:0 18.' 
+'he' 
+
+'839:0 TOM' 
+'he' 
+
+'840:0 Oh,' 
+'he' 
+
+'842:0 SUMMER' 
+'he' 
+
+'843:0 Really?' 
+'he' 
+
+'844:0 to' 
+'he' 
+
+'846:0 TOM' 
+'he' 
+
+'847:0 Are' 
+'he' 
+
+'848:0 do' 
+'he' 
+
+'850:0 SUMMER' 
+'he' 
+
+'851:0 What' 
+'he' 
+
+'853:0 TOM' 
+'he' 
+
+'854:0 I' 
+'he' 
+
+'855:0 actually.' 
+'he' 
+
+'857:0 SUMMER' 
+'he' 
+
+'858:0 That's' 
+'he' 
+
+'860:0 TOM' 
+'he' 
+
+'861:0 Eh,' 
+'he' 
+
+'862:0 to' 
+'he' 
+
+'863:0 Company' 
+'he' 
+
+'864:0 My' 
+'he' 
+
+'866:0 SUMMER' 
+'he' 
+
+'867:0 And' 
+'he' 
+
+'869:0 TOM' 
+'he' 
+
+'870:0 (points' 
+'he' 
+
+'871:0 Well' 
+'he' 
+
+'873:0 SUMMER' 
+'he' 
+
+'874:0 (READING)' 
+'he' 
+
+'875:0 "Today' 
+'he' 
+
+'876:0 your' 
+'he' 
+
+'878:0 TOM' 
+'he' 
+
+'879:0 It's' 
+'he' 
+
+'881:0 SUMMER' 
+'he' 
+
+'882:0 I' 
+'he' 
+
+'883:0 architect?' 
+'he' 
+
+'885:0 TOM' 
+'he' 
+
+'886:0 Oh...' 
+'he' 
+
+'888:0 SUMMER' 
+'he' 
+
+'889:0 Well,' 
+'he' 
+
+'890:0 ...adequate...' 
+'he' 
+
+'891:0 writer.' 
+'he' 
+
+'893:0 19.' 
+'he' 
+
+'897:0 TOM' 
+'he' 
+
+'898:0 Why' 
+'he' 
+
+'899:0 called' 
+'he' 
+
+'900:0 adequate"' 
+'he' 
+
+'902:0 SUMMER' 
+'he' 
+
+'903:0 They' 
+'he' 
+
+'905:0 Tom' 
+'he' 
+
+'907:0 SUMMER' 
+'he' 
+
+'908:0 (EXPLAINING)' 
+'he' 
+
+'909:0 I' 
+'he' 
+
+'911:0 There's' 
+'he' 
+
+'913:0 SUMMER' 
+'he' 
+
+'914:0 Anyway,' 
+'he' 
+
+'916:0 TOM' 
+'he' 
+
+'917:0 Ok,' 
+'he' 
+
+'919:0 She' 
+'he' 
+
+'920:0 Tom' 
+'he' 
+
+'922:0 He' 
+'he' 
+
+'923:0 does,' 
+'he' 
+
+'924:0 dated' 
+'he' 
+
+'927:0 (11)' 
+'he' 
+
+'928:0 INT' 
+'he' 
+
+'930:0 Tom' 
+'he' 
+
+'932:0 TOM' 
+'he' 
+
+'933:0 And' 
+'he' 
+
+'934:0 Graham' 
+'he' 
+
+'935:0 Her' 
+'he' 
+
+'936:0 posters' 
+'he' 
+
+'938:0 RACHEL' 
+'he' 
+
+'939:0 Your' 
+'he' 
+
+'941:0 TOM' 
+'he' 
+
+'942:0 We're' 
+'he' 
+
+'943:0 Seriously!' 
+'he' 
+
+'944:0 She's' 
+'he' 
+
+'945:0 She's...' 
+'he' 
+
+'947:0 20.' 
+'he' 
+
+'951:0 RACHEL' 
+'he' 
+
+'952:0 Oh' 
+'he' 
+
+'954:0 TOM' 
+'he' 
+
+'955:0 What?' 
+'he' 
+
+'957:0 RACHEL' 
+'he' 
+
+'958:0 You' 
+'he' 
+
+'959:0 girl' 
+'he' 
+
+'960:0 you' 
+'he' 
+
+'962:0 TOM' 
+'he' 
+
+'963:0 (BEAT)' 
+'he' 
+
+'964:0 Of' 
+'he' 
+
+'966:0 SARAH' 
+'he' 
+
+'967:0 Dinner!' 
+'he' 
+
+'969:0 SARAH,' 
+'he' 
+
+'971:0 SARAH' 
+'he' 
+
+'972:0 Pause' 
+'he' 
+
+'974:0 They' 
+'he' 
+
+'975:0 to' 
+'he' 
+
+'976:0 gentleman' 
+'he' 
+
+'978:0 TOM' 
+'he' 
+
+'979:0 Hey' 
+'he' 
+
+'981:0 ANGLE' 
+'he' 
+
+'983:0 RACHEL' 
+'he' 
+
+'984:0 He' 
+'he' 
+
+'986:0 SARAH' 
+'he' 
+
+'987:0 (EXCITED)' 
+'he' 
+
+'988:0 Yeah?' 
+'he' 
+
+'990:0 RACHEL' 
+'he' 
+
+'991:0 (GRIM)' 
+'he' 
+
+'992:0 Yeah.' 
+'he' 
+
+'994:0 Sarah' 
+'he' 
+
+'996:0 SARAH' 
+'he' 
+
+'997:0 Oh' 
+'he' 
+
+'999:0 CUT' 
+'he' 
+
+'1001:0 21.' 
+'he' 
+
+'1006:0 STOCK' 
+'he' 
+
+'1008:0 The' 
+'he' 
+
+'1010:0 NARRATOR' 
+'he' 
+
+'1011:0 When' 
+'he' 
+
+'1012:0 something,' 
+'he' 
+
+'1013:0 contradictory' 
+'he' 
+
+'1014:0 their' 
+'he' 
+
+'1016:0 END' 
+'he' 
+
+'1018:0 LITTLE' 
+'he' 
+
+'1019:0 Olivia' 
+'he' 
+
+'1021:0 NARRATOR' 
+'he' 
+
+'1022:0 Tom' 
+'he' 
+
+'1023:0 believer' 
+'he' 
+
+'1024:0 love."' 
+'he' 
+
+'1025:0 (BEAT)' 
+'he' 
+
+'1026:0 The' 
+'he' 
+
+'1028:0 CUT' 
+'he' 
+
+'1031:0 (-8914)' 
+'he' 
+
+'1032:0 INT' 
+'he' 
+
+'1034:0 Little' 
+'he' 
+
+'1035:0 hairstyle' 
+'he' 
+
+'1036:0 picture.' 
+'he' 
+
+'1038:0 He' 
+'he' 
+
+'1039:0 on' 
+'he' 
+
+'1040:0 his' 
+'he' 
+
+'1042:0 NARRATOR' 
+'he' 
+
+'1043:0 Exhibit' 
+'he' 
+
+'1045:0 The' 
+'he' 
+
+'1046:0 ANOTHER' 
+'he' 
+
+'1048:0 Tom' 
+'he' 
+
+'1052:0 (-5313)' 
+'he' 
+
+'1054:0 22.' 
+'he' 
+
+'1059:0 EXT' 
+'he' 
+
+'1061:0 A' 
+'he' 
+
+'1062:0 to' 
+'he' 
+
+'1063:0 HIGH' 
+'he' 
+
+'1064:0 longingly.' 
+'he' 
+
+'1066:0 NARRATOR' 
+'he' 
+
+'1067:0 Exhibit' 
+'he' 
+
+'1069:0 Once' 
+'he' 
+
+'1070:0 they' 
+'he' 
+
+'1074:0 (-2825)' 
+'he' 
+
+'1075:0 INT' 
+'he' 
+
+'1077:0 COLLEGE' 
+'he' 
+
+'1078:0 smile' 
+'he' 
+
+'1080:0 TOM' 
+'he' 
+
+'1081:0 I'm' 
+'he' 
+
+'1082:0 together' 
+'he' 
+
+'1083:0 been' 
+'he' 
+
+'1084:0 been...awesome.' 
+'he' 
+
+'1086:0 NARRATOR' 
+'he' 
+
+'1087:0 Exhibit' 
+'he' 
+
+'1089:0 TOM' 
+'he' 
+
+'1090:0 And' 
+'he' 
+
+'1091:0 Mexico...' 
+'he' 
+
+'1093:0 Across' 
+'he' 
+
+'1094:0 DUDES.' 
+'he' 
+
+'1096:0 REBECCA' 
+'he' 
+
+'1097:0 I' 
+'he' 
+
+'1101:0 (-734)' 
+'he' 
+
+'1103:0 23.' 
+'he' 
+
+'1108:0 EXT' 
+'he' 
+
+'1110:0 Younger' 
+'he' 
+
+'1111:0 drives.' 
+'he' 
+
+'1113:0 NARRATOR' 
+'he' 
+
+'1114:0 And,' 
+'he' 
+
+'1115:0 Heller.' 
+'he' 
+
+'1117:0 AMANDA' 
+'he' 
+
+'1118:0 It's' 
+'he' 
+
+'1120:0 TOM' 
+'he' 
+
+'1121:0 What's' 
+'he' 
+
+'1122:0 said' 
+'he' 
+
+'1124:0 AMANDA' 
+'he' 
+
+'1125:0 I' 
+'he' 
+
+'1127:0 TOM' 
+'he' 
+
+'1128:0 No,' 
+'he' 
+
+'1129:0 going' 
+'he' 
+
+'1131:0 AMANDA' 
+'he' 
+
+'1132:0 (BEAT)' 
+'he' 
+
+'1133:0 Here.' 
+'he' 
+
+'1135:0 TOM' 
+'he' 
+
+'1136:0 What's' 
+'he' 
+
+'1138:0 She' 
+'he' 
+
+'1140:0 AMANDA' 
+'he' 
+
+'1141:0 Because' 
+'he' 
+
+'1142:0 music' 
+'he' 
+
+'1143:0 this' 
+'he' 
+
+'1144:0 where' 
+'he' 
+
+'1146:0 A' 
+'he' 
+
+'1147:0 few' 
+'he' 
+
+'1149:0 AMANDA' 
+'he' 
+
+'1150:0 You' 
+'he' 
+
+'1151:0 song' 
+'he' 
+
+'1152:0 me?' 
+'he' 
+
+'1154:0 TOM' 
+'he' 
+
+'1155:0 Sure.' 
+'he' 
+
+'1156:0 to' 
+'he' 
+
+'1158:0 24.' 
+'he' 
+
+'1162:0 AMANDA' 
+'he' 
+
+'1163:0 Right.' 
+'he' 
+
+'1164:0 get' 
+'he' 
+
+'1165:0 hear' 
+'he' 
+
+'1166:0 same...rush.' 
+'he' 
+
+'1168:0 TOM' 
+'he' 
+
+'1169:0 (still' 
+'he' 
+
+'1170:0 Ok...' 
+'he' 
+
+'1172:0 AMANDA' 
+'he' 
+
+'1173:0 I' 
+'he' 
+
+'1175:0 Still' 
+'he' 
+
+'1177:0 TOM' 
+'he' 
+
+'1178:0 What' 
+'he' 
+
+'1180:0 AMANDA' 
+'he' 
+
+'1181:0 I'd' 
+'he' 
+
+'1182:0 else.' 
+'he' 
+
+'1184:0 And' 
+'he' 
+
+'1186:0 TOM' 
+'he' 
+
+'1187:0 But' 
+'he' 
+
+'1188:0 fucking' 
+'he' 
+
+'1192:0 (22)' 
+'he' 
+
+'1193:0 INT' 
+'he' 
+
+'1195:0 Tom' 
+'he' 
+
+'1196:0 and' 
+'he' 
+
+'1198:0 TOM' 
+'he' 
+
+'1199:0 It's' 
+'he' 
+
+'1201:0 PAUL' 
+'he' 
+
+'1202:0 What?' 
+'he' 
+
+'1204:0 TOM' 
+'he' 
+
+'1205:0 Me' 
+'he' 
+
+'1207:0 MCKENZIE' 
+'he' 
+
+'1208:0 Was' 
+'he' 
+
+'1210:0 25.' 
+'he' 
+
+'1214:0 TOM' 
+'he' 
+
+'1215:0 No.' 
+'he' 
+
+'1216:0 world' 
+'he' 
+
+'1217:0 me.' 
+'he' 
+
+'1219:0 PAUL' 
+'he' 
+
+'1220:0 Yeah' 
+'he' 
+
+'1221:0 we' 
+'he' 
+
+'1223:0 TOM' 
+'he' 
+
+'1224:0 No.' 
+'he' 
+
+'1226:0 MCKENZIE' 
+'he' 
+
+'1227:0 So' 
+'he' 
+
+'1229:0 TOM' 
+'he' 
+
+'1230:0 You' 
+'he' 
+
+'1233:0 INT' 
+'he' 
+
+'1235:0 Tom' 
+'he' 
+
+'1237:0 TOM' 
+'he' 
+
+'1238:0 So' 
+'he' 
+
+'1239:0 more' 
+'he' 
+
+'1240:0 time.' 
+'he' 
+
+'1241:0 If' 
+'he' 
+
+'1243:0 They' 
+'he' 
+
+'1245:0 TOM' 
+'he' 
+
+'1246:0 Summer...' 
+'he' 
+
+'1248:0 SUMMER' 
+'he' 
+
+'1249:0 Yeah?' 
+'he' 
+
+'1251:0 TOM' 
+'he' 
+
+'1252:0 (BEAT)' 
+'he' 
+
+'1253:0 So' 
+'he' 
+
+'1255:0 SUMMER' 
+'he' 
+
+'1256:0 It' 
+'he' 
+
+'1259:0 INT' 
+'he' 
+
+'1261:0 The' 
+'he' 
+
+'1263:0 TOM' 
+'he' 
+
+'1264:0 You' 
+'he' 
+
+'1266:0 26.' 
+'he' 
+
+'1270:0 MCKENZIE' 
+'he' 
+
+'1271:0 What' 
+'he' 
+
+'1273:0 PAUL' 
+'he' 
+
+'1274:0 I' 
+'he' 
+
+'1276:0 TOM' 
+'he' 
+
+'1277:0 "It' 
+'he' 
+
+'1278:0 was' 
+'he' 
+
+'1279:0 Emphasis' 
+'he' 
+
+'1280:0 said' 
+'he' 
+
+'1281:0 sex' 
+'he' 
+
+'1282:0 gym."' 
+'he' 
+
+'1283:0 It's' 
+'he' 
+
+'1285:0 Everyone's' 
+'he' 
+
+'1287:0 MCKENZIE' 
+'he' 
+
+'1288:0 What' 
+'he' 
+
+'1290:0 PAUL' 
+'he' 
+
+'1291:0 Dude,' 
+'he' 
+
+'1293:0 TOM' 
+'he' 
+
+'1294:0 She's' 
+'he' 
+
+'1295:0 nothing' 
+'he' 
+
+'1297:0 MCKENZIE' 
+'he' 
+
+'1298:0 Based' 
+'he' 
+
+'1299:0 TOM' 
+'he' 
+
+'1300:0 And' 
+'he' 
+
+'1302:0 PAUL' 
+'he' 
+
+'1303:0 Like' 
+'he' 
+
+'1304:0 of' 
+'he' 
+
+'1305:0 she's' 
+'he' 
+
+'1307:0 TOM' 
+'he' 
+
+'1308:0 I' 
+'he' 
+
+'1311:0 INT' 
+'he' 
+
+'1313:0 Tom' 
+'he' 
+
+'1314:0 shares' 
+'he' 
+
+'1316:0 SUMMER' 
+'he' 
+
+'1317:0 I'm' 
+'he' 
+
+'1318:0 Anyone' 
+'he' 
+
+'1320:0 MCKENZIE' 
+'he' 
+
+'1321:0 No' 
+'he' 
+
+'1323:0 27.' 
+'he' 
+
+'1327:0 TOM' 
+'he' 
+
+'1328:0 I' 
+'he' 
+
+'1330:0 There's' 
+'he' 
+
+'1332:0 TOM' 
+'he' 
+
+'1333:0 Toner.' 
+'he' 
+
+'1335:0 SUMMER' 
+'he' 
+
+'1336:0 Oh' 
+'he' 
+
+'1339:0 INT' 
+'he' 
+
+'1341:0 The' 
+'he' 
+
+'1342:0 and' 
+'he' 
+
+'1343:0 a' 
+'he' 
+
+'1344:0 Want' 
+'he' 
+
+'1345:0 Summer.' 
+'he' 
+
+'1346:0 defeated.' 
+'he' 
+
+'1349:0 INT' 
+'he' 
+
+'1351:0 Tom' 
+'he' 
+
+'1353:0 TOM' 
+'he' 
+
+'1354:0 Do' 
+'he' 
+
+'1356:0 A' 
+'he' 
+
+'1358:0 TOM' 
+'he' 
+
+'1359:0 And' 
+'he' 
+
+'1360:0 already' 
+'he' 
+
+'1362:0 They' 
+'he' 
+
+'1364:0 SUMMER' 
+'he' 
+
+'1365:0 That' 
+'he' 
+
+'1367:0 TOM' 
+'he' 
+
+'1368:0 I' 
+'he' 
+
+'1370:0 And' 
+'he' 
+
+'1371:0 his' 
+'he' 
+
+'1374:0 INT' 
+'he' 
+
+'1376:0 TOM' 
+'he' 
+
+'1377:0 Not' 
+'he' 
+
+'1378:0 once.' 
+'he' 
+
+'1379:0 It's' 
+'he' 
+
+'1381:0 28.' 
+'he' 
+
+'1385:0 Tom's' 
+'he' 
+
+'1389:0 (27' 
+'he' 
+
+'1390:0 INT' 
+'he' 
+
+'1392:0 Tom' 
+'he' 
+
+'1393:0 with' 
+'he' 
+
+'1394:0 time' 
+'he' 
+
+'1396:0 McKenzie' 
+'he' 
+
+'1398:0 MCKENZIE' 
+'he' 
+
+'1399:0 This' 
+'he' 
+
+'1400:0 karaoke' 
+'he' 
+
+'1402:0 TOM' 
+'he' 
+
+'1403:0 No' 
+'he' 
+
+'1405:0 MCKENZIE' 
+'he' 
+
+'1406:0 Come' 
+'he' 
+
+'1407:0 (SINGING)' 
+'he' 
+
+'1408:0 "Take' 
+'he' 
+
+'1409:0 where' 
+'he' 
+
+'1410:0 got' 
+'he' 
+
+'1412:0 TOM' 
+'he' 
+
+'1413:0 They' 
+'he' 
+
+'1414:0 after' 
+'he' 
+
+'1416:0 MCKENZIE' 
+'he' 
+
+'1417:0 I' 
+'he' 
+
+'1419:0 TOM' 
+'he' 
+
+'1420:0 Not' 
+'he' 
+
+'1421:0 the' 
+'he' 
+
+'1422:0 bartender,' 
+'he' 
+
+'1423:0 burn' 
+'he' 
+
+'1424:0 out' 
+'he' 
+
+'1425:0 for' 
+'he' 
+
+'1427:0 MCKENZIE' 
+'he' 
+
+'1428:0 (REVERENTIAL)' 
+'he' 
+
+'1429:0 You' 
+'he' 
+
+'1431:0 TOM' 
+'he' 
+
+'1432:0 We' 
+'he' 
+
+'1434:0 29.' 
+'he' 
+
+'1438:0 MCKENZIE' 
+'he' 
+
+'1439:0 This' 
+'he' 
+
+'1440:0 won't' 
+'he' 
+
+'1441:0 office' 
+'he' 
+
+'1443:0 TOM' 
+'he' 
+
+'1444:0 I' 
+'he' 
+
+'1445:0 to.' 
+'he' 
+
+'1446:0 take' 
+'he' 
+
+'1448:0 MCKENZIE' 
+'he' 
+
+'1449:0 You're' 
+'he' 
+
+'1451:0 TOM' 
+'he' 
+
+'1452:0 What?' 
+'he' 
+
+'1454:0 MCKENZIE' 
+'he' 
+
+'1455:0 The' 
+'he' 
+
+'1456:0 Tom' 
+'he' 
+
+'1457:0 him...' 
+'he' 
+
+'1460:0 INT' 
+'he' 
+
+'1462:0 Summer' 
+'he' 
+
+'1463:0 in' 
+'he' 
+
+'1464:0 singing' 
+'he' 
+
+'1465:0 it' 
+'he' 
+
+'1466:0 over' 
+'he' 
+
+'1468:0 TOM' 
+'he' 
+
+'1469:0 Hi.' 
+'he' 
+
+'1471:0 SUMMER' 
+'he' 
+
+'1472:0 Hey!' 
+'he' 
+
+'1474:0 TOM' 
+'he' 
+
+'1475:0 You' 
+'he' 
+
+'1476:0 (BEAT)' 
+'he' 
+
+'1477:0 I' 
+'he' 
+
+'1479:0 Tom' 
+'he' 
+
+'1480:0 between' 
+'he' 
+
+'1482:0 MCKENZIE' 
+'he' 
+
+'1483:0 (already' 
+'he' 
+
+'1484:0 Goddamn' 
+'he' 
+
+'1485:0 What's' 
+'he' 
+
+'1487:0 Summer' 
+'he' 
+
+'1489:0 30.' 
+'he' 
+
+'1493:0 SUMMER' 
+'he' 
+
+'1494:0 Ooh' 
+'he' 
+
+'1496:0 She' 
+'he' 
+
+'1498:0 SUMMER' 
+'he' 
+
+'1499:0 (into' 
+'he' 
+
+'1500:0 Ok.' 
+'he' 
+
+'1501:0 fun' 
+'he' 
+
+'1503:0 Her' 
+'he' 
+
+'1504:0 breath' 
+'he' 
+
+'1505:0 Summer' 
+'he' 
+
+'1506:0 whatever' 
+'he' 
+
+'1507:0 something' 
+'he' 
+
+'1508:0 midget' 
+'he' 
+
+'1510:0 LATER.' 
+'he' 
+
+'1511:0 Summer' 
+'he' 
+
+'1512:0 but' 
+'he' 
+
+'1513:0 hopeful' 
+'he' 
+
+'1514:0 disappointment.' 
+'he' 
+
+'1516:0 LATER.' 
+'he' 
+
+'1517:0 there' 
+'he' 
+
+'1519:0 TOM' 
+'he' 
+
+'1520:0 You' 
+'he' 
+
+'1521:0 way.' 
+'he' 
+
+'1523:0 SUMMER' 
+'he' 
+
+'1524:0 Well' 
+'he' 
+
+'1525:0 Boss.' 
+'he' 
+
+'1527:0 TOM' 
+'he' 
+
+'1528:0 (sitting' 
+'he' 
+
+'1529:0 I' 
+'he' 
+
+'1531:0 MCKENZIE' 
+'he' 
+
+'1532:0 Hey,' 
+'he' 
+
+'1533:0 Jersey?' 
+'he' 
+
+'1535:0 SUMMER' 
+'he' 
+
+'1536:0 Yeah?' 
+'he' 
+
+'1538:0 TOM' 
+'he' 
+
+'1539:0 Lived' 
+'he' 
+
+'1541:0 SUMMER' 
+'he' 
+
+'1542:0 I' 
+'he' 
+
+'1544:0 TOM' 
+'he' 
+
+'1545:0 No' 
+'he' 
+
+'1547:0 31.' 
+'he' 
+
+'1551:0 SUMMER' 
+'he' 
+
+'1552:0 Bruce.' 
+'he' 
+
+'1554:0 TOM' 
+'he' 
+
+'1555:0 (BEAT)' 
+'he' 
+
+'1556:0 That' 
+'he' 
+
+'1558:0 She' 
+'he' 
+
+'1560:0 MCKENZIE' 
+'he' 
+
+'1561:0 So' 
+'he' 
+
+'1563:0 SUMMER' 
+'he' 
+
+'1564:0 Me?' 
+'he' 
+
+'1566:0 Tom' 
+'he' 
+
+'1567:0 mouths' 
+'he' 
+
+'1569:0 MCKENZIE' 
+'he' 
+
+'1570:0 Why' 
+'he' 
+
+'1572:0 SUMMER' 
+'he' 
+
+'1573:0 Don't' 
+'he' 
+
+'1575:0 MCKENZIE' 
+'he' 
+
+'1576:0 Come' 
+'he' 
+
+'1578:0 SUMMER' 
+'he' 
+
+'1579:0 You' 
+'he' 
+
+'1580:0 enjoy' 
+'he' 
+
+'1582:0 MCKENZIE' 
+'he' 
+
+'1583:0 (BEAT)' 
+'he' 
+
+'1584:0 Are' 
+'he' 
+
+'1586:0 SUMMER' 
+'he' 
+
+'1587:0 No,' 
+'he' 
+
+'1588:0 comfortable' 
+'he' 
+
+'1589:0 "girlfriend."' 
+'he' 
+
+'1590:0 anybody's' 
+'he' 
+
+'1591:0 MCKENZIE' 
+'he' 
+
+'1592:0 I' 
+'he' 
+
+'1593:0 about.' 
+'he' 
+
+'1595:0 SUMMER' 
+'he' 
+
+'1596:0 It' 
+'he' 
+
+'1597:0 just' 
+'he' 
+
+'1598:0 Relationships' 
+'he' 
+
+'1599:0 feelings' 
+'he' 
+
+'1600:0 Who' 
+'he' 
+
+'1601:0 We're' 
+'he' 
+
+'1602:0 cities' 
+'he' 
+
+'1603:0 (MORE)' 
+'he' 
+
+'1605:0 32.' 
+'he' 
+
+'1607:0 SUMMER' 
+'he' 
+
+'1608:0 I' 
+'he' 
+
+'1609:0 can' 
+'he' 
+
+'1610:0 shit' 
+'he' 
+
+'1612:0 TOM' 
+'he' 
+
+'1613:0 But...what' 
+'he' 
+
+'1614:0 fall' 
+'he' 
+
+'1616:0 SUMMER' 
+'he' 
+
+'1617:0 (LAUGHS)' 
+'he' 
+
+'1618:0 Love?' 
+'he' 
+
+'1619:0 stuff?' 
+'he' 
+
+'1621:0 TOM' 
+'he' 
+
+'1622:0 Of' 
+'he' 
+
+'1624:0 SUMMER' 
+'he' 
+
+'1625:0 Interesting.' 
+'he' 
+
+'1627:0 MCKENZIE' 
+'he' 
+
+'1628:0 Oh' 
+'he' 
+
+'1629:0 embarrassing.' 
+'he' 
+
+'1630:0 girl,' 
+'he' 
+
+'1631:0 (to' 
+'he' 
+
+'1632:0 I' 
+'he' 
+
+'1634:0 Tom' 
+'he' 
+
+'1636:0 TOM' 
+'he' 
+
+'1637:0 Summer,' 
+'he' 
+
+'1638:0 believe' 
+'he' 
+
+'1640:0 SUMMER' 
+'he' 
+
+'1641:0 I' 
+'he' 
+
+'1642:0 means.' 
+'he' 
+
+'1643:0 whatever' 
+'he' 
+
+'1644:0 And' 
+'he' 
+
+'1645:0 marriages' 
+'he' 
+
+'1646:0 parents.' 
+'he' 
+
+'1648:0 TOM' 
+'he' 
+
+'1649:0 Well' 
+'he' 
+
+'1651:0 SUMMER' 
+'he' 
+
+'1652:0 Oh' 
+'he' 
+
+'1653:0 there' 
+'he' 
+
+'1654:0 found' 
+'he' 
+
+'1655:0 the' 
+'he' 
+
+'1656:0 make' 
+'he' 
+
+'1657:0 rock.' 
+'he' 
+
+'1658:0 talking' 
+'he' 
+
+'1660:0 TOM' 
+'he' 
+
+'1661:0 Well...' 
+'he' 
+
+'1663:0 33.' 
+'he' 
+
+'1667:0 SUMMER' 
+'he' 
+
+'1668:0 Why,' 
+'he' 
+
+'1670:0 CUT' 
+'he' 
+
+'1672:0 AN' 
+'he' 
+
+'1673:0 DIFFERENT' 
+'he' 
+
+'1674:0 ALL' 
+'he' 
+
+'1676:0 BACK' 
+'he' 
+
+'1679:0 INT' 
+'he' 
+
+'1681:0 On' 
+'he' 
+
+'1683:0 TOM' 
+'he' 
+
+'1684:0 I' 
+'he' 
+
+'1685:0 thing.' 
+'he' 
+
+'1687:0 SUMMER' 
+'he' 
+
+'1688:0 (BEAT)' 
+'he' 
+
+'1689:0 Ok.' 
+'he' 
+
+'1690:0 agree' 
+'he' 
+
+'1692:0 McKenzie' 
+'he' 
+
+'1694:0 MCKENZIE' 
+'he' 
+
+'1695:0 So,' 
+'he' 
+
+'1697:0 SUMMER' 
+'he' 
+
+'1698:0 (re:' 
+'he' 
+
+'1699:0 I'd' 
+'he' 
+
+'1701:0 TOM' 
+'he' 
+
+'1702:0 Nooo.' 
+'he' 
+
+'1704:0 SUMMER' 
+'he' 
+
+'1705:0 Sure' 
+'he' 
+
+'1706:0 to' 
+'he' 
+
+'1707:0 your' 
+'he' 
+
+'1709:0 TOM' 
+'he' 
+
+'1710:0 I' 
+'he' 
+
+'1712:0 MCKENZIE' 
+'he' 
+
+'1713:0 You' 
+'he' 
+
+'1715:0 SUMMER' 
+'he' 
+
+'1716:0 It's' 
+'he' 
+
+'1717:0 self-confidence' 
+'he' 
+
+'1719:0 34.' 
+'he' 
+
+'1723:0 MCKENZIE' 
+'he' 
+
+'1724:0 (can't' 
+'he' 
+
+'1725:0 Self-confidence!' 
+'he' 
+
+'1727:0 Tom' 
+'he' 
+
+'1729:0 TOM' 
+'he' 
+
+'1730:0 Anyway,' 
+'he' 
+
+'1731:0 to' 
+'he' 
+
+'1732:0 people.' 
+'he' 
+
+'1734:0 SUMMER' 
+'he' 
+
+'1735:0 Ok' 
+'he' 
+
+'1737:0 TOM' 
+'he' 
+
+'1738:0 It' 
+'he' 
+
+'1739:0 get' 
+'he' 
+
+'1741:0 SUMMER' 
+'he' 
+
+'1742:0 Bartender!' 
+'he' 
+
+'1744:0 TEN' 
+'he' 
+
+'1745:0 "Magnificent' 
+'he' 
+
+'1746:0 STAR' 
+'he' 
+
+'1747:0 the' 
+'he' 
+
+'1748:0 It's' 
+'he' 
+
+'1750:0 LATER.' 
+'he' 
+
+'1751:0 something.' 
+'he' 
+
+'1753:0 TOM' 
+'he' 
+
+'1754:0 That's' 
+'he' 
+
+'1756:0 SUMMER' 
+'he' 
+
+'1757:0 What' 
+'he' 
+
+'1759:0 TOM' 
+'he' 
+
+'1760:0 I' 
+'he' 
+
+'1762:0 They're' 
+'he' 
+
+'1764:0 SUMMER' 
+'he' 
+
+'1765:0 I' 
+'he' 
+
+'1767:0 TOM' 
+'he' 
+
+'1768:0 Me' 
+'he' 
+
+'1769:0 stupid' 
+'he' 
+
+'1771:0 SUMMER' 
+'he' 
+
+'1772:0 Pathetic.' 
+'he' 
+
+'1774:0 TOM' 
+'he' 
+
+'1775:0 This' 
+'he' 
+
+'1777:0 35.' 
+'he' 
+
+'1781:0 SUMMER' 
+'he' 
+
+'1782:0 Totally.' 
+'he' 
+
+'1784:0 They' 
+'he' 
+
+'1785:0 way.' 
+'he' 
+
+'1787:0 ANGLE' 
+'he' 
+
+'1788:0 Be' 
+'he' 
+
+'1789:0 start' 
+'he' 
+
+'1791:0 MCKENZIE' 
+'he' 
+
+'1792:0 "And' 
+'he' 
+
+'1793:0 (aggressive' 
+'he' 
+
+'1794:0 I' 
+'he' 
+
+'1796:0 BACK' 
+'he' 
+
+'1798:0 TOM' 
+'he' 
+
+'1799:0 Oh' 
+'he' 
+
+'1802:0 EXT' 
+'he' 
+
+'1804:0 Tom' 
+'he' 
+
+'1805:0 is' 
+'he' 
+
+'1807:0 MCKENZIE' 
+'he' 
+
+'1808:0 (to' 
+'he' 
+
+'1809:0 This' 
+'he' 
+
+'1810:0 (DRAMATICALLY)' 
+'he' 
+
+'1811:0 He's' 
+'he' 
+
+'1813:0 TOM' 
+'he' 
+
+'1814:0 Ok,' 
+'he' 
+
+'1816:0 MCKENZIE' 
+'he' 
+
+'1817:0 No.' 
+'he' 
+
+'1818:0 down' 
+'he' 
+
+'1820:0 SUMMER' 
+'he' 
+
+'1821:0 (LAUGHING)' 
+'he' 
+
+'1822:0 Is' 
+'he' 
+
+'1824:0 TOM' 
+'he' 
+
+'1825:0 He'll' 
+'he' 
+
+'1827:0 A' 
+'he' 
+
+'1829:0 MCKENZIE' 
+'he' 
+
+'1830:0 Hey.' 
+'he' 
+
+'1832:0 TOM' 
+'he' 
+
+'1833:0 What's' 
+'he' 
+
+'1835:0 36.' 
+'he' 
+
+'1839:0 MCKENZIE' 
+'he' 
+
+'1840:0 Not' 
+'he' 
+
+'1841:0 (beat,' 
+'he' 
+
+'1842:0 He' 
+'he' 
+
+'1844:0 TOM' 
+'he' 
+
+'1845:0 (QUICKLY)' 
+'he' 
+
+'1846:0 Ok,' 
+'he' 
+
+'1848:0 MCKENZIE' 
+'he' 
+
+'1849:0 I' 
+'he' 
+
+'1850:0 real.' 
+'he' 
+
+'1852:0 Tom' 
+'he' 
+
+'1853:0 just' 
+'he' 
+
+'1854:0 erase' 
+'he' 
+
+'1856:0 TOM' 
+'he' 
+
+'1857:0 Sorry' 
+'he' 
+
+'1858:0 every' 
+'he' 
+
+'1859:0 unbelievable.' 
+'he' 
+
+'1860:0 guy' 
+'he' 
+
+'1861:0 know.' 
+'he' 
+
+'1863:0 SUMMER' 
+'he' 
+
+'1864:0 Is' 
+'he' 
+
+'1866:0 TOM' 
+'he' 
+
+'1867:0 What?' 
+'he' 
+
+'1869:0 SUMMER' 
+'he' 
+
+'1870:0 You' 
+'he' 
+
+'1872:0 TOM' 
+'he' 
+
+'1873:0 Yeah.' 
+'he' 
+
+'1875:0 SUMMER' 
+'he' 
+
+'1876:0 As' 
+'he' 
+
+'1878:0 TOM' 
+'he' 
+
+'1879:0 Right.' 
+'he' 
+
+'1881:0 SUMMER' 
+'he' 
+
+'1882:0 Just' 
+'he' 
+
+'1884:0 The' 
+'he' 
+
+'1885:0 answer' 
+'he' 
+
+'1887:0 TOM' 
+'he' 
+
+'1888:0 Yes.' 
+'he' 
+
+'1889:0 thought' 
+'he' 
+
+'1891:0 37.' 
+'he' 
+
+'1895:0 SUMMER' 
+'he' 
+
+'1896:0 Nothing.' 
+'he' 
+
+'1897:0 interesting.' 
+'he' 
+
+'1898:0 friends.' 
+'he' 
+
+'1900:0 Tom' 
+'he' 
+
+'1901:0 hides' 
+'he' 
+
+'1903:0 TOM' 
+'he' 
+
+'1904:0 Oh' 
+'he' 
+
+'1905:0 me.' 
+'he' 
+
+'1907:0 SUMMER' 
+'he' 
+
+'1908:0 Cool.' 
+'he' 
+
+'1910:0 TOM' 
+'he' 
+
+'1911:0 Cool.' 
+'he' 
+
+'1913:0 Silence.' 
+'he' 
+
+'1915:0 SUMMER' 
+'he' 
+
+'1916:0 Well,' 
+'he' 
+
+'1918:0 TOM' 
+'he' 
+
+'1919:0 G'night' 
+'he' 
+
+'1921:0 Tom' 
+'he' 
+
+'1922:0 the' 
+'he' 
+
+'1924:0 TOM' 
+'he' 
+
+'1925:0 (under' 
+'he' 
+
+'1926:0 Friends.' 
+'he' 
+
+'1927:0 great.' 
+'he' 
+
+'1929:0 Tom' 
+'he' 
+
+'1931:0 And' 
+'he' 
+
+'1932:0 noticing,' 
+'he' 
+
+'1933:0 HIM' 
+'he' 
+
+'1935:0 It's' 
+'he' 
+
+'1936:0 if' 
+'he' 
+
+'1937:0 of' 
+'he' 
+
+'1938:0 happening.' 
+'he' 
+
+'1941:0 (29)' 
+'he' 
+
+'1942:0 FADE' 
+'he' 
+
+'1944:0 38.' 
+'he' 
+
+'1949:0 EXT' 
+'he' 
+
+'1951:0 It's' 
+'he' 
+
+'1953:0 Tom' 
+'he' 
+
+'1954:0 down' 
+'he' 
+
+'1955:0 winking,' 
+'he' 
+
+'1956:0 his' 
+'he' 
+
+'1958:0 People' 
+'he' 
+
+'1959:0 A' 
+'he' 
+
+'1960:0 HOT' 
+'he' 
+
+'1961:0 loves' 
+'he' 
+
+'1962:0 singing' 
+'he' 
+
+'1964:0 Cars' 
+'he' 
+
+'1965:0 pump' 
+'he' 
+
+'1966:0 night.' 
+'he' 
+
+'1967:0 every' 
+'he' 
+
+'1969:0 CARTOON' 
+'he' 
+
+'1970:0 them.' 
+'he' 
+
+'1973:0 INT' 
+'he' 
+
+'1975:0 Tom' 
+'he' 
+
+'1976:0 him' 
+'he' 
+
+'1978:0 SUMMER' 
+'he' 
+
+'1979:0 Hey!' 
+'he' 
+
+'1981:0 TOM' 
+'he' 
+
+'1982:0 Hey!' 
+'he' 
+
+'1984:0 Vance' 
+'he' 
+
+'1986:0 VANCE.' 
+'he' 
+
+'1987:0 Summer,' 
+'he' 
+
+'1989:0 TOM' 
+'he' 
+
+'1990:0 Hey' 
+'he' 
+
+'1992:0 SUMMER' 
+'he' 
+
+'1993:0 Yes,' 
+'he' 
+
+'1995:0 And' 
+'he' 
+
+'1996:0 gives' 
+'he' 
+
+'1997:0 anyone's' 
+'he' 
+
+'1998:0 for' 
+'he' 
+
+'1999:0 Tom' 
+'he' 
+
+'2001:0 39.' 
+'he' 
+
+'2006:0 INT' 
+'he' 
+
+'2008:0 Tom' 
+'he' 
+
+'2010:0 PAUL' 
+'he' 
+
+'2011:0 You' 
+'he' 
+
+'2013:0 He' 
+'he' 
+
+'2015:0 PAUL' 
+'he' 
+
+'2016:0 Last' 
+'he' 
+
+'2018:0 TOM' 
+'he' 
+
+'2019:0 (ANXIOUS)' 
+'he' 
+
+'2020:0 Shhh.' 
+'he' 
+
+'2022:0 PAUL' 
+'he' 
+
+'2023:0 The' 
+'he' 
+
+'2024:0 and' 
+'he' 
+
+'2025:0 weeks' 
+'he' 
+
+'2027:0 TOM' 
+'he' 
+
+'2028:0 I' 
+'he' 
+
+'2030:0 PAUL' 
+'he' 
+
+'2031:0 The' 
+'he' 
+
+'2032:0 of' 
+'he' 
+
+'2033:0 chance' 
+'he' 
+
+'2034:0 girl?' 
+'he' 
+
+'2036:0 TOM' 
+'he' 
+
+'2037:0 Paul,' 
+'he' 
+
+'2039:0 PAUL' 
+'he' 
+
+'2040:0 Did' 
+'he' 
+
+'2042:0 TOM' 
+'he' 
+
+'2043:0 No!' 
+'he' 
+
+'2045:0 PAUL' 
+'he' 
+
+'2046:0 Blow' 
+'he' 
+
+'2048:0 TOM' 
+'he' 
+
+'2049:0 No!' 
+'he' 
+
+'2051:0 PAUL' 
+'he' 
+
+'2052:0 Hand' 
+'he' 
+
+'2054:0 TOM' 
+'he' 
+
+'2055:0 No,' 
+'he' 
+
+'2056:0 unemployed.' 
+'he' 
+
+'2058:0 40.' 
+'he' 
+
+'2062:0 PAUL' 
+'he' 
+
+'2063:0 Come' 
+'he' 
+
+'2064:0 best' 
+'he' 
+
+'2065:0 month' 
+'he' 
+
+'2066:0 girl,' 
+'he' 
+
+'2067:0 Summer' 
+'he' 
+
+'2068:0 I' 
+'he' 
+
+'2069:0 stalking' 
+'he' 
+
+'2071:0 TOM' 
+'he' 
+
+'2072:0 Shhh!' 
+'he' 
+
+'2074:0 Suddenly,' 
+'he' 
+
+'2075:0 bathroom' 
+'he' 
+
+'2077:0 PAUL' 
+'he' 
+
+'2078:0 Oh' 
+'he' 
+
+'2080:0 SUMMER' 
+'he' 
+
+'2081:0 Hi,' 
+'he' 
+
+'2083:0 PAUL' 
+'he' 
+
+'2084:0 Summer,' 
+'he' 
+
+'2085:0 I'm' 
+'he' 
+
+'2086:0 heard' 
+'he' 
+
+'2087:0 you've' 
+'he' 
+
+'2088:0 such' 
+'he' 
+
+'2089:0 (off' 
+'he' 
+
+'2090:0 Or' 
+'he' 
+
+'2091:0 forgot.' 
+'he' 
+
+'2092:0 (to' 
+'he' 
+
+'2093:0 I' 
+'he' 
+
+'2094:0 life' 
+'he' 
+
+'2095:0 (not' 
+'he' 
+
+'2096:0 Ok,' 
+'he' 
+
+'2098:0 SUMMER' 
+'he' 
+
+'2099:0 Hi' 
+'he' 
+
+'2101:0 PAUL' 
+'he' 
+
+'2102:0 (not' 
+'he' 
+
+'2103:0 SAY)' 
+'he' 
+
+'2104:0 I'm' 
+'he' 
+
+'2106:0 SUMMER' 
+'he' 
+
+'2107:0 Nice' 
+'he' 
+
+'2109:0 PAUL' 
+'he' 
+
+'2110:0 Anyway,' 
+'he' 
+
+'2111:0 was' 
+'he' 
+
+'2112:0 later?...' 
+'he' 
+
+'2113:0 up...' 
+'he' 
+
+'2115:0 41.' 
+'he' 
+
+'2119:0 Tom' 
+'he' 
+
+'2121:0 TOM' 
+'he' 
+
+'2122:0 If' 
+'he' 
+
+'2124:0 SUMMER' 
+'he' 
+
+'2125:0 Heard' 
+'he' 
+
+'2127:0 TOM' 
+'he' 
+
+'2128:0 Excellent.' 
+'he' 
+
+'2130:0 SUMMER' 
+'he' 
+
+'2131:0 I'm' 
+'he' 
+
+'2133:0 Tom' 
+'he' 
+
+'2135:0 TOM' 
+'he' 
+
+'2136:0 (PLAYFULLY)' 
+'he' 
+
+'2137:0 He' 
+'he' 
+
+'2140:0 (198)' 
+'he' 
+
+'2141:0 INT' 
+'he' 
+
+'2143:0 Tom' 
+'he' 
+
+'2144:0 table,' 
+'he' 
+
+'2145:0 food.' 
+'he' 
+
+'2147:0 TOM' 
+'he' 
+
+'2148:0 Check' 
+'he' 
+
+'2150:0 Summer' 
+'he' 
+
+'2152:0 TOM' 
+'he' 
+
+'2153:0 (SARCASTIC)' 
+'he' 
+
+'2154:0 That' 
+'he' 
+
+'2156:0 Summer' 
+'he' 
+
+'2158:0 TOM' 
+'he' 
+
+'2159:0 I' 
+'he' 
+
+'2161:0 SUMMER' 
+'he' 
+
+'2162:0 Sometimes' 
+'he' 
+
+'2164:0 TOM' 
+'he' 
+
+'2165:0 Huh?' 
+'he' 
+
+'2167:0 42.' 
+'he' 
+
+'2171:0 SUMMER' 
+'he' 
+
+'2172:0 I' 
+'he' 
+
+'2173:0 Just' 
+'he' 
+
+'2175:0 Summer' 
+'he' 
+
+'2178:0 (31)' 
+'he' 
+
+'2179:0 INT' 
+'he' 
+
+'2181:0 An' 
+'he' 
+
+'2182:0 ACROSS' 
+'he' 
+
+'2183:0 a' 
+'he' 
+
+'2185:0 TOM' 
+'he' 
+
+'2186:0 9,' 
+'he' 
+
+'2188:0 SUMMER' 
+'he' 
+
+'2189:0 Too' 
+'he' 
+
+'2190:0 dismount.' 
+'he' 
+
+'2192:0 TOM' 
+'he' 
+
+'2193:0 If' 
+'he' 
+
+'2194:0 dismount.' 
+'he' 
+
+'2196:0 Summer,' 
+'he' 
+
+'2197:0 again.' 
+'he' 
+
+'2199:0 SUMMER' 
+'he' 
+
+'2200:0 I' 
+'he' 
+
+'2201:0 zero' 
+'he' 
+
+'2203:0 TOM' 
+'he' 
+
+'2204:0 I' 
+'he' 
+
+'2205:0 people' 
+'he' 
+
+'2206:0 and' 
+'he' 
+
+'2208:0 SUMMER' 
+'he' 
+
+'2209:0 Yeah?' 
+'he' 
+
+'2211:0 TOM' 
+'he' 
+
+'2212:0 (BEAT)' 
+'he' 
+
+'2213:0 No.' 
+'he' 
+
+'2215:0 They' 
+'he' 
+
+'2217:0 SUMMER' 
+'he' 
+
+'2218:0 This' 
+'he' 
+
+'2220:0 43.' 
+'he' 
+
+'2224:0 TOM' 
+'he' 
+
+'2225:0 Thanks.' 
+'he' 
+
+'2227:0 SUMMER' 
+'he' 
+
+'2228:0 I' 
+'he' 
+
+'2229:0 front,' 
+'he' 
+
+'2230:0 serious.' 
+'he' 
+
+'2232:0 Tom' 
+'he' 
+
+'2234:0 SUMMER' 
+'he' 
+
+'2235:0 Are' 
+'he' 
+
+'2237:0 TOM' 
+'he' 
+
+'2238:0 (UNCONVINCING)' 
+'he' 
+
+'2239:0 Sure.' 
+'he' 
+
+'2241:0 SUMMER' 
+'he' 
+
+'2242:0 It' 
+'he' 
+
+'2243:0 that.' 
+'he' 
+
+'2245:0 TOM' 
+'he' 
+
+'2246:0 (still' 
+'he' 
+
+'2247:0 Not' 
+'he' 
+
+'2249:0 SUMMER' 
+'he' 
+
+'2250:0 Let's' 
+'he' 
+
+'2251:0 just...hang' 
+'he' 
+
+'2252:0 labels,' 
+'he' 
+
+'2253:0 (BEAT)' 
+'he' 
+
+'2254:0 Ok?' 
+'he' 
+
+'2256:0 Tom' 
+'he' 
+
+'2258:0 TOM' 
+'he' 
+
+'2259:0 Sure.' 
+'he' 
+
+'2261:0 SUMMER' 
+'he' 
+
+'2262:0 (BEAT)' 
+'he' 
+
+'2263:0 Wanna' 
+'he' 
+
+'2265:0 A' 
+'he' 
+
+'2267:0 TOM' 
+'he' 
+
+'2268:0 Yeah.' 
+'he' 
+
+'2271:0 INT' 
+'he' 
+
+'2273:0 Summer' 
+'he' 
+
+'2274:0 other.' 
+'he' 
+
+'2275:0 Suddenly,' 
+'he' 
+
+'2277:0 44.' 
+'he' 
+
+'2281:0 TOM' 
+'he' 
+
+'2282:0 I'll' 
+'he' 
+
+'2284:0 He' 
+'he' 
+
+'2285:0 the' 
+'he' 
+
+'2287:0 TOM' 
+'he' 
+
+'2288:0 Settle.' 
+'he' 
+
+'2289:0 She's' 
+'he' 
+
+'2290:0 them.' 
+'he' 
+
+'2291:0 what' 
+'he' 
+
+'2292:0 Calm' 
+'he' 
+
+'2294:0 He' 
+'he' 
+
+'2296:0 TOM' 
+'he' 
+
+'2297:0 Are' 
+'he' 
+
+'2298:0 (BEAT)' 
+'he' 
+
+'2299:0 Ok.' 
+'he' 
+
+'2301:0 We' 
+'he' 
+
+'2302:0 Summer' 
+'he' 
+
+'2304:0 SUMMER' 
+'he' 
+
+'2305:0 Hi.' 
+'he' 
+
+'2307:0 TOM' 
+'he' 
+
+'2308:0 Oh' 
+'he' 
+
+'2310:0 Tom' 
+'he' 
+
+'2312:0 CUT' 
+'he' 
+
+'2314:0 LATER.' 
+'he' 
+
+'2315:0 her.' 
+'he' 
+
+'2316:0 fists' 
+'he' 
+
+'2319:0 (388)' 
+'he' 
+
+'2320:0 CU' 
+'he' 
+
+'2321:0 CRUMPLED' 
+'he' 
+
+'2323:0 TOM' 
+'he' 
+
+'2324:0 (into' 
+'he' 
+
+'2325:0 I' 
+'he' 
+
+'2327:0 CU' 
+'he' 
+
+'2329:0 TOM' 
+'he' 
+
+'2330:0 I' 
+'he' 
+
+'2332:0 45.' 
+'he' 
+
+'2336:0 CU' 
+'he' 
+
+'2338:0 TOM' 
+'he' 
+
+'2339:0 I' 
+'he' 
+
+'2341:0 CU' 
+'he' 
+
+'2343:0 TOM' 
+'he' 
+
+'2344:0 I' 
+'he' 
+
+'2346:0 CU' 
+'he' 
+
+'2348:0 TOM' 
+'he' 
+
+'2349:0 I' 
+'he' 
+
+'2350:0 cock-eyed' 
+'he' 
+
+'2352:0 CU' 
+'he' 
+
+'2354:0 TOM' 
+'he' 
+
+'2355:0 I' 
+'he' 
+
+'2357:0 CU' 
+'he' 
+
+'2359:0 TOM' 
+'he' 
+
+'2360:0 I' 
+'he' 
+
+'2362:0 CU' 
+'he' 
+
+'2364:0 TOM' 
+'he' 
+
+'2365:0 I' 
+'he' 
+
+'2367:0 CU' 
+'he' 
+
+'2369:0 TOM' 
+'he' 
+
+'2370:0 I' 
+'he' 
+
+'2372:0 OVER' 
+'he' 
+
+'2373:0 is' 
+'he' 
+
+'2375:0 TOM' 
+'he' 
+
+'2376:0 I' 
+'he' 
+
+'2378:0 CU' 
+'he' 
+
+'2380:0 REVERSE' 
+'he' 
+
+'2381:0 raving' 
+'he' 
+
+'2383:0 BUS' 
+'he' 
+
+'2384:0 Son,' 
+'he' 
+
+'2385:0 vehicle.' 
+'he' 
+
+'2387:0 CUT' 
+'he' 
+
+'2389:0 46.' 
+'he' 
+
+'2394:0 INT' 
+'he' 
+
+'2396:0 Tom' 
+'he' 
+
+'2397:0 notices,' 
+'he' 
+
+'2398:0 painting' 
+'he' 
+
+'2399:0 the' 
+'he' 
+
+'2400:0 secretary' 
+'he' 
+
+'2403:0 (35)' 
+'he' 
+
+'2404:0 INT.' 
+'he' 
+
+'2406:0 CU:' 
+'he' 
+
+'2408:0 ANGLE' 
+'he' 
+
+'2410:0 TOM' 
+'he' 
+
+'2411:0 It's' 
+'he' 
+
+'2413:0 SUMMER' 
+'he' 
+
+'2414:0 Complex.' 
+'he' 
+
+'2416:0 CU:' 
+'he' 
+
+'2418:0 ANGLE' 
+'he' 
+
+'2419:0 expressions.' 
+'he' 
+
+'2421:0 SUMMER' 
+'he' 
+
+'2422:0 In' 
+'he' 
+
+'2423:0 saying...' 
+'he' 
+
+'2425:0 TOM' 
+'he' 
+
+'2426:0 I' 
+'he' 
+
+'2428:0 CU:' 
+'he' 
+
+'2430:0 ANGLE' 
+'he' 
+
+'2432:0 They' 
+'he' 
+
+'2434:0 TOM' 
+'he' 
+
+'2435:0 You' 
+'he' 
+
+'2437:0 SUMMER' 
+'he' 
+
+'2438:0 (RELIEVED)' 
+'he' 
+
+'2439:0 God' 
+'he' 
+
+'2441:0 47.' 
+'he' 
+
+'2446:0 EXT.' 
+'he' 
+
+'2448:0 The' 
+'he' 
+
+'2451:0 INT.' 
+'he' 
+
+'2453:0 The' 
+'he' 
+
+'2454:0 throwing' 
+'he' 
+
+'2458:0 (51)' 
+'he' 
+
+'2459:0 EXT' 
+'he' 
+
+'2461:0 Summer' 
+'he' 
+
+'2462:0 street' 
+'he' 
+
+'2463:0 stands' 
+'he' 
+
+'2465:0 TOM' 
+'he' 
+
+'2466:0 A' 
+'he' 
+
+'2467:0 this,' 
+'he' 
+
+'2468:0 structures' 
+'he' 
+
+'2469:0 side' 
+'he' 
+
+'2472:0 EXT' 
+'he' 
+
+'2474:0 Summer' 
+'he' 
+
+'2476:0 TOM' 
+'he' 
+
+'2477:0 The' 
+'he' 
+
+'2478:0 is' 
+'he' 
+
+'2481:0 EXT' 
+'he' 
+
+'2483:0 Summer' 
+'he' 
+
+'2484:0 of' 
+'he' 
+
+'2486:0 TOM' 
+'he' 
+
+'2487:0 It' 
+'he' 
+
+'2489:0 They' 
+'he' 
+
+'2492:0 EXT' 
+'he' 
+
+'2494:0 Tom' 
+'he' 
+
+'2496:0 48.' 
+'he' 
+
+'2500:0 TOM' 
+'he' 
+
+'2501:0 No.' 
+'he' 
+
+'2503:0 SUMMER' 
+'he' 
+
+'2504:0 Why?' 
+'he' 
+
+'2506:0 TOM' 
+'he' 
+
+'2507:0 Over' 
+'he' 
+
+'2508:0 church.' 
+'he' 
+
+'2509:0 is' 
+'he' 
+
+'2510:0 mirror' 
+'he' 
+
+'2511:0 attention' 
+'he' 
+
+'2512:0 one' 
+'he' 
+
+'2514:0 SUMMER' 
+'he' 
+
+'2515:0 How' 
+'he' 
+
+'2517:0 TOM' 
+'he' 
+
+'2518:0 There's' 
+'he' 
+
+'2519:0 there's' 
+'he' 
+
+'2520:0 glass.' 
+'he' 
+
+'2522:0 SUMMER' 
+'he' 
+
+'2523:0 Show' 
+'he' 
+
+'2525:0 TOM' 
+'he' 
+
+'2526:0 What?' 
+'he' 
+
+'2528:0 SUMMER' 
+'he' 
+
+'2529:0 Don't' 
+'he' 
+
+'2531:0 Summer' 
+'he' 
+
+'2532:0 her' 
+'he' 
+
+'2533:0 sketch' 
+'he' 
+
+'2534:0 draws.' 
+'he' 
+
+'2536:0 TOM' 
+'he' 
+
+'2537:0 See' 
+'he' 
+
+'2538:0 landscape.' 
+'he' 
+
+'2539:0 just' 
+'he' 
+
+'2543:0 (55)' 
+'he' 
+
+'2544:0 EXT' 
+'he' 
+
+'2546:0 Tom' 
+'he' 
+
+'2547:0 outside' 
+'he' 
+
+'2549:0 49.' 
+'he' 
+
+'2553:0 SUMMER' 
+'he' 
+
+'2554:0 You' 
+'he' 
+
+'2556:0 TOM' 
+'he' 
+
+'2557:0 No' 
+'he' 
+
+'2559:0 SUMMER' 
+'he' 
+
+'2560:0 It' 
+'he' 
+
+'2562:0 TOM' 
+'he' 
+
+'2563:0 Whatever' 
+'he' 
+
+'2565:0 A' 
+'he' 
+
+'2567:0 CO-WORKER' 
+'he' 
+
+'2568:0 Hey' 
+'he' 
+
+'2570:0 BOTH' 
+'he' 
+
+'2571:0 (like' 
+'he' 
+
+'2572:0 Hey./' 
+'he' 
+
+'2574:0 Summer' 
+'he' 
+
+'2576:0 SUMMER' 
+'he' 
+
+'2577:0 (to' 
+'he' 
+
+'2578:0 So' 
+'he' 
+
+'2580:0 She' 
+'he' 
+
+'2581:0 tongue' 
+'he' 
+
+'2582:0 her.' 
+'he' 
+
+'2585:0 INT' 
+'he' 
+
+'2587:0 Tom' 
+'he' 
+
+'2588:0 phone' 
+'he' 
+
+'2590:0 TOM' 
+'he' 
+
+'2591:0 Hello?' 
+'he' 
+
+'2593:0 SUMMER' 
+'he' 
+
+'2594:0 I' 
+'he' 
+
+'2597:0 INT' 
+'he' 
+
+'2599:0 Summer' 
+'he' 
+
+'2600:0 begins' 
+'he' 
+
+'2602:0 TOM' 
+'he' 
+
+'2603:0 That's' 
+'he' 
+
+'2605:0 50.' 
+'he' 
+
+'2609:0 McKenzie' 
+'he' 
+
+'2610:0 without' 
+'he' 
+
+'2613:0 INT' 
+'he' 
+
+'2615:0 Tom' 
+'he' 
+
+'2617:0 MCKENZIE' 
+'he' 
+
+'2618:0 Your' 
+'he' 
+
+'2620:0 Tom' 
+'he' 
+
+'2621:0 The' 
+'he' 
+
+'2625:0 (68)' 
+'he' 
+
+'2626:0 INT.' 
+'he' 
+
+'2628:0 We' 
+'he' 
+
+'2629:0 behind' 
+'he' 
+
+'2630:0 shower.' 
+'he' 
+
+'2631:0 so' 
+'he' 
+
+'2633:0 SUMMER' 
+'he' 
+
+'2634:0 This' 
+'he' 
+
+'2635:0 looks.' 
+'he' 
+
+'2637:0 TOM' 
+'he' 
+
+'2638:0 Ow!' 
+'he' 
+
+'2640:0 The' 
+'he' 
+
+'2641:0 on' 
+'he' 
+
+'2645:0 (77)' 
+'he' 
+
+'2646:0 INT' 
+'he' 
+
+'2648:0 Tom' 
+'he' 
+
+'2650:0 TOM' 
+'he' 
+
+'2651:0 There's' 
+'he' 
+
+'2653:0 SUMMER' 
+'he' 
+
+'2654:0 Why' 
+'he' 
+
+'2656:0 51.' 
+'he' 
+
+'2660:0 TOM' 
+'he' 
+
+'2661:0 "Octopus's' 
+'he' 
+
+'2662:0 just' 
+'he' 
+
+'2664:0 SUMMER' 
+'he' 
+
+'2665:0 I' 
+'he' 
+
+'2667:0 TOM' 
+'he' 
+
+'2668:0 You're' 
+'he' 
+
+'2670:0 SUMMER' 
+'he' 
+
+'2671:0 Why?' 
+'he' 
+
+'2673:0 TOM' 
+'he' 
+
+'2674:0 Cause' 
+'he' 
+
+'2676:0 SUMMER' 
+'he' 
+
+'2677:0 That's' 
+'he' 
+
+'2678:0 (BEAT)' 
+'he' 
+
+'2679:0 Ooh.' 
+'he' 
+
+'2681:0 Summer' 
+'he' 
+
+'2682:0 picks' 
+'he' 
+
+'2684:0 SUMMER' 
+'he' 
+
+'2685:0 (FLIRTATIOUS)' 
+'he' 
+
+'2686:0 This' 
+'he' 
+
+'2689:0 INT.' 
+'he' 
+
+'2691:0 Tom' 
+'he' 
+
+'2692:0 forward' 
+'he' 
+
+'2693:0 Summer' 
+'he' 
+
+'2694:0 TV.' 
+'he' 
+
+'2696:0 CUT' 
+'he' 
+
+'2699:0 INT.' 
+'he' 
+
+'2701:0 Tom' 
+'he' 
+
+'2702:0 got' 
+'he' 
+
+'2704:0 SUMMER' 
+'he' 
+
+'2705:0 Is' 
+'he' 
+
+'2708:0 (79)' 
+'he' 
+
+'2710:0 52.' 
+'he' 
+
+'2715:0 INT' 
+'he' 
+
+'2717:0 Tom,' 
+'he' 
+
+'2719:0 PAUL' 
+'he' 
+
+'2720:0 So' 
+'he' 
+
+'2721:0 Summer?' 
+'he' 
+
+'2723:0 TOM' 
+'he' 
+
+'2724:0 I' 
+'he' 
+
+'2726:0 PAUL' 
+'he' 
+
+'2727:0 Is' 
+'he' 
+
+'2729:0 TOM' 
+'he' 
+
+'2730:0 I' 
+'he' 
+
+'2732:0 MCKENZIE' 
+'he' 
+
+'2733:0 What' 
+'he' 
+
+'2735:0 TOM' 
+'he' 
+
+'2736:0 Like,' 
+'he' 
+
+'2737:0 on,' 
+'he' 
+
+'2739:0 PAUL' 
+'he' 
+
+'2740:0 It's' 
+'he' 
+
+'2741:0 Watch.' 
+'he' 
+
+'2742:0 girlfriend?' 
+'he' 
+
+'2744:0 MCKENZIE' 
+'he' 
+
+'2745:0 No' 
+'he' 
+
+'2746:0 repulsed' 
+'he' 
+
+'2747:0 you?' 
+'he' 
+
+'2749:0 PAUL' 
+'he' 
+
+'2750:0 Why' 
+'he' 
+
+'2751:0 Robyn.' 
+'he' 
+
+'2753:0 TOM' 
+'he' 
+
+'2754:0 It' 
+'he' 
+
+'2755:0 same' 
+'he' 
+
+'2757:0 PAUL' 
+'he' 
+
+'2758:0 You've' 
+'he' 
+
+'2759:0 what,' 
+'he' 
+
+'2761:0 TOM' 
+'he' 
+
+'2762:0 Something' 
+'he' 
+
+'2764:0 PAUL' 
+'he' 
+
+'2765:0 And' 
+'he' 
+
+'2767:0 53.' 
+'he' 
+
+'2771:0 TOM' 
+'he' 
+
+'2772:0 No!' 
+'he' 
+
+'2773:0 that.' 
+'he' 
+
+'2775:0 PAUL' 
+'he' 
+
+'2776:0 Like' 
+'he' 
+
+'2778:0 MCKENZIE' 
+'he' 
+
+'2779:0 Normal.' 
+'he' 
+
+'2781:0 TOM' 
+'he' 
+
+'2782:0 We've' 
+'he' 
+
+'2784:0 PAUL' 
+'he' 
+
+'2785:0 Hanging' 
+'he' 
+
+'2787:0 TOM' 
+'he' 
+
+'2788:0 Yeah.' 
+'he' 
+
+'2789:0 know' 
+'he' 
+
+'2790:0 label' 
+'he' 
+
+'2791:0 That' 
+'he' 
+
+'2793:0 Beat.' 
+'he' 
+
+'2795:0 MCKENZIE' 
+'he' 
+
+'2796:0 You're' 
+'he' 
+
+'2798:0 PAUL' 
+'he' 
+
+'2799:0 Well' 
+'he' 
+
+'2800:0 you' 
+'he' 
+
+'2802:0 Tom' 
+'he' 
+
+'2804:0 TOM' 
+'he' 
+
+'2805:0 I' 
+'he' 
+
+'2807:0 MCKENZIE' 
+'he' 
+
+'2808:0 I' 
+'he' 
+
+'2809:0 girlfriend' 
+'he' 
+
+'2810:0 to' 
+'he' 
+
+'2812:0 TOM' 
+'he' 
+
+'2813:0 No.' 
+'he' 
+
+'2815:0 MCKENZIE' 
+'he' 
+
+'2816:0 Have' 
+'he' 
+
+'2818:0 TOM' 
+'he' 
+
+'2819:0 (BEAT)' 
+'he' 
+
+'2820:0 Maybe.' 
+'he' 
+
+'2822:0 MCKENZIE' 
+'he' 
+
+'2823:0 Oh' 
+'he' 
+
+'2825:0 54.' 
+'he' 
+
+'2829:0 PAUL' 
+'he' 
+
+'2830:0 You' 
+'he' 
+
+'2833:0 (80)' 
+'he' 
+
+'2834:0 EXT' 
+'he' 
+
+'2836:0 Rachel' 
+'he' 
+
+'2837:0 watching' 
+'he' 
+
+'2838:0 Rachel' 
+'he' 
+
+'2840:0 RACHEL' 
+'he' 
+
+'2841:0 You' 
+'he' 
+
+'2843:0 TOM' 
+'he' 
+
+'2844:0 My' 
+'he' 
+
+'2845:0 boat?' 
+'he' 
+
+'2846:0 start' 
+'he' 
+
+'2847:0 like' 
+'he' 
+
+'2848:0 to' 
+'he' 
+
+'2850:0 RACHEL' 
+'he' 
+
+'2851:0 I' 
+'he' 
+
+'2852:0 happened' 
+'he' 
+
+'2854:0 TOM' 
+'he' 
+
+'2855:0 Who' 
+'he' 
+
+'2857:0 RACHEL' 
+'he' 
+
+'2858:0 My' 
+'he' 
+
+'2860:0 TOM' 
+'he' 
+
+'2861:0 Who' 
+'he' 
+
+'2862:0 need' 
+'he' 
+
+'2864:0 RACHEL' 
+'he' 
+
+'2865:0 I'm' 
+'he' 
+
+'2867:0 TOM' 
+'he' 
+
+'2868:0 Yeah' 
+'he' 
+
+'2869:0 kinda' 
+'he' 
+
+'2870:0 trouble.' 
+'he' 
+
+'2872:0 55.' 
+'he' 
+
+'2876:0 RACHEL' 
+'he' 
+
+'2877:0 Hmm.' 
+'he' 
+
+'2878:0 ask' 
+'he' 
+
+'2879:0 boyfriend/girlfriend?'' 
+'he' 
+
+'2880:0 afraid' 
+'he' 
+
+'2881:0 don't' 
+'he' 
+
+'2882:0 your' 
+'he' 
+
+'2883:0 everything's' 
+'he' 
+
+'2884:0 months.' 
+'he' 
+
+'2886:0 TOM' 
+'he' 
+
+'2887:0 (BEAT)' 
+'he' 
+
+'2888:0 Something' 
+'he' 
+
+'2890:0 RACHEL' 
+'he' 
+
+'2891:0 Thomas,' 
+'he' 
+
+'2892:0 to' 
+'he' 
+
+'2893:0 find' 
+'he' 
+
+'2894:0 coming' 
+'he' 
+
+'2896:0 TOM' 
+'he' 
+
+'2897:0 Who's' 
+'he' 
+
+'2899:0 RACHEL' 
+'he' 
+
+'2900:0 He's' 
+'he' 
+
+'2901:0 Brad' 
+'he' 
+
+'2903:0 TOM' 
+'he' 
+
+'2904:0 That' 
+'he' 
+
+'2906:0 RACHEL' 
+'he' 
+
+'2907:0 You' 
+'he' 
+
+'2909:0 The' 
+'he' 
+
+'2910:0 field.' 
+'he' 
+
+'2912:0 RACHEL' 
+'he' 
+
+'2913:0 Later' 
+'he' 
+
+'2915:0 TOM' 
+'he' 
+
+'2916:0 Coach,' 
+'he' 
+
+'2917:0 (shouting' 
+'he' 
+
+'2918:0 Rachel,' 
+'he' 
+
+'2919:0 do?' 
+'he' 
+
+'2921:0 RACHEL' 
+'he' 
+
+'2922:0 (calling' 
+'he' 
+
+'2923:0 Just' 
+'he' 
+
+'2925:0 On' 
+'he' 
+
+'2927:0 CUT' 
+'he' 
+
+'2929:0 56.' 
+'he' 
+
+'2934:0 INT' 
+'he' 
+
+'2936:0 Tom' 
+'he' 
+
+'2937:0 conflicted' 
+'he' 
+
+'2938:0 few' 
+'he' 
+
+'2940:0 SUMMER' 
+'he' 
+
+'2941:0 Hi.' 
+'he' 
+
+'2943:0 TOM' 
+'he' 
+
+'2944:0 Hi.' 
+'he' 
+
+'2946:0 SUMMER' 
+'he' 
+
+'2947:0 Are' 
+'he' 
+
+'2949:0 TOM' 
+'he' 
+
+'2950:0 Yeah.' 
+'he' 
+
+'2952:0 SUMMER' 
+'he' 
+
+'2953:0 You' 
+'he' 
+
+'2955:0 He's' 
+'he' 
+
+'2957:0 TOM' 
+'he' 
+
+'2958:0 Summer,' 
+'he' 
+
+'2959:0 something.' 
+'he' 
+
+'2961:0 SUMMER' 
+'he' 
+
+'2962:0 Ok.' 
+'he' 
+
+'2964:0 He' 
+'he' 
+
+'2966:0 SUMMER' 
+'he' 
+
+'2967:0 Wait!' 
+'he' 
+
+'2969:0 Summer' 
+'he' 
+
+'2970:0 Vain"' 
+'he' 
+
+'2972:0 SUMMER' 
+'he' 
+
+'2973:0 Whoa.' 
+'he' 
+
+'2974:0 during' 
+'he' 
+
+'2975:0 beautiful.' 
+'he' 
+
+'2977:0 And' 
+'he' 
+
+'2978:0 there' 
+'he' 
+
+'2979:0 Summer' 
+'he' 
+
+'2980:0 way' 
+'he' 
+
+'2981:0 notes,' 
+'he' 
+
+'2982:0 at' 
+'he' 
+
+'2983:0 overwhelmed.' 
+'he' 
+
+'2984:0 girl.' 
+'he' 
+
+'2986:0 57.' 
+'he' 
+
+'2990:0 Marley' 
+'he' 
+
+'2992:0 B.M.' 
+'he' 
+
+'2993:0 "In' 
+'he' 
+
+'2994:0 grief/' 
+'he' 
+
+'2996:0 We' 
+'he' 
+
+'2999:0 (172)' 
+'he' 
+
+'3000:0 INT' 
+'he' 
+
+'3002:0 Tom' 
+'he' 
+
+'3003:0 TIME' 
+'he' 
+
+'3004:0 drinking' 
+'he' 
+
+'3005:0 notices,' 
+'he' 
+
+'3006:0 clearly' 
+'he' 
+
+'3007:0 they're' 
+'he' 
+
+'3008:0 attention.' 
+'he' 
+
+'3010:0 CUT' 
+'he' 
+
+'3013:0 (272-286)' 
+'he' 
+
+'3014:0 INT.' 
+'he' 
+
+'3016:0 Tom,' 
+'he' 
+
+'3017:0 through' 
+'he' 
+
+'3018:0 titles.' 
+'he' 
+
+'3021:0 INT.' 
+'he' 
+
+'3023:0 Tom' 
+'he' 
+
+'3024:0 bed.' 
+'he' 
+
+'3025:0 Him."' 
+'he' 
+
+'3027:0 TOM' 
+'he' 
+
+'3028:0 "So' 
+'he' 
+
+'3029:0 been' 
+'he' 
+
+'3030:0 Perhaps' 
+'he' 
+
+'3031:0 or' 
+'he' 
+
+'3032:0 helped.' 
+'he' 
+
+'3033:0 on' 
+'he' 
+
+'3034:0 day?"' 
+'he' 
+
+'3036:0 SECONDS' 
+'he' 
+
+'3037:0 continues' 
+'he' 
+
+'3039:0 58.' 
+'he' 
+
+'3043:0 TOM' 
+'he' 
+
+'3044:0 "No' 
+'he' 
+
+'3046:0 He' 
+'he' 
+
+'3048:0 TOM' 
+'he' 
+
+'3049:0 "Through' 
+'he' 
+
+'3050:0 have' 
+'he' 
+
+'3051:0 ways' 
+'he' 
+
+'3052:0 make' 
+'he' 
+
+'3053:0 man' 
+'he' 
+
+'3056:0 EXT.' 
+'he' 
+
+'3058:0 Tom' 
+'he' 
+
+'3060:0 TOM' 
+'he' 
+
+'3061:0 "One.' 
+'he' 
+
+'3062:0 of' 
+'he' 
+
+'3063:0 brain' 
+'he' 
+
+'3064:0 of' 
+'he' 
+
+'3066:0 Cars' 
+'he' 
+
+'3067:0 on' 
+'he' 
+
+'3068:0 place.' 
+'he' 
+
+'3071:0 INT.' 
+'he' 
+
+'3073:0 Tom' 
+'he' 
+
+'3075:0 TOM' 
+'he' 
+
+'3076:0 "Two.' 
+'he' 
+
+'3077:0 relaxation.' 
+'he' 
+
+'3078:0 energies' 
+'he' 
+
+'3079:0 for' 
+'he' 
+
+'3080:0 and' 
+'he' 
+
+'3082:0 This' 
+'he' 
+
+'3083:0 Tom.' 
+'he' 
+
+'3084:0 even' 
+'he' 
+
+'3087:0 INT.' 
+'he' 
+
+'3089:0 Tom' 
+'he' 
+
+'3090:0 homeless.' 
+'he' 
+
+'3092:0 TOM' 
+'he' 
+
+'3093:0 "Three.' 
+'he' 
+
+'3094:0 not' 
+'he' 
+
+'3096:0 59.' 
+'he' 
+
+'3100:0 Next' 
+'he' 
+
+'3101:0 immediately' 
+'he' 
+
+'3104:0 INT' 
+'he' 
+
+'3106:0 Tom' 
+'he' 
+
+'3108:0 TOM' 
+'he' 
+
+'3109:0 "Four.' 
+'he' 
+
+'3110:0 know' 
+'he' 
+
+'3112:0 ANGLE' 
+'he' 
+
+'3113:0 really' 
+'he' 
+
+'3116:0 EXT.' 
+'he' 
+
+'3118:0 Tom' 
+'he' 
+
+'3120:0 TOM' 
+'he' 
+
+'3121:0 "Five.' 
+'he' 
+
+'3122:0 see' 
+'he' 
+
+'3123:0 perspective.' 
+'he' 
+
+'3124:0 world.' 
+'he' 
+
+'3125:0 someday."' 
+'he' 
+
+'3127:0 This' 
+'he' 
+
+'3128:0 the' 
+'he' 
+
+'3129:0 takes' 
+'he' 
+
+'3131:0 FREEZE' 
+'he' 
+
+'3133:0 INFORMATION' 
+'he' 
+
+'3134:0 Tom' 
+'he' 
+
+'3135:0 step' 
+'he' 
+
+'3136:0 behind' 
+'he' 
+
+'3137:0 has' 
+'he' 
+
+'3139:0 UNFREEZE.' 
+'he' 
+
+'3141:0 Tom' 
+'he' 
+
+'3144:0 INT.' 
+'he' 
+
+'3146:0 Tom' 
+'he' 
+
+'3148:0 TOM' 
+'he' 
+
+'3149:0 "Six.' 
+'he' 
+
+'3151:0 He's' 
+'he' 
+
+'3153:0 60.' 
+'he' 
+
+'3157:0 TOM' 
+'he' 
+
+'3158:0 "By' 
+'he' 
+
+'3159:0 will' 
+'he' 
+
+'3160:0 strength' 
+'he' 
+
+'3161:0 move' 
+'he' 
+
+'3162:0 remember' 
+'he' 
+
+'3164:0 We' 
+'he' 
+
+'3165:0 Summer' 
+'he' 
+
+'3166:0 dropkicks' 
+'he' 
+
+'3170:0 (145)' 
+'he' 
+
+'3171:0 INT' 
+'he' 
+
+'3173:0 Summer' 
+'he' 
+
+'3175:0 TOM' 
+'he' 
+
+'3176:0 I' 
+'he' 
+
+'3177:0 nowadays.' 
+'he' 
+
+'3178:0 tattoos,' 
+'he' 
+
+'3179:0 those' 
+'he' 
+
+'3180:0 to' 
+'he' 
+
+'3182:0 SUMMER' 
+'he' 
+
+'3183:0 People' 
+'he' 
+
+'3185:0 TOM' 
+'he' 
+
+'3186:0 Do' 
+'he' 
+
+'3188:0 SUMMER' 
+'he' 
+
+'3189:0 On' 
+'he' 
+
+'3191:0 TOM' 
+'he' 
+
+'3192:0 I' 
+'he' 
+
+'3194:0 SUMMER' 
+'he' 
+
+'3195:0 Yeah?' 
+'he' 
+
+'3196:0 berets' 
+'he' 
+
+'3197:0 tattoo' 
+'he' 
+
+'3199:0 TOM' 
+'he' 
+
+'3200:0 (BEAT)' 
+'he' 
+
+'3201:0 Please' 
+'he' 
+
+'3203:0 A' 
+'he' 
+
+'3204:0 appeared' 
+'he' 
+
+'3206:0 61.' 
+'he' 
+
+'3210:0 DOUCHE' 
+'he' 
+
+'3211:0 (to' 
+'he' 
+
+'3212:0 Hey.' 
+'he' 
+
+'3214:0 Tom' 
+'he' 
+
+'3216:0 SUMMER' 
+'he' 
+
+'3217:0 Hey.' 
+'he' 
+
+'3219:0 DOUCHE' 
+'he' 
+
+'3220:0 How's' 
+'he' 
+
+'3222:0 SUMMER' 
+'he' 
+
+'3223:0 Ok.' 
+'he' 
+
+'3225:0 Tom' 
+'he' 
+
+'3226:0 go' 
+'he' 
+
+'3227:0 amused' 
+'he' 
+
+'3229:0 DOUCHE' 
+'he' 
+
+'3230:0 You' 
+'he' 
+
+'3232:0 SUMMER' 
+'he' 
+
+'3233:0 Yeah' 
+'he' 
+
+'3235:0 DOUCHE' 
+'he' 
+
+'3236:0 I've' 
+'he' 
+
+'3238:0 SUMMER' 
+'he' 
+
+'3239:0 You're' 
+'he' 
+
+'3241:0 DOUCHE' 
+'he' 
+
+'3242:0 Ha.' 
+'he' 
+
+'3244:0 Tom' 
+'he' 
+
+'3245:0 about.' 
+'he' 
+
+'3247:0 DOUCHE' 
+'he' 
+
+'3248:0 So,' 
+'he' 
+
+'3250:0 SUMMER' 
+'he' 
+
+'3251:0 No' 
+'he' 
+
+'3253:0 As' 
+'he' 
+
+'3254:0 Guy' 
+'he' 
+
+'3255:0 them' 
+'he' 
+
+'3257:0 DOUCHE' 
+'he' 
+
+'3258:0 Are' 
+'he' 
+
+'3260:0 Tom' 
+'he' 
+
+'3262:0 62.' 
+'he' 
+
+'3266:0 TOM' 
+'he' 
+
+'3267:0 (BEAT)' 
+'he' 
+
+'3268:0 Hi.' 
+'he' 
+
+'3270:0 DOUCHE' 
+'he' 
+
+'3271:0 Whatever.' 
+'he' 
+
+'3272:0 (to' 
+'he' 
+
+'3273:0 Come' 
+'he' 
+
+'3274:0 drinking?' 
+'he' 
+
+'3276:0 SUMMER' 
+'he' 
+
+'3277:0 Sorry,' 
+'he' 
+
+'3279:0 Tom' 
+'he' 
+
+'3281:0 DOUCHE' 
+'he' 
+
+'3282:0 You're' 
+'he' 
+
+'3284:0 And' 
+'he' 
+
+'3286:0 TOM' 
+'he' 
+
+'3287:0 Hey' 
+'he' 
+
+'3289:0 SUMMER' 
+'he' 
+
+'3290:0 (to' 
+'he' 
+
+'3291:0 Don't' 
+'he' 
+
+'3292:0 just' 
+'he' 
+
+'3293:0 you' 
+'he' 
+
+'3294:0 alone,' 
+'he' 
+
+'3296:0 DOUCHE' 
+'he' 
+
+'3297:0 It's' 
+'he' 
+
+'3299:0 Summer' 
+'he' 
+
+'3300:0 what?"' 
+'he' 
+
+'3302:0 DOUCHE' 
+'he' 
+
+'3303:0 So' 
+'he' 
+
+'3304:0 believe' 
+'he' 
+
+'3305:0 your' 
+'he' 
+
+'3307:0 And' 
+'he' 
+
+'3308:0 cut' 
+'he' 
+
+'3309:0 coupled' 
+'he' 
+
+'3310:0 woman' 
+'he' 
+
+'3311:0 automatic' 
+'he' 
+
+'3313:0 Which' 
+'he' 
+
+'3315:0 Both' 
+'he' 
+
+'3316:0 fist).' 
+'he' 
+
+'3318:0 63.' 
+'he' 
+
+'3322:0 There's' 
+'he' 
+
+'3323:0 And' 
+'he' 
+
+'3325:0 CUT' 
+'he' 
+
+'3328:0 EXT' 
+'he' 
+
+'3330:0 Having' 
+'he' 
+
+'3331:0 a' 
+'he' 
+
+'3333:0 TOM' 
+'he' 
+
+'3334:0 Did' 
+'he' 
+
+'3335:0 know' 
+'he' 
+
+'3336:0 punched' 
+'he' 
+
+'3337:0 Greenberg' 
+'he' 
+
+'3338:0 gonna' 
+'he' 
+
+'3340:0 Summer' 
+'he' 
+
+'3341:0 time' 
+'he' 
+
+'3343:0 TOM' 
+'he' 
+
+'3344:0 Hey.' 
+'he' 
+
+'3346:0 SUMMER' 
+'he' 
+
+'3347:0 I' 
+'he' 
+
+'3349:0 TOM' 
+'he' 
+
+'3350:0 What?' 
+'he' 
+
+'3352:0 SUMMER' 
+'he' 
+
+'3353:0 You' 
+'he' 
+
+'3354:0 there.' 
+'he' 
+
+'3356:0 TOM' 
+'he' 
+
+'3357:0 You're' 
+'he' 
+
+'3358:0 kicked' 
+'he' 
+
+'3360:0 SUMMER' 
+'he' 
+
+'3361:0 Oh' 
+'he' 
+
+'3362:0 protecting' 
+'he' 
+
+'3363:0 don't.' 
+'he' 
+
+'3365:0 TOM' 
+'he' 
+
+'3366:0 Come' 
+'he' 
+
+'3368:0 SUMMER' 
+'he' 
+
+'3369:0 You' 
+'he' 
+
+'3370:0 didn't' 
+'he' 
+
+'3372:0 TOM' 
+'he' 
+
+'3373:0 I' 
+'he' 
+
+'3375:0 64.' 
+'he' 
+
+'3379:0 SUMMER' 
+'he' 
+
+'3380:0 See.' 
+'he' 
+
+'3381:0 serious' 
+'he' 
+
+'3383:0 TOM' 
+'he' 
+
+'3384:0 Whoa.' 
+'he' 
+
+'3386:0 SUMMER' 
+'he' 
+
+'3387:0 Nothing.' 
+'he' 
+
+'3388:0 like' 
+'he' 
+
+'3389:0 But' 
+'he' 
+
+'3391:0 TOM' 
+'he' 
+
+'3392:0 What...?' 
+'he' 
+
+'3394:0 SUMMER' 
+'he' 
+
+'3395:0 I' 
+'he' 
+
+'3396:0 want' 
+'he' 
+
+'3398:0 Tom' 
+'he' 
+
+'3400:0 SUMMER' 
+'he' 
+
+'3401:0 I'm' 
+'he' 
+
+'3402:0 tomorrow?' 
+'he' 
+
+'3404:0 It's' 
+'he' 
+
+'3405:0 Neither' 
+'he' 
+
+'3407:0 TOM' 
+'he' 
+
+'3408:0 (calling' 
+'he' 
+
+'3409:0 I' 
+'he' 
+
+'3411:0 Only' 
+'he' 
+
+'3413:0 TOM' 
+'he' 
+
+'3414:0 (to' 
+'he' 
+
+'3415:0 I' 
+'he' 
+
+'3419:0 (146' 
+'he' 
+
+'3420:0 INT.' 
+'he' 
+
+'3422:0 Tom' 
+'he' 
+
+'3423:0 Summer' 
+'he' 
+
+'3424:0 short.' 
+'he' 
+
+'3426:0 TOM' 
+'he' 
+
+'3427:0 (GENUINE)' 
+'he' 
+
+'3428:0 Hi.' 
+'he' 
+
+'3430:0 65.' 
+'he' 
+
+'3434:0 SUMMER' 
+'he' 
+
+'3435:0 (COLD)' 
+'he' 
+
+'3436:0 Hi.' 
+'he' 
+
+'3438:0 TOM' 
+'he' 
+
+'3439:0 What's' 
+'he' 
+
+'3441:0 SUMMER' 
+'he' 
+
+'3442:0 Nothing.' 
+'he' 
+
+'3444:0 TOM' 
+'he' 
+
+'3445:0 Ok.' 
+'he' 
+
+'3447:0 Nothing' 
+'he' 
+
+'3449:0 TOM' 
+'he' 
+
+'3450:0 Wait,' 
+'he' 
+
+'3452:0 SUMMER' 
+'he' 
+
+'3453:0 (rolling' 
+'he' 
+
+'3454:0 Tom...' 
+'he' 
+
+'3456:0 TOM' 
+'he' 
+
+'3457:0 Holy' 
+'he' 
+
+'3458:0 you!' 
+'he' 
+
+'3460:0 SUMMER' 
+'he' 
+
+'3461:0 (re:' 
+'he' 
+
+'3462:0 Are' 
+'he' 
+
+'3464:0 TOM' 
+'he' 
+
+'3465:0 Yeah.' 
+'he' 
+
+'3467:0 He' 
+'he' 
+
+'3469:0 TOM' 
+'he' 
+
+'3470:0 You' 
+'he' 
+
+'3471:0 really' 
+'he' 
+
+'3473:0 Tom' 
+'he' 
+
+'3474:0 looks' 
+'he' 
+
+'3476:0 LATER.' 
+'he' 
+
+'3477:0 She's' 
+'he' 
+
+'3478:0 she's' 
+'he' 
+
+'3480:0 LATER.' 
+'he' 
+
+'3481:0 but' 
+'he' 
+
+'3484:0 SPLITSCREEN' 
+'he' 
+
+'3486:0 Left:' 
+'he' 
+
+'3488:0 66.' 
+'he' 
+
+'3492:0 Right:' 
+'he' 
+
+'3494:0 Left:' 
+'he' 
+
+'3495:0 himself' 
+'he' 
+
+'3497:0 Right:' 
+'he' 
+
+'3498:0 doesn't.' 
+'he' 
+
+'3501:0 INT' 
+'he' 
+
+'3503:0 Tom' 
+'he' 
+
+'3504:0 the' 
+'he' 
+
+'3505:0 gets' 
+'he' 
+
+'3507:0 SUMMER' 
+'he' 
+
+'3508:0 Say' 
+'he' 
+
+'3510:0 TOM' 
+'he' 
+
+'3511:0 Huh?' 
+'he' 
+
+'3513:0 SUMMER' 
+'he' 
+
+'3514:0 Say' 
+'he' 
+
+'3515:0 jerk.' 
+'he' 
+
+'3517:0 TOM' 
+'he' 
+
+'3518:0 I' 
+'he' 
+
+'3519:0 jerk.' 
+'he' 
+
+'3521:0 SUMMER' 
+'he' 
+
+'3522:0 Ok.' 
+'he' 
+
+'3524:0 TOM' 
+'he' 
+
+'3525:0 Summer...' 
+'he' 
+
+'3526:0 what' 
+'he' 
+
+'3528:0 SUMMER' 
+'he' 
+
+'3529:0 I' 
+'he' 
+
+'3531:0 TOM' 
+'he' 
+
+'3532:0 Consistency.' 
+'he' 
+
+'3533:0 won't' 
+'he' 
+
+'3534:0 different' 
+'he' 
+
+'3536:0 SUMMER' 
+'he' 
+
+'3537:0 I' 
+'he' 
+
+'3538:0 can.' 
+'he' 
+
+'3540:0 A' 
+'he' 
+
+'3542:0 SUMMER' 
+'he' 
+
+'3543:0 I' 
+'he' 
+
+'3544:0 right' 
+'he' 
+
+'3546:0 67.' 
+'he' 
+
+'3550:0 She' 
+'he' 
+
+'3551:0 Is' 
+'he' 
+
+'3552:0 again.' 
+'he' 
+
+'3555:0 INT' 
+'he' 
+
+'3557:0 Tom' 
+'he' 
+
+'3559:0 TOM' 
+'he' 
+
+'3560:0 Have' 
+'he' 
+
+'3561:0 "boyfriend?"' 
+'he' 
+
+'3563:0 SUMMER' 
+'he' 
+
+'3564:0 What?' 
+'he' 
+
+'3566:0 TOM' 
+'he' 
+
+'3567:0 A' 
+'he' 
+
+'3568:0 Whatever.' 
+'he' 
+
+'3570:0 SUMMER' 
+'he' 
+
+'3571:0 Well...' 
+'he' 
+
+'3573:0 TOM' 
+'he' 
+
+'3574:0 More' 
+'he' 
+
+'3576:0 SUMMER' 
+'he' 
+
+'3577:0 A' 
+'he' 
+
+'3579:0 TOM' 
+'he' 
+
+'3580:0 Tell' 
+'he' 
+
+'3582:0 SUMMER' 
+'he' 
+
+'3583:0 Oh' 
+'he' 
+
+'3585:0 TOM' 
+'he' 
+
+'3586:0 Why?' 
+'he' 
+
+'3588:0 SUMMER' 
+'he' 
+
+'3589:0 Cause' 
+'he' 
+
+'3591:0 TOM' 
+'he' 
+
+'3592:0 Come' 
+'he' 
+
+'3594:0 SUMMER' 
+'he' 
+
+'3595:0 You' 
+'he' 
+
+'3596:0 history' 
+'he' 
+
+'3598:0 TOM' 
+'he' 
+
+'3599:0 Yes.' 
+'he' 
+
+'3601:0 SUMMER' 
+'he' 
+
+'3602:0 You' 
+'he' 
+
+'3604:0 68.' 
+'he' 
+
+'3608:0 TOM' 
+'he' 
+
+'3609:0 No.' 
+'he' 
+
+'3610:0 can' 
+'he' 
+
+'3612:0 SUMMER' 
+'he' 
+
+'3613:0 Ok.' 
+'he' 
+
+'3614:0 Markus.' 
+'he' 
+
+'3616:0 INSERT:' 
+'he' 
+
+'3617:0 appears' 
+'he' 
+
+'3618:0 touchdown' 
+'he' 
+
+'3620:0 TOM' 
+'he' 
+
+'3621:0 Quarterback' 
+'he' 
+
+'3623:0 SUMMER' 
+'he' 
+
+'3624:0 He' 
+'he' 
+
+'3626:0 TOM' 
+'he' 
+
+'3627:0 What' 
+'he' 
+
+'3629:0 SUMMER' 
+'he' 
+
+'3630:0 He' 
+'he' 
+
+'3631:0 Very' 
+'he' 
+
+'3633:0 TOM' 
+'he' 
+
+'3634:0 Ok.' 
+'he' 
+
+'3636:0 SUMMER' 
+'he' 
+
+'3637:0 Well,' 
+'he' 
+
+'3638:0 there' 
+'he' 
+
+'3640:0 INSERT:' 
+'he' 
+
+'3641:0 Playing' 
+'he' 
+
+'3643:0 SUMMER' 
+'he' 
+
+'3644:0 That' 
+'he' 
+
+'3645:0 (BEAT)' 
+'he' 
+
+'3646:0 And...' 
+'he' 
+
+'3647:0 Belardelli.' 
+'he' 
+
+'3649:0 INSERT:' 
+'he' 
+
+'3650:0 posing' 
+'he' 
+
+'3651:0 boner' 
+'he' 
+
+'3653:0 TOM' 
+'he' 
+
+'3654:0 The' 
+'he' 
+
+'3656:0 SUMMER' 
+'he' 
+
+'3657:0 Yeah,' 
+'he' 
+
+'3659:0 Tom' 
+'he' 
+
+'3661:0 69.' 
+'he' 
+
+'3665:0 TOM' 
+'he' 
+
+'3666:0 And' 
+'he' 
+
+'3668:0 SUMMER' 
+'he' 
+
+'3669:0 The' 
+'he' 
+
+'3671:0 TOM' 
+'he' 
+
+'3672:0 What' 
+'he' 
+
+'3673:0 out?' 
+'he' 
+
+'3675:0 SUMMER' 
+'he' 
+
+'3676:0 Nothing' 
+'he' 
+
+'3677:0 always' 
+'he' 
+
+'3679:0 On' 
+'he' 
+
+'3681:0 CUT' 
+'he' 
+
+'3684:0 (290S)' 
+'he' 
+
+'3685:0 EXT.' 
+'he' 
+
+'3687:0 Tom,' 
+'he' 
+
+'3688:0 corner' 
+'he' 
+
+'3689:0 closer' 
+'he' 
+
+'3690:0 relief.' 
+'he' 
+
+'3693:0 INT.' 
+'he' 
+
+'3695:0 Tom' 
+'he' 
+
+'3696:0 could' 
+'he' 
+
+'3699:0 INT' 
+'he' 
+
+'3701:0 A' 
+'he' 
+
+'3702:0 PASSENGER' 
+'he' 
+
+'3705:0 (302)' 
+'he' 
+
+'3706:0 EXT' 
+'he' 
+
+'3708:0 Tom' 
+'he' 
+
+'3709:0 towards' 
+'he' 
+
+'3710:0 right' 
+'he' 
+
+'3712:0 70.' 
+'he' 
+
+'3716:0 ALISON' 
+'he' 
+
+'3717:0 So' 
+'he' 
+
+'3718:0 Robyn?' 
+'he' 
+
+'3720:0 TOM' 
+'he' 
+
+'3721:0 Since' 
+'he' 
+
+'3723:0 ALISON' 
+'he' 
+
+'3724:0 No' 
+'he' 
+
+'3726:0 TOM' 
+'he' 
+
+'3727:0 Yeah.' 
+'he' 
+
+'3729:0 ALISON' 
+'he' 
+
+'3730:0 Well' 
+'he' 
+
+'3731:0 spoke' 
+'he' 
+
+'3733:0 TOM' 
+'he' 
+
+'3734:0 Great.' 
+'he' 
+
+'3737:0 INT' 
+'he' 
+
+'3739:0 Tom' 
+'he' 
+
+'3741:0 ALISON' 
+'he' 
+
+'3742:0 So...uh...' 
+'he' 
+
+'3744:0 TOM' 
+'he' 
+
+'3745:0 Ok.' 
+'he' 
+
+'3747:0 Beat.' 
+'he' 
+
+'3749:0 ALISON' 
+'he' 
+
+'3750:0 You've' 
+'he' 
+
+'3752:0 TOM' 
+'he' 
+
+'3753:0 Sorry.' 
+'he' 
+
+'3755:0 ALISON' 
+'he' 
+
+'3756:0 I'm' 
+'he' 
+
+'3757:0 nice' 
+'he' 
+
+'3758:0 enough' 
+'he' 
+
+'3759:0 eat' 
+'he' 
+
+'3760:0 you' 
+'he' 
+
+'3762:0 TOM' 
+'he' 
+
+'3763:0 Uh-huh.' 
+'he' 
+
+'3765:0 More' 
+'he' 
+
+'3767:0 ALISON' 
+'he' 
+
+'3768:0 Do' 
+'he' 
+
+'3770:0 71.' 
+'he' 
+
+'3774:0 TOM' 
+'he' 
+
+'3775:0 No' 
+'he' 
+
+'3777:0 Alison' 
+'he' 
+
+'3778:0 starts' 
+'he' 
+
+'3780:0 TOM' 
+'he' 
+
+'3781:0 I'm' 
+'he' 
+
+'3782:0 this' 
+'he' 
+
+'3784:0 ALISON' 
+'he' 
+
+'3785:0 Oh.' 
+'he' 
+
+'3787:0 TOM' 
+'he' 
+
+'3788:0 I'm' 
+'he' 
+
+'3789:0 before...' 
+'he' 
+
+'3790:0 wrecked' 
+'he' 
+
+'3791:0 tell' 
+'he' 
+
+'3792:0 I'm' 
+'he' 
+
+'3794:0 ALISON' 
+'he' 
+
+'3795:0 (DISAPPOINTED)' 
+'he' 
+
+'3796:0 Well' 
+'he' 
+
+'3797:0 about...' 
+'he' 
+
+'3798:0 cheer' 
+'he' 
+
+'3800:0 TOM' 
+'he' 
+
+'3801:0 I' 
+'he' 
+
+'3802:0 know?' 
+'he' 
+
+'3803:0 all' 
+'he' 
+
+'3804:0 horrible.' 
+'he' 
+
+'3805:0 see' 
+'he' 
+
+'3806:0 were' 
+'he' 
+
+'3807:0 through' 
+'he' 
+
+'3808:0 second' 
+'he' 
+
+'3809:0 wrong?' 
+'he' 
+
+'3810:0 prevented' 
+'he' 
+
+'3813:0 EXT' 
+'he' 
+
+'3815:0 Summer' 
+'he' 
+
+'3816:0 buildings.' 
+'he' 
+
+'3818:0 TOM' 
+'he' 
+
+'3819:0 A' 
+'he' 
+
+'3820:0 this,' 
+'he' 
+
+'3821:0 structures' 
+'he' 
+
+'3822:0 side' 
+'he' 
+
+'3824:0 Tom' 
+'he' 
+
+'3825:0 CAMERA.' 
+'he' 
+
+'3827:0 72.' 
+'he' 
+
+'3831:0 SUMMER' 
+'he' 
+
+'3832:0 While' 
+'he' 
+
+'3833:0 buildings' 
+'he' 
+
+'3834:0 bullshit' 
+'he' 
+
+'3835:0 nod' 
+'he' 
+
+'3836:0 while' 
+'he' 
+
+'3837:0 many' 
+'he' 
+
+'3838:0 your' 
+'he' 
+
+'3839:0 rabid' 
+'he' 
+
+'3842:0 INT' 
+'he' 
+
+'3844:0 Tom' 
+'he' 
+
+'3846:0 TOM' 
+'he' 
+
+'3847:0 Maybe' 
+'he' 
+
+'3848:0 have' 
+'he' 
+
+'3850:0 INT' 
+'he' 
+
+'3852:0 From' 
+'he' 
+
+'3853:0 He's' 
+'he' 
+
+'3854:0 in' 
+'he' 
+
+'3855:0 and' 
+'he' 
+
+'3858:0 INT' 
+'he' 
+
+'3860:0 Tom' 
+'he' 
+
+'3862:0 ALISON' 
+'he' 
+
+'3863:0 Waiter!' 
+'he' 
+
+'3865:0 TOM' 
+'he' 
+
+'3866:0 Or...' 
+'he' 
+
+'3867:0 she' 
+'he' 
+
+'3868:0 to' 
+'he' 
+
+'3871:0 INT' 
+'he' 
+
+'3873:0 Tom' 
+'he' 
+
+'3875:0 TOM' 
+'he' 
+
+'3876:0 (BEAT)' 
+'he' 
+
+'3877:0 How' 
+'he' 
+
+'3879:0 SUMMER' 
+'he' 
+
+'3880:0 (winks' 
+'he' 
+
+'3881:0 It' 
+'he' 
+
+'3883:0 73.' 
+'he' 
+
+'3888:0 INT' 
+'he' 
+
+'3890:0 TOM' 
+'he' 
+
+'3891:0 Anyway...' 
+'he' 
+
+'3892:0 strange,' 
+'he' 
+
+'3894:0 ALISON' 
+'he' 
+
+'3895:0 It's' 
+'he' 
+
+'3896:0 getting' 
+'he' 
+
+'3898:0 TOM' 
+'he' 
+
+'3899:0 Actually' 
+'he' 
+
+'3900:0 girlfriend.' 
+'he' 
+
+'3902:0 Now' 
+'he' 
+
+'3903:0 where' 
+'he' 
+
+'3905:0 TOM' 
+'he' 
+
+'3906:0 I' 
+'he' 
+
+'3907:0 figured' 
+'he' 
+
+'3908:0 life.' 
+'he' 
+
+'3909:0 to' 
+'he' 
+
+'3910:0 stuff.' 
+'he' 
+
+'3911:0 And' 
+'he' 
+
+'3912:0 Summer,' 
+'he' 
+
+'3913:0 never' 
+'he' 
+
+'3914:0 life' 
+'he' 
+
+'3916:0 ALISON' 
+'he' 
+
+'3917:0 You' 
+'he' 
+
+'3918:0 does.' 
+'he' 
+
+'3919:0 the' 
+'he' 
+
+'3920:0 them.' 
+'he' 
+
+'3922:0 TOM' 
+'he' 
+
+'3923:0 Sure.' 
+'he' 
+
+'3924:0 (BEAT)' 
+'he' 
+
+'3925:0 Hey,' 
+'he' 
+
+'3926:0 You' 
+'he' 
+
+'3928:0 ALISON' 
+'he' 
+
+'3929:0 Me?' 
+'he' 
+
+'3931:0 TOM' 
+'he' 
+
+'3932:0 So' 
+'he' 
+
+'3933:0 something?' 
+'he' 
+
+'3934:0 What' 
+'he' 
+
+'3936:0 ALISON' 
+'he' 
+
+'3937:0 I...' 
+'he' 
+
+'3938:0 (BEAT)' 
+'he' 
+
+'3939:0 (MORE)' 
+'he' 
+
+'3941:0 74.' 
+'he' 
+
+'3943:0 ALISON' 
+'he' 
+
+'3944:0 You' 
+'he' 
+
+'3945:0 this' 
+'he' 
+
+'3947:0 TOM' 
+'he' 
+
+'3948:0 (suddenly' 
+'he' 
+
+'3949:0 Oh!' 
+'he' 
+
+'3952:0 INT' 
+'he' 
+
+'3954:0 Tom' 
+'he' 
+
+'3955:0 "Train' 
+'he' 
+
+'3956:0 breakdown' 
+'he' 
+
+'3958:0 TOM' 
+'he' 
+
+'3959:0 "You' 
+'he' 
+
+'3960:0 man!/So' 
+'he' 
+
+'3961:0 understand.' 
+'he' 
+
+'3962:0 me!/And' 
+'he' 
+
+'3963:0 left' 
+'he' 
+
+'3965:0 Alison' 
+'he' 
+
+'3967:0 TOM' 
+'he' 
+
+'3968:0 "You' 
+'he' 
+
+'3969:0 all!' 
+'he' 
+
+'3970:0 talking' 
+'he' 
+
+'3972:0 On' 
+'he' 
+
+'3974:0 CUT' 
+'he' 
+
+'3978:0 (219)' 
+'he' 
+
+'3979:0 INT' 
+'he' 
+
+'3981:0 Tom' 
+'he' 
+
+'3982:0 pop' 
+'he' 
+
+'3983:0 to.' 
+'he' 
+
+'3985:0 He' 
+'he' 
+
+'3986:0 brushes' 
+'he' 
+
+'3987:0 plucks' 
+'he' 
+
+'3988:0 the' 
+'he' 
+
+'3990:0 Satisfied,' 
+'he' 
+
+'3992:0 75.' 
+'he' 
+
+'3997:0 EXT' 
+'he' 
+
+'3999:0 Tom' 
+'he' 
+
+'4001:0 INTERCUT' 
+'he' 
+
+'4004:0 INT' 
+'he' 
+
+'4006:0 Summer' 
+'he' 
+
+'4007:0 like' 
+'he' 
+
+'4009:0 SUMMER' 
+'he' 
+
+'4010:0 Hey' 
+'he' 
+
+'4012:0 TOM' 
+'he' 
+
+'4013:0 Hello' 
+'he' 
+
+'4015:0 SUMMER' 
+'he' 
+
+'4016:0 I' 
+'he' 
+
+'4017:0 tonight...' 
+'he' 
+
+'4018:0 stay' 
+'he' 
+
+'4020:0 TOM' 
+'he' 
+
+'4021:0 What?' 
+'he' 
+
+'4023:0 SUMMER' 
+'he' 
+
+'4024:0 I'm' 
+'he' 
+
+'4025:0 gotta' 
+'he' 
+
+'4026:0 you' 
+'he' 
+
+'4027:0 out' 
+'he' 
+
+'4029:0 TOM' 
+'he' 
+
+'4030:0 Well...' 
+'he' 
+
+'4031:0 maybe,' 
+'he' 
+
+'4032:0 gotta' 
+'he' 
+
+'4034:0 SUMMER' 
+'he' 
+
+'4035:0 I'm' 
+'he' 
+
+'4036:0 this' 
+'he' 
+
+'4038:0 TOM' 
+'he' 
+
+'4039:0 (touching' 
+'he' 
+
+'4040:0 Sorta.' 
+'he' 
+
+'4042:0 SUMMER' 
+'he' 
+
+'4043:0 I'd' 
+'he' 
+
+'4044:0 mind?' 
+'he' 
+
+'4046:0 Tom' 
+'he' 
+
+'4047:0 keep' 
+'he' 
+
+'4049:0 76.' 
+'he' 
+
+'4053:0 TOM' 
+'he' 
+
+'4054:0 Hey,' 
+'he' 
+
+'4055:0 want' 
+'he' 
+
+'4057:0 SUMMER' 
+'he' 
+
+'4058:0 Thank' 
+'he' 
+
+'4059:0 alright?' 
+'he' 
+
+'4061:0 TOM' 
+'he' 
+
+'4062:0 Sure.' 
+'he' 
+
+'4064:0 SUMMER' 
+'he' 
+
+'4065:0 Great.' 
+'he' 
+
+'4067:0 TOM' 
+'he' 
+
+'4068:0 Good' 
+'he' 
+
+'4069:0 (BEAT)' 
+'he' 
+
+'4070:0 Hey,' 
+'he' 
+
+'4072:0 But' 
+'he' 
+
+'4073:0 another' 
+'he' 
+
+'4075:0 CUT' 
+'he' 
+
+'4078:0 CU' 
+'he' 
+
+'4080:0 PAUL' 
+'he' 
+
+'4081:0 I' 
+'he' 
+
+'4082:0 elementary' 
+'he' 
+
+'4083:0 class' 
+'he' 
+
+'4084:0 we' 
+'he' 
+
+'4086:0 CUT' 
+'he' 
+
+'4089:0 CU' 
+'he' 
+
+'4091:0 MCKENZIE' 
+'he' 
+
+'4092:0 Love?' 
+'he' 
+
+'4093:0 as' 
+'he' 
+
+'4094:0 right?' 
+'he' 
+
+'4095:0 word.' 
+'he' 
+
+'4097:0 CU' 
+'he' 
+
+'4099:0 RACHEL' 
+'he' 
+
+'4100:0 That's' 
+'he' 
+
+'4101:0 Philosophers,' 
+'he' 
+
+'4102:0 everybody' 
+'he' 
+
+'4103:0 (MORE)' 
+'he' 
+
+'4105:0 77.' 
+'he' 
+
+'4107:0 RACHEL' 
+'he' 
+
+'4108:0 I' 
+'he' 
+
+'4109:0 "There' 
+'he' 
+
+'4110:0 love,' 
+'he' 
+
+'4111:0 some' 
+'he' 
+
+'4112:0 about' 
+'he' 
+
+'4113:0 Nietzsche' 
+'he' 
+
+'4114:0 Jews."' 
+'he' 
+
+'4116:0 CU' 
+'he' 
+
+'4118:0 VANCE.' 
+'he' 
+
+'4119:0 I've' 
+'he' 
+
+'4120:0 years.' 
+'he' 
+
+'4121:0 me' 
+'he' 
+
+'4122:0 (BEAT)' 
+'he' 
+
+'4123:0 Yes' 
+'he' 
+
+'4124:0 (BEAT)' 
+'he' 
+
+'4125:0 No' 
+'he' 
+
+'4126:0 make' 
+'he' 
+
+'4128:0 CU' 
+'he' 
+
+'4130:0 SUMMER' 
+'he' 
+
+'4131:0 Ok' 
+'he' 
+
+'4132:0 on!' 
+'he' 
+
+'4133:0 for' 
+'he' 
+
+'4134:0 it's' 
+'he' 
+
+'4135:0 very' 
+'he' 
+
+'4136:0 Absolutely' 
+'he' 
+
+'4137:0 break!' 
+'he' 
+
+'4139:0 CU' 
+'he' 
+
+'4141:0 MCKENZIE' 
+'he' 
+
+'4142:0 I'm' 
+'he' 
+
+'4143:0 some' 
+'he' 
+
+'4144:0 (BEAT)' 
+'he' 
+
+'4145:0 You' 
+'he' 
+
+'4147:0 CU' 
+'he' 
+
+'4149:0 PAUL' 
+'he' 
+
+'4150:0 I' 
+'he' 
+
+'4151:0 dreams,"' 
+'he' 
+
+'4152:0 would' 
+'he' 
+
+'4153:0 different' 
+'he' 
+
+'4154:0 little' 
+'he' 
+
+'4155:0 Robyn's' 
+'he' 
+
+'4156:0 dreams.' 
+'he' 
+
+'4157:0 (BEAT)' 
+'he' 
+
+'4158:0 You' 
+'he' 
+
+'4160:0 CU' 
+'he' 
+
+'4162:0 78.' 
+'he' 
+
+'4166:0 He' 
+'he' 
+
+'4167:0 INTO:' 
+'he' 
+
+'4169:0 ANIMATION.' 
+'he' 
+
+'4170:0 sequence.' 
+'he' 
+
+'4174:0 (101)' 
+'he' 
+
+'4175:0 INT' 
+'he' 
+
+'4177:0 Tom' 
+'he' 
+
+'4179:0 MCKENZIE' 
+'he' 
+
+'4180:0 Hansen,' 
+'he' 
+
+'4181:0 bar' 
+'he' 
+
+'4183:0 TOM' 
+'he' 
+
+'4184:0 Nope.' 
+'he' 
+
+'4185:0 working' 
+'he' 
+
+'4187:0 MCKENZIE' 
+'he' 
+
+'4188:0 Congratulations.' 
+'he' 
+
+'4189:0 of' 
+'he' 
+
+'4190:0 "well' 
+'he' 
+
+'4191:0 nothing.' 
+'he' 
+
+'4193:0 TOM' 
+'he' 
+
+'4194:0 Why' 
+'he' 
+
+'4195:0 make' 
+'he' 
+
+'4196:0 card."' 
+'he' 
+
+'4198:0 MCKENZIE' 
+'he' 
+
+'4199:0 (BEAT)' 
+'he' 
+
+'4200:0 Shit.' 
+'he' 
+
+'4202:0 TOM' 
+'he' 
+
+'4203:0 No' 
+'he' 
+
+'4205:0 Tom' 
+'he' 
+
+'4206:0 He's' 
+'he' 
+
+'4209:0 INT' 
+'he' 
+
+'4211:0 All' 
+'he' 
+
+'4212:0 Currently,' 
+'he' 
+
+'4213:0 writing' 
+'he' 
+
+'4215:0 79.' 
+'he' 
+
+'4219:0 TOM' 
+'he' 
+
+'4220:0 This' 
+'he' 
+
+'4221:0 the' 
+'he' 
+
+'4222:0 That's' 
+'he' 
+
+'4223:0 though,' 
+'he' 
+
+'4224:0 like...' 
+'he' 
+
+'4225:0 meet' 
+'he' 
+
+'4226:0 incomplete."' 
+'he' 
+
+'4227:0 a' 
+'he' 
+
+'4229:0 The' 
+'he' 
+
+'4232:0 INT' 
+'he' 
+
+'4234:0 Workers' 
+'he' 
+
+'4236:0 TOM' 
+'he' 
+
+'4237:0 Did' 
+'he' 
+
+'4239:0 ALL' 
+'he' 
+
+'4240:0 Whoa/Perfect/Yes!' 
+'he' 
+
+'4242:0 TOM' 
+'he' 
+
+'4243:0 What' 
+'he' 
+
+'4245:0 EMPLOYEE' 
+'he' 
+
+'4246:0 Passover.' 
+'he' 
+
+'4248:0 Tom' 
+'he' 
+
+'4249:0 hell' 
+'he' 
+
+'4250:0 tears' 
+'he' 
+
+'4253:0 INT' 
+'he' 
+
+'4255:0 Tom' 
+'he' 
+
+'4256:0 so' 
+'he' 
+
+'4259:0 INT' 
+'he' 
+
+'4261:0 ANGLE' 
+'he' 
+
+'4263:0 TOM' 
+'he' 
+
+'4264:0 "...aint' 
+'he' 
+
+'4265:0 sista' 
+'he' 
+
+'4266:0 lean,' 
+'he' 
+
+'4267:0 queen!"' 
+'he' 
+
+'4268:0 (BEAT)' 
+'he' 
+
+'4269:0 How's' 
+'he' 
+
+'4271:0 The' 
+'he' 
+
+'4273:0 80.' 
+'he' 
+
+'4277:0 MAHOGANY' 
+'he' 
+
+'4278:0 Something's' 
+'he' 
+
+'4280:0 TOM' 
+'he' 
+
+'4281:0 Yeah.' 
+'he' 
+
+'4284:0 (222)' 
+'he' 
+
+'4285:0 EXT' 
+'he' 
+
+'4287:0 Tom' 
+'he' 
+
+'4289:0 TOM' 
+'he' 
+
+'4290:0 You' 
+'he' 
+
+'4292:0 SUMMER' 
+'he' 
+
+'4293:0 It' 
+'he' 
+
+'4295:0 TOM' 
+'he' 
+
+'4296:0 It's,' 
+'he' 
+
+'4298:0 SUMMER' 
+'he' 
+
+'4299:0 Exactly.' 
+'he' 
+
+'4301:0 TOM' 
+'he' 
+
+'4302:0 Ok.' 
+'he' 
+
+'4304:0 SUMMER' 
+'he' 
+
+'4305:0 All' 
+'he' 
+
+'4306:0 romances.' 
+'he' 
+
+'4307:0 wounds,' 
+'he' 
+
+'4309:0 TOM' 
+'he' 
+
+'4310:0 Fantastic.' 
+'he' 
+
+'4312:0 Suddenly,' 
+'he' 
+
+'4314:0 TOM' 
+'he' 
+
+'4315:0 Oh' 
+'he' 
+
+'4317:0 SUMMER' 
+'he' 
+
+'4318:0 What?' 
+'he' 
+
+'4320:0 And' 
+'he' 
+
+'4321:0 Tom's' 
+'he' 
+
+'4323:0 SARAH' 
+'he' 
+
+'4324:0 Hey!' 
+'he' 
+
+'4326:0 81.' 
+'he' 
+
+'4330:0 Sarah' 
+'he' 
+
+'4331:0 hugs' 
+'he' 
+
+'4333:0 TOM' 
+'he' 
+
+'4334:0 (looking' 
+'he' 
+
+'4335:0 Hi' 
+'he' 
+
+'4337:0 Summer' 
+'he' 
+
+'4339:0 TOM' 
+'he' 
+
+'4340:0 Mom,' 
+'he' 
+
+'4342:0 SARAH' 
+'he' 
+
+'4343:0 Summer!' 
+'he' 
+
+'4344:0 much' 
+'he' 
+
+'4345:0 finally' 
+'he' 
+
+'4347:0 Sarah' 
+'he' 
+
+'4349:0 SUMMER' 
+'he' 
+
+'4350:0 You' 
+'he' 
+
+'4352:0 And' 
+'he' 
+
+'4353:0 Summer's' 
+'he' 
+
+'4354:0 hugging' 
+'he' 
+
+'4356:0 MARTIN' 
+'he' 
+
+'4357:0 (to' 
+'he' 
+
+'4358:0 Is' 
+'he' 
+
+'4360:0 Tom' 
+'he' 
+
+'4362:0 TOM' 
+'he' 
+
+'4363:0 Well' 
+'he' 
+
+'4364:0 told' 
+'he' 
+
+'4365:0 "girlfriend"' 
+'he' 
+
+'4367:0 SARAH' 
+'he' 
+
+'4368:0 You' 
+'he' 
+
+'4369:0 one?' 
+'he' 
+
+'4371:0 SUMMER' 
+'he' 
+
+'4372:0 Yes' 
+'he' 
+
+'4374:0 SARAH' 
+'he' 
+
+'4375:0 Great!' 
+'he' 
+
+'4377:0 Again,' 
+'he' 
+
+'4378:0 Summer.' 
+'he' 
+
+'4380:0 SUMMER' 
+'he' 
+
+'4381:0 Absolutely.' 
+'he' 
+
+'4383:0 82.' 
+'he' 
+
+'4387:0 SARAH' 
+'he' 
+
+'4388:0 Ok.' 
+'he' 
+
+'4390:0 When' 
+'he' 
+
+'4391:0 distraught.' 
+'he' 
+
+'4393:0 TOM' 
+'he' 
+
+'4394:0 Sorry' 
+'he' 
+
+'4396:0 SUMMER' 
+'he' 
+
+'4397:0 It's' 
+'he' 
+
+'4399:0 TOM' 
+'he' 
+
+'4400:0 You' 
+'he' 
+
+'4401:0 can' 
+'he' 
+
+'4403:0 SUMMER' 
+'he' 
+
+'4404:0 Did' 
+'he' 
+
+'4405:0 girlfriend?' 
+'he' 
+
+'4407:0 TOM' 
+'he' 
+
+'4408:0 What?!' 
+'he' 
+
+'4409:0 word.' 
+'he' 
+
+'4411:0 SUMMER' 
+'he' 
+
+'4412:0 They' 
+'he' 
+
+'4413:0 is' 
+'he' 
+
+'4415:0 TOM' 
+'he' 
+
+'4416:0 He's' 
+'he' 
+
+'4418:0 SUMMER' 
+'he' 
+
+'4419:0 Does' 
+'he' 
+
+'4421:0 There's' 
+'he' 
+
+'4423:0 Summer' 
+'he' 
+
+'4424:0 him' 
+'he' 
+
+'4425:0 theatre.' 
+'he' 
+
+'4426:0 ever.' 
+'he' 
+
+'4428:0 CUT' 
+'he' 
+
+'4431:0 INT' 
+'he' 
+
+'4433:0 Summer,' 
+'he' 
+
+'4434:0 emotionless.' 
+'he' 
+
+'4435:0 something.' 
+'he' 
+
+'4436:0 head' 
+'he' 
+
+'4438:0 ANGLE' 
+'he' 
+
+'4440:0 83.' 
+'he' 
+
+'4444:0 It's' 
+'he' 
+
+'4445:0 assassin.' 
+'he' 
+
+'4446:0 fly' 
+'he' 
+
+'4447:0 like' 
+'he' 
+
+'4448:0 horrible' 
+'he' 
+
+'4451:0 (228)' 
+'he' 
+
+'4452:0 INT' 
+'he' 
+
+'4454:0 Rave' 
+'he' 
+
+'4455:0 miserable.' 
+'he' 
+
+'4456:0 really' 
+'he' 
+
+'4457:0 everyone.' 
+'he' 
+
+'4458:0 sweat' 
+'he' 
+
+'4460:0 SUMMER' 
+'he' 
+
+'4461:0 You're' 
+'he' 
+
+'4463:0 TOM' 
+'he' 
+
+'4464:0 You're' 
+'he' 
+
+'4465:0 us.' 
+'he' 
+
+'4467:0 SUMMER' 
+'he' 
+
+'4468:0 I'm' 
+'he' 
+
+'4469:0 ages.' 
+'he' 
+
+'4471:0 TOM' 
+'he' 
+
+'4472:0 No.' 
+'he' 
+
+'4474:0 SUMMER' 
+'he' 
+
+'4475:0 Come' 
+'he' 
+
+'4477:0 TOM' 
+'he' 
+
+'4478:0 Where' 
+'he' 
+
+'4479:0 have' 
+'he' 
+
+'4480:0 standing' 
+'he' 
+
+'4481:0 time' 
+'he' 
+
+'4483:0 SUMMER' 
+'he' 
+
+'4484:0 So' 
+'he' 
+
+'4486:0 TOM' 
+'he' 
+
+'4487:0 I'm' 
+'he' 
+
+'4488:0 I' 
+'he' 
+
+'4490:0 SUMMER' 
+'he' 
+
+'4491:0 Then' 
+'he' 
+
+'4493:0 84.' 
+'he' 
+
+'4497:0 TOM' 
+'he' 
+
+'4498:0 This' 
+'he' 
+
+'4499:0 so...we're' 
+'he' 
+
+'4501:0 SUMMER' 
+'he' 
+
+'4502:0 Yeah' 
+'he' 
+
+'4503:0 chaperone.' 
+'he' 
+
+'4504:0 buzzkill' 
+'he' 
+
+'4506:0 TOM' 
+'he' 
+
+'4507:0 (HURT)' 
+'he' 
+
+'4508:0 That's' 
+'he' 
+
+'4510:0 He' 
+'he' 
+
+'4512:0 SUMMER' 
+'he' 
+
+'4513:0 Tom!' 
+'he' 
+
+'4515:0 But' 
+'he' 
+
+'4516:0 starts' 
+'he' 
+
+'4518:0 LATER.' 
+'he' 
+
+'4519:0 music' 
+'he' 
+
+'4520:0 alone.' 
+'he' 
+
+'4523:0 (251)' 
+'he' 
+
+'4524:0 FADE' 
+'he' 
+
+'4527:0 EXT' 
+'he' 
+
+'4529:0 The' 
+'he' 
+
+'4531:0 Tom' 
+'he' 
+
+'4532:0 down' 
+'he' 
+
+'4533:0 broken' 
+'he' 
+
+'4534:0 Hall' 
+'he' 
+
+'4535:0 He' 
+'he' 
+
+'4536:0 brother' 
+'he' 
+
+'4538:0 Tom' 
+'he' 
+
+'4540:0 He' 
+'he' 
+
+'4541:0 doesn't' 
+'he' 
+
+'4543:0 Cartoon' 
+'he' 
+
+'4545:0 The' 
+'he' 
+
+'4546:0 directions.' 
+'he' 
+
+'4548:0 85.' 
+'he' 
+
+'4552:0 Tom's' 
+'he' 
+
+'4553:0 of' 
+'he' 
+
+'4554:0 The' 
+'he' 
+
+'4555:0 tries' 
+'he' 
+
+'4558:0 INT' 
+'he' 
+
+'4560:0 He' 
+'he' 
+
+'4561:0 He' 
+'he' 
+
+'4562:0 up' 
+'he' 
+
+'4565:0 INT' 
+'he' 
+
+'4567:0 Tom' 
+'he' 
+
+'4569:0 TOM' 
+'he' 
+
+'4570:0 You' 
+'he' 
+
+'4572:0 VANCE' 
+'he' 
+
+'4573:0 Yes' 
+'he' 
+
+'4575:0 TOM' 
+'he' 
+
+'4576:0 Ok.' 
+'he' 
+
+'4578:0 VANCE.' 
+'he' 
+
+'4579:0 Has' 
+'he' 
+
+'4580:0 recently?' 
+'he' 
+
+'4582:0 TOM' 
+'he' 
+
+'4583:0 What' 
+'he' 
+
+'4585:0 VANCE' 
+'he' 
+
+'4586:0 A' 
+'he' 
+
+'4587:0 taken' 
+'he' 
+
+'4589:0 TOM' 
+'he' 
+
+'4590:0 No.' 
+'he' 
+
+'4592:0 VANCE' 
+'he' 
+
+'4593:0 Look,' 
+'he' 
+
+'4594:0 this' 
+'he' 
+
+'4595:0 Summer' 
+'he' 
+
+'4597:0 TOM' 
+'he' 
+
+'4598:0 Who?' 
+'he' 
+
+'4600:0 VANCE.' 
+'he' 
+
+'4601:0 My' 
+'he' 
+
+'4603:0 86.' 
+'he' 
+
+'4607:0 TOM' 
+'he' 
+
+'4608:0 (faking' 
+'he' 
+
+'4609:0 Your...?' 
+'he' 
+
+'4611:0 VANCE.' 
+'he' 
+
+'4612:0 Tom...everyone' 
+'he' 
+
+'4613:0 The' 
+'he' 
+
+'4614:0 your' 
+'he' 
+
+'4615:0 little' 
+'he' 
+
+'4617:0 TOM' 
+'he' 
+
+'4618:0 I'm' 
+'he' 
+
+'4620:0 VANCE' 
+'he' 
+
+'4621:0 For' 
+'he' 
+
+'4622:0 wrote' 
+'he' 
+
+'4623:0 (reads' 
+'he' 
+
+'4624:0 DESK)' 
+'he' 
+
+'4625:0 "Roses' 
+'he' 
+
+'4626:0 Fuck' 
+'he' 
+
+'4627:0 shoppers' 
+'he' 
+
+'4629:0 TOM' 
+'he' 
+
+'4630:0 Mr.' 
+'he' 
+
+'4632:0 VANCE' 
+'he' 
+
+'4633:0 No,' 
+'he' 
+
+'4634:0 one' 
+'he' 
+
+'4635:0 writers.' 
+'he' 
+
+'4637:0 TOM' 
+'he' 
+
+'4638:0 Ok.' 
+'he' 
+
+'4639:0 have' 
+'he' 
+
+'4641:0 VANCE' 
+'he' 
+
+'4642:0 That's' 
+'he' 
+
+'4643:0 just' 
+'he' 
+
+'4644:0 channel' 
+'he' 
+
+'4646:0 He' 
+'he' 
+
+'4648:0 TOM' 
+'he' 
+
+'4649:0 Funerals' 
+'he' 
+
+'4651:0 VANCE' 
+'he' 
+
+'4652:0 Misery,' 
+'he' 
+
+'4653:0 reasons' 
+'he' 
+
+'4654:0 you.' 
+'he' 
+
+'4655:0 back' 
+'he' 
+
+'4657:0 He' 
+'he' 
+
+'4659:0 87.' 
+'he' 
+
+'4664:0 (383)' 
+'he' 
+
+'4665:0 INT' 
+'he' 
+
+'4667:0 Tom' 
+'he' 
+
+'4668:0 onto' 
+'he' 
+
+'4670:0 NARRATOR' 
+'he' 
+
+'4671:0 Most' 
+'he' 
+
+'4672:0 unremarkable.' 
+'he' 
+
+'4673:0 end' 
+'he' 
+
+'4674:0 lasting' 
+'he' 
+
+'4675:0 real' 
+'he' 
+
+'4676:0 life.' 
+'he' 
+
+'4678:0 The' 
+'he' 
+
+'4680:0 NARRATOR' 
+'he' 
+
+'4681:0 May' 
+'he' 
+
+'4684:0 INT' 
+'he' 
+
+'4686:0 Tom' 
+'he' 
+
+'4687:0 extremely' 
+'he' 
+
+'4689:0 TOM' 
+'he' 
+
+'4690:0 What's' 
+'he' 
+
+'4692:0 Neither' 
+'he' 
+
+'4694:0 PAUL' 
+'he' 
+
+'4695:0 We' 
+'he' 
+
+'4697:0 TOM' 
+'he' 
+
+'4698:0 Ok.' 
+'he' 
+
+'4700:0 MCKENZIE' 
+'he' 
+
+'4701:0 It's' 
+'he' 
+
+'4703:0 TOM' 
+'he' 
+
+'4704:0 Do' 
+'he' 
+
+'4706:0 PAUL' 
+'he' 
+
+'4707:0 Thats' 
+'he' 
+
+'4709:0 MCKENZIE' 
+'he' 
+
+'4710:0 It's' 
+'he' 
+
+'4711:0 been...better.' 
+'he' 
+
+'4713:0 88.' 
+'he' 
+
+'4717:0 PAUL' 
+'he' 
+
+'4718:0 You've' 
+'he' 
+
+'4720:0 MCKENZIE' 
+'he' 
+
+'4721:0 So' 
+'he' 
+
+'4722:0 bring' 
+'he' 
+
+'4724:0 PAUL' 
+'he' 
+
+'4725:0 Just' 
+'he' 
+
+'4727:0 MCKENZIE' 
+'he' 
+
+'4728:0 Leave' 
+'he' 
+
+'4730:0 TOM' 
+'he' 
+
+'4731:0 You' 
+'he' 
+
+'4732:0 what' 
+'he' 
+
+'4733:0 really,' 
+'he' 
+
+'4734:0 these' 
+'he' 
+
+'4735:0 crazy.' 
+'he' 
+
+'4736:0 that' 
+'he' 
+
+'4737:0 different' 
+'he' 
+
+'4738:0 different' 
+'he' 
+
+'4739:0 serious.' 
+'he' 
+
+'4740:0 know' 
+'he' 
+
+'4741:0 of' 
+'he' 
+
+'4742:0 one' 
+'he' 
+
+'4743:0 wanted.' 
+'he' 
+
+'4744:0 will.' 
+'he' 
+
+'4746:0 Mckenzie' 
+'he' 
+
+'4747:0 ever.' 
+'he' 
+
+'4749:0 CUT' 
+'he' 
+
+'4752:0 EXT' 
+'he' 
+
+'4754:0 Tom' 
+'he' 
+
+'4755:0 following' 
+'he' 
+
+'4757:0 TOM' 
+'he' 
+
+'4758:0 There's' 
+'he' 
+
+'4760:0 MCKENZIE' 
+'he' 
+
+'4761:0 Tom.' 
+'he' 
+
+'4763:0 TOM' 
+'he' 
+
+'4764:0 It' 
+'he' 
+
+'4766:0 PAUL' 
+'he' 
+
+'4767:0 It' 
+'he' 
+
+'4769:0 89.' 
+'he' 
+
+'4773:0 TOM' 
+'he' 
+
+'4774:0 How' 
+'he' 
+
+'4776:0 On' 
+'he' 
+
+'4778:0 CUT' 
+'he' 
+
+'4781:0 INT' 
+'he' 
+
+'4783:0 Tom' 
+'he' 
+
+'4784:0 taking' 
+'he' 
+
+'4785:0 punches' 
+'he' 
+
+'4786:0 tries' 
+'he' 
+
+'4787:0 phone' 
+'he' 
+
+'4790:0 (384)' 
+'he' 
+
+'4791:0 INT' 
+'he' 
+
+'4793:0 The' 
+'he' 
+
+'4794:0 button.' 
+'he' 
+
+'4797:0 (385)' 
+'he' 
+
+'4798:0 INT' 
+'he' 
+
+'4800:0 Same' 
+'he' 
+
+'4803:0 (386)' 
+'he' 
+
+'4804:0 INT' 
+'he' 
+
+'4806:0 Tom,' 
+'he' 
+
+'4807:0 Jack' 
+'he' 
+
+'4809:0 The' 
+'he' 
+
+'4812:0 EXT' 
+'he' 
+
+'4814:0 Tom' 
+'he' 
+
+'4815:0 ANOTHER' 
+'he' 
+
+'4816:0 a' 
+'he' 
+
+'4818:0 90.' 
+'he' 
+
+'4822:0 TOM' 
+'he' 
+
+'4823:0 Jesus' 
+'he' 
+
+'4825:0 They' 
+'he' 
+
+'4828:0 (387)' 
+'he' 
+
+'4829:0 INT' 
+'he' 
+
+'4831:0 Alarm' 
+'he' 
+
+'4832:0 probably' 
+'he' 
+
+'4833:0 the' 
+'he' 
+
+'4836:0 INT' 
+'he' 
+
+'4838:0 Tom' 
+'he' 
+
+'4839:0 clothes' 
+'he' 
+
+'4840:0 muster' 
+'he' 
+
+'4842:0 MCKENZIE' 
+'he' 
+
+'4843:0 Tom!' 
+'he' 
+
+'4845:0 Nothing.' 
+'he' 
+
+'4847:0 MCKENZIE' 
+'he' 
+
+'4848:0 I've' 
+'he' 
+
+'4849:0 minutes.' 
+'he' 
+
+'4851:0 TOM' 
+'he' 
+
+'4852:0 What?' 
+'he' 
+
+'4854:0 MCKENZIE' 
+'he' 
+
+'4855:0 Do' 
+'he' 
+
+'4857:0 TOM' 
+'he' 
+
+'4858:0 Twinkies?' 
+'he' 
+
+'4860:0 MCKENZIE' 
+'he' 
+
+'4861:0 Sorry.' 
+'he' 
+
+'4863:0 TOM' 
+'he' 
+
+'4864:0 I'm' 
+'he' 
+
+'4866:0 MCKENZIE' 
+'he' 
+
+'4867:0 Well' 
+'he' 
+
+'4869:0 TOM' 
+'he' 
+
+'4870:0 Go...' 
+'he' 
+
+'4872:0 91.' 
+'he' 
+
+'4876:0 MCKENZIE' 
+'he' 
+
+'4877:0 It's' 
+'he' 
+
+'4880:0 INT' 
+'he' 
+
+'4882:0 Tom' 
+'he' 
+
+'4883:0 usual' 
+'he' 
+
+'4885:0 A' 
+'he' 
+
+'4886:0 mid-presentation,' 
+'he' 
+
+'4887:0 with' 
+'he' 
+
+'4888:0 for' 
+'he' 
+
+'4890:0 CO-WORKER' 
+'he' 
+
+'4891:0 This' 
+'he' 
+
+'4893:0 She' 
+'he' 
+
+'4895:0 CO-WORKER' 
+'he' 
+
+'4896:0 This' 
+'he' 
+
+'4898:0 Click.' 
+'he' 
+
+'4900:0 CO-WORKER' 
+'he' 
+
+'4901:0 And' 
+'he' 
+
+'4902:0 We' 
+'he' 
+
+'4903:0 inspirational' 
+'he' 
+
+'4904:0 Pickles,' 
+'he' 
+
+'4905:0 will' 
+'he' 
+
+'4907:0 She' 
+'he' 
+
+'4909:0 VANCE.' 
+'he' 
+
+'4910:0 Good' 
+'he' 
+
+'4911:0 inspirational' 
+'he' 
+
+'4912:0 next.' 
+'he' 
+
+'4913:0 "Sympathy"' 
+'he' 
+
+'4915:0 TOM' 
+'he' 
+
+'4916:0 (reacting' 
+'he' 
+
+'4917:0 Hmm?' 
+'he' 
+
+'4919:0 VANCE.' 
+'he' 
+
+'4920:0 The' 
+'he' 
+
+'4921:0 anything' 
+'he' 
+
+'4923:0 TOM' 
+'he' 
+
+'4924:0 Uh...no.' 
+'he' 
+
+'4926:0 VANCE.' 
+'he' 
+
+'4927:0 You' 
+'he' 
+
+'4929:0 92.' 
+'he' 
+
+'4933:0 TOM' 
+'he' 
+
+'4934:0 Well' 
+'he' 
+
+'4935:0 Actually,' 
+'he' 
+
+'4937:0 VANCE.' 
+'he' 
+
+'4938:0 (DISAPPOINTED)' 
+'he' 
+
+'4939:0 Oh...k.' 
+'he' 
+
+'4940:0 McKenzie' 
+'he' 
+
+'4942:0 TOM' 
+'he' 
+
+'4943:0 You' 
+'he' 
+
+'4945:0 VANCE.' 
+'he' 
+
+'4946:0 Yes' 
+'he' 
+
+'4948:0 TOM' 
+'he' 
+
+'4949:0 Can' 
+'he' 
+
+'4951:0 VANCE' 
+'he' 
+
+'4952:0 Well' 
+'he' 
+
+'4954:0 TOM' 
+'he' 
+
+'4955:0 This' 
+'he' 
+
+'4956:0 mean' 
+'he' 
+
+'4957:0 this' 
+'he' 
+
+'4959:0 MCKENZIE' 
+'he' 
+
+'4960:0 Tom!' 
+'he' 
+
+'4962:0 TOM' 
+'he' 
+
+'4963:0 "Don't' 
+'he' 
+
+'4965:0 He' 
+'he' 
+
+'4966:0 Leap"' 
+'he' 
+
+'4968:0 TOM' 
+'he' 
+
+'4969:0 This' 
+'he' 
+
+'4970:0 suicidal.' 
+'he' 
+
+'4971:0 writing' 
+'he' 
+
+'4972:0 cat.' 
+'he' 
+
+'4973:0 to' 
+'he' 
+
+'4974:0 enough' 
+'he' 
+
+'4975:0 people.' 
+'he' 
+
+'4977:0 VANCE' 
+'he' 
+
+'4978:0 Hansen,' 
+'he' 
+
+'4979:0 business.' 
+'he' 
+
+'4980:0 workers' 
+'he' 
+
+'4982:0 TOM' 
+'he' 
+
+'4983:0 That's' 
+'he' 
+
+'4984:0 we' 
+'he' 
+
+'4985:0 people?' 
+'he' 
+
+'4987:0 93.' 
+'he' 
+
+'4991:0 CO-WORKER' 
+'he' 
+
+'4992:0 We're' 
+'he' 
+
+'4994:0 TOM' 
+'he' 
+
+'4995:0 Yes' 
+'he' 
+
+'4996:0 people' 
+'he' 
+
+'4997:0 how' 
+'he' 
+
+'4998:0 pens' 
+'he' 
+
+'4999:0 cards' 
+'he' 
+
+'5000:0 feel.' 
+'he' 
+
+'5001:0 provide' 
+'he' 
+
+'5002:0 get' 
+'he' 
+
+'5004:0 Tom' 
+'he' 
+
+'5005:0 uncomfortable.' 
+'he' 
+
+'5007:0 TOM' 
+'he' 
+
+'5008:0 I' 
+'he' 
+
+'5009:0 with' 
+'he' 
+
+'5010:0 speak' 
+'he' 
+
+'5011:0 seriously,' 
+'he' 
+
+'5012:0 (picks' 
+'he' 
+
+'5013:0 TABLE)' 
+'he' 
+
+'5014:0 "I'm' 
+'he' 
+
+'5015:0 has' 
+'he' 
+
+'5016:0 give' 
+'he' 
+
+'5017:0 "Sorry' 
+'he' 
+
+'5018:0 grandmother.' 
+'he' 
+
+'5019:0 some' 
+'he' 
+
+'5020:0 I'm' 
+'he' 
+
+'5021:0 that' 
+'he' 
+
+'5023:0 Vance' 
+'he' 
+
+'5025:0 TOM' 
+'he' 
+
+'5026:0 Think' 
+'he' 
+
+'5027:0 (picks' 
+'he' 
+
+'5028:0 "Congratulations' 
+'he' 
+
+'5029:0 Eh...' 
+'he' 
+
+'5030:0 on' 
+'he' 
+
+'5031:0 for' 
+'he' 
+
+'5032:0 buddy."' 
+'he' 
+
+'5034:0 VANCE' 
+'he' 
+
+'5035:0 Hansen,' 
+'he' 
+
+'5037:0 TOM' 
+'he' 
+
+'5038:0 (picks' 
+'he' 
+
+'5039:0 Wait,' 
+'he' 
+
+'5040:0 Look' 
+'he' 
+
+'5041:0 hearts.' 
+'he' 
+
+'5042:0 Valentine's' 
+'he' 
+
+'5043:0 you."' 
+'he' 
+
+'5045:0 94.' 
+'he' 
+
+'5049:0 MCKENZIE' 
+'he' 
+
+'5050:0 Tom...' 
+'he' 
+
+'5052:0 TOM' 
+'he' 
+
+'5053:0 If' 
+'he' 
+
+'5054:0 Vance...' 
+'he' 
+
+'5056:0 MCKENZIE' 
+'he' 
+
+'5057:0 Tom!' 
+'he' 
+
+'5059:0 Tom' 
+'he' 
+
+'5060:0 boardroom' 
+'he' 
+
+'5062:0 TOM' 
+'he' 
+
+'5063:0 (BEAT)' 
+'he' 
+
+'5064:0 It's' 
+'he' 
+
+'5065:0 these' 
+'he' 
+
+'5066:0 pop' 
+'he' 
+
+'5067:0 all' 
+'he' 
+
+'5068:0 everything!' 
+'he' 
+
+'5069:0 Everyone' 
+'he' 
+
+'5071:0 TOM' 
+'he' 
+
+'5072:0 I' 
+'he' 
+
+'5073:0 People' 
+'he' 
+
+'5074:0 they' 
+'he' 
+
+'5075:0 without' 
+'he' 
+
+'5076:0 words' 
+'he' 
+
+'5077:0 card' 
+'he' 
+
+'5078:0 shouldn't' 
+'he' 
+
+'5079:0 you.' 
+'he' 
+
+'5080:0 yourself,' 
+'he' 
+
+'5081:0 it's' 
+'he' 
+
+'5082:0 no' 
+'he' 
+
+'5083:0 it's...' 
+'he' 
+
+'5084:0 (BEAT)' 
+'he' 
+
+'5085:0 Yeah' 
+'he' 
+
+'5087:0 Tom' 
+'he' 
+
+'5089:0 TOM' 
+'he' 
+
+'5090:0 It's' 
+'he' 
+
+'5091:0 crap.' 
+'he' 
+
+'5092:0 in' 
+'he' 
+
+'5093:0 anymore,' 
+'he' 
+
+'5094:0 bullshit' 
+'he' 
+
+'5095:0 help.' 
+'he' 
+
+'5097:0 95.' 
+'he' 
+
+'5101:0 And' 
+'he' 
+
+'5102:0 stunned.' 
+'he' 
+
+'5103:0 doesn't' 
+'he' 
+
+'5105:0 CUT' 
+'he' 
+
+'5108:0 EXT' 
+'he' 
+
+'5110:0 Tom' 
+'he' 
+
+'5111:0 the' 
+'he' 
+
+'5112:0 do' 
+'he' 
+
+'5114:0 CUT' 
+'he' 
+
+'5117:0 (383)' 
+'he' 
+
+'5118:0 EXT' 
+'he' 
+
+'5120:0 Tom' 
+'he' 
+
+'5122:0 TOM' 
+'he' 
+
+'5123:0 There's' 
+'he' 
+
+'5125:0 MCKENZIE' 
+'he' 
+
+'5126:0 Tom.' 
+'he' 
+
+'5128:0 TOM' 
+'he' 
+
+'5129:0 It' 
+'he' 
+
+'5131:0 PAUL' 
+'he' 
+
+'5132:0 It' 
+'he' 
+
+'5134:0 TOM' 
+'he' 
+
+'5135:0 How' 
+'he' 
+
+'5137:0 MCKENZIE' 
+'he' 
+
+'5138:0 We' 
+'he' 
+
+'5140:0 TOM' 
+'he' 
+
+'5141:0 But...' 
+'he' 
+
+'5142:0 August.' 
+'he' 
+
+'5144:0 PAUL' 
+'he' 
+
+'5145:0 I' 
+'he' 
+
+'5147:0 TOM' 
+'he' 
+
+'5148:0 And' 
+'he' 
+
+'5149:0 Christmas.' 
+'he' 
+
+'5151:0 96.' 
+'he' 
+
+'5155:0 MCKENZIE' 
+'he' 
+
+'5156:0 She' 
+'he' 
+
+'5158:0 TOM' 
+'he' 
+
+'5159:0 And' 
+'he' 
+
+'5161:0 MCKENZIE' 
+'he' 
+
+'5162:0 Yeah.' 
+'he' 
+
+'5164:0 TOM' 
+'he' 
+
+'5165:0 Now' 
+'he' 
+
+'5167:0 PAUL' 
+'he' 
+
+'5168:0 I'm' 
+'he' 
+
+'5170:0 TOM' 
+'he' 
+
+'5171:0 Married?' 
+'he' 
+
+'5173:0 PAUL' 
+'he' 
+
+'5174:0 It's' 
+'he' 
+
+'5176:0 TOM' 
+'he' 
+
+'5177:0 It's' 
+'he' 
+
+'5178:0 sense.' 
+'he' 
+
+'5179:0 someone' 
+'he' 
+
+'5181:0 PAUL' 
+'he' 
+
+'5182:0 No.' 
+'he' 
+
+'5184:0 TOM' 
+'he' 
+
+'5185:0 So' 
+'he' 
+
+'5186:0 stuff' 
+'he' 
+
+'5187:0 her.' 
+'he' 
+
+'5188:0 wouldn't' 
+'he' 
+
+'5190:0 His' 
+'he' 
+
+'5192:0 TOM' 
+'he' 
+
+'5193:0 (BEAT)' 
+'he' 
+
+'5194:0 Fuck!' 
+'he' 
+
+'5196:0 And' 
+'he' 
+
+'5198:0 MCKENZIE' 
+'he' 
+
+'5199:0 Tom!' 
+'he' 
+
+'5201:0 PAUL' 
+'he' 
+
+'5202:0 Let' 
+'he' 
+
+'5204:0 ANGLE' 
+'he' 
+
+'5206:0 Literally,' 
+'he' 
+
+'5208:0 97.' 
+'he' 
+
+'5212:0 FX:' 
+'he' 
+
+'5213:0 rubble.' 
+'he' 
+
+'5214:0 ERASED,' 
+'he' 
+
+'5215:0 force' 
+'he' 
+
+'5217:0 CUT' 
+'he' 
+
+'5220:0 BLACK.' 
+'he' 
+
+'5222:0 And' 
+'he' 
+
+'5225:0 (399)' 
+'he' 
+
+'5226:0 CU' 
+'he' 
+
+'5227:0 Tom' 
+'he' 
+
+'5228:0 cult?' 
+'he' 
+
+'5230:0 We' 
+'he' 
+
+'5233:0 INT' 
+'he' 
+
+'5235:0 Tom's' 
+'he' 
+
+'5236:0 formed' 
+'he' 
+
+'5237:0 clap' 
+'he' 
+
+'5238:0 is' 
+'he' 
+
+'5239:0 some' 
+'he' 
+
+'5241:0 CUT' 
+'he' 
+
+'5243:0 LATER.' 
+'he' 
+
+'5245:0 RACHEL' 
+'he' 
+
+'5246:0 Your' 
+'he' 
+
+'5247:0 So' 
+'he' 
+
+'5248:0 light' 
+'he' 
+
+'5250:0 ANGLE' 
+'he' 
+
+'5251:0 clap.' 
+'he' 
+
+'5252:0 catches' 
+'he' 
+
+'5254:0 CUT' 
+'he' 
+
+'5256:0 LATER.' 
+'he' 
+
+'5258:0 AUNT' 
+'he' 
+
+'5259:0 I' 
+'he' 
+
+'5260:0 girlfriend?' 
+'he' 
+
+'5262:0 98.' 
+'he' 
+
+'5266:0 TOM' 
+'he' 
+
+'5267:0 I' 
+'he' 
+
+'5269:0 AUNT' 
+'he' 
+
+'5270:0 What' 
+'he' 
+
+'5271:0 married' 
+'he' 
+
+'5272:0 are' 
+'he' 
+
+'5274:0 TOM' 
+'he' 
+
+'5275:0 The' 
+'he' 
+
+'5277:0 AUNT' 
+'he' 
+
+'5278:0 There's' 
+'he' 
+
+'5279:0 have' 
+'he' 
+
+'5281:0 TOM' 
+'he' 
+
+'5282:0 Oh' 
+'he' 
+
+'5284:0 AUNT' 
+'he' 
+
+'5285:0 (actually' 
+'he' 
+
+'5286:0 CHEEKS)' 
+'he' 
+
+'5287:0 Look' 
+'he' 
+
+'5288:0 girls' 
+'he' 
+
+'5290:0 AUNT' 
+'he' 
+
+'5291:0 My' 
+'he' 
+
+'5292:0 Yay' 
+'he' 
+
+'5293:0 to' 
+'he' 
+
+'5295:0 TOM' 
+'he' 
+
+'5296:0 Hey' 
+'he' 
+
+'5297:0 Lord' 
+'he' 
+
+'5298:0 just...' 
+'he' 
+
+'5299:0 a...well,' 
+'he' 
+
+'5301:0 AUNT' 
+'he' 
+
+'5302:0 Oh' 
+'he' 
+
+'5304:0 TOM' 
+'he' 
+
+'5305:0 July.' 
+'he' 
+
+'5307:0 AUNT' 
+'he' 
+
+'5308:0 You' 
+'he' 
+
+'5310:0 AUNT' 
+'he' 
+
+'5311:0 Was' 
+'he' 
+
+'5313:0 TOM' 
+'he' 
+
+'5314:0 What?' 
+'he' 
+
+'5316:0 AUNT' 
+'he' 
+
+'5317:0 She's' 
+'he' 
+
+'5319:0 99.' 
+'he' 
+
+'5323:0 TOM' 
+'he' 
+
+'5324:0 No.' 
+'he' 
+
+'5326:0 AUNT' 
+'he' 
+
+'5327:0 We' 
+'he' 
+
+'5329:0 Awkward.' 
+'he' 
+
+'5331:0 AUNT' 
+'he' 
+
+'5332:0 So' 
+'he' 
+
+'5334:0 CUT' 
+'he' 
+
+'5336:0 LATER.' 
+'he' 
+
+'5338:0 CUT' 
+'he' 
+
+'5340:0 LATER.' 
+'he' 
+
+'5341:0 in' 
+'he' 
+
+'5342:0 sitting' 
+'he' 
+
+'5344:0 TOM' 
+'he' 
+
+'5345:0 Well...glad' 
+'he' 
+
+'5347:0 SUMMER' 
+'he' 
+
+'5348:0 Of' 
+'he' 
+
+'5350:0 TOM' 
+'he' 
+
+'5351:0 When' 
+'he' 
+
+'5352:0 religion,' 
+'he' 
+
+'5353:0 adult.' 
+'he' 
+
+'5355:0 ANGLE' 
+'he' 
+
+'5357:0 SUMMER' 
+'he' 
+
+'5358:0 Wow.' 
+'he' 
+
+'5359:0 sister's' 
+'he' 
+
+'5361:0 TOM' 
+'he' 
+
+'5362:0 Pretty' 
+'he' 
+
+'5364:0 SUMMER' 
+'he' 
+
+'5365:0 (BEAT)' 
+'he' 
+
+'5366:0 So' 
+'he' 
+
+'5368:0 ANGLE' 
+'he' 
+
+'5369:0 nick' 
+'he' 
+
+'5371:0 RACHEL' 
+'he' 
+
+'5372:0 Hey' 
+'he' 
+
+'5374:0 She' 
+'he' 
+
+'5376:0 100.' 
+'he' 
+
+'5380:0 RACHEL' 
+'he' 
+
+'5381:0 Hi.' 
+'he' 
+
+'5383:0 TOM' 
+'he' 
+
+'5384:0 You' 
+'he' 
+
+'5385:0 morning.' 
+'he' 
+
+'5387:0 RACHEL' 
+'he' 
+
+'5388:0 Yeah' 
+'he' 
+
+'5389:0 you?' 
+'he' 
+
+'5391:0 TOM' 
+'he' 
+
+'5392:0 Me?' 
+'he' 
+
+'5394:0 RACHEL' 
+'he' 
+
+'5395:0 (re:' 
+'he' 
+
+'5396:0 I' 
+'he' 
+
+'5398:0 TOM' 
+'he' 
+
+'5399:0 Yeah.' 
+'he' 
+
+'5401:0 RACHEL' 
+'he' 
+
+'5402:0 Sucks.' 
+'he' 
+
+'5404:0 TOM' 
+'he' 
+
+'5405:0 Yup.' 
+'he' 
+
+'5407:0 It's' 
+'he' 
+
+'5409:0 TOM' 
+'he' 
+
+'5410:0 Anyway,' 
+'he' 
+
+'5411:0 your' 
+'he' 
+
+'5413:0 She' 
+'he' 
+
+'5415:0 RACHEL' 
+'he' 
+
+'5416:0 You' 
+'he' 
+
+'5417:0 in' 
+'he' 
+
+'5419:0 TOM' 
+'he' 
+
+'5420:0 Is' 
+'he' 
+
+'5422:0 RACHEL' 
+'he' 
+
+'5423:0 Look.' 
+'he' 
+
+'5425:0 He' 
+'he' 
+
+'5426:0 floor' 
+'he' 
+
+'5428:0 TOM' 
+'he' 
+
+'5429:0 That's' 
+'he' 
+
+'5431:0 101.' 
+'he' 
+
+'5435:0 RACHEL' 
+'he' 
+
+'5436:0 What' 
+'he' 
+
+'5437:0 other' 
+'he' 
+
+'5439:0 TOM' 
+'he' 
+
+'5440:0 Those' 
+'he' 
+
+'5442:0 RACHEL' 
+'he' 
+
+'5443:0 Who' 
+'he' 
+
+'5444:0 out' 
+'he' 
+
+'5446:0 TOM' 
+'he' 
+
+'5447:0 Are' 
+'he' 
+
+'5449:0 RACHEL' 
+'he' 
+
+'5450:0 No' 
+'he' 
+
+'5452:0 TOM' 
+'he' 
+
+'5453:0 I' 
+'he' 
+
+'5454:0 love' 
+'he' 
+
+'5456:0 RACHEL' 
+'he' 
+
+'5457:0 Well' 
+'he' 
+
+'5459:0 TOM' 
+'he' 
+
+'5460:0 It's' 
+'he' 
+
+'5462:0 The' 
+'he' 
+
+'5464:0 TOM' 
+'he' 
+
+'5465:0 Alright...' 
+'he' 
+
+'5466:0 friends.' 
+'he' 
+
+'5468:0 RACHEL' 
+'he' 
+
+'5469:0 You'll' 
+'he' 
+
+'5471:0 TOM' 
+'he' 
+
+'5472:0 (LYING)' 
+'he' 
+
+'5473:0 Sure.' 
+'he' 
+
+'5475:0 RACHEL' 
+'he' 
+
+'5476:0 Tom.' 
+'he' 
+
+'5478:0 TOM' 
+'he' 
+
+'5479:0 Hmm?' 
+'he' 
+
+'5481:0 RACHEL' 
+'he' 
+
+'5482:0 I' 
+'he' 
+
+'5483:0 perfect' 
+'he' 
+
+'5484:0 (BEAT)' 
+'he' 
+
+'5485:0 I' 
+'he' 
+
+'5486:0 remembering' 
+'he' 
+
+'5487:0 what' 
+'he' 
+
+'5489:0 102.' 
+'he' 
+
+'5493:0 She' 
+'he' 
+
+'5494:0 Tom' 
+'he' 
+
+'5496:0 CUT' 
+'he' 
+
+'5499:0 (240)' 
+'he' 
+
+'5500:0 SPLITSCREEN' 
+'he' 
+
+'5502:0 Tom' 
+'he' 
+
+'5503:0 his' 
+'he' 
+
+'5505:0 TOM' 
+'he' 
+
+'5506:0 Hey.' 
+'he' 
+
+'5508:0 Summer' 
+'he' 
+
+'5509:0 side' 
+'he' 
+
+'5511:0 SUMMER' 
+'he' 
+
+'5512:0 Hello?' 
+'he' 
+
+'5514:0 TOM' 
+'he' 
+
+'5515:0 Are' 
+'he' 
+
+'5517:0 SUMMER' 
+'he' 
+
+'5518:0 (GROGGY)' 
+'he' 
+
+'5519:0 I'm' 
+'he' 
+
+'5521:0 TOM' 
+'he' 
+
+'5522:0 10:30.' 
+'he' 
+
+'5523:0 today?' 
+'he' 
+
+'5525:0 SUMMER' 
+'he' 
+
+'5526:0 Ok.' 
+'he' 
+
+'5528:0 TOM' 
+'he' 
+
+'5529:0 I'll' 
+'he' 
+
+'5530:0 minutes?' 
+'he' 
+
+'5532:0 SUMMER' 
+'he' 
+
+'5533:0 I' 
+'he' 
+
+'5536:0 EXT' 
+'he' 
+
+'5538:0 Tom' 
+'he' 
+
+'5539:0 it's' 
+'he' 
+
+'5540:0 day' 
+'he' 
+
+'5541:0 all,' 
+'he' 
+
+'5543:0 103.' 
+'he' 
+
+'5547:0 TOM' 
+'he' 
+
+'5548:0 So' 
+'he' 
+
+'5550:0 SUMMER' 
+'he' 
+
+'5551:0 It' 
+'he' 
+
+'5553:0 TOM' 
+'he' 
+
+'5554:0 Where' 
+'he' 
+
+'5556:0 SUMMER' 
+'he' 
+
+'5557:0 Some' 
+'he' 
+
+'5559:0 TOM' 
+'he' 
+
+'5560:0 Fun?' 
+'he' 
+
+'5562:0 SUMMER' 
+'he' 
+
+'5563:0 Uneventful.' 
+'he' 
+
+'5564:0 after' 
+'he' 
+
+'5565:0 late' 
+'he' 
+
+'5566:0 How' 
+'he' 
+
+'5568:0 TOM' 
+'he' 
+
+'5569:0 Pretty' 
+'he' 
+
+'5571:0 Not' 
+'he' 
+
+'5572:0 silence.' 
+'he' 
+
+'5575:0 EXT' 
+'he' 
+
+'5577:0 Tom' 
+'he' 
+
+'5578:0 looking' 
+'he' 
+
+'5579:0 might' 
+'he' 
+
+'5580:0 aisles.' 
+'he' 
+
+'5581:0 distant.' 
+'he' 
+
+'5584:0 (406)' 
+'he' 
+
+'5585:0 INT.' 
+'he' 
+
+'5587:0 Tom,' 
+'he' 
+
+'5588:0 again.' 
+'he' 
+
+'5590:0 LATER.' 
+'he' 
+
+'5592:0 LATER.' 
+'he' 
+
+'5593:0 Then' 
+'he' 
+
+'5594:0 draws' 
+'he' 
+
+'5595:0 something.' 
+'he' 
+
+'5597:0 104.' 
+'he' 
+
+'5602:0 (240)' 
+'he' 
+
+'5603:0 INT' 
+'he' 
+
+'5605:0 That' 
+'he' 
+
+'5606:0 Summer' 
+'he' 
+
+'5608:0 TOM' 
+'he' 
+
+'5609:0 It's' 
+'he' 
+
+'5611:0 SUMMER' 
+'he' 
+
+'5612:0 You' 
+'he' 
+
+'5614:0 TOM' 
+'he' 
+
+'5615:0 I' 
+'he' 
+
+'5616:0 back' 
+'he' 
+
+'5618:0 SUMMER' 
+'he' 
+
+'5619:0 I' 
+'he' 
+
+'5621:0 TOM' 
+'he' 
+
+'5622:0 Ok' 
+'he' 
+
+'5624:0 SUMMER' 
+'he' 
+
+'5625:0 Unless' 
+'he' 
+
+'5627:0 TOM' 
+'he' 
+
+'5628:0 No,' 
+'he' 
+
+'5630:0 SUMMER' 
+'he' 
+
+'5631:0 Ok.' 
+'he' 
+
+'5633:0 A' 
+'he' 
+
+'5636:0 INT' 
+'he' 
+
+'5638:0 Tom' 
+'he' 
+
+'5639:0 Summer's' 
+'he' 
+
+'5640:0 look' 
+'he' 
+
+'5641:0 be' 
+'he' 
+
+'5644:0 (409)' 
+'he' 
+
+'5645:0 INT' 
+'he' 
+
+'5647:0 Tom' 
+'he' 
+
+'5649:0 105.' 
+'he' 
+
+'5653:0 And' 
+'he' 
+
+'5655:0 He' 
+'he' 
+
+'5656:0 He' 
+'he' 
+
+'5657:0 From' 
+'he' 
+
+'5658:0 form.' 
+'he' 
+
+'5659:0 almost' 
+'he' 
+
+'5662:0 (240)' 
+'he' 
+
+'5663:0 EXT' 
+'he' 
+
+'5665:0 Same' 
+'he' 
+
+'5666:0 alright.' 
+'he' 
+
+'5667:0 that' 
+'he' 
+
+'5669:0 TOM' 
+'he' 
+
+'5670:0 Hey.' 
+'he' 
+
+'5672:0 He' 
+'he' 
+
+'5673:0 back.' 
+'he' 
+
+'5675:0 TOM' 
+'he' 
+
+'5676:0 Hey' 
+'he' 
+
+'5678:0 SUMMER' 
+'he' 
+
+'5679:0 I' 
+'he' 
+
+'5681:0 TOM' 
+'he' 
+
+'5682:0 Is' 
+'he' 
+
+'5684:0 She' 
+'he' 
+
+'5686:0 SUMMER' 
+'he' 
+
+'5687:0 Yeah.' 
+'he' 
+
+'5688:0 being' 
+'he' 
+
+'5690:0 TOM' 
+'he' 
+
+'5691:0 It's' 
+'he' 
+
+'5692:0 time' 
+'he' 
+
+'5693:0 for' 
+'he' 
+
+'5694:0 Or' 
+'he' 
+
+'5696:0 SUMMER' 
+'he' 
+
+'5697:0 Ok.' 
+'he' 
+
+'5699:0 They' 
+'he' 
+
+'5701:0 106.' 
+'he' 
+
+'5706:0 INT' 
+'he' 
+
+'5708:0 Tom' 
+'he' 
+
+'5709:0 He' 
+'he' 
+
+'5711:0 TOM' 
+'he' 
+
+'5712:0 It' 
+'he' 
+
+'5713:0 where' 
+'he' 
+
+'5714:0 Spearmint.' 
+'he' 
+
+'5716:0 SUMMER' 
+'he' 
+
+'5717:0 I've' 
+'he' 
+
+'5719:0 TOM' 
+'he' 
+
+'5720:0 And' 
+'he' 
+
+'5722:0 He' 
+'he' 
+
+'5723:0 we've' 
+'he' 
+
+'5724:0 the' 
+'he' 
+
+'5726:0 In' 
+'he' 
+
+'5727:0 It' 
+'he' 
+
+'5728:0 approaches' 
+'he' 
+
+'5729:0 at' 
+'he' 
+
+'5730:0 there's' 
+'he' 
+
+'5733:0 (411)' 
+'he' 
+
+'5734:0 EXT' 
+'he' 
+
+'5736:0 Tom' 
+'he' 
+
+'5737:0 works.' 
+'he' 
+
+'5740:0 (240)' 
+'he' 
+
+'5741:0 EXT' 
+'he' 
+
+'5743:0 Again,' 
+'he' 
+
+'5745:0 SUMMER' 
+'he' 
+
+'5746:0 So.' 
+'he' 
+
+'5748:0 TOM' 
+'he' 
+
+'5749:0 So...' 
+'he' 
+
+'5751:0 107.' 
+'he' 
+
+'5755:0 SUMMER' 
+'he' 
+
+'5756:0 Now...I' 
+'he' 
+
+'5757:0 day.' 
+'he' 
+
+'5759:0 TOM' 
+'he' 
+
+'5760:0 Yeah?' 
+'he' 
+
+'5761:0 dinner' 
+'he' 
+
+'5763:0 SUMMER' 
+'he' 
+
+'5764:0 I've' 
+'he' 
+
+'5766:0 TOM' 
+'he' 
+
+'5767:0 Are' 
+'he' 
+
+'5769:0 SUMMER' 
+'he' 
+
+'5770:0 I'm' 
+'he' 
+
+'5772:0 TOM' 
+'he' 
+
+'5773:0 Ooh!' 
+'he' 
+
+'5775:0 SUMMER' 
+'he' 
+
+'5776:0 What?' 
+'he' 
+
+'5778:0 TOM' 
+'he' 
+
+'5779:0 I've' 
+'he' 
+
+'5781:0 SUMMER' 
+'he' 
+
+'5782:0 What?' 
+'he' 
+
+'5784:0 TOM' 
+'he' 
+
+'5785:0 Let's' 
+'he' 
+
+'5787:0 SUMMER' 
+'he' 
+
+'5788:0 Now?' 
+'he' 
+
+'5790:0 TOM' 
+'he' 
+
+'5791:0 Pancakes?' 
+'he' 
+
+'5793:0 Summer's' 
+'he' 
+
+'5794:0 history.' 
+'he' 
+
+'5796:0 FADE' 
+'he' 
+
+'5797:0 OVER:' 
+'he' 
+
+'5800:0 (417-464)' 
+'he' 
+
+'5801:0 1.' 
+'he' 
+
+'5803:0 Tom' 
+'he' 
+
+'5805:0 108.' 
+'he' 
+
+'5809:0 LATER.' 
+'he' 
+
+'5810:0 first' 
+'he' 
+
+'5811:0 holding' 
+'he' 
+
+'5814:0 2.' 
+'he' 
+
+'5816:0 Tom' 
+'he' 
+
+'5817:0 city's' 
+'he' 
+
+'5819:0 2.' 
+'he' 
+
+'5821:0 Tom' 
+'he' 
+
+'5822:0 reading' 
+'he' 
+
+'5823:0 design.' 
+'he' 
+
+'5826:0 3.' 
+'he' 
+
+'5828:0 Tom' 
+'he' 
+
+'5829:0 lobby' 
+'he' 
+
+'5832:0 4.' 
+'he' 
+
+'5834:0 Tom' 
+'he' 
+
+'5835:0 soccer.' 
+'he' 
+
+'5838:0 6.' 
+'he' 
+
+'5840:0 Tom' 
+'he' 
+
+'5841:0 his' 
+'he' 
+
+'5842:0 futuristic' 
+'he' 
+
+'5843:0 Abrams"' 
+'he' 
+
+'5844:0 crossed' 
+'he' 
+
+'5847:0 5.' 
+'he' 
+
+'5849:0 Tom' 
+'he' 
+
+'5850:0 the' 
+'he' 
+
+'5852:0 8.' 
+'he' 
+
+'5854:0 Tom' 
+'he' 
+
+'5856:0 9.' 
+'he' 
+
+'5858:0 Tom' 
+'he' 
+
+'5859:0 crossing' 
+'he' 
+
+'5860:0 sits' 
+'he' 
+
+'5861:0 in' 
+'he' 
+
+'5863:0 109.' 
+'he' 
+
+'5866:0 Then,' 
+'he' 
+
+'5867:0 he' 
+'he' 
+
+'5870:0 9.' 
+'he' 
+
+'5872:0 On' 
+'he' 
+
+'5873:0 Thinking.' 
+'he' 
+
+'5875:0 On' 
+'he' 
+
+'5876:0 lifted.' 
+'he' 
+
+'5878:0 END' 
+'he' 
+
+'5881:0 (478)' 
+'he' 
+
+'5882:0 EXT' 
+'he' 
+
+'5884:0 Tom,' 
+'he' 
+
+'5885:0 interview.' 
+'he' 
+
+'5886:0 the' 
+'he' 
+
+'5887:0 Summer' 
+'he' 
+
+'5890:0 EXT.' 
+'he' 
+
+'5892:0 Tom' 
+'he' 
+
+'5893:0 in' 
+'he' 
+
+'5895:0 SUMMER' 
+'he' 
+
+'5896:0 Hey.' 
+'he' 
+
+'5898:0 Summer' 
+'he' 
+
+'5899:0 may' 
+'he' 
+
+'5900:0 Tom' 
+'he' 
+
+'5901:0 do.' 
+'he' 
+
+'5903:0 SUMMER' 
+'he' 
+
+'5904:0 (re:' 
+'he' 
+
+'5905:0 Where' 
+'he' 
+
+'5907:0 TOM' 
+'he' 
+
+'5908:0 What?' 
+'he' 
+
+'5909:0 you' 
+'he' 
+
+'5911:0 SUMMER' 
+'he' 
+
+'5912:0 Awhile.' 
+'he' 
+
+'5914:0 Tom' 
+'he' 
+
+'5916:0 110.' 
+'he' 
+
+'5920:0 SUMMER' 
+'he' 
+
+'5921:0 I' 
+'he' 
+
+'5922:0 this' 
+'he' 
+
+'5923:0 me' 
+'he' 
+
+'5925:0 The' 
+'he' 
+
+'5927:0 TOM' 
+'he' 
+
+'5928:0 So...' 
+'he' 
+
+'5929:0 congratulations.' 
+'he' 
+
+'5931:0 SUMMER' 
+'he' 
+
+'5932:0 Probably.' 
+'he' 
+
+'5934:0 TOM' 
+'he' 
+
+'5935:0 I' 
+'he' 
+
+'5937:0 SUMMER' 
+'he' 
+
+'5938:0 I' 
+'he' 
+
+'5940:0 TOM' 
+'he' 
+
+'5941:0 Yeah' 
+'he' 
+
+'5942:0 happy.' 
+'he' 
+
+'5944:0 SUMMER' 
+'he' 
+
+'5945:0 You' 
+'he' 
+
+'5947:0 TOM' 
+'he' 
+
+'5948:0 (BEAT)' 
+'he' 
+
+'5949:0 God' 
+'he' 
+
+'5951:0 They' 
+'he' 
+
+'5953:0 SUMMER' 
+'he' 
+
+'5954:0 How' 
+'he' 
+
+'5956:0 TOM' 
+'he' 
+
+'5957:0 I'm' 
+'he' 
+
+'5959:0 SUMMER' 
+'he' 
+
+'5960:0 That's' 
+'he' 
+
+'5962:0 TOM' 
+'he' 
+
+'5963:0 Yeah' 
+'he' 
+
+'5965:0 SUMMER' 
+'he' 
+
+'5966:0 Really?' 
+'he' 
+
+'5967:0 doing' 
+'he' 
+
+'5969:0 TOM' 
+'he' 
+
+'5970:0 Mostly...sleeping.' 
+'he' 
+
+'5972:0 Awkward' 
+'he' 
+
+'5974:0 111.' 
+'he' 
+
+'5978:0 TOM' 
+'he' 
+
+'5979:0 So' 
+'he' 
+
+'5981:0 SUMMER' 
+'he' 
+
+'5982:0 Who,' 
+'he' 
+
+'5984:0 TOM' 
+'he' 
+
+'5985:0 Yeah...' 
+'he' 
+
+'5986:0 don't' 
+'he' 
+
+'5988:0 SUMMER' 
+'he' 
+
+'5989:0 Tom...' 
+'he' 
+
+'5991:0 TOM' 
+'he' 
+
+'5992:0 No' 
+'he' 
+
+'5994:0 SUMMER' 
+'he' 
+
+'5995:0 Ok.' 
+'he' 
+
+'5997:0 More' 
+'he' 
+
+'5998:0 THEN:' 
+'he' 
+
+'6000:0 TOM' 
+'he' 
+
+'6001:0 It's' 
+'he' 
+
+'6003:0 SUMMER' 
+'he' 
+
+'6004:0 I' 
+'he' 
+
+'6006:0 TOM' 
+'he' 
+
+'6007:0 You're' 
+'he' 
+
+'6008:0 girlfriend,' 
+'he' 
+
+'6010:0 SUMMER' 
+'he' 
+
+'6011:0 Pretty' 
+'he' 
+
+'6013:0 TOM' 
+'he' 
+
+'6014:0 (SIGHS)' 
+'he' 
+
+'6015:0 I'll' 
+'he' 
+
+'6017:0 SUMMER' 
+'he' 
+
+'6018:0 Tom' 
+'he' 
+
+'6020:0 TOM' 
+'he' 
+
+'6021:0 What's' 
+'he' 
+
+'6022:0 things' 
+'he' 
+
+'6024:0 SUMMER' 
+'he' 
+
+'6025:0 I' 
+'he' 
+
+'6027:0 TOM' 
+'he' 
+
+'6028:0 What' 
+'he' 
+
+'6029:0 get.' 
+'he' 
+
+'6031:0 112.' 
+'he' 
+
+'6035:0 SUMMER' 
+'he' 
+
+'6036:0 I...' 
+'he' 
+
+'6038:0 TOM' 
+'he' 
+
+'6039:0 What,' 
+'he' 
+
+'6041:0 SUMMER' 
+'he' 
+
+'6042:0 I' 
+'he' 
+
+'6044:0 Tom' 
+'he' 
+
+'6046:0 SUMMER' 
+'he' 
+
+'6047:0 I' 
+'he' 
+
+'6048:0 the' 
+'he' 
+
+'6049:0 way' 
+'he' 
+
+'6050:0 you.' 
+'he' 
+
+'6052:0 And' 
+'he' 
+
+'6054:0 Tom' 
+'he' 
+
+'6056:0 TOM' 
+'he' 
+
+'6057:0 You' 
+'he' 
+
+'6058:0 everything' 
+'he' 
+
+'6059:0 complete' 
+'he' 
+
+'6061:0 SUMMER' 
+'he' 
+
+'6062:0 What' 
+'he' 
+
+'6064:0 TOM' 
+'he' 
+
+'6065:0 Destiny,' 
+'he' 
+
+'6066:0 that' 
+'he' 
+
+'6067:0 silly' 
+'he' 
+
+'6068:0 nonsense,' 
+'he' 
+
+'6070:0 SUMMER' 
+'he' 
+
+'6071:0 Tom,' 
+'he' 
+
+'6073:0 TOM' 
+'he' 
+
+'6074:0 I' 
+'he' 
+
+'6075:0 Summer.' 
+'he' 
+
+'6077:0 Summer' 
+'he' 
+
+'6079:0 SUMMER' 
+'he' 
+
+'6080:0 I' 
+'he' 
+
+'6082:0 And' 
+'he' 
+
+'6084:0 TOM' 
+'he' 
+
+'6085:0 What?' 
+'he' 
+
+'6087:0 113.' 
+'he' 
+
+'6091:0 Tries' 
+'he' 
+
+'6092:0 completely' 
+'he' 
+
+'6094:0 TOM' 
+'he' 
+
+'6095:0 What' 
+'he' 
+
+'6097:0 And' 
+'he' 
+
+'6099:0 TOM' 
+'he' 
+
+'6100:0 (trying' 
+'he' 
+
+'6101:0 LAUGH)' 
+'he' 
+
+'6102:0 You're' 
+'he' 
+
+'6104:0 SUMMER' 
+'he' 
+
+'6105:0 Tom!' 
+'he' 
+
+'6107:0 TOM' 
+'he' 
+
+'6108:0 What' 
+'he' 
+
+'6110:0 SUMMER' 
+'he' 
+
+'6111:0 One' 
+'he' 
+
+'6112:0 corner' 
+'he' 
+
+'6113:0 and' 
+'he' 
+
+'6114:0 he's' 
+'he' 
+
+'6116:0 TOM' 
+'he' 
+
+'6117:0 This' 
+'he' 
+
+'6119:0 SUMMER' 
+'he' 
+
+'6120:0 What' 
+'he' 
+
+'6121:0 to' 
+'he' 
+
+'6122:0 somewhere' 
+'he' 
+
+'6123:0 showed' 
+'he' 
+
+'6124:0 Tom,' 
+'he' 
+
+'6125:0 you' 
+'he' 
+
+'6126:0 I' 
+'he' 
+
+'6127:0 the' 
+'he' 
+
+'6128:0 myself' 
+'he' 
+
+'6129:0 You' 
+'he' 
+
+'6130:0 (BEAT)' 
+'he' 
+
+'6131:0 It' 
+'he' 
+
+'6132:0 about.' 
+'he' 
+
+'6134:0 Tom' 
+'he' 
+
+'6135:0 wedding' 
+'he' 
+
+'6136:0 shot' 
+'he' 
+
+'6137:0 few' 
+'he' 
+
+'6139:0 SUMMER' 
+'he' 
+
+'6140:0 Anyway,' 
+'he' 
+
+'6141:0 getting' 
+'he' 
+
+'6142:0 you.' 
+'he' 
+
+'6144:0 114.' 
+'he' 
+
+'6148:0 Summer' 
+'he' 
+
+'6149:0 SECOND:' 
+'he' 
+
+'6151:0 TOM' 
+'he' 
+
+'6152:0 Summer!' 
+'he' 
+
+'6154:0 She' 
+'he' 
+
+'6155:0 for' 
+'he' 
+
+'6157:0 TOM' 
+'he' 
+
+'6158:0 I' 
+'he' 
+
+'6160:0 SUMMER' 
+'he' 
+
+'6161:0 I' 
+'he' 
+
+'6162:0 (BEAT)' 
+'he' 
+
+'6163:0 See' 
+'he' 
+
+'6165:0 And' 
+'he' 
+
+'6166:0 Tom' 
+'he' 
+
+'6167:0 second.' 
+'he' 
+
+'6169:0 FADE' 
+'he' 
+
+'6172:0 A' 
+'he' 
+
+'6174:0 FADE' 
+'he' 
+
+'6177:0 (500)' 
+'he' 
+
+'6178:0 INT' 
+'he' 
+
+'6180:0 Tom,' 
+'he' 
+
+'6181:0 at' 
+'he' 
+
+'6182:0 Architecture.' 
+'he' 
+
+'6183:0 time.' 
+'he' 
+
+'6185:0 Tom' 
+'he' 
+
+'6187:0 We' 
+'he' 
+
+'6188:0 another' 
+'he' 
+
+'6190:0 GIRL' 
+'he' 
+
+'6191:0 Are' 
+'he' 
+
+'6193:0 TOM' 
+'he' 
+
+'6194:0 Sorry?' 
+'he' 
+
+'6196:0 115.' 
+'he' 
+
+'6200:0 GIRL' 
+'he' 
+
+'6201:0 Are' 
+'he' 
+
+'6202:0 position?' 
+'he' 
+
+'6204:0 TOM' 
+'he' 
+
+'6205:0 Oh.' 
+'he' 
+
+'6207:0 GIRL' 
+'he' 
+
+'6208:0 Yup.' 
+'he' 
+
+'6210:0 TOM' 
+'he' 
+
+'6211:0 Ah.' 
+'he' 
+
+'6213:0 GIRL' 
+'he' 
+
+'6214:0 It' 
+'he' 
+
+'6216:0 TOM' 
+'he' 
+
+'6217:0 Gee,' 
+'he' 
+
+'6219:0 GIRL' 
+'he' 
+
+'6220:0 Yes' 
+'he' 
+
+'6222:0 TOM' 
+'he' 
+
+'6223:0 Well,' 
+'he' 
+
+'6225:0 GIRL' 
+'he' 
+
+'6226:0 I' 
+'he' 
+
+'6227:0 They' 
+'he' 
+
+'6228:0 during' 
+'he' 
+
+'6229:0 can' 
+'he' 
+
+'6230:0 girl.' 
+'he' 
+
+'6231:0 And,' 
+'he' 
+
+'6233:0 TOM' 
+'he' 
+
+'6234:0 So,' 
+'he' 
+
+'6236:0 GIRL' 
+'he' 
+
+'6237:0 Hmm?' 
+'he' 
+
+'6239:0 TOM' 
+'he' 
+
+'6240:0 Are' 
+'he' 
+
+'6242:0 GIRL' 
+'he' 
+
+'6243:0 Grew' 
+'he' 
+
+'6244:0 Atherton,' 
+'he' 
+
+'6246:0 TOM' 
+'he' 
+
+'6247:0 I' 
+'he' 
+
+'6249:0 GIRL' 
+'he' 
+
+'6250:0 Have' 
+'he' 
+
+'6252:0 116.' 
+'he' 
+
+'6256:0 TOM' 
+'he' 
+
+'6257:0 I,' 
+'he' 
+
+'6258:0 so.' 
+'he' 
+
+'6260:0 GIRL' 
+'he' 
+
+'6261:0 Do' 
+'he' 
+
+'6262:0 pray' 
+'he' 
+
+'6263:0 outside?' 
+'he' 
+
+'6265:0 TOM' 
+'he' 
+
+'6266:0 I' 
+'he' 
+
+'6267:0 my' 
+'he' 
+
+'6269:0 GIRL' 
+'he' 
+
+'6270:0 If' 
+'he' 
+
+'6271:0 horrible' 
+'he' 
+
+'6273:0 TOM' 
+'he' 
+
+'6274:0 Yes!' 
+'he' 
+
+'6276:0 GIRL' 
+'he' 
+
+'6277:0 Yeah.' 
+'he' 
+
+'6278:0 (BEAT)' 
+'he' 
+
+'6279:0 I' 
+'he' 
+
+'6281:0 TOM' 
+'he' 
+
+'6282:0 You' 
+'he' 
+
+'6283:0 you.' 
+'he' 
+
+'6285:0 GIRL' 
+'he' 
+
+'6286:0 It' 
+'he' 
+
+'6287:0 looking.' 
+'he' 
+
+'6289:0 A' 
+'he' 
+
+'6291:0 MAN' 
+'he' 
+
+'6292:0 Tom' 
+'he' 
+
+'6294:0 TOM' 
+'he' 
+
+'6295:0 Yes.' 
+'he' 
+
+'6297:0 MAN' 
+'he' 
+
+'6298:0 Come' 
+'he' 
+
+'6300:0 TOM' 
+'he' 
+
+'6301:0 Thank' 
+'he' 
+
+'6303:0 He' 
+'he' 
+
+'6304:0 and' 
+'he' 
+
+'6306:0 117.' 
+'he' 
+
+'6310:0 NARRATOR' 
+'he' 
+
+'6311:0 If' 
+'he' 
+
+'6312:0 was' 
+'he' 
+
+'6313:0 cosmic' 
+'he' 
+
+'6314:0 earthly' 
+'he' 
+
+'6315:0 all' 
+'he' 
+
+'6316:0 than' 
+'he' 
+
+'6318:0 ANIMATION.' 
+'he' 
+
+'6319:0 Hardly' 
+'he' 
+
+'6321:0 NARRATOR' 
+'he' 
+
+'6322:0 It' 
+'he' 
+
+'6323:0 finally' 
+'he' 
+
+'6324:0 miracles.' 
+'he' 
+
+'6325:0 fate.' 
+'he' 
+
+'6326:0 knew.' 
+'he' 
+
+'6327:0 (BEAT)' 
+'he' 
+
+'6328:0 Tom' 
+'he' 
+
+'6330:0 Tom' 
+'he' 
+
+'6332:0 NARRATOR' 
+'he' 
+
+'6333:0 ...pretty' 
+'he' 
+
+'6335:0 TOM' 
+'he' 
+
+'6336:0 (to' 
+'he' 
+
+'6337:0 Excuse' 
+'he' 
+
+'6339:0 GIRL' 
+'he' 
+
+'6340:0 Hello' 
+'he' 
+
+'6342:0 TOM' 
+'he' 
+
+'6343:0 When' 
+'he' 
+
+'6344:0 you' 
+'he' 
+
+'6345:0 coffee' 
+'he' 
+
+'6347:0 GIRL' 
+'he' 
+
+'6348:0 Oh.' 
+'he' 
+
+'6349:0 someone.' 
+'he' 
+
+'6351:0 TOM' 
+'he' 
+
+'6352:0 (DEFLATED)' 
+'he' 
+
+'6353:0 Oh.' 
+'he' 
+
+'6355:0 He' 
+'he' 
+
+'6356:0 the' 
+'he' 
+
+'6358:0 GIRL' 
+'he' 
+
+'6359:0 Ok.' 
+'he' 
+
+'6361:0 Tom' 
+'he' 
+
+'6363:0 118.' 
+'he' 
+
+'6367:0 TOM' 
+'he' 
+
+'6368:0 What's' 
+'he' 
+
+'6370:0 GIRL' 
+'he' 
+
+'6371:0 Why' 
+'he' 
+
+'6373:0 TOM' 
+'he' 
+
+'6374:0 Yeah?' 
+'he' 
+
+'6376:0 GIRL' 
+'he' 
+
+'6377:0 Yeah.' 
+'he' 
+
+'6379:0 TOM' 
+'he' 
+
+'6380:0 Great!' 
+'he' 
+
+'6381:0 here,' 
+'he' 
+
+'6382:0 or...something.' 
+'he' 
+
+'6384:0 She' 
+'he' 
+
+'6386:0 GIRL' 
+'he' 
+
+'6387:0 We'll' 
+'he' 
+
+'6389:0 TOM' 
+'he' 
+
+'6390:0 Ok!' 
+'he' 
+
+'6391:0 (extends' 
+'he' 
+
+'6392:0 My' 
+'he' 
+
+'6394:0 GIRL' 
+'he' 
+
+'6395:0 Nice' 
+'he' 
+
+'6397:0 She' 
+'he' 
+
+'6399:0 GIRL' 
+'he' 
+
+'6400:0 I'm' 
+'he' 
+
+'6402:0 And' 
+'he' 
+
+'6404:0 SMASH' 
+'he' 
+
+'6408:0 THE' 
+'he' 
+
+'6410:0 (CREDITS' 
+'he' 
+
+'6419:0 500' 
+'he' 
+
+'6420:0 Writers' 
+'he' 
+
+'6421:0 Genres' 
+'he' 
+
+'6422:0 User' 
+'he' 
+
+'6428:0 Back' 
+'he' 
+
