@@ -37,8 +37,10 @@ int main(int argc, char** argv) {
             write(STDOUT_FILENO, err3, 25);
             exit(1);
         }
+
         /* Add line number to output file */
         ret = solve(txt_fd);
+
         if (ret < 0) {
             write(STDOUT_FILENO, err5, 29);
             exit(1);

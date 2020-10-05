@@ -8,6 +8,8 @@
 // #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>
 
+#include "mystring.h"
+
 // 문자열 길이 s 반환. 널문자 비포함.
 int my_strlen(const char* s) {
     int i;
@@ -27,48 +29,70 @@ char* my_strcpy(char* dest, char* src) {
     return tmp;
 }
 
-char* my_strtok(char* str, const char* delims) {
-    if (delims == NULL) {
-        return str;
-    }
-    char* ptr = str;
-    int flag = 0;
-    if (flag == 1) {
-        return NULL;
-    }
-    char* ptrReturn = ptr;
-    for (int j = 0; ptr != '\0'; j++) {
-        for (int i = 0; delims[i] != '\0'; i++) {
-            if (ptr[j] == '\0') {
-                flag = 1;
-                return ptrReturn;
+/* Make the temp_ptr as static, so it will hold the previous pointing address */
+static char* temp_ptr = NULL;
+
+char* my_strtok(char* str, char* delimiters) {
+    static char* pCurrent;
+    char* pDelimit;
+
+    if (str != NULL)
+        pCurrent = str;
+    else
+        str = pCurrent;
+
+    if (*pCurrent == NULL) return NULL;
+
+    //문자열 점검
+    while (*pCurrent) {
+        pDelimit = (char*)delimiters;
+
+        while (*pDelimit) {
+            if (*pCurrent == *pDelimit) {
+                *pCurrent = NULL;
+                ++pCurrent;
+                return str;
             }
-            if (ptr[j] == delims[i]) {
-                ptr[j] = '\0';
-                ptr += j + 1;
-                return ptrReturn;
-            }
+            ++pDelimit;
         }
+        ++pCurrent;
     }
-    return NULL;
+    // 더이상 자를 수 없다면 NULL반환
+    return str;
 }
+
+// char* my_strtok(char* str, const char* delims) {
+//     if (delims == NULL) {
+//         return str;
+//     }
+//     char* ptr = str;
+//     int flag = 0;
+//     if (flag == 1) {
+//         return NULL;
+//     }
+//     char* ptrReturn = ptr;
+//     for (int j = 0; ptr != '\0'; j++) {
+//         for (int i = 0; delims[i] != '\0'; i++) {
+//             if (ptr[j] == '\0') {
+//                 flag = 1;
+//                 return ptrReturn;
+//             }
+//             if (ptr[j] == delims[i]) {
+//                 ptr[j] = '\0';
+//                 ptr += j + 1;
+//                 return ptrReturn;
+//             }
+//         }
+//     }
+//     return NULL;
+// }
 
 int my_strcmp(const char* s1, const char* s2) {
     while (*s1) {
-        if (*s1 != *s2) {
-            char a = *s1;
-            char b = *s2;
-            if (a >= 97 && a <= 122) {
-                a -= 32;
-            }
-            if (b >= 97 && b <= 122) {
-                b -= 32;
-            }
-            if (a != b) {
-                return a - b;
-            } else {
-                continue;
-            }
+        char a = *s1;
+        char b = *s2;
+        if (!is_char_same(a, b)) {
+            break;
         }
         s1++;
         s2++;
@@ -82,18 +106,89 @@ void* my_memset(void* dest, int fillChar, unsigned int count) {
     return dest;
 }
 
-// int is_char_same(char a, char b) {
-//     if (a >= 97 && a <= 122) {
-//         return a - 32;
-//     }
-//     if (b >= 97 && b <= 122) {
-//         return b - 32;
-//     }
-//     if (a == b)
-//         return 1;
-//     else
-//         return 0;
-// }
+int is_char_same(char a, char b) {
+    if (a >= 97 && a <= 122) {
+        a -= 32;
+    }
+    if (b >= 97 && b <= 122) {
+        b -= 32;
+    }
+    if (a == b)
+        return 1;
+    else
+        return 0;
+}
+
+void my_itoa(int n, char s[]) {
+    int i, sign;
+
+    if ((sign = n) < 0) /* record sign */
+        n = -n;         /* make n positive */
+    i = 0;
+    do {                       /* generate digits in reverse order */
+        s[i++] = n % 10 + '0'; /* get next digit */
+    } while ((n /= 10) > 0);   /* delete it */
+    if (sign < 0)
+        s[i++] = '-';
+    s[i] = '\0';
+    my_reverse(s);
+}
+
+void my_reverse(char s[]) {
+    int i, j;
+    char c;
+
+    for (i = 0, j = my_strlen(s) - 1; i < j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
+    }
+}
+
+void print_int(int row) {
+    int row_digit = return_digit(row);
+    char* row_num = malloc(row_digit + 1);
+    my_itoa(row, row_num);
+    write(STDOUT_FILENO, row_num, row_digit);
+    write(STDOUT_FILENO, " ", 1);
+    free(row_num);
+}
+void print_int_int(int row, int col) {
+    int row_digit = return_digit(row);
+    int col_digit = return_digit(col);
+
+    char* row_num = malloc(row_digit + 1);
+    char* col_num = malloc(col_digit + 1);
+    my_itoa(row, row_num);
+    my_itoa(col, col_num);
+    // printf("%d 's Digit is %d\n", row, row_digit);
+    // printf("sizeof %ld strlen %d\n", sizeof(row_num), my_strlen(row_num));
+    // printf("%d 's Digit is %d\n", col, col_digit);
+    // printf("%s:%s \n\n", row_num, col_num);
+    write(STDOUT_FILENO, row_num, row_digit);
+    write(STDOUT_FILENO, ":", 1);
+    write(STDOUT_FILENO, col_num, col_digit);
+    write(STDOUT_FILENO, " ", 1);
+    free(row_num);
+    free(col_num);
+}
+
+int return_digit(int num) {
+    int ret = 0;
+    while (num != 0) {
+        num /= 10;
+        ret++;
+    }
+    return ret;
+}
+
+int my_rewind(int fd) {  // 비정상 rewind 시 -1 반환.
+    int ret = lseek(fd, 0, SEEK_SET);
+    if (ret != 0) {
+        return -1;
+    }
+    return ret;
+}
 
 // size_t my_strspn(const char* str1, const char* str2) {
 //     size_t i, j;

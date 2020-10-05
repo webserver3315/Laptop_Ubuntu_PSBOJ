@@ -1,7 +1,7 @@
 #include <fcntl.h>
 #include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <stdlib.h>
-#include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
+// #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>
 
 #include "mystring.h"
@@ -28,8 +28,9 @@ int get_string_from_fd(int fd, char* dest) {  // fd로부터 개행까지 읽어
 void operate_1(int txt_fd, char* text_line, char* raw_query) {
     char* result;
     int row = 0;
+    // int pos = my_rewind(txt_fd);
     while (0 < get_string_from_fd(txt_fd, text_line)) {
-        printf("%s", text_line);
+        // printf("%s", text_line);
         row++;
         if (text_line[0] == '\n') continue;
         result = my_strtok(text_line, " \t\n");
@@ -38,7 +39,8 @@ void operate_1(int txt_fd, char* text_line, char* raw_query) {
         while (result != NULL) {
             // printf("%d:%d : %s\n", row, col, result);
             if (0 == my_strcmp(result, raw_query)) {
-                printf("MATCHED == %d:%d : %s\n", row, col, result);
+                // printf("MATCHED == %d:%d : %s\n", row, col, result);
+                print_int_int(row, col);
             }
             result = my_strtok(NULL, " \t\n");
             if (result == NULL) break;
@@ -46,6 +48,7 @@ void operate_1(int txt_fd, char* text_line, char* raw_query) {
             // printf("%d:%d : %s\n", row, col, result);
         }
     }
+    printf("operation 1 ends\n");
 }
 //여러 단어를 받았을 때, 모든 단어가 존재하는 시작 줄번호만 stdout에 출력
 int operate_2(int txt_fd, char* text_line, char* query) {
@@ -110,7 +113,8 @@ int operate_2(int txt_fd, char* text_line, char* query) {
             }
         }
         if (is_matched)
-            printf("MATCHED %d\n", row);
+            // printf("MATCHED %d\n", row);
+            print_int(row);
     }
     free(text_line_list);
     free(query_list);
@@ -158,6 +162,7 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
             text_line_list[text_line_list_cnt++] = result;
         }
 
+        /*
         for (int i = 0; i < text_line_list_cnt; i++) {
             col = text_line_list[i] - text_line;
             printf("\'%d:%d %s\' ", row, col, text_line_list[i]);
@@ -167,6 +172,7 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
             printf("\'%s\' ", query_list[i]);
         }
         printf("\n\n");
+        */
 
         int a, b;
         for (a = 0; a < text_line_list_cnt - query_list_cnt; a++) {
@@ -180,7 +186,8 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
             }
             if (b == query_list_cnt) {
                 col = text_line_list[a] - text_line;
-                printf("MATCHED %d:%d %s\n", row, col, text_line_list[a]);
+                // printf("MATCHED %d:%d %s\n", row, col, text_line_list[a]);
+                print_int_int(row, col);
             }
         }
     }
@@ -243,7 +250,8 @@ int operate_4(int txt_fd, char* text_line, char* raw_query) {
             for (b = a + 2; b < text_line_list_cnt; b++) {
                 if (0 == my_strcmp(text_line_list[b], query_list[1])) {
                     col = text_line_list[a] - text_line;
-                    printf("MATCHED %d %s\n", row, text_line_list[a]);
+                    // printf("MATCHED %d %s\n", row, text_line_list[a]);
+                    print_int(row);
                 } else
                     continue;
             }
@@ -283,10 +291,13 @@ int what_query_is_it(char* raw_query) {  // 실패시 -1 반환.
 int repeat_queries(int txt_fd) {
     char* raw_query = malloc(MAX_LENGTH);
     char* text_line = malloc(MAX_LENGTH);
-    while (0 < get_string_from_fd(STDIN_FILENO, raw_query)) {
-        printf("raw_query is %s\n", raw_query);
 
+    while (0 < get_string_from_fd(STDIN_FILENO, raw_query)) {
+        my_rewind(txt_fd);
+        printf("pos = %d\n", pos);
+        printf("raw_query is %s\n", raw_query);
         int mode = what_query_is_it(raw_query);
+        printf("mode is %d\n", mode);
         if (mode == 1) {
             operate_1(txt_fd, text_line, raw_query);
         } else if (mode == 2) {
@@ -296,7 +307,8 @@ int repeat_queries(int txt_fd) {
         } else if (mode == 4) {
             operate_4(txt_fd, text_line, raw_query);
         } else {
-            printf("-1 mode is an ERROR\n");
+            char str1[] = "-1 mode is an ERROR\n";
+            write(STDERR_FILENO, str1, sizeof(str1));
         }
     }
     free(text_line);
@@ -305,9 +317,8 @@ int repeat_queries(int txt_fd) {
 }
 
 int solve(int txt_fd) {
-    int pos = lseek(txt_fd, 0, SEEK_SET);
-    if (pos != 0) {
-        return -1;
+    while (1) {
+        repeat_queries(txt_fd);
     }
-    repeat_queries(txt_fd);
+    return 0;
 }
