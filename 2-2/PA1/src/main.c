@@ -1,5 +1,5 @@
 #include <fcntl.h>
-#include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
+// #include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <stdlib.h>
 // #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>

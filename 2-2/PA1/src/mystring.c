@@ -3,7 +3,7 @@
 #ifdef MYSOURCE
 
 #include <fcntl.h>
-#include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
+// #include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <stdlib.h>
 // #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>
@@ -21,16 +21,13 @@ int my_strlen(const char* s) {
 // from 의 문자열을 to 주소에 복붙
 char* my_strcpy(char* dest, char* src) {
     char* tmp = dest;
-    /*
-        * src 가 null byte 일때까지 dest에 한자씩 복사한 후 리턴합니다.
-    */
+    // src 가 null byte 일때까지 dest에 한자씩 복사한 후 리턴
     while ((*dest++ = *src++) != '\0')
         /* nothing */;
     return tmp;
 }
 
-/* Make the temp_ptr as static, so it will hold the previous pointing address */
-static char* temp_ptr = NULL;
+// static char* temp_ptr = NULL;
 
 char* my_strtok(char* str, char* delimiters) {
     static char* pCurrent;
@@ -121,13 +118,18 @@ int is_char_same(char a, char b) {
 
 void my_itoa(int n, char s[]) {
     int i, sign;
+    if (n == 0) {
+        s[0] = '0';
+        s[1] = '\0';
+        return;
+    }
 
-    if ((sign = n) < 0) /* record sign */
-        n = -n;         /* make n positive */
+    if ((sign = n) < 0)
+        n = -n;
     i = 0;
-    do {                       /* generate digits in reverse order */
-        s[i++] = n % 10 + '0'; /* get next digit */
-    } while ((n /= 10) > 0);   /* delete it */
+    do {
+        s[i++] = n % 10 + '0';
+    } while ((n /= 10) > 0);
     if (sign < 0)
         s[i++] = '-';
     s[i] = '\0';
@@ -145,17 +147,23 @@ void my_reverse(char s[]) {
     }
 }
 
-void print_int(int row) {
+void print_int(int row, int cnt) {
     int row_digit = return_digit(row);
     char* row_num = malloc(row_digit + 1);
+    if (cnt > 0) {
+        write(STDOUT_FILENO, " ", 1);
+    }
     my_itoa(row, row_num);
     write(STDOUT_FILENO, row_num, row_digit);
-    write(STDOUT_FILENO, " ", 1);
     free(row_num);
 }
-void print_int_int(int row, int col) {
+
+void print_int_int(int row, int col, int cnt) {
     int row_digit = return_digit(row);
     int col_digit = return_digit(col);
+    if (cnt > 0) {
+        write(STDOUT_FILENO, " ", 1);
+    }
 
     char* row_num = malloc(row_digit + 1);
     char* col_num = malloc(col_digit + 1);
@@ -168,13 +176,14 @@ void print_int_int(int row, int col) {
     write(STDOUT_FILENO, row_num, row_digit);
     write(STDOUT_FILENO, ":", 1);
     write(STDOUT_FILENO, col_num, col_digit);
-    write(STDOUT_FILENO, " ", 1);
     free(row_num);
     free(col_num);
 }
 
 int return_digit(int num) {
     int ret = 0;
+    if (num == 0)
+        return 1;
     while (num != 0) {
         num /= 10;
         ret++;

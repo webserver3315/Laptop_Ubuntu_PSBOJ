@@ -19,9 +19,9 @@ void my_itoa(int n, char s[]);
 
 void my_reverse(char s[]);
 
-void print_int(int row);
+void print_int(int row, int cnt);
 
-void print_int_int(int row, int col);
+void print_int_int(int row, int col, int cnt);
 
 int return_digit(int num);
 

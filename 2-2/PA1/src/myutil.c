@@ -1,5 +1,5 @@
 #include <fcntl.h>
-#include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
+// #include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <stdlib.h>
 // #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>
@@ -29,6 +29,7 @@ void operate_1(int txt_fd, char* text_line, char* raw_query) {
     char* result;
     int row = 0;
     // int pos = my_rewind(txt_fd);
+    int cnt = 0;
     while (0 < get_string_from_fd(txt_fd, text_line)) {
         // printf("%s", text_line);
         row++;
@@ -40,7 +41,8 @@ void operate_1(int txt_fd, char* text_line, char* raw_query) {
             // printf("%d:%d : %s\n", row, col, result);
             if (0 == my_strcmp(result, raw_query)) {
                 // printf("MATCHED == %d:%d : %s\n", row, col, result);
-                print_int_int(row, col);
+                print_int_int(row, col, cnt);
+                cnt++;
             }
             result = my_strtok(NULL, " \t\n");
             if (result == NULL) break;
@@ -48,7 +50,7 @@ void operate_1(int txt_fd, char* text_line, char* raw_query) {
             // printf("%d:%d : %s\n", row, col, result);
         }
     }
-    printf("operation 1 ends\n");
+    // printf("operation 1 ends\n");s
 }
 //여러 단어를 받았을 때, 모든 단어가 존재하는 시작 줄번호만 stdout에 출력
 int operate_2(int txt_fd, char* text_line, char* query) {
@@ -71,6 +73,7 @@ int operate_2(int txt_fd, char* text_line, char* query) {
     int* visited = malloc(query_list_cnt);
 
     char** text_line_list = malloc(MAX_BYTE);  //한 줄에 128KB는 안넘겠지 설마
+    int cnt = 0;
     while (0 < get_string_from_fd(txt_fd, text_line)) {
         // printf("%s", text_line);
         row++;
@@ -112,9 +115,11 @@ int operate_2(int txt_fd, char* text_line, char* query) {
                 break;
             }
         }
-        if (is_matched)
+        if (is_matched) {
             // printf("MATCHED %d\n", row);
-            print_int(row);
+            print_int(row, cnt);
+            cnt++;
+        }
     }
     free(text_line_list);
     free(query_list);
@@ -147,6 +152,7 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
     }
 
     char** text_line_list = malloc(MAX_BYTE);  //한 줄에 128KB는 안넘겠지 설마
+    int cnt = 0;
     while (0 < get_string_from_fd(txt_fd, text_line)) {
         // printf("%s", text_line);
         row++;
@@ -162,23 +168,22 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
             text_line_list[text_line_list_cnt++] = result;
         }
 
-        /*
-        for (int i = 0; i < text_line_list_cnt; i++) {
-            col = text_line_list[i] - text_line;
-            printf("\'%d:%d %s\' ", row, col, text_line_list[i]);
-        }
-        printf("\n");
-        for (int i = 0; i < query_list_cnt; i++) {
-            printf("\'%s\' ", query_list[i]);
-        }
-        printf("\n\n");
-        */
+        // for (int i = 0; i < text_line_list_cnt; i++) {
+        //     col = text_line_list[i] - text_line;
+        //     printf("\'%d:%d %s\' ", row, col, text_line_list[i]);
+        // }
+        // printf("\n");
+        // for (int i = 0; i < query_list_cnt; i++) {
+        //     printf("\'%s\' ", query_list[i]);
+        // }
+        // printf("\n\n");
 
         int a, b;
-        for (a = 0; a < text_line_list_cnt - query_list_cnt; a++) {
+        for (a = 0; a <= text_line_list_cnt - query_list_cnt; a++) {
             for (b = 0; b < query_list_cnt; b++) {
                 char* left = text_line_list[a + b];
                 char* right = query_list[b];
+                // printf("Comparing %s %s\n", left, right);
                 if (0 == my_strcmp(left, right)) {
                     continue;
                 }
@@ -187,7 +192,8 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
             if (b == query_list_cnt) {
                 col = text_line_list[a] - text_line;
                 // printf("MATCHED %d:%d %s\n", row, col, text_line_list[a]);
-                print_int_int(row, col);
+                print_int_int(row, col, cnt);
+                cnt++;
             }
         }
     }
@@ -217,6 +223,7 @@ int operate_4(int txt_fd, char* text_line, char* raw_query) {
     }
 
     char** text_line_list = malloc(MAX_BYTE);  //한 줄에 128KB는 안넘겠지 설마
+    int cnt = 0;
     while (0 < get_string_from_fd(txt_fd, text_line)) {
         // printf("%s", text_line);
         row++;
@@ -251,7 +258,8 @@ int operate_4(int txt_fd, char* text_line, char* raw_query) {
                 if (0 == my_strcmp(text_line_list[b], query_list[1])) {
                     col = text_line_list[a] - text_line;
                     // printf("MATCHED %d %s\n", row, text_line_list[a]);
-                    print_int(row);
+                    print_int(row, cnt);
+                    cnt++;
                 } else
                     continue;
             }
@@ -293,11 +301,12 @@ int repeat_queries(int txt_fd) {
     char* text_line = malloc(MAX_LENGTH);
 
     while (0 < get_string_from_fd(STDIN_FILENO, raw_query)) {
-        my_rewind(txt_fd);
-        printf("pos = %d\n", pos);
-        printf("raw_query is %s\n", raw_query);
+        int pos = my_rewind(txt_fd);
+        // printf("pos = %d\n", pos);
+        // printf("raw_query is %s\n", raw_query);
         int mode = what_query_is_it(raw_query);
-        printf("mode is %d\n", mode);
+        // printf("mode is %d\n", mode);
+
         if (mode == 1) {
             operate_1(txt_fd, text_line, raw_query);
         } else if (mode == 2) {
@@ -310,6 +319,7 @@ int repeat_queries(int txt_fd) {
             char str1[] = "-1 mode is an ERROR\n";
             write(STDERR_FILENO, str1, sizeof(str1));
         }
+        write(STDOUT_FILENO, "\n", 1);
     }
     free(text_line);
     free(raw_query);
