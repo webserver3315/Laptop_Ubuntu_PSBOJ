@@ -2,11 +2,13 @@
 
 #ifdef MYSOURCE
 
-#include "mystring.h"
-
 #include <fcntl.h>
+// #include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <stdlib.h>
+// #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>
+
+#include "mystring.h"
 
 // 문자열 길이 s 반환. 널문자 비포함.
 int my_strlen(const char* s) {
@@ -28,32 +30,59 @@ char* my_strcpy(char* dest, char* src) {
 // static char* temp_ptr = NULL;
 
 char* my_strtok(char* str, char* delimiters) {
-    static char* current_pointer;
-    char* delimit_pointer;
+    static char* pCurrent;
+    char* pDelimit;
 
     if (str != NULL)
-        current_pointer = str;
+        pCurrent = str;
     else
-        str = current_pointer;
+        str = pCurrent;
 
-    if (*current_pointer == NULL) return NULL;
+    if (*pCurrent == NULL) return NULL;
 
     //문자열 점검
-    while (*current_pointer) {
-        delimit_pointer = (char*)delimiters;
-        while (*delimit_pointer) {
-            if (*current_pointer == *delimit_pointer) {
-                *current_pointer = NULL;
-                ++current_pointer;
+    while (*pCurrent) {
+        pDelimit = (char*)delimiters;
+
+        while (*pDelimit) {
+            if (*pCurrent == *pDelimit) {
+                *pCurrent = NULL;
+                ++pCurrent;
                 return str;
             }
-            ++delimit_pointer;
+            ++pDelimit;
         }
-        ++current_pointer;
+        ++pCurrent;
     }
     // 더이상 자를 수 없다면 NULL반환
     return str;
 }
+
+// char* my_strtok(char* str, const char* delims) {
+//     if (delims == NULL) {
+//         return str;
+//     }
+//     char* ptr = str;
+//     int flag = 0;
+//     if (flag == 1) {
+//         return NULL;
+//     }
+//     char* ptrReturn = ptr;
+//     for (int j = 0; ptr != '\0'; j++) {
+//         for (int i = 0; delims[i] != '\0'; i++) {
+//             if (ptr[j] == '\0') {
+//                 flag = 1;
+//                 return ptrReturn;
+//             }
+//             if (ptr[j] == delims[i]) {
+//                 ptr[j] = '\0';
+//                 ptr += j + 1;
+//                 return ptrReturn;
+//             }
+//         }
+//     }
+//     return NULL;
+// }
 
 int my_strcmp(const char* s1, const char* s2) {
     while (*s1) {
@@ -87,32 +116,34 @@ int is_char_same(char a, char b) {
         return 0;
 }
 
-void my_itoa(int n, char str[]) {
+void my_itoa(int n, char s[]) {
     int i, sign;
     if (n == 0) {
-        str[0] = '0';
-        str[1] = '\0';
+        s[0] = '0';
+        s[1] = '\0';
         return;
     }
+
     if ((sign = n) < 0)
         n = -n;
     i = 0;
     do {
-        str[i++] = n % 10 + '0';
+        s[i++] = n % 10 + '0';
     } while ((n /= 10) > 0);
     if (sign < 0)
-        str[i++] = '-';
-    str[i] = '\0';
-    my_reverse(str);
+        s[i++] = '-';
+    s[i] = '\0';
+    my_reverse(s);
 }
 
-void my_reverse(char str[]) {
+void my_reverse(char s[]) {
     int i, j;
     char c;
-    for (i = 0, j = my_strlen(str) - 1; i < j; i++, j--) {
-        c = str[i];
-        str[i] = str[j];
-        str[j] = c;
+
+    for (i = 0, j = my_strlen(s) - 1; i < j; i++, j--) {
+        c = s[i];
+        s[i] = s[j];
+        s[j] = c;
     }
 }
 
@@ -167,5 +198,62 @@ int my_rewind(int fd) {  // 비정상 rewind 시 -1 반환.
     }
     return ret;
 }
+
+// size_t my_strspn(const char* str1, const char* str2) {
+//     size_t i, j;
+//     i = 0;
+//     while (*(str1 + i)) {
+//         j = 0;
+//         while (*(str2 + j)) {
+//             if (*(str1 + i) == *(str2 + j)) {
+//                 break;  //Found a match.
+//             }
+//             j++;
+//         }
+//         if (!*(str2 + j)) {
+//             return i;  //No match found.
+//         }
+//         i++;
+//     }
+//     return i;
+// }
+
+// char* my_strtok(char* str, const char* delim) {
+//     static char* p = 0;
+//     if (str)
+//         p = str;
+//     else if (!p)
+//         return 0;
+//     str = p + my_strspn(p, delim);
+//     p = str + strcspn(str, delim);
+//     if (p == str)
+//         return p = 0;
+//     p = *p ? * p = 0, p + 1 : 0;
+//     return str;
+// }
+
+// // left 와 right 문자열을 비교. 같으면 0, 다르면 1
+// int is_string_diff(char* left, char* right) {
+//     unsigned char a, b;
+//     while (1) {
+//         a = *left++;
+//         b = *right++;
+//         if (0 == is_char_same(a, b)) {
+//             return 1;
+//         }
+//         if (!a) break;
+//     }
+//     return 0;  // two are Identical
+// }
+
+// void find_all(char* dest, char* src, int row) {
+//     char* ptr = dest;
+//     while ((ptr = strstr(ptr, src)) != NULL) {
+//         int col = ptr - dest;
+//         printf("FIND: %d:%d \'%s\'\n", row, col, src);
+//         ptr++;
+//     }
+//     return;
+// }
 
 #endif

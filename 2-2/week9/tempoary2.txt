@@ -1,0 +1,99 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/msg.h>
+#include <sys/shm.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+
+struct msg {
+    long msgtype;
+    /* implement here */
+    char text[512];
+};
+
+struct msg_ack {
+    long msgtype;
+    /* implement here */
+    time_t tt;
+};
+
+int main() {
+    /* 
+	 * @ int uid: user ID
+	 * @ int receiver_id: receiver's ID
+	 */
+    int uid;
+    int receiver_id;
+
+    printf("my id is \n");
+    scanf("%d", &uid);
+    getchar();  // flush
+
+    printf("who to send ? \n");
+    scanf("%d", &receiver_id);
+    getchar();  // flush
+
+    /* code to get key and QID */
+    key_t sender_k = ftok(".", 1);
+    int qid = msgget(sender_k, IPC_CREAT | 0660);
+    if (qid == -1) {
+        perror("msgget error : ");
+        exit(1);
+    }
+
+    /* 자식: 리시버 */
+    if (fork() == 0) {
+        while (1) {
+            /* get msg from queue and print out */
+            ssize_t st1, st2;
+            struct msg buf;
+            struct msg_ack read_time;
+            st1 = msgrcv(qid, &buf, sizeof(buf) - sizeof(long), uid, IPC_NOWAIT);
+            // if (st1 == -1) {
+            //     perror("msgrsv error11111 : ");
+            //     exit(1);
+            // }
+            if (st1 > 0) {
+                printf("%d\n", receiver_id);
+                printf("RECEIVED %s\n", buf.text);
+
+                read_time.msgtype = receiver_id + 1000;
+                time(&(read_time.tt));
+                // printf("sent time is %s", ctime(&(read_time.tt)));  //맞나?
+                if (msgsnd(qid, &read_time, sizeof(read_time) - sizeof(long), 0) == -1) {
+                    perror("msgsnd error4444 : ");
+                    exit(1);
+                }
+            }
+
+            st2 = msgrcv(qid, &read_time, sizeof(read_time) - sizeof(long), uid + 1000, IPC_NOWAIT);
+            // if (st2 <= -1) {
+            //     perror("msgrsv error22222 : ");
+            //     exit(1);
+            // }
+            if (st2 > 0) {
+                printf("%d read message at : %s", receiver_id, ctime(&(read_time.tt)));  //맞나?
+            }
+        }
+    } else { /* 부모: Sender */
+        while (1) {
+            /* get user input and send to the msg queue */
+            struct msg buf;
+            buf.msgtype = receiver_id;
+            gets(buf.text);
+            // printf("gets got %s\n", buf.text);
+            // getline(buf.text, 512, stdin);
+            // scanf("%s", buf->text);
+
+            if (msgsnd(qid, &buf, sizeof(buf) - sizeof(long), 0) == -1) {
+                perror("msgsnd error33333 : ");
+                exit(1);
+            }
+        }
+    }
+
+    return 0;
+}

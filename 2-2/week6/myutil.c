@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "mystring.h"
@@ -20,7 +21,7 @@ int get_string_from_fd(int fd, char* dest) {  // fd로부터 개행까지 읽어
             break;
         }
     }
-    return my_strlen(dest);
+    return strlen(dest);
 }
 
 //한 단어만 받았을 때, 단어의 행과 열을 stdout에 출력
@@ -33,17 +34,17 @@ void operate_1(int txt_fd, char* text_line, char* raw_query) {
         // printf("%s", text_line);
         row++;
         if (text_line[0] == '\n') continue;
-        result = my_strtok(text_line, " \t\n");
+        result = strtok(text_line, " \t\n");
         int col = result - text_line;
         // printf("%d:%d : %s\n", row, col, result);
         while (result != NULL) {
             // printf("%d:%d : %s\n", row, col, result);
-            if (0 == my_strcmp(result, raw_query)) {
+            if (0 == strcmp(result, raw_query)) {
                 // printf("MATCHED == %d:%d : %s\n", row, col, result);
                 print_int_int(row, col, cnt);
                 cnt++;
             }
-            result = my_strtok(NULL, " \t\n");
+            result = strtok(NULL, " \t\n");
             if (result == NULL) break;
             col = result - text_line;
             // printf("%d:%d : %s\n", row, col, result);
@@ -60,11 +61,11 @@ int operate_2(int txt_fd, char* text_line, char* query) {
     /* Parse Query to query_list */
     char** query_list = malloc(MAX_BYTE);  // "" 쿼리 안의 단어 수가 설마 128KB는 안넘겠지
     int query_list_cnt = 0;
-    result = my_strtok(query, " \t\n");
+    result = strtok(query, " \t\n");
     query_list[query_list_cnt++] = result;
     // printf("query_list[%d]: %s\n", query_list_cnt - 1, query_list[query_list_cnt - 1]);
     while (result != NULL) {
-        result = my_strtok(NULL, " \t\n");
+        result = strtok(NULL, " \t\n");
         if (result == NULL) break;
         query_list[query_list_cnt++] = result;
         // printf("query_list[%d]: %s\n", query_list_cnt - 1, query_list[query_list_cnt - 1]);
@@ -77,21 +78,21 @@ int operate_2(int txt_fd, char* text_line, char* query) {
         // printf("%s", text_line);
         row++;
         if (text_line[0] == '\n') continue;
-        my_memset(visited, 0, sizeof(visited));
+        memset(visited, 0, sizeof(visited));
 
         /* Parse text_line to text_line_list */
         int text_line_list_cnt = 0;
-        result = my_strtok(text_line, " \t\n");
+        result = strtok(text_line, " \t\n");
         text_line_list[text_line_list_cnt++] = result;
         while (result != NULL) {
-            result = my_strtok(NULL, " \t\n");
+            result = strtok(NULL, " \t\n");
             if (result == NULL) break;
             text_line_list[text_line_list_cnt++] = result;
         }
 
         for (int i = 0; i < text_line_list_cnt; i++) {
             for (int j = 0; j < query_list_cnt; j++) {
-                if (0 == my_strcmp(text_line_list[i], query_list[j])) {
+                if (0 == strcmp(text_line_list[i], query_list[j])) {
                     visited[j] = 1;
                 }
             }
@@ -133,18 +134,18 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
     int col = 0;
 
     char* query = malloc(MAX_LENGTH);
-    my_strcpy(query, raw_query + 1);  // 첫 " 제거
-    int query_length = my_strlen(query);
+    strcpy(query, raw_query + 1);  // 첫 " 제거
+    int query_length = strlen(query);
     query[query_length - 1] = '\0';  // 끄트머리 " 덮어쓰기
 
     /* Parse Query to query_list */
     char** query_list = malloc(MAX_BYTE);  // "" 쿼리 안의 단어 수가 설마 128KB는 안넘겠지
     int query_list_cnt = 0;
-    result = my_strtok(query, " \t\n");
+    result = strtok(query, " \t\n");
     query_list[query_list_cnt++] = result;
     // printf("query_list[%d]: %s\n", query_list_cnt - 1, query_list[query_list_cnt - 1]);
     while (result != NULL) {
-        result = my_strtok(NULL, " \t\n");
+        result = strtok(NULL, " \t\n");
         if (result == NULL) break;
         query_list[query_list_cnt++] = result;
         // printf("query_list[%d]: %s\n", query_list_cnt - 1, query_list[query_list_cnt - 1]);
@@ -159,10 +160,10 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
 
         /* Parse text_line to text_line_list */
         int text_line_list_cnt = 0;
-        result = my_strtok(text_line, " \t\n");
+        result = strtok(text_line, " \t\n");
         text_line_list[text_line_list_cnt++] = result;
         while (result != NULL) {
-            result = my_strtok(NULL, " \t\n");
+            result = strtok(NULL, " \t\n");
             if (result == NULL) break;
             text_line_list[text_line_list_cnt++] = result;
         }
@@ -183,7 +184,7 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
                 char* left = text_line_list[a + b];
                 char* right = query_list[b];
                 // printf("Comparing %s %s\n", left, right);
-                if (0 == my_strcmp(left, right)) {
+                if (0 == strcmp(left, right)) {
                     continue;
                 }
                 break;
@@ -198,73 +199,6 @@ int operate_3(int txt_fd, char* text_line, char* raw_query) {
     }
     free(text_line_list);
     free(query);
-    free(query_list);
-    return 0;
-}
-
-//단어*단어로 단 두개를 입력받았을 때, 최소 1개 단어를 띄운 행을 찾음.
-int operate_4(int txt_fd, char* text_line, char* raw_query) {
-    char* result;
-    int row = 0;
-    int col = 0;
-
-    /* Parse Query to query_list */
-    char** query_list = malloc(2);
-    int query_list_cnt = 0;
-    result = my_strtok(raw_query, "*\n");
-    query_list[query_list_cnt++] = result;
-    // printf("query_list[%d]: %s\n", query_list_cnt - 1, query_list[query_list_cnt - 1]);
-    while (result != NULL) {
-        result = my_strtok(NULL, "*\n");
-        if (result == NULL) break;
-        query_list[query_list_cnt++] = result;
-        // printf("query_list[%d]: %s\n", query_list_cnt - 1, query_list[query_list_cnt - 1]);
-    }
-
-    char** text_line_list = malloc(MAX_BYTE);  //한 줄에 128KB는 안넘겠지 설마
-    int cnt = 0;
-    while (0 < get_string_from_fd(txt_fd, text_line)) {
-        // printf("%s", text_line);
-        row++;
-        if (text_line[0] == '\n') continue;
-
-        /* Parse text_line to text_line_list */
-        int text_line_list_cnt = 0;
-        result = my_strtok(text_line, " \t\n");
-        text_line_list[text_line_list_cnt++] = result;
-        while (result != NULL) {
-            result = my_strtok(NULL, " \t\n");
-            if (result == NULL) break;
-            text_line_list[text_line_list_cnt++] = result;
-        }
-
-        // for (int i = 0; i < text_line_list_cnt; i++) {
-        //     col = text_line_list[i] - text_line;
-        //     printf("\'%d:%d %s\' ", row, col, text_line_list[i]);
-        // }
-        // printf("\n");
-        // for (int i = 0; i < query_list_cnt; i++) {
-        //     printf("\'%s\' ", query_list[i]);
-        // }
-        // printf("\n\n");
-
-        int a, b;
-        for (a = 0; a < text_line_list_cnt - 2; a++) {
-            if (0 != my_strcmp(text_line_list[a], query_list[0])) {
-                continue;
-            }
-            for (b = a + 2; b < text_line_list_cnt; b++) {
-                if (0 == my_strcmp(text_line_list[b], query_list[1])) {
-                    col = text_line_list[a] - text_line;
-                    // printf("MATCHED %d %s\n", row, text_line_list[a]);
-                    print_int(row, cnt);
-                    cnt++;
-                } else
-                    continue;
-            }
-        }
-    }
-    free(text_line_list);
     free(query_list);
     return 0;
 }

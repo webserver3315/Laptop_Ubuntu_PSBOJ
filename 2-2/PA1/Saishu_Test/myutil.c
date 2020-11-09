@@ -1,10 +1,11 @@
 #include <fcntl.h>
+// #include <stdio.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <stdlib.h>
+// #include <string.h>  // string.h, stdio.h 는 나중에 필히 삭제할 것.
 #include <unistd.h>
 
 #include "mystring.h"
 
-#define MAX_WORD 600
 #define MAX_LENGTH 128 * 1024  // 줄당 최대 128KB 가정
 #define MAX_BYTE 128 * 1024
 
