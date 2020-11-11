@@ -1,6 +1,6 @@
 #include "myutil.h"
 
-void execute(char** arg) {
+void execute(char* arg, int fd_in, int fd_out) {
     char* cmd = malloc(512);
     sprintf(cmd, "/bin/%s", arg[0]);
 

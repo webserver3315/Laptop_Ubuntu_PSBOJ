@@ -1,0 +1,3 @@
+grep is < input.txt | grep it > output.txt
+
+echo test | grep t | grep e | grep s
