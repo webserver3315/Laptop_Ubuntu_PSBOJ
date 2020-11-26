@@ -21,7 +21,7 @@ void make_tokens(char* cmd, char* arg[], char* arg2[], char* target) {
     ptr = strtok(left, " ");
     while (ptr != NULL) {
         arg[num++] = ptr;
-        // printf("arg[%d]=%s\n", num - 1, arg[num - 1]);
+        printf("arg[%d]=%s\n", num - 1, arg[num - 1]);
         ptr = strtok(NULL, " ");
     }
     arg[num] = NULL;
@@ -30,7 +30,7 @@ void make_tokens(char* cmd, char* arg[], char* arg2[], char* target) {
     ptr = strtok(right, " ");
     while (ptr != NULL) {
         arg2[num++] = ptr;
-        // printf("arg2[%d]=%s\n", num - 1, arg2[num - 1]);
+        printf("arg2[%d]=%s\n", num - 1, arg2[num - 1]);
         ptr = strtok(NULL, " ");
     }
     arg2[num] = NULL;
