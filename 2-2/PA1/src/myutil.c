@@ -20,6 +20,7 @@ int get_string_from_fd(int fd, char* dest) {  // fd로부터 개행까지 읽어
             break;
         }
     }
+    dest[col] = '\0';
     return my_strlen(dest);
 }
 
