@@ -13,9 +13,9 @@
 #define MAXLINE 256
 
 
-int getcmd(char* cmdline, int str_siz); /* 입력받은 문자의 수를 리턴. 만일 하나도 못받았다면 0 리턴. 그냥 엔터는 1 리턴. */
+int getcmd(char* cmdline, int str_siz); /* 입력받은 문자의 수를 리턴. 만일 하나도 못받았다면 0 리턴. */
 int parsecmd(char* cmdline, char** argv); /* 스페이스/공백/개행 모두 parse 한 뒤 2차원으로 parse */
-int builtin_command(char** argv); /* /bin/ls -la 라면 1, 그 이외는 전부 0 */
+int builtin_command(char** argv); /* /bin/ls -la 라면 0, 그 이외는 전부 1 */
 
 void print_argv(char** argv){
     for (int i = 0; argv[i] != 0;i++){
@@ -46,6 +46,7 @@ int parsecmd(char* cmdline, char** argv){
             argc++;
     }
     argv[argc++] = 0;
+    return argc;
 }
 
 int builtin_command(char** argv){
@@ -70,7 +71,7 @@ int main(void){
     while(1){
         cmdline[0] = 0;
         int len = getcmd(cmdline, sizeof(cmdline));
-        if (len < 0){
+        if (len == 0){
             printf("ERROR: len<0\n");
             return 1;
         }
