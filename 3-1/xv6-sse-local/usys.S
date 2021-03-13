@@ -31,3 +31,9 @@ SYSCALL(sleep)
 SYSCALL(uptime)
 SYSCALL(swapread)
 SYSCALL(swapwrite)
+
+# My code
+SYSCALL(setnice)
+SYSCALL(getnice)
+SYSCALL(yield)
+SYSCALL(ps)

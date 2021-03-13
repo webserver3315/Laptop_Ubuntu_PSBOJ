@@ -533,3 +533,53 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+// My code
+int setnice(int pid, int nice){
+	struct proc* p;
+	int success=0;
+	acquire(&ptable.lock);
+	for(p=ptable.proc;p<&ptable.proc[NPROC];p++){
+		if(p->pid==pid){
+			p->priority=nice;
+			success=1;
+			break;
+		}
+	}
+	release(&ptable.lock);
+	if(success) return 0;
+	else return -1;
+}
+
+int getnice(int pid){
+	struct proc* p;
+	int ret, success=0;
+	acquire(&ptable.lock);
+	for(p=ptable.proc;p<&ptable.proc[NPROC];p++){
+		if(p->pid==pid){
+			ret=p->priority;
+			success=1;
+		}
+	}
+	release(&ptable.lock);
+	if(success) return ret;
+	else return -1;
+}
+
+int ps(){
+	struct proc* p;
+	sti();
+	acquire(&ptable.lock);
+	cprintf("name \t pid \t state \t priority \n");
+	for(p=ptable.proc;p<&ptable.proc[NPROC];p++){
+		if(p->state==SLEEPING)
+			cprintf("%s \t %d \t SLEEPING \t %d\n ", p->name, p->pid, p->priority);
+		else if(p->state==RUNNING)
+			cprintf("%s \t %d \t RUNNING \t %d\n ", p->name, p->pid, p->priority);
+		else if(p->state==RUNNABLE)
+			cprintf("%s \t %d \t RUNNABLE \t %d\n ", p->name, p->pid, p->priority);
+	}
+	release(&ptable.lock);
+	return 0;
+}
+

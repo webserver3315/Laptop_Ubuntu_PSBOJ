@@ -155,6 +155,11 @@ int             argstr(int, char**);
 int             fetchint(uint, int*);
 int             fetchstr(uint, char**);
 void            syscall(void);
+// My Code
+int 		setnice(int, int);
+int 		getnice(int);
+void		yield();
+int 		ps();
 
 // timer.c
 void            timerinit(void);
