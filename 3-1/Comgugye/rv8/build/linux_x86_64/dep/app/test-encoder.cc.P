@@ -1,0 +1,9 @@
+build/linux_x86_64/obj/app/test-encoder.o build/linux_x86_64/dep/app/test-encoder.cc.P: src/app/test-encoder.cc \
+ /home/takeyama/rv8/src/asm/types.h \
+ /home/takeyama/rv8/src/asm/host-endian.h \
+ /home/takeyama/rv8/src/asm/bits.h /home/takeyama/rv8/src/asm/meta.h \
+ /home/takeyama/rv8/src/asm/codec.h /home/takeyama/rv8/src/asm/operands.h \
+ /home/takeyama/rv8/src/asm/decode.h /home/takeyama/rv8/src/asm/encode.h \
+ /home/takeyama/rv8/src/asm/switch.h \
+ /home/takeyama/rv8/src/asm/constraints.h \
+ /home/takeyama/rv8/src/asm/assembler.h /home/takeyama/rv8/src/asm/jit.h

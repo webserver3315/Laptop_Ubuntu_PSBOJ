@@ -1,0 +1,5 @@
+build/linux_x86_64/obj/asm/disasm.o build/linux_x86_64/dep/asm/disasm.cc.P: src/asm/disasm.cc src/asm/types.h src/asm/host-endian.h \
+ src/asm/format.h src/asm/meta.h src/asm/codec.h src/asm/operands.h \
+ src/asm/decode.h src/asm/encode.h src/asm/switch.h src/asm/constraints.h \
+ src/asm/strings.h /home/takeyama/rv8/src/util/util.h src/asm/disasm.h \
+ /home/takeyama/rv8/src/util/fmt.h /home/takeyama/rv8/src/util/args.h

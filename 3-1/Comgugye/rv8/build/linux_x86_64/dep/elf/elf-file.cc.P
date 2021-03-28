@@ -1,0 +1,2 @@
+build/linux_x86_64/obj/elf/elf-file.o build/linux_x86_64/dep/elf/elf-file.cc.P: src/elf/elf-file.cc src/elf/elf.h src/elf/elf-file.h \
+ src/elf/elf-format.h /home/takeyama/rv8/src/util/util.h

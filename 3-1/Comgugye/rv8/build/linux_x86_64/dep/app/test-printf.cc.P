@@ -1,0 +1,2 @@
+build/linux_x86_64/obj/app/test-printf.o build/linux_x86_64/dep/app/test-printf.cc.P: src/app/test-printf.cc /home/takeyama/rv8/src/asm/types.h \
+ /home/takeyama/rv8/src/util/fmt.h /home/takeyama/rv8/src/util/args.h

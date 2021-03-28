@@ -1,0 +1,2 @@
+build/linux_x86_64/obj/elf/elf.o build/linux_x86_64/dep/elf/elf.cc.P: src/elf/elf.cc src/elf/elf.h \
+ /home/takeyama/rv8/src/asm/host-endian.h

@@ -1,0 +1,3 @@
+build/linux_x86_64/obj/gen/gen-cc.o build/linux_x86_64/dep/gen/gen-cc.cc.P: src/gen/gen-cc.cc /home/takeyama/rv8/src/util/util.h \
+ /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/model/model.h src/gen/gen.h

@@ -1,0 +1,7 @@
+build/linux_x86_64/obj/asm/assembler.o build/linux_x86_64/dep/asm/assembler.cc.P: src/asm/assembler.cc src/asm/host-endian.h src/asm/types.h \
+ src/asm/bits.h src/asm/format.h src/asm/meta.h \
+ /home/takeyama/rv8/src/util/util.h /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/util/color.h src/asm/codec.h src/asm/operands.h \
+ src/asm/decode.h src/asm/encode.h src/asm/switch.h src/asm/constraints.h \
+ src/asm/strings.h src/asm/disasm.h /home/takeyama/rv8/src/elf/elf.h \
+ src/asm/assembler.h src/asm/jit.h

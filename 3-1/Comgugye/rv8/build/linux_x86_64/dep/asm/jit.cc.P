@@ -1,0 +1,4 @@
+build/linux_x86_64/obj/asm/jit.o build/linux_x86_64/dep/asm/jit.cc.P: src/asm/jit.cc src/asm/types.h src/asm/host-endian.h \
+ src/asm/bits.h src/asm/meta.h src/asm/codec.h src/asm/operands.h \
+ src/asm/decode.h src/asm/encode.h src/asm/switch.h src/asm/constraints.h \
+ src/asm/assembler.h src/asm/jit.h

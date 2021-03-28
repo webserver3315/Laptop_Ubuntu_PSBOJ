@@ -1,0 +1,3 @@
+build/linux_x86_64/obj/app/rv-meta.o build/linux_x86_64/dep/app/rv-meta.cc.P: src/app/rv-meta.cc /home/takeyama/rv8/src/util/util.h \
+ /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/model/model.h /home/takeyama/rv8/src/gen/gen.h

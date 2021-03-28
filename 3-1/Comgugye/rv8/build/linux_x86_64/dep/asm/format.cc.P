@@ -1,0 +1,1 @@
+build/linux_x86_64/obj/asm/format.o build/linux_x86_64/dep/asm/format.cc.P: src/asm/format.cc src/asm/format.h

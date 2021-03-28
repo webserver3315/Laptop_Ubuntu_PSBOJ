@@ -1,0 +1,1 @@
+build/linux_x86_64/obj/asm/strings.o build/linux_x86_64/dep/asm/strings.cc.P: src/asm/strings.cc src/asm/strings.h

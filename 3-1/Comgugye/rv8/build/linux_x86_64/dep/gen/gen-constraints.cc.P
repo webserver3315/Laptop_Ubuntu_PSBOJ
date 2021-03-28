@@ -1,0 +1,3 @@
+build/linux_x86_64/obj/gen/gen-constraints.o build/linux_x86_64/dep/gen/gen-constraints.cc.P: src/gen/gen-constraints.cc \
+ /home/takeyama/rv8/src/util/util.h /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/model/model.h src/gen/gen.h

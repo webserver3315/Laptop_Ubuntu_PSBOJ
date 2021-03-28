@@ -1,0 +1,4 @@
+build/linux_x86_64/obj/gen/gen-tablegen.o build/linux_x86_64/dep/gen/gen-tablegen.cc.P: src/gen/gen-tablegen.cc \
+ /home/takeyama/rv8/src/util/util.h /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/model/model.h src/gen/gen.h \
+ /home/takeyama/rv8/src/util/fmt.h /home/takeyama/rv8/src/util/args.h

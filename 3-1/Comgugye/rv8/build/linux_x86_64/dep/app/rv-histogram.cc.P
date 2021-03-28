@@ -1,0 +1,13 @@
+build/linux_x86_64/obj/app/rv-histogram.o build/linux_x86_64/dep/app/rv-histogram.cc.P: src/app/rv-histogram.cc \
+ /home/takeyama/rv8/src/asm/host-endian.h \
+ /home/takeyama/rv8/src/asm/types.h /home/takeyama/rv8/src/asm/bits.h \
+ /home/takeyama/rv8/src/asm/format.h /home/takeyama/rv8/src/asm/meta.h \
+ /home/takeyama/rv8/src/util/util.h /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/util/color.h /home/takeyama/rv8/src/asm/codec.h \
+ /home/takeyama/rv8/src/asm/operands.h \
+ /home/takeyama/rv8/src/asm/decode.h /home/takeyama/rv8/src/asm/encode.h \
+ /home/takeyama/rv8/src/asm/switch.h \
+ /home/takeyama/rv8/src/asm/constraints.h \
+ /home/takeyama/rv8/src/asm/disasm.h /home/takeyama/rv8/src/elf/elf.h \
+ /home/takeyama/rv8/src/elf/elf-file.h \
+ /home/takeyama/rv8/src/elf/elf-format.h

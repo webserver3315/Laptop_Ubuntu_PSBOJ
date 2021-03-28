@@ -1,0 +1,1 @@
+build/linux_x86_64/obj/asm/meta.o build/linux_x86_64/dep/asm/meta.cc.P: src/asm/meta.cc src/asm/types.h src/asm/format.h src/asm/meta.h

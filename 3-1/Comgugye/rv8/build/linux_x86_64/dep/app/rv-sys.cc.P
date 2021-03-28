@@ -1,0 +1,50 @@
+build/linux_x86_64/obj/app/rv-sys.o build/linux_x86_64/dep/app/rv-sys.cc.P: src/app/rv-sys.cc /home/takeyama/rv8/src/hash/dense_hash_map \
+ /home/takeyama/rv8/src/hash/sparseconfig.h \
+ /home/takeyama/rv8/src/hash/densehashtable.h \
+ /home/takeyama/rv8/src/hash/hashtable-common.h \
+ /home/takeyama/rv8/src/hash/libc_allocator_with_realloc.h \
+ /home/takeyama/rv8/src/hash/type_traits.h \
+ /home/takeyama/rv8/src/hash/template_util.h \
+ /home/takeyama/rv8/src/asm/host-endian.h \
+ /home/takeyama/rv8/src/asm/types.h /home/takeyama/rv8/src/util/fmt.h \
+ /home/takeyama/rv8/src/util/args.h /home/takeyama/rv8/src/asm/bits.h \
+ /home/takeyama/rv8/src/util/sha512.h /home/takeyama/rv8/src/asm/format.h \
+ /home/takeyama/rv8/src/asm/meta.h /home/takeyama/rv8/src/util/util.h \
+ /home/takeyama/rv8/src/util/color.h /home/takeyama/rv8/src/util/host.h \
+ /home/takeyama/rv8/src/util/cmdline.h /home/takeyama/rv8/src/asm/codec.h \
+ /home/takeyama/rv8/src/asm/operands.h \
+ /home/takeyama/rv8/src/asm/decode.h /home/takeyama/rv8/src/asm/encode.h \
+ /home/takeyama/rv8/src/asm/switch.h \
+ /home/takeyama/rv8/src/asm/constraints.h \
+ /home/takeyama/rv8/src/elf/elf.h /home/takeyama/rv8/src/elf/elf-file.h \
+ /home/takeyama/rv8/src/elf/elf-format.h \
+ /home/takeyama/rv8/src/asm/disasm.h /home/takeyama/rv8/src/asm/alu.h \
+ /home/takeyama/rv8/src/asm/fpu.h /home/takeyama/rv8/src/emu/pte.h \
+ /home/takeyama/rv8/src/emu/pma.h /home/takeyama/rv8/src/emu/amo.h \
+ /home/takeyama/rv8/src/emu/processor-logging.h \
+ /home/takeyama/rv8/src/emu/processor-base.h \
+ /home/takeyama/rv8/src/emu/processor-impl.h \
+ /home/takeyama/rv8/src/emu/mmu-memory.h \
+ /home/takeyama/rv8/src/emu/tlb-soft.h \
+ /home/takeyama/rv8/src/emu/mmu-soft.h \
+ /home/takeyama/rv8/src/emu/interp.h \
+ /home/takeyama/rv8/src/emu/processor-model.h \
+ /home/takeyama/rv8/src/util/queue.h /home/takeyama/rv8/src/emu/console.h \
+ /home/takeyama/rv8/src/emu/device-rom-boot.h \
+ /home/takeyama/rv8/src/rom/boot-rom-bin.h \
+ /home/takeyama/rv8/src/emu/device-rom-sbi.h \
+ /home/takeyama/rv8/src/rom/sbi-rom-bin.h \
+ /home/takeyama/rv8/src/emu/device-rom-string.h \
+ /home/takeyama/rv8/src/emu/device-config.h \
+ /home/takeyama/rv8/src/emu/device-rtc.h \
+ /home/takeyama/rv8/src/emu/device-timer.h \
+ /home/takeyama/rv8/src/emu/device-plic.h \
+ /home/takeyama/rv8/src/emu/device-uart.h \
+ /home/takeyama/rv8/src/emu/device-mipi.h \
+ /home/takeyama/rv8/src/emu/device-gpio.h \
+ /home/takeyama/rv8/src/emu/device-rand.h \
+ /home/takeyama/rv8/src/emu/device-htif.h \
+ /home/takeyama/rv8/src/emu/processor-histogram.h \
+ /home/takeyama/rv8/src/emu/processor-priv-1.9.h \
+ /home/takeyama/rv8/src/emu/debug-cli.h \
+ /home/takeyama/rv8/src/emu/processor-runloop.h

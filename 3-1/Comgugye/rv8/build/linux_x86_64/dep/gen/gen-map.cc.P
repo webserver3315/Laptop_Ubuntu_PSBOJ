@@ -1,0 +1,4 @@
+build/linux_x86_64/obj/gen/gen-map.o build/linux_x86_64/dep/gen/gen-map.cc.P: src/gen/gen-map.cc /home/takeyama/rv8/src/util/util.h \
+ /home/takeyama/rv8/src/util/cmdline.h \
+ /home/takeyama/rv8/src/model/model.h src/gen/gen.h \
+ /home/takeyama/rv8/src/util/color.h

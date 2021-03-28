@@ -1,0 +1,1 @@
+build/linux_x86_64/obj/util/color.o build/linux_x86_64/dep/util/color.cc.P: src/util/color.cc src/util/util.h src/util/color.h

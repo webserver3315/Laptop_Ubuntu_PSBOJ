@@ -1,0 +1,3 @@
+build/linux_x86_64/obj/app/test-endian.o build/linux_x86_64/dep/app/test-endian.cc.P: src/app/test-endian.cc \
+ /home/takeyama/rv8/src/asm/host-endian.h \
+ /home/takeyama/rv8/src/asm/types.h /home/takeyama/rv8/src/asm/bits.h

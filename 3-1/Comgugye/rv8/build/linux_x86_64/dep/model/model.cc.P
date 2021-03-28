@@ -1,0 +1,2 @@
+build/linux_x86_64/obj/model/model.o build/linux_x86_64/dep/model/model.cc.P: src/model/model.cc /home/takeyama/rv8/src/util/util.h \
+ src/model/model.h

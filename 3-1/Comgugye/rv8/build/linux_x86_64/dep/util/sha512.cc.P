@@ -1,0 +1,2 @@
+build/linux_x86_64/obj/util/sha512.o build/linux_x86_64/dep/util/sha512.cc.P: src/util/sha512.cc /home/takeyama/rv8/src/asm/host-endian.h \
+ src/util/sha512.h

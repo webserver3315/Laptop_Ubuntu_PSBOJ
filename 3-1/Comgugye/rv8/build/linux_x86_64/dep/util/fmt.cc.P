@@ -1,0 +1,1 @@
+build/linux_x86_64/obj/util/fmt.o build/linux_x86_64/dep/util/fmt.cc.P: src/util/fmt.cc src/util/fmt.h src/util/args.h
