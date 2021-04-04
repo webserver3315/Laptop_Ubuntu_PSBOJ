@@ -13,7 +13,7 @@
 #-------------------------------------------------------------------------#
 
 .section .text
-.globl quick_sort
+.globl partition
 
 #-------------------------------------------------------------------------#
 #                       function swap: START                              #
@@ -113,7 +113,7 @@ _partition_else:
     addi sp, sp, 64
 
 
-    addi a0, s2, 1          # ret <- i+1
+    addi a0, s2, 1
     jalr zero, 0(ra)        # return (i+1)
 
     
@@ -131,7 +131,7 @@ _partition_else:
 quick_sort:
     # a0 <- arr, a1 <- low, a2 <- high
     # t1 <- pi
-    bge a1, a2, _quick_sort_else        # low >= high, goto else
+    bge a1, a2, _quick_sort_else        # a1 >= a2, go else
     addi sp, sp, -40
     sd ra, 32(sp)
     sd a0, 24(sp)
@@ -139,7 +139,6 @@ quick_sort:
     sd a2, 8(sp)
     sd t1, 0(sp)
     jal ra, partition       # 0th, 1st, 2nd == arr, low, high
-    addi t5, a0, 0          # t5 <- ret (임시저장)
     ld t1, 0(sp)
     ld a2, 8(sp)
     ld a1, 16(sp)
@@ -147,7 +146,7 @@ quick_sort:
     ld ra, 32(sp)
     addi sp, sp, 40
 
-    addi t1, t5, 0          # pi <- ret
+    addi t1, a0, 0          # pi <- ret
 
     addi sp, sp, -40
     sd ra, 32(sp)
@@ -170,7 +169,7 @@ quick_sort:
     sd a1, 16(sp)
     sd a2, 8(sp)
     sd t1, 0(sp)            
-    addi a1, t1, 1         # 1st argument <- (pi+1)
+    addi a1, t1, -1         # 1st argument <- (pi-1)
     jal ra, quick_sort      # 0th, 1st, 2nd == arr, pi-1, high
     ld t1, 0(sp)
     ld a2, 8(sp)

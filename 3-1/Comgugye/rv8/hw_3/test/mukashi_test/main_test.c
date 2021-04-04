@@ -2,11 +2,13 @@
 #include <stdlib.h>
 // extern void quick_sort();
 // extern int binary_search();
-void swap(long long int array[], int a, int b) {
-     int t = array[a];
-     array[a] = array[b];
-     array[b] = t;
- }
+extern void swap();
+
+// void swap(long long int array[], int a, int b) {
+//      int t = array[a];
+//      array[a] = array[b];
+//      array[b] = t;
+//  }
 
 int partition (long long int arr[], int low, int high) {
     int pivot = arr[high]; // pivot

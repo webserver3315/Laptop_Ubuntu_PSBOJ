@@ -4,7 +4,7 @@ extern void quick_sort();
 extern int binary_search();
 int main() {
 
-long long int target = 2020710435;
+long long int target = 2017313213;
 int size = 49;
 long long int data[size];
 long long int *point = data;
