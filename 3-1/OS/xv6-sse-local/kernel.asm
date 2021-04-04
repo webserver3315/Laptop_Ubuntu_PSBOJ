@@ -7292,6 +7292,7 @@ wakeup1(void *chan)
 80103a0e:	05 94 00 00 00       	add    $0x94,%eax
 80103a13:	3d 94 62 11 80       	cmp    $0x80116294,%eax
 80103a18:	75 de                	jne    801039f8 <wakeup1+0x18>
+		//	      cprintf("541th: min_vruntime %d <- %d\n", min_vruntime, p->vruntime);
 			  min_vruntime=p->vruntime;
 		  }
 	  }
@@ -7343,6 +7344,7 @@ wakeup1(void *chan)
 80103a78:	05 94 00 00 00       	add    $0x94,%eax
 80103a7d:	3d 94 62 11 80       	cmp    $0x80116294,%eax
 80103a82:	75 d4                	jne    80103a58 <wakeup1+0x78>
+		//	      cprintf("557th: min_vruntime %d <- %d\n", min_vruntime, p1->vruntime);
 			      min_vruntime=p1->vruntime;
 		      }
         }
@@ -7389,7 +7391,7 @@ wakeup1(void *chan)
     if(a<MINIMUM_INT-b){
 80103ac8:	8d 90 00 00 00 80    	lea    -0x80000000(%eax),%edx
 80103ace:	39 d3                	cmp    %edx,%ebx
-80103ad0:	73 ca                	jae    80103a9c <wakeup1+0xbc>
+80103ad0:	7d ca                	jge    80103a9c <wakeup1+0xbc>
             p->vruntime = MINIMUM_INT;
 80103ad2:	c7 81 84 00 00 00 00 	movl   $0x80000000,0x84(%ecx)
 80103ad9:	00 00 80 
@@ -7894,7 +7896,7 @@ int total_weight_of_runnable_process(){
 	if(p1->state!=RUNNABLE)				// Select RUNNABLE Only
 80103f50:	83 78 0c 03          	cmpl   $0x3,0xc(%eax)
 80103f54:	75 0f                	jne    80103f65 <scheduler+0x85>
-	if(highP->vruntime > p1->vruntime) // Lower vruntime, Highter Real-Priority
+	if(low_vruntime_p->vruntime > p1->vruntime) // Lower vruntime, Highter Real-Priority
 80103f56:	8b b8 84 00 00 00    	mov    0x84(%eax),%edi
 80103f5c:	39 bb 84 00 00 00    	cmp    %edi,0x84(%ebx)
 80103f62:	0f 4f d8             	cmovg  %eax,%ebx
@@ -7930,14 +7932,14 @@ int total_weight_of_runnable_process(){
 80103fb2:	75 e4                	jne    80103f98 <scheduler+0xb8>
       uint weight_by_10 = 10*(p->weight);
 80103fb4:	8d 04 bf             	lea    (%edi,%edi,4),%eax
-      int time_slice = (10*1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
+      int time_slice = (1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
 80103fb7:	31 d2                	xor    %edx,%edx
       switchuvm(p);
 80103fb9:	83 ec 0c             	sub    $0xc,%esp
       uint weight_by_10 = 10*(p->weight);
 80103fbc:	01 c0                	add    %eax,%eax
-      int time_slice = (10*1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
-80103fbe:	69 c0 10 27 00 00    	imul   $0x2710,%eax,%eax
+      int time_slice = (1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
+80103fbe:	69 c0 e8 03 00 00    	imul   $0x3e8,%eax,%eax
 80103fc4:	8d 44 01 ff          	lea    -0x1(%ecx,%eax,1),%eax
 80103fc8:	f7 f1                	div    %ecx
       p->timeslice=time_slice; // Get Time Slice
@@ -8962,11 +8964,11 @@ int is_overflow(int a, int b){ // Does a+b OVERFLOWS? => 1 == true, 0 == false
 8010496f:	ba 00 00 00 80       	mov    $0x80000000,%edx
 80104974:	89 d0                	mov    %edx,%eax
 80104976:	29 c8                	sub    %ecx,%eax
-80104978:	3b 45 08             	cmp    0x8(%ebp),%eax
+80104978:	39 45 08             	cmp    %eax,0x8(%ebp)
 }
 8010497b:	5d                   	pop    %ebp
     if(a<MINIMUM_INT-b){
-8010497c:	0f 97 c0             	seta   %al
+8010497c:	0f 9c c0             	setl   %al
 8010497f:	0f b6 c0             	movzbl %al,%eax
 }
 80104982:	c3                   	ret    
@@ -8989,7 +8991,7 @@ void overflow_handler(int i){ // if i == 1, UP OVFL, i == -1, DOWN OVFL
     for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
 8010499f:	b8 94 3d 11 80       	mov    $0x80113d94,%eax
 			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
-          int diff = 0x0FFFFFFF*-1;
+          int diff = (int)0x0FFFFFFF*-1;
           if(is_overflow(p->vruntime, diff)){ // during minus, overflow detected, saturate it
             p->vruntime = MINIMUM_INT;
 801049a4:	bb 00 00 00 80       	mov    $0x80000000,%ebx
@@ -9003,8 +9005,8 @@ void overflow_handler(int i){ // if i == 1, UP OVFL, i == -1, DOWN OVFL
 801049bb:	8b 88 84 00 00 00    	mov    0x84(%eax),%ecx
             p->vruntime = MINIMUM_INT;
 801049c1:	8d 91 01 00 00 f0    	lea    -0xfffffff(%ecx),%edx
-801049c7:	81 f9 fe ff ff 8f    	cmp    $0x8ffffffe,%ecx
-801049cd:	0f 46 d3             	cmovbe %ebx,%edx
+801049c7:	81 f9 ff ff ff 8f    	cmp    $0x8fffffff,%ecx
+801049cd:	0f 4c d3             	cmovl  %ebx,%edx
 801049d0:	89 90 84 00 00 00    	mov    %edx,0x84(%eax)
     for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
 801049d6:	05 94 00 00 00       	add    $0x94,%eax

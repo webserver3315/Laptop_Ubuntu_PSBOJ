@@ -63,6 +63,7 @@ trap(struct trapframe *tf)
        while(is_overflow(myproc()->vruntime, delta_vruntime)){
          overflow_handler(delta_vruntime);
        }
+	//cprintf("TRAP: %d + %d == %d\n", myproc()->vruntime, delta_vruntime, myproc()->vruntime+delta_vruntime);
        myproc()->vruntime += delta_vruntime;
       }
       // My Code End

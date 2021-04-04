@@ -8,8 +8,8 @@
 #include "spinlock.h"
 
 //My Code
-#define MINIMUM_INT 0x80000000
-#define MAXIMUM_INT 0x7FFFFFFF
+#define MINIMUM_INT (int)0x80000000
+#define MAXIMUM_INT (int)0x7FFFFFFF
 //My Code End
 
 struct {
@@ -375,7 +375,7 @@ scheduler(void)
     sti();
 
     // My Code
-    struct proc *highP;
+    struct proc *low_vruntime_p;
     // My Code End
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
@@ -392,22 +392,22 @@ scheduler(void)
       // 2. Set Weight, Timeslice of next process
       // 3. Reset runtime, starttime of next process
       // cprintf("scheduler entered\n");
-      highP = p;
+      low_vruntime_p = p;
       for(p1=ptable.proc; p1< &ptable.proc[NPROC];p1++){ // Traverse All P-Table
 	if(p1->state!=RUNNABLE)				// Select RUNNABLE Only
 		continue;
-	if(highP->vruntime > p1->vruntime) // Lower vruntime, Highter Real-Priority
-		highP=p1;
+	if(low_vruntime_p->vruntime > p1->vruntime) // Lower vruntime, Highter Real-Priority
+		low_vruntime_p=p1;
       }
       // cprintf("process name == %s\n", p->name);
-      p=highP;
+      p=low_vruntime_p;
       p->weight=nice2weight(p->priority);
 //      p->starttime=ticks;
 //      p->runtime=0;
       p->runtime_interval=0;
       uint total_weight = total_weight_of_runnable_process();
       uint weight_by_10 = 10*(p->weight);
-      int time_slice = (10*1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
+      int time_slice = (1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
       p->timeslice=time_slice; // Get Time Slice
 
       // My Code End
@@ -538,6 +538,7 @@ wakeup1(void *chan)
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
 	  if(p->state == RUNNING || p-> state == RUNNABLE){
 		  if(min_vruntime>p->vruntime){
+		//	      cprintf("541th: min_vruntime %d <- %d\n", min_vruntime, p->vruntime);
 			  min_vruntime=p->vruntime;
 		  }
 	  }
@@ -554,16 +555,20 @@ wakeup1(void *chan)
         {
           notempty=1; // At least one process is NOT sleeping
 		      if(min_vruntime>p1->vruntime){
+		//	      cprintf("557th: min_vruntime %d <- %d\n", min_vruntime, p1->vruntime);
 			      min_vruntime=p1->vruntime;
 		      }
         }
       }
       if(notempty){
       		int one_tick_vruntime = (1000*1024)/nice2weight(p->priority);
+		//cprintf("min_vruntime(%d) VS -1*one_tick_vruntime(%d)\n",min_vruntime,-1*one_tick_vruntime);
           if(is_overflow(min_vruntime, -1*one_tick_vruntime)){
+		  //cprintf("proc.c 564th: OVERFLOW HAPPENED\n");
             p->vruntime = MINIMUM_INT;
           }
           else{
+		 // cprintf("proc.c 568th: OVERFLOW NOT HAPPENED\n");
             p->vruntime=min_vruntime-one_tick_vruntime;
           }
       }
@@ -766,7 +771,7 @@ void overflow_handler(int i){ // if i == 1, UP OVFL, i == -1, DOWN OVFL
   if (i > 0){ // SOMEONE OVERED MAX
     for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
 			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
-          int diff = 0x0FFFFFFF*-1;
+          int diff = (int)0x0FFFFFFF*-1;
           if(is_overflow(p->vruntime, diff)){ // during minus, overflow detected, saturate it
             p->vruntime = MINIMUM_INT;
           }
@@ -779,7 +784,7 @@ void overflow_handler(int i){ // if i == 1, UP OVFL, i == -1, DOWN OVFL
   else if(i<0){ // SOMEONE UNDERED MIN
   	for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
 			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
-        int diff = 0x0FFFFFFF;
+        int diff = (int)0x0FFFFFFF;
         if(is_overflow(p->vruntime, diff)){ // during plus, OVERFLOW detected, Saturate it
           p->vruntime = MAXIMUM_INT;
         }
