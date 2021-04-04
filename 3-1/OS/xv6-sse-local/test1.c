@@ -10,7 +10,7 @@ void test_p1_1()
 	printf(1, "case 1. get nice value of init process: ");
 //	int a1 = getnice(1);
 //	printf(1, "a1 is %d\n",a1);
-		if (getnice(1) == 5)
+		if (getnice(1) == 0) // Customed from == 5 to == 0
 			printf(1, "OK\n");
 		else
 			printf(1, "WRONG\n");

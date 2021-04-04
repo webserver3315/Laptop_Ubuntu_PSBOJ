@@ -50,15 +50,17 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
   // My Code
-  int priority;
-  uint starttime;			// Process creation time
-  uint endtime;
-  uint runtime;
-  int tickcounter;
+  int priority;			// Nice value != Weight  -> BE SURE TO nice2weight(priority) BEFORE USE!
+  int weight;			// Weight, Calculated by nice2weight() in proc.c
+  int vruntime;			// vruntime += runtime * (1024/W) => calculate every tick
+//  uint starttime;		// Process Created tick
+//  uint endtime;			// Process Slept tick
+  uint runtime;			// NOT endtime - starttime
+  uint runtime_interval;	// For comparing with timeslice. It reset before yield()
+  uint timeslice;		// time slice = Ceil(10 * (W/sum(W))) => calculate when scheduled
 };
 
 // Process memory is laid out contiguously, low addresses first:
 //   text
 //   original data and bss
 //   fixed-size stack
-//   expandable heap

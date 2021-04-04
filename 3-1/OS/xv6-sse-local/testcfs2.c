@@ -14,20 +14,20 @@ void testcfs()
                         // 2nd ps will only printout parent process,
                         // since child finished its job earlier & exit
 
-      if((child2=fork())==0){
+      if((child2=fork())==0){ // child's child
          
       for(i = 0; i < 100; i++){
-         for ( z = 0; z < 300000.0; z += 0.1 )
+         for ( z = 0; z < 3000.0; z += 0.1 )
             x =  x + 3.14 * 89.64;
       }
       ps();
       exit();
 
       }
-      else{
+      else{ // child's parent
          setnice(child2,-1);
       for(i = 0; i < 100; i++){
-         for ( z = 0; z < 300000.0; z += 0.1 )
+         for ( z = 0; z < 3000.0; z += 0.1 )
             x =  x + 3.14 * 89.64;
       }
       ps();
@@ -36,21 +36,21 @@ void testcfs()
       }
 
    } else {
-setnice(child,5);
-      if((child3=fork())==0){
+	setnice(child,5);
+      if((child3=fork())==0){ // parent's child
          setnice(parent,-3);
       for(i = 0; i < 100; i++){
-         for ( z = 0; z < 300000.0; z += 0.1 )
+         for ( z = 0; z < 3000.0; z += 0.1 )
             x =  x + 3.14 * 89.64;
       }
       ps();
       exit();
 
       }
-      else{
+      else{ // parent's parent
          setnice(child3,2);
       for(i = 0; i < 100; i++){
-         for ( z = 0; z < 300000.0; z += 0.1 )
+         for ( z = 0; z < 3000.0; z += 0.1 )
             x =  x + 3.14 * 89.64;
       }
       ps();
