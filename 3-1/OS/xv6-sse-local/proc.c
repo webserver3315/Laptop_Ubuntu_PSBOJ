@@ -7,6 +7,11 @@
 #include "proc.h"
 #include "spinlock.h"
 
+//My Code
+#define MINIMUM_INT 0x80000000
+#define MAXIMUM_INT 0x7FFFFFFF
+//My Code End
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -402,7 +407,7 @@ scheduler(void)
       p->runtime_interval=0;
       uint total_weight = total_weight_of_runnable_process();
       uint weight_by_10 = 10*(p->weight);
-      int time_slice = (10*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*W/sum(W))
+      int time_slice = (10*1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
       p->timeslice=time_slice; // Get Time Slice
 
       // My Code End
@@ -537,25 +542,33 @@ wakeup1(void *chan)
 		  }
 	  }
   }
-  int notempty=0;
+  int notempty=0; // 0 means All Processes are Sleeping
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
     if(p->state == SLEEPING && p->chan == chan){
       p->state = RUNNABLE;
       //cprintf("Process %s woken up\n",p->name);
       for(p1 = ptable.proc; p1<&ptable.proc[NPROC];p1++){	// Update min_vruntime
-	      if(p1->state == RUNNING || p1->state == RUNNABLE){
-		      notempty=1;
+        if(p->pid == p1->pid)     // Piazza Notice: Don't count self-vruntime at minimum
+          continue;
+        if (p1->state == RUNNING || p1->state == RUNNABLE)
+        {
+          notempty=1; // At least one process is NOT sleeping
 		      if(min_vruntime>p1->vruntime){
 			      min_vruntime=p1->vruntime;
 		      }
-	      }
+        }
       }
       if(notempty){
       		int one_tick_vruntime = (1000*1024)/nice2weight(p->priority);
-     		p->vruntime=min_vruntime-one_tick_vruntime;
+          if(is_overflow(min_vruntime, -1*one_tick_vruntime)){
+            p->vruntime = MINIMUM_INT;
+          }
+          else{
+            p->vruntime=min_vruntime-one_tick_vruntime;
+          }
       }
       else{
-		p->vruntime=0;
+		    p->vruntime=0;
       }
     }
   }
@@ -731,45 +744,56 @@ void align_print_init(){
 	cprintf("tick: %d \n", ticks);
 }
 
-int minus_vruntime(int vruntime, int diff){ // diff must be positive
-	if(diff < 0){
-		cprintf("Error: diff must be positive\n");
-		return -1;
-	}
-	int minimum_int = 0xFFFFFFFF;
-	int ret = vruntime;
-	if(ret < diff + minimum_int){ // OVERFLOW detected, Saturate it
-		ret = minimum_int;
-	}
-	else{
-		ret -= diff;	// Else, Simply Subtract them
-	}
-	return ret;
+
+
+int is_overflow(int a, int b){ // Does a+b OVERFLOWS? => 1 == true, 0 == false
+  if (b > 0){ // a + |b|
+    if(a>MAXIMUM_INT-b){
+      return 1;
+    }
+  }
+  else if(b<0){ // a - |b|
+    if(a<MINIMUM_INT-b){
+      return 1;
+    }
+  }
+  return 0;
 }
 
-
-int plus_vruntime(int vruntime, int diff){ // diff must be positive
-	if(diff < 0){
-		cprintf("Error: diff must be positive\n");
-		return -1;
-	}
-	int maximum_int = 0x7FFFFFFF;
-	int ret = vruntime;
-	if(ret > -1*diff + maximum_int){ // OVERFLOW detected, Saturate it
-		ret = maximum_int;
+void overflow_handler(int i){ // if i == 1, UP OVFL, i == -1, DOWN OVFL
+	struct proc* p;
+  //cprintf("OVERFLOW HANDLING\n");
+  if (i > 0){ // SOMEONE OVERED MAX
+    for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
+			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
+          int diff = 0x0FFFFFFF*-1;
+          if(is_overflow(p->vruntime, diff)){ // during minus, overflow detected, saturate it
+            p->vruntime = MINIMUM_INT;
+          }
+          else{
+            p->vruntime += diff;
+          }
+		  }
+	  }
+  }
+  else if(i<0){ // SOMEONE UNDERED MIN
+  	for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
+			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
+        int diff = 0x0FFFFFFF;
+        if(is_overflow(p->vruntime, diff)){ // during plus, OVERFLOW detected, Saturate it
+          p->vruntime = MAXIMUM_INT;
+        }
+        else{
+          p->vruntime += diff;	// Else, Simply Add them
+        }
+			}
+		}
 	}
 	else{
-		ret += diff;	// Else, Simply Subtract them
-	}
-	return ret;
-
-void vruntime_overflow_handler(){
-	struct proc* p;
-	for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
-		int diff = 0x0FFFFFFF;
-		p->vruntime = minus_vruntime(p->vruntime, diff);
-	}
-	return;
+		//cprintf("VRUNTIME_OVERFLOW_HANDLER'S ARGUMENT Can't be 0\n");
+    return;
+  }
+  return;
 }
 
 void ps(){

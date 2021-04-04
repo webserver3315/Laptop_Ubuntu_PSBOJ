@@ -124,9 +124,8 @@ void            yield(void);
 // My Code
 //long long	ceil(long long, long long);
 int		nice2weight(int);
-int		minus_vruntime(int, int);
-int 		plus_vruntime(int, int);
-void 		vruntime_overflow_handler();
+int	     	is_overflow(int, int);
+void    	overflow_handler(int);
 
 // swtch.S
 void            swtch(struct context**, struct context*);

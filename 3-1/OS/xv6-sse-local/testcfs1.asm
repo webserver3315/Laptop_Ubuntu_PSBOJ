@@ -78,7 +78,7 @@ int main(int argc, char **argv)
   8e:	b8 2c 01 00 00       	mov    $0x12c,%eax
   93:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
   97:	90                   	nop
-			for ( z = 0; z < 3000.0; z += 0.1 )
+			for ( z = 0; z < 180000.0; z += 0.1 )
   98:	d9 ee                	fldz   
   9a:	dd 5d f0             	fstpl  -0x10(%ebp)
   9d:	dd 45 f0             	fldl   -0x10(%ebp)
@@ -91,7 +91,7 @@ int main(int argc, char **argv)
   b0:	dd 45 e8             	fldl   -0x18(%ebp)
   b3:	d8 c1                	fadd   %st(1),%st
   b5:	dd 5d e8             	fstpl  -0x18(%ebp)
-			for ( z = 0; z < 3000.0; z += 0.1 )
+			for ( z = 0; z < 180000.0; z += 0.1 )
   b8:	dd 45 f0             	fldl   -0x10(%ebp)
   bb:	dc 05 20 09 00 00    	faddl  0x920
   c1:	dd 5d f0             	fstpl  -0x10(%ebp)
@@ -128,7 +128,7 @@ int main(int argc, char **argv)
  104:	e8 47 04 00 00       	call   550 <printf>
  109:	83 c4 10             	add    $0x10,%esp
  10c:	b8 2c 01 00 00       	mov    $0x12c,%eax
-			for ( z = 0; z < 3000.0; z += 0.1 )
+			for ( z = 0; z < 180000.0; z += 0.1 )
  111:	d9 ee                	fldz   
  113:	dd 5d f0             	fstpl  -0x10(%ebp)
  116:	dd 45 f0             	fldl   -0x10(%ebp)
@@ -140,7 +140,7 @@ int main(int argc, char **argv)
  125:	dd 45 e8             	fldl   -0x18(%ebp)
  128:	dc 05 18 09 00 00    	faddl  0x918
  12e:	dd 5d e8             	fstpl  -0x18(%ebp)
-			for ( z = 0; z < 3000.0; z += 0.1 )
+			for ( z = 0; z < 180000.0; z += 0.1 )
  131:	dd 45 f0             	fldl   -0x10(%ebp)
  134:	dc 05 20 09 00 00    	faddl  0x920
  13a:	dd 5d f0             	fstpl  -0x10(%ebp)

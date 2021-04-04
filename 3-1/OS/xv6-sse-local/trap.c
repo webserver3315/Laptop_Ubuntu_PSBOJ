@@ -60,9 +60,12 @@ trap(struct trapframe *tf)
 	     myproc()->runtime_interval+=1000;
 	     //myproc()->vruntime += ceil(1000*1024,myproc()->weight);
 	     int delta_vruntime = (1000*1024+nice2weight(myproc()->priority)-1)/nice2weight(myproc()->priority);
-	     myproc()->vruntime = plus_vruntime(myproc()->vruntime, delta_vruntime);
-     	}
-     	// My Code End
+       while(is_overflow(myproc()->vruntime, delta_vruntime)){
+         overflow_handler(delta_vruntime);
+       }
+       myproc()->vruntime += delta_vruntime;
+      }
+      // My Code End
       	wakeup(&ticks);
       	release(&tickslock);
     }
