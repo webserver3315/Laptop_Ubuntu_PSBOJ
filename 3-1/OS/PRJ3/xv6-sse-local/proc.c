@@ -592,112 +592,59 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
   uint old_start = cp->sz + cp->mm_sz;
   uint new_start = cp->sz + cp->mm_sz + length;
   uint tmp = PGROUNDUP(old_start);
-
-  int mmarr_idx = get_valid_mmarr(cp);
-  if(mmarr_idx == -1){
-    cprintf("get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
-    return MAP_FAILED;
-  }
-
-  for (; tmp < new_start; tmp += PGSIZE){
-    mem = kalloc(); // 이렇게 끊어서 kalloc 하면 물리메모리가 연속하다는 보장이 없는데?
-    if(mem==0){
-      cprintf("mmap: mmap out of memory\n");
-      return MAP_FAILED;
-    }
-    memset(mem, 0, PGSIZE);
-    cp->mm_cnt++;
-    cp->mm_sz += PGSIZE;
-    mappages(pgdir, (char *)tmp, PGSIZE, V2P(mem), PTE_W | PTE_U); // 맞나?
-  }
-  cp->mm_arr[mmarr_idx].fd = fd;
-  cp->mm_arr[mmarr_idx].start_va = (char*)old_start;
-  cp->mm_arr[mmarr_idx].end_va = (char*)new_start;
-  cp->mm_arr[mmarr_idx].offset = offset;
-  cp->mm_arr[mmarr_idx].f = fp;
-  // cp->mm_arr[mmarr_idx].f.ref++;
-  return (void*)old_start;
-}
-
-void* mmap_anonymous_eager(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
-  pde_t *pgdir = cp->pgdir;
-  char *mem;
-  uint old_start = cp->sz + cp->mm_sz;
-  uint new_start = cp->sz + cp->mm_sz + length;
-  uint tmp = PGROUNDUP(old_start);
-
-  int mmarr_idx = get_valid_mmarr(cp);
-  if(mmarr_idx == -1){
-    cprintf("get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
-    return MAP_FAILED;
-  }
-
-  for (; tmp < new_start; tmp += PGSIZE){
-    mem = kalloc(); // 이렇게 끊어서 kalloc 하면 물리메모리가 연속하다는 보장이 없는데?
-    if(mem==0){
-      cprintf("mmap: mmap out of memory\n");
-      return MAP_FAILED;
-    }
-    memset(mem, 0, PGSIZE);
-    cp->mm_cnt++;
-    cp->mm_sz += PGSIZE;
-    mappages(pgdir, (char *)tmp, PGSIZE, V2P(mem), PTE_W | PTE_U); // 맞나?
-  }
-  cp->mm_arr[mmarr_idx].fd = fd;
-  cp->mm_arr[mmarr_idx].start_va = (char*)old_start;
-  cp->mm_arr[mmarr_idx].end_va = (char*)new_start;
-  cp->mm_arr[mmarr_idx].offset = offset;
-  cp->mm_arr[mmarr_idx].f = fp;
-  // cp->mm_arr[mmarr_idx].f.ref++;
-  return (void*)old_start;
-}
-
-void* mmap_fileback_eager(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
-  pde_t *pgdir = cp->pgdir;
-  char *mem;
-  uint old_start = cp->sz + cp->mm_sz;
-  uint new_start = cp->sz + cp->mm_sz + length;
-
-  int mmarr_idx = get_valid_mmarr(cp);
-  if(mmarr_idx == -1){
-    cprintf("get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
-    return MAP_FAILED;
-  }
-
-  uint tmp = PGROUNDUP(old_start);
   uint delta_start = old_start;
+
+  int mmarr_idx = get_valid_mmarr(cp);
+  if(mmarr_idx == -1){
+    cprintf("get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
+    return MAP_FAILED;
+  }
+
   fp->off = offset;
   for (; tmp < new_start; tmp += PGSIZE, delta_start += PGSIZE)
   {
-    mem = kalloc(); // 이렇게 끊어서 kalloc 하면 물리메모리가 연속하다는 보장이 없는데?
+    mem = kalloc();
     if(mem==0){
       cprintf("mmap: mmap out of memory\n");
       return MAP_FAILED;
     }
     memset(mem, 0, PGSIZE);
     // readi(fp->ip, (char*)V2P((int)mem), fp->off, PGSIZE);
-    fileread(fp, mem, PGSIZE);
-
-    cp->mm_cnt++;
-    cp->mm_sz += PGSIZE;
+    if(fd!=-1){
+      fileread(fp, mem, PGSIZE);
+    }
     mappages(pgdir, (char *)tmp, PGSIZE, V2P(mem), PTE_W | PTE_U); // 맞나?
   }
+  cp->mm_cnt++;
+  cp->mm_sz += length;
   cp->mm_arr[mmarr_idx].fd = fd;
   cp->mm_arr[mmarr_idx].start_va = (char*)old_start;
   cp->mm_arr[mmarr_idx].end_va = (char*)new_start;
   cp->mm_arr[mmarr_idx].offset = offset;
   cp->mm_arr[mmarr_idx].f = fp;
+  cp->mm_arr[mmarr_idx].flags = flags;
   // cp->mm_arr[mmarr_idx].f.ref++;
-  cprintf("mmap_eager: exit successfully\n");
+  // cprintf("mmap_eager: exit successfully\n");
   return (void*)old_start;
 }
 
-void* mmap_anonymous_lazy(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
-  return MAP_FAILED;
-}
-
-void* mmap_fileback_lazy(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
-  return MAP_FAILED;
+void* mmap_lazy(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
+  int mmarr_idx = get_valid_mmarr(cp);
+  if(mmarr_idx == -1){
+    cprintf("get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
+    return MAP_FAILED;
+  }
+  uint old_start = cp->sz + cp->mm_sz;
+  uint new_start = cp->sz + cp->mm_sz + length;
+  cp->mm_cnt++;
+  cp->mm_sz += length;
+  cp->mm_arr[mmarr_idx].fd = fd;
+  cp->mm_arr[mmarr_idx].start_va = (char*)old_start;
+  cp->mm_arr[mmarr_idx].end_va = (char*)new_start;
+  cp->mm_arr[mmarr_idx].offset = offset;
+  cp->mm_arr[mmarr_idx].f = fp;
+  cp->mm_arr[mmarr_idx].flags = flags;
+  return (void *)old_start;
 }
 
 void* mmap(int fd, int offset, int length, int flags){
@@ -707,27 +654,32 @@ void* mmap(int fd, int offset, int length, int flags){
     cprintf("mmap(): Invalid Argument\n");
     return MAP_FAILED;
   }
-  if(fd==-1){
-    cprintf("Anonymous Mapping\n");
-    if(flags&MAP_POPULATE){
-      return mmap_anonymous_eager(fd, offset, length, flags, cp, fp);
-    }
+  if(flags&MAP_POPULATE){
+    return mmap_eager(fd, offset, length, flags, cp, fp);
   }else{
-    cprintf("Filebacked Mapping\n");
-    if(flags&MAP_POPULATE){
-      cprintf("Eager Mapping\n");
-      return mmap_fileback_eager(fd, offset, length, flags, cp, fp);
-    }
+    return mmap_lazy(fd, offset, length, flags, cp, fp);
   }
   return MAP_FAILED;
 }
 
 int munmap(void* addr, int length){
-  // unmap 에서 pte 정보 삭제할 때 tlb 에 삭제 
-  int idx = 0;
-  for (; idx < 100;idx++){
-    
-  }
+  // if(length%4096!=0) return -1;
+  // // unmap 에서 pte 정보 삭제할 때 tlb 에 삭제
+  // // dirty 하면 지울때 fd 에 write back 해야하는데 dirty 여부는 어떻게 확인?
+  // struct proc *cp = myproc();
+  // for (int i = 0; i < 100;i++){
+  //   if((cp->mm_arr[i].start_va<=addr) && (addr<=cp->mm_arr[i].end_va)){
+  //     struct mmap_region *mm_region = &(cp->mm_arr[i]);
+  //     pte_t *pte;
+  //     if (pte = walkpgdir(cp->pgdir, addr, length)) {
+  //       mm_region
+
+
+
+  //       *pte = 0;
+  //     }
+  //   }
+  // }
 
   return -1;
 }

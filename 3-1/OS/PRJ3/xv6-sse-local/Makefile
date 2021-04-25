@@ -186,6 +186,8 @@ UPROGS=\
 	_mmap_test\
 	_test1\
 	_test2\
+	_test3\
+	_test4\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -259,7 +261,7 @@ EXTRA=\
 	printf.c umalloc.c\
 	README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
-	mmap_test.c test1.c test2.c\
+	mmap_test.c test1.c test2.c test3.c test4.c\
 
 dist:
 	rm -rf dist

@@ -104,7 +104,7 @@ int sys_mmap(void){
   if(argint(3,&flags)<0)
     return -1;
   //ret = mmap(fd, offset, length, flags);
-  mmap(fd, offset, length, flags);
+  // mmap(fd, offset, length, flags);
   return (int)mmap(fd, offset, length, flags);
 }
 

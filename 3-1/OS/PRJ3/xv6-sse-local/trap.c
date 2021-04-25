@@ -47,27 +47,33 @@ int page_fault_handler(char* addr){
   pte[0~1024] = protection.bits, protection.pfn
   return;
   */
+  if((uint)addr>=(uint)KERNBASE) return -1;
   struct proc *cp = myproc();
   int valid = 0;
   int i;
   for (i = 0; i < 100; i++) {
-    if(cp->mm_arr[i].fd==0) continue;
-    if((cp->mm_arr[i].start_va <= addr) && (cp->mm_arr[i].end_va < addr)){
+    if(cp->mm_arr[i].fd==0) continue; // valid => 따라서 allocate 된 mapped region 이 아님
+    if((cp->mm_arr[i].start_va <= addr) && (cp->mm_arr[i].end_va > addr)){
       valid = 1;
       break;
     }
   }
   if(valid==0) return -1; // kill process
-  // struct file *fp = cp->mm_arr[i].f;
+
+  struct file *fp = cp->mm_arr[i].f;
   pde_t *pgdir = cp->pgdir;
-  uint tmp = PGROUNDDOWN((uint)addr);
+
+  uint old_start = PGROUNDDOWN((uint)addr);
   char *mem = kalloc();
   if(mem==0){
-    cprintf("page_fault_handler: kalloc failed\n");
+    cprintf("page_fault_handler: kalloc failed");
     return -1;
   }
   memset(mem, 0, PGSIZE);
-  mappages(pgdir, (char *)tmp, PGSIZE, V2P(mem), PTE_W | PTE_U);
+  mappages(pgdir, (char *)old_start, PGSIZE, V2P(mem), PTE_W | PTE_U); // todo: pte_w flag 에 맞기
+  if(cp->mm_arr[i].fd != -1){
+    fileread(fp, mem, PGSIZE);
+  }
 
   /*
   (16페이지)
@@ -77,8 +83,7 @@ int page_fault_handler(char* addr){
   fault 가 발생했는데, faulted virtual address 를 어케 아느냐? => CR2 register(확인하는 함수 있음)
   read fault, write fault 구분
   */
-
-  return -1;
+  return 0;
 }
 // my code end
 
@@ -96,6 +101,7 @@ trap(struct trapframe *tf)
     return;
   }
 
+  // my code
   if(tf->trapno == T_PGFLT){
     // cprintf("Page Fault Occured\n");
     // struct proc *cp = myproc();

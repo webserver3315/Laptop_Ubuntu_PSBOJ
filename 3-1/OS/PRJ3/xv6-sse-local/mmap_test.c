@@ -4,8 +4,6 @@
 #include "fcntl.h"
 
 int main(int argc, char** argv) {
-	
-
 	printf(1, "mmap test \n");
 	int i;
 	int size = 4096;

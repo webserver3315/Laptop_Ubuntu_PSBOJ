@@ -40,6 +40,7 @@ struct mmap_region{
   char* end_va;  // address of end of file in mmap region
   struct file* f;
   int offset; // 1 file 1 offset => file->offset
+  uint flags; // todo
 };
 
 // Per-process state
