@@ -94,7 +94,7 @@ sys_uptime(void)
 // My Code
 int sys_mmap(void){
   int fd, offset, length, flags;
-  void *ret;
+  //void *ret;
   if (argint(0, &fd) < 0)
     return -1;
   if(argint(1,&offset)<0)
@@ -103,18 +103,19 @@ int sys_mmap(void){
     return -1;
   if(argint(3,&flags)<0)
     return -1;
-  ret = mmap(fd, offset, length, flags);
-  return ret;
+  //ret = mmap(fd, offset, length, flags);
+  mmap(fd, offset, length, flags);
+  return (int)mmap(fd, offset, length, flags);
 }
 
 int sys_munmap(void){
-  void *addr;
+  int addr;
   int length, ret;
-  if(argint(0,&addr)<0)
+  if(argint(0,&addr)<0) // xv6 주소사이즈 몇이었더라
     return -1;
   if(argint(1,&length)<0)
     return -1;  
-  ret = munmap(addr, length);
+  ret = munmap((void*)addr, length);
   return ret;
 }
 // My Code End

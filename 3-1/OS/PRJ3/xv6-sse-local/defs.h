@@ -189,6 +189,11 @@ void            switchuvm(struct proc*);
 void            switchkvm(void);
 int             copyout(pde_t*, uint, void*, uint);
 void            clearpteu(pde_t *pgdir, char *uva);
+// My Code
+typedef uint pte_t;
+pte_t           *walkpgdir(pde_t*, const void *, int);
+int             mappages(pde_t*, void*, uint, uint, int);
+// My Code End
 
 // swap.c
 void swapread(char* ptr, int blkno);

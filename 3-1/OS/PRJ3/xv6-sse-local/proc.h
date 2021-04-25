@@ -34,8 +34,17 @@ struct context {
 
 enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
 
+struct mmap_region{
+  int fd; // if 0, then VALID
+  char* start_va;  // address of beginning of file in mmap region
+  char* end_va;  // address of end of file in mmap region
+  struct file* f;
+  int offset; // 1 file 1 offset => file->offset
+};
+
 // Per-process state
-struct proc {
+struct proc
+{
   uint sz;                     // Size of process memory (bytes)
   pde_t* pgdir;                // Page table
   char *kstack;                // Bottom of kernel stack for this process
@@ -49,6 +58,10 @@ struct proc {
   struct file *ofile[NOFILE];  // Open files
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
+  // My code
+  uint mm_sz;                   // size of process's mmap region in byte memory
+  struct mmap_region mm_arr[100];    // lazy-mapped files
+  int mm_cnt;               // counter variable, used to index mmjobs[]
 };
 
 // Process memory is laid out contiguously, low addresses first:
