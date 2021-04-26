@@ -13,6 +13,8 @@
 #include "file.h"
 // #include "string.h"
 
+#define PTE_D (uint)0x40
+
 // struct file {
 //   enum { FD_NONE, FD_PIPE, FD_INODE } type;
 //   int ref; // reference count
@@ -592,7 +594,7 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
   uint old_start = cp->sz + cp->mm_sz;
   uint new_start = cp->sz + cp->mm_sz + length;
   uint tmp = PGROUNDUP(old_start);
-  uint delta_start = old_start;
+  uint delta_start = old_start; // 삭제해도 무방할듯?
 
   int mmarr_idx = get_valid_mmarr(cp);
   if(mmarr_idx == -1){
@@ -604,6 +606,7 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
   for (; tmp < new_start; tmp += PGSIZE, delta_start += PGSIZE)
   {
     mem = kalloc();
+    cprintf("mem = kalloc() => mem = %x, *mem = %x\n", mem, *mem);
     if(mem==0){
       cprintf("mmap: mmap out of memory\n");
       return MAP_FAILED;
@@ -611,6 +614,8 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
     memset(mem, 0, PGSIZE);
     // readi(fp->ip, (char*)V2P((int)mem), fp->off, PGSIZE);
     if(fd!=-1){
+      cprintf("fileread: mem is %x\n", mem);
+      cprintf("fileread: V2P(mem) is %x\n", V2P(mem));
       fileread(fp, mem, PGSIZE);
     }
     mappages(pgdir, (char *)tmp, PGSIZE, V2P(mem), PTE_W | PTE_U); // 맞나?
@@ -663,23 +668,83 @@ void* mmap(int fd, int offset, int length, int flags){
 }
 
 int munmap(void* addr, int length){
-  // if(length%4096!=0) return -1;
-  // // unmap 에서 pte 정보 삭제할 때 tlb 에 삭제
-  // // dirty 하면 지울때 fd 에 write back 해야하는데 dirty 여부는 어떻게 확인?
-  // struct proc *cp = myproc();
-  // for (int i = 0; i < 100;i++){
-  //   if((cp->mm_arr[i].start_va<=addr) && (addr<=cp->mm_arr[i].end_va)){
-  //     struct mmap_region *mm_region = &(cp->mm_arr[i]);
-  //     pte_t *pte;
-  //     if (pte = walkpgdir(cp->pgdir, addr, length)) {
-  //       mm_region
+  cprintf("munmap: addr is %x\n", addr);  
+  if((uint)addr%4096!=0) return -1;
+  if(length%4096!=0) return -1;
+  // unmap 에서 pte 정보 삭제할 때 tlb 에 삭제
+  // dirty 하면 지울때 fd 에 write back 해야하는데 dirty 여부는 어떻게 확인?
+  uint start_va = PGROUNDDOWN((uint)addr);
+  uint end_va = PGROUNDDOWN((uint)addr+length); // start_va 부터 end_va 까지 통으로 unmap할거임
+  struct proc *cp = myproc();
+  struct mmap_region *mm_region = 0;
+  int i;
+  for (i = 0; i < 100; i++){
+    if(cp->mm_arr[i].fd!=0 && 
+      (uint)cp->mm_arr[i].start_va<=start_va && end_va<=(uint)cp->mm_arr[i].end_va){
+      mm_region = &(cp->mm_arr[i]); // 해당 mm_region 을 쪼개든 아예 없애든 한다
+      break;
+    }
+  }
+  if(mm_region==0){
+    cprintf("munmap: can't find appropriate mmap region\n");
+    return -1;
+  }
 
+  pte_t *pte;
+  mm_region->f->off = 0; // for rewind
+  for (uint va = start_va; va < end_va; va += PGSIZE){
+    cprintf("walking: %x\n", va);    
+    pte = walkpgdir(cp->pgdir, (char *)va, 0);
+    if (pte==0) return -1;
+    if((*pte&PTE_P)==0) return -1;
+    uint pa = PTE_ADDR(*pte);
+    if ((*pte & PTE_D) != 0){ // write back if page is  dirty
+      cprintf("page is dirty\n");
+      // cprintf("filewrite: va is %x\n", va);
+      // cprintf("filewrite: P2V(va) is %x\n", V2P(va));
+      if(mm_region->fd>0){
+        cprintf("filewrite: P2V(pa) is %x\n", P2V(pa));
+        filewrite(mm_region->f, (char*)P2V(pa), PGSIZE);
+        // filewrite(mm_region->f, (char *)V2P(va), PGSIZE);
+        // filewrite(mm_region->f, (char*)va, PGSIZE);
+      }
+    }
+    cprintf("kfree: P2V(pa) is %x\n", P2V(pa));
+    kfree((char*)P2V(pa));
+    // kfree((char*)V2P(va)); // P2V 쓰는거 맞나?
+    // kfree((char*)va);
+    *pte = 0; // initialize pte to zero
+  }
 
+  if(((uint)mm_region->start_va==start_va) && (end_va==(uint)mm_region->end_va)){ // 딱 맞는 경우
+    mm_region->fd = 0; // again invalid
+    cp->mm_cnt--;
+  }
+  else if ((uint)mm_region->start_va == start_va){ // 시발점만 딱 맞는 경우
+    mm_region->end_va -= length;
+  }
+  else if(end_va==(uint)mm_region->end_va){ // 끝점만 딱 맞는경우
+    mm_region->start_va += length;
+  }else{ // 시발점과 끝점 모두 안맞고 사이만 파먹는 경우
+    int another_idx = get_valid_mmarr(cp);
+    struct mmap_region *mm_region2 = &(cp->mm_arr[another_idx]);
+    char* start_va1 = mm_region->start_va;
+    char* end_va1 = (char*)start_va;
+    char* start_va2 = (char*)end_va;
+    char* end_va2 = mm_region->end_va;
+    mm_region->start_va = start_va1;
+    mm_region->end_va = end_va1;
 
-  //       *pte = 0;
-  //     }
-  //   }
-  // }
+    mm_region2->fd = mm_region->fd;
+    mm_region2->start_va = start_va2;
+    mm_region2->end_va = end_va2;
+    mm_region2->f = mm_region->f;
+    mm_region2->offset = mm_region->offset;
+    mm_region2->flags = mm_region->flags;
+    
+    cp->mm_cnt++;
+    cp->mm_sz += end_va2 - start_va2;
+  }
 
-  return -1;
+  return 0;
 }

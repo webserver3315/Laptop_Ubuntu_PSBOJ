@@ -8,6 +8,9 @@
 #include "traps.h"
 #include "spinlock.h"
 
+#include "sleeplock.h"
+#include "fs.h"
+#include "file.h"
 // Interrupt descriptor table (shared by all CPUs).
 struct gatedesc idt[256];
 extern uint vectors[];  // in vectors.S: array of 256 entry pointers
@@ -61,6 +64,8 @@ int page_fault_handler(char* addr){
   if(valid==0) return -1; // kill process
 
   struct file *fp = cp->mm_arr[i].f;
+  uint offset = cp->mm_arr[i].offset;
+  fp->off = offset;
   pde_t *pgdir = cp->pgdir;
 
   uint old_start = PGROUNDDOWN((uint)addr);

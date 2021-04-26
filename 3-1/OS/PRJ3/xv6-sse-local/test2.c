@@ -9,7 +9,6 @@ int main(int argc, char** argv) {
     printf(1, "========== START ==========\n");
 	int i;
 	int size = 4096;
-	// int fd = open("README", O_RDWR);
 	char* text2 = mmap(-1, 0,  size, MAP_PROT_WRITE|MAP_PROT_READ|MAP_POPULATE);  //ANONYMOUS example
 
 	text2[0] = 's';
@@ -25,7 +24,6 @@ int main(int argc, char** argv) {
     }
     printf(1, "========== END ==========\n");
 
-	munmap(text2, size);
     printf(1,"\n before exit\n");
 	exit();
 }
