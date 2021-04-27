@@ -7,9 +7,9 @@ int main(int argc, char** argv) {
     printf(1, "========== mmap_anonymous_lazy test START ==========\n");
     printf(1, "========== START ==========\n");
 	int i;
-	int size = 8192;
+	int size = 4096;
    	int fd = open("README", O_RDWR);
-    char *addr_1 = mmap(fd, 0, size, MAP_PROT_READ | MAP_POPULATE);
+    char *addr_1 = mmap(fd, 2048, size, MAP_PROT_READ | MAP_PROT_WRITE |MAP_POPULATE);
 
     printf(1, "\n========== PRINT ==========\n");
     for (i = 0; i < size; i++){
@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
     addr_1[2] = 'p';
     addr_1[3] = 'l';
     addr_1[4] = 'e';
+    
     printf(1,"before munmap\n");
     munmap(addr_1, size);
     printf(1,"after munmap\n");
@@ -32,7 +33,7 @@ int main(int argc, char** argv) {
     // addr_1[4] = 'e';
 
     int fd2 = open("README", O_RDWR);
-    char *addr_2 = mmap(fd2, 0, size, MAP_PROT_READ | MAP_POPULATE);
+    char *addr_2 = mmap(fd2, 2048, size, MAP_PROT_READ| MAP_PROT_WRITE | MAP_POPULATE);
 
     addr_2[0] = 'b';
     addr_2[1] = 'a';

@@ -104,8 +104,11 @@ fileread(struct file *f, char *addr, int n)
     return piperead(f->pipe, addr, n);
   if(f->type == FD_INODE){
     ilock(f->ip);
-    if((r = readi(f->ip, addr, f->off, n)) > 0)
+    if((r = readi(f->ip, addr, f->off, n)) > 0){
+      // cprintf(">>>>>>fileread(f->ip, addr, f->off, n) => %x, %x, %d, %d\n", f->ip, addr, f->off, n);
       f->off += r;
+    }
+      
     iunlock(f->ip);
     return r;
   }
@@ -118,11 +121,15 @@ int
 filewrite(struct file *f, char *addr, int n)
 {
   int r;
-
-  if(f->writable == 0)
+  // cprintf("filewrite: ENTERED\n");
+  if(f->writable == 0){
+    // cprintf("filewrite: f->writeable == 0 ERROR\n");
     return -1;
-  if(f->type == FD_PIPE)
+  }
+  if(f->type == FD_PIPE){
+    // cprintf("filewrite: f->type == FD_PIPE\n");
     return pipewrite(f->pipe, addr, n);
+  }
   if(f->type == FD_INODE){
     // write a few blocks at a time to avoid exceeding
     // the maximum log transaction size, including
@@ -130,26 +137,39 @@ filewrite(struct file *f, char *addr, int n)
     // and 2 blocks of slop for non-aligned writes.
     // this really belongs lower down, since writei()
     // might be writing a device like the console.
-    int max = ((MAXOPBLOCKS-1-1-2) / 2) * 512;
+    // cprintf("filewrite: f->type == FD_INODE\n");
+    int max = ((MAXOPBLOCKS - 1 - 1 - 2) / 2) * 512;
+    // int max = 4096;
     int i = 0;
     while(i < n){
       int n1 = n - i;
-      if(n1 > max)
+      if (n1 > max)
         n1 = max;
 
       begin_op();
+      // cprintf("here1\n");
       ilock(f->ip);
-      if ((r = writei(f->ip, addr + i, f->off, n1)) > 0)
+      // cprintf("here2\n");
+      if ((r = writei(f->ip, addr + i, f->off, n1)) > 0){
+        // cprintf(">>>>>>inside filewrite(f->ip, addr+i, f->off, n1) => %x, %x, %d, %d\n", f->ip, addr + i, f->off, n1);
         f->off += r;
+      }
+      // cprintf("here3 f->off = %d, r == %d\n", f->off, r);
       iunlock(f->ip);
+      // cprintf("here4\n");
       end_op();
+      // cprintf("here5\n");
 
-      if(r < 0)
+      if(r < 0){
+        cprintf("filewrite: r < 0 ERROR\n");
         break;
+      }
       if(r != n1)
         panic("short filewrite");
       i += r;
+      // cprintf("here6\n");
     }
+    // cprintf("filewrite: return successfully: %d\n",i == n ? n : -1);
     return i == n ? n : -1;
   }
   panic("filewrite");

@@ -58,7 +58,7 @@ balloc(uint dev)
 {
   int b, bi, m;
   struct buf *bp;
-
+  // cprintf("balloc ENTER\n");
   bp = 0;
   for(b = 0; b < sb.size; b += BPB){
     bp = bread(dev, BBLOCK(b, sb));

@@ -8,7 +8,7 @@ int main(int argc, char** argv) {
 	int i;
 	int size = 4096;
 	int fd = open("README", O_RDWR);
-	char* text = mmap(fd, 2048,   size, MAP_PROT_READ);			      //File example
+	char* text = mmap(fd, 2048, size, MAP_PROT_READ);			      //File example
 	char* text2 = mmap(-1, 0,  size, MAP_PROT_WRITE|MAP_PROT_READ|MAP_POPULATE);  //ANONYMOUS example
 
 

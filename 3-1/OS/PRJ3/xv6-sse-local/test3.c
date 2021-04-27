@@ -11,14 +11,18 @@ int main(int argc, char** argv) {
 	int i;
 	int size = 4096;
 	int fd = open("README", O_RDWR);
-	char* text = mmap(fd, 2048, size, MAP_PROT_READ | MAP_PROT_WRITE);			      //File example
-    text[0] = 'Z';
+	char* text = mmap(fd, 0, size, MAP_PROT_READ | MAP_PROT_WRITE);			      //File example
+    text[0] = 'V';
+    text[1] = 'W';
+    text[2] = 'X';
+    text[3] = 'Y';
+    text[4] = 'Z';
     for (i = 0; i < size; i++){
         printf(1, "%c", text[i]);
     }
 	printf(1,"\n============ file mmap end ==========\n");
+    // munmap(text, size);
     printf(1, "========== END ==========\n");
     t++;
-    // munmap(text, size);
     exit();
 }

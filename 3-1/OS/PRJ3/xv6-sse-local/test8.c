@@ -27,12 +27,12 @@ int main(int argc, char** argv) {
     printf(1, "c: %c\n", c);
     printf(1, "d: %c\n", d);
 
-    addr_1[0] = 'b';
-    addr_1[1] = 'a';
-    addr_1[2] = 'n';
-    addr_1[3] = 'a';
-    addr_1[4] = 'n';
-    addr_1[5] = 'a';
+    // addr_1[0] = 'b';
+    // addr_1[1] = 'a';
+    // addr_1[2] = 'n';
+    // addr_1[3] = 'a';
+    // addr_1[4] = 'n';
+    // addr_1[5] = 'a';
 
     munmap(addr_1+4096, 4096);
     for (i = 0; i < size; i++){

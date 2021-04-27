@@ -20,6 +20,6 @@ int main(int argc, char** argv) {
 	printf(1,"\n============ file mmap end ==========\n");
     printf(1, "========== END ==========\n");
     t++;
-    // munmap(text, size);
+    munmap(text, size);
     exit();
 }

@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
         // printf(1, "\n%d\n", i);
     }
     printf(1, "========== END ==========\n");
-
-    printf(1,"\n before exit\n");
+	munmap(text2, size);
+	printf(1, "\n before exit\n");
 	exit();
 }

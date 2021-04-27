@@ -36,7 +36,7 @@ idtinit(void)
 }
 
 // my code
-int page_fault_handler(char* addr){
+int page_fault_handler(char* addr, struct trapframe* tf){
   /*
   1. check va is within a valid mapping
   if(va is not within any valid mappings) kill process;
@@ -61,8 +61,17 @@ int page_fault_handler(char* addr){
       break;
     }
   }
-  if(valid==0) return -1; // kill process
+  if(valid==0){
+    cprintf("page_fault_handler: unvalid mapped region\n");
+    return -1; // kill process
+  }
 
+  // if(((tf->err)&0x02)!=0){ // when access is WRITE
+  //   if((cp->mm_arr[i].flags&0x02)==0){ // and when mapped region is READONLY
+  //     cprintf("page_fault_handler: write access at readonly file\n");
+  //     return -1;
+  //   }
+  // }
   struct file *fp = cp->mm_arr[i].f;
   uint offset = cp->mm_arr[i].offset;
   fp->off = offset;
@@ -75,10 +84,15 @@ int page_fault_handler(char* addr){
     return -1;
   }
   memset(mem, 0, PGSIZE);
-  mappages(pgdir, (char *)old_start, PGSIZE, V2P(mem), PTE_W | PTE_U); // todo: pte_w flag 에 맞기
   if(cp->mm_arr[i].fd != -1){
+    cprintf("pgflthandler: fileread: mem is %x\n", mem);
     fileread(fp, mem, PGSIZE);
   }
+  cprintf("pgflthandler: mappages: V2P(mem) is %x\n", V2P(mem));
+  uint new_flag = 0;
+  if(cp->mm_arr[i].flags & MAP_PROT_WRITE)
+    new_flag |= MAP_PROT_WRITE;
+  mappages(pgdir, (char *)old_start, PGSIZE, V2P(mem), new_flag | PTE_U);
 
   /*
   (16페이지)
@@ -111,7 +125,7 @@ trap(struct trapframe *tf)
     // cprintf("Page Fault Occured\n");
     // struct proc *cp = myproc();
     int flt_addr = rcr2();
-    if(page_fault_handler((char*)flt_addr)!=-1){// if successfully handled, do not kill
+    if(page_fault_handler((char*)flt_addr, tf)!=-1){// if successfully handled, do not kill
       return;
     }
   }

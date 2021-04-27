@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 	int i;
 	int size = 4096;
    	// int fd = open("README", O_RDWR);
-    char *addr_2 = mmap(-1, 0, 8192, MAP_PROT_READ);
+    char *addr_2 = mmap(-1, 0, 8192, MAP_PROT_READ | MAP_PROT_WRITE );
     addr_2[0] = 'K';
     addr_2[4096] = 'M';
     for (i = 0; i < size*2; i++){
