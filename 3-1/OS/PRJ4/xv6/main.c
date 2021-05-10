@@ -31,10 +31,16 @@ main(void)
   binit();         // buffer cache
   fileinit();      // file table
   ideinit();       // disk 
+  cprintf("main-1\n");
   startothers();   // start other processors
+  cprintf("main-2\n");
   kinit2(P2V(4*1024*1024), P2V(PHYSTOP)); // must come after startothers()
+  cprintf("main-3\n");
   userinit();      // first user process
+  cprintf("main-4\n");
+  // return 0;
   mpmain();        // finish this processor's setup
+  cprintf("main-5\n");
 }
 
 // Other CPUs jump here from entryother.S.
@@ -53,8 +59,11 @@ mpmain(void)
 {
   cprintf("cpu%d: starting %d\n", cpuid(), cpuid());
   idtinit();       // load idt register
+  cprintf("mpmain-1\n");
   xchg(&(mycpu()->started), 1); // tell startothers() we're up
+  cprintf("mpmain-2\n");
   scheduler();     // start running processes
+  cprintf("mpmain-3\n");
 }
 
 pde_t entrypgdir[];  // For entry.S

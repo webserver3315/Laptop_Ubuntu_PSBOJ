@@ -127,6 +127,7 @@ userinit(void)
   if((p->pgdir = setupkvm()) == 0)
     panic("userinit: out of memory?");
   cprintf("%p %p\n", _binary_initcode_start, _binary_initcode_size);
+  cprintf("userinit: call inituvm p->pgdir %p\n", p->pgdir);
   inituvm(p->pgdir, _binary_initcode_start, (int)_binary_initcode_size);
   p->sz = PGSIZE;
   memset(p->tf, 0, sizeof(*p->tf));
@@ -338,12 +339,17 @@ scheduler(void)
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
       c->proc = p;
+      // cprintf("scheduler: switchuvm %s\n", p->name);
       switchuvm(p);
+      // cprintf("scheduler: switchuvm %s ended\n", p->name);
       p->state = RUNNING;
 
+      // cprintf("scheduler: swtch %s\n", p->name);
       swtch(&(c->scheduler), p->context);
+      // cprintf("scheduler: swtch %s ended\n", p->name);
+      // cprintf("scheduler: switchuvm2 %s\n", p->name);
       switchkvm();
-
+      // cprintf("scheduler: switchuvm2 %s ended\n", p->name);
       // Process is done running for now.
       // It should have changed its p->state before coming back.
       c->proc = 0;

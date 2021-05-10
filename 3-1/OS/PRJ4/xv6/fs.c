@@ -667,12 +667,13 @@ nameiparent(char *path, char *name)
   return namex(path, 1, name);
 }
 
-void swapread(char* ptr, int blkno)
+void swapread(char* ptr, int blkno) // kernel virtual memory 첫 주소
 {
 	struct buf* bp;
 	int i;
+  cprintf("swapread: ptr %p blkno %d\n", ptr, blkno);
 
-	if ( blkno < 0 || blkno >= SWAPMAX / 8)
+  if ( blkno < 0 || blkno >= SWAPMAX / 8)
 		panic("swapread: blkno exceed range");
 
 	for ( i=0; i < 8; ++i ) {
@@ -683,7 +684,7 @@ void swapread(char* ptr, int blkno)
 	}
 }
 
-void swapwrite(char* ptr, int blkno)
+void swapwrite(char* ptr, int blkno) // kernel virtual memory 첫 주소
 {
 	struct buf* bp;
 	int i;

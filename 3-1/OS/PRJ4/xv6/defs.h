@@ -194,8 +194,16 @@ struct page;
 struct LRU;
 
 void init_lru();
-int lru_append(struct page*, pde_t *, char *);
+int lru_append(pde_t *, char *);
 void lru_delete(struct page *);
+void change_bitmap(int idx, int val);
+void print_bitmap(int, int);
+
+#define BITMAP_SIZE 32767 // My Code
+#define PTE_A 0x20
+#define LRU_LENGTH PHYSTOP/PGSIZE
+// extern char bitmap[BITMAP_SIZE];
+extern int bitmap[BITMAP_SIZE];
 
 // number of elements in fixed-size array
 #define NELEM(x) (sizeof(x)/sizeof((x)[0]))

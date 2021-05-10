@@ -38,16 +38,21 @@ seginit(void)
 // Return the address of the PTE in page table pgdir
 // that corresponds to virtual address va.  If alloc!=0,
 // create any required page table pages.
+int walkpgdircnt = 0;
 pte_t *
 walkpgdir(pde_t *pgdir, const void *va, int alloc)
 {
   pde_t *pde;
   pte_t *pgtab;
 
+  walkpgdircnt++;
+
   pde = &pgdir[PDX(va)];
   if(*pde & PTE_P){
-    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
+    // if(walkpgdircnt>150000) cprintf("walkpgdir: if\n");
+    pgtab = (pte_t *)P2V(PTE_ADDR(*pde));
   } else {
+    // if(walkpgdircnt>150000) cprintf("walkpgdir: else\n");
     if(!alloc || (pgtab = (pte_t*)kalloc()) == 0)
       return 0;
     // Make sure all those PTE_P bits are zero.
@@ -56,6 +61,7 @@ walkpgdir(pde_t *pgdir, const void *va, int alloc)
     // be further restricted by the permissions in the page table
     // entries, if necessary.
     *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
+    // cprintf("walkpgdir: if\n");
   }
   return &pgtab[PTX(va)];
 }
@@ -188,17 +194,24 @@ switchuvm(struct proc *p)
 void
 inituvm(pde_t *pgdir, char *init, uint sz)
 {
+  cprintf("inituvm: started %p %p %p\n", pgdir, init, sz);
   char *mem;
 
   if(sz >= PGSIZE)
     panic("inituvm: more than a page");
   mem = kalloc();
   memset(mem, 0, PGSIZE);
+  
+  cprintf("inituvm: mappages %p %p %p\n", pgdir, init, sz);
   mappages(pgdir, 0, PGSIZE, V2P(mem), PTE_W|PTE_U);
   memmove(mem, init, sz);
 
   // My Code
+  // cprintf("inituvm: init_lru, lru_append calling\n");
   init_lru();
+  cprintf("inituvm: lru_append pgdir=%p vaddr=%p sz=%p mem=%p\n", pgdir, 0, sz, mem);
+  lru_append(pgdir, 0); // 맞나?
+  cprintf("inituvm ended successfully\n");
 }
 
 // Load a program segment into pgdir.  addr must be page-aligned
@@ -230,6 +243,7 @@ loaduvm(pde_t *pgdir, char *addr, struct inode *ip, uint offset, uint sz)
 int
 allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 {
+  cprintf("allocuvm called\n");
   char *mem;
   uint a;
 
@@ -239,7 +253,8 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
     return oldsz;
 
   a = PGROUNDUP(oldsz);
-  for(; a < newsz; a += PGSIZE){
+  int cnt = 0;
+  for (; a < newsz; a += PGSIZE, cnt++){
     mem = kalloc();
     if(mem == 0){
       cprintf("allocuvm out of memory\n");
@@ -253,6 +268,8 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       kfree(mem);
       return 0;
     }
+    cprintf("allocuvm %d: lru_append calling pgdir=%p, a=%p, mem=%p\n", cnt, pgdir, a, mem);
+    lru_append(pgdir, (void *)a); // My code
   }
   return newsz;
 }
@@ -262,7 +279,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 // need to be less than oldsz.  oldsz can be larger than the actual
 // process size.  Returns the new process size.
 int
-deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+deallocuvm(pde_t *pgdir, uint oldsz, uint newsz) // exit할때 이게 호출되는데, 해당 exit하는 프로세스가 kalloc한 모든 메모리를 kfree해주는 코드
 {
   pte_t *pte;
   uint a, pa;
@@ -324,6 +341,7 @@ clearpteu(pde_t *pgdir, char *uva)
 pde_t*
 copyuvm(pde_t *pgdir, uint sz)
 {
+  cprintf("copyuvm called\n");
   pde_t *d;
   pte_t *pte;
   uint pa, i, flags;
@@ -345,6 +363,8 @@ copyuvm(pde_t *pgdir, uint sz)
       kfree(mem);
       goto bad;
     }
+    cprintf("copyuvm: lru_append calling, pgdir=%p, i=%p, mem=%p\n", d, i, mem);
+    lru_append(d, (void *)i); // My code
   }
   return d;
 
