@@ -63,7 +63,7 @@ _partition_forloop:
 
     # Calling swap(arr, i, j)
     addi s2, s2, 1      # i+=1
-    addi sp, sp, -64
+    addi sp, sp, -64    # saving all used Caller-Saved Register before call Callee.
     sd ra, 56(sp)
     sd a0, 48(sp)
     sd a1, 40(sp)
@@ -75,7 +75,7 @@ _partition_forloop:
     addi a1, s2, 0                  # 1st argument is i
     addi a2, s3, 0                  # 2nd argument is j (0th is arr)
     jal ra, swap
-    ld t4, 0(sp)
+    ld t4, 0(sp)    # restore all used Caller-Saved Register After call Callee.
     ld t3, 8(sp)
     ld t2, 16(sp)
     ld t1, 24(sp)
@@ -90,7 +90,7 @@ _partition_else:
     blt s3, a2, _partition_forloop  # j < high => loop again
 
     # Partition For Loop Exit: Last Swap Call
-    addi sp, sp, -64
+    addi sp, sp, -64        # saving all used Caller-Saved Register before call Callee.
     sd ra, 56(sp)
     sd a0, 48(sp)
     sd a1, 40(sp)
@@ -102,7 +102,7 @@ _partition_else:
     addi a1, s2, 1                  # 1st argument is i+1 (2nd argument is high)
 
     jal ra, swap
-    ld t4, 0(sp)
+    ld t4, 0(sp)        # restore all used Caller-Saved Register After call Callee.
     ld t3, 8(sp)
     ld t2, 16(sp)
     ld t1, 24(sp)
@@ -132,7 +132,7 @@ quick_sort:
     # a0 <- arr, a1 <- low, a2 <- high
     # t1 <- pi
     bge a1, a2, _quick_sort_else        # low >= high, goto else
-    addi sp, sp, -40
+    addi sp, sp, -40        # saving all used Caller-Saved Register before call Callee.
     sd ra, 32(sp)
     sd a0, 24(sp)
     sd a1, 16(sp)
@@ -140,7 +140,7 @@ quick_sort:
     sd t1, 0(sp)
     jal ra, partition       # 0th, 1st, 2nd == arr, low, high
     addi t5, a0, 0          # t5 <- ret (임시저장)
-    ld t1, 0(sp)
+    ld t1, 0(sp)            # restoring all used Caller-Saved Register after call Callee.
     ld a2, 8(sp)
     ld a1, 16(sp)
     ld a0, 24(sp)
@@ -149,7 +149,7 @@ quick_sort:
 
     addi t1, t5, 0          # pi <- ret
 
-    addi sp, sp, -40
+    addi sp, sp, -40        # saving all used Caller-Saved Register before call Callee.
     sd ra, 32(sp)
     sd a0, 24(sp)
     sd a1, 16(sp)
@@ -157,14 +157,14 @@ quick_sort:
     sd t1, 0(sp)            
     addi a2, t1, -1         # 2nd argument <- (pi-1)
     jal ra, quick_sort      # 0th, 1st, 2nd == arr, low, pi - 1
-    ld t1, 0(sp)
+    ld t1, 0(sp)            # restoring all used Caller-Saved Register after call Callee.    
     ld a2, 8(sp)
     ld a1, 16(sp)
     ld a0, 24(sp)
     ld ra, 32(sp)
     addi sp, sp, 40
 
-    addi sp, sp, -40
+    addi sp, sp, -40    # saving all used Caller-Saved Register before call Callee.
     sd ra, 32(sp)
     sd a0, 24(sp)
     sd a1, 16(sp)
@@ -172,7 +172,7 @@ quick_sort:
     sd t1, 0(sp)            
     addi a1, t1, 1         # 1st argument <- (pi+1)
     jal ra, quick_sort      # 0th, 1st, 2nd == arr, pi-1, high
-    ld t1, 0(sp)
+    ld t1, 0(sp)        # restoring all used Caller-Saved Register after call Callee.
     ld a2, 8(sp)
     ld a1, 16(sp)
     ld a0, 24(sp)

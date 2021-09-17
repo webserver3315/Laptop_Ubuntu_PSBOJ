@@ -71,7 +71,9 @@ mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm)
     if(*pte & PTE_P)
       panic("remap");
     *pte = pa | perm | PTE_P;
-    if(a == last)
+    if(size==PGSIZE)
+      cprintf("pte is %x\n", *pte);
+    if (a == last)
       break;
     a += PGSIZE;
     pa += PGSIZE;

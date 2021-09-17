@@ -7,6 +7,11 @@
 #include "proc.h"
 #include "spinlock.h"
 
+//My Code
+#define MINIMUM_INT (int)0x80000000
+#define MAXIMUM_INT (int)0x7FFFFFFF
+//My Code End
+
 struct {
   struct spinlock lock;
   struct proc proc[NPROC];
@@ -65,7 +70,6 @@ myproc(void) {
   return p;
 }
 
-//PAGEBREAK: 32
 // Look in the process table for an UNUSED proc.
 // If found, change state to EMBRYO and initialize
 // state required to run in the kernel.
@@ -89,10 +93,11 @@ found:
   p->state = EMBRYO;
   p->pid = nextpid++;
   // My Code
-  p->priority=5;
-  p->starttime=ticks;
+  p->priority=0;	// Process's Default Priority is 0 
+//  p->starttime=ticks;
   p->runtime=0;
-  p->endtime=0;
+//  p->endtime=0;
+  // My Code End
 
   release(&ptable.lock);
 
@@ -120,7 +125,6 @@ found:
   return p;
 }
 
-//PAGEBREAK: 32
 // Set up first user process.
 void
 userinit(void)
@@ -222,8 +226,9 @@ fork(void)
 
   np->state = RUNNABLE;
   // My Code
-  np->priority = curproc->priority;
-
+  np->priority = curproc->priority; 	// Child Inherits Parent's nice
+  np->vruntime = curproc->vruntime;	// Child Inherits Parent's vruntime
+  // My Code End
   release(&ptable.lock);
 
   return pid;
@@ -255,7 +260,7 @@ exit(void)
   end_op();
   curproc->cwd = 0;
   // My code
-  curproc->endtime=ticks;
+  //curproc->endtime=ticks;
 
   acquire(&ptable.lock);
 
@@ -321,7 +326,33 @@ wait(void)
   }
 }
 
-//PAGEBREAK: 42
+// My Code
+int nice2weight_arr[11] = {3121, 2501, 1991, 1586, 1277, 1024, 820, 655, 526, 423, 335};
+int nice2weight(int nice){
+	int idx = nice+5;
+	return nice2weight_arr[idx];
+}
+// My Code End
+
+int total_weight_of_runnable_process(){
+	struct proc *p1;
+	uint ret=0;	
+      for(p1=ptable.proc; p1< &ptable.proc[NPROC];p1++){ // Traverse All P-Table
+	if(p1->state!=RUNNABLE)				// Select RUNNABLE Only
+		continue;
+	else
+		ret+=nice2weight(p1->priority);
+      }
+      return ret;
+}
+
+// My Code
+//long long ceil(long long a, long long b){ // return ceil(a/b)
+//	return (a+b-1)/b;
+//}
+// My Code End
+
+
 // Per-CPU process scheduler.
 // Each CPU calls scheduler() after setting itself up.
 // Scheduler never returns.  It loops, doing:
@@ -332,7 +363,7 @@ wait(void)
 void
 scheduler(void)
 {
-  struct proc *p;
+  struct proc *p, *p1;
   struct cpu *c = mycpu();
   c->proc = 0;
   
@@ -340,6 +371,9 @@ scheduler(void)
     // Enable interrupts on this processor.
     sti();
 
+    // My Code
+    struct proc *low_vruntime_p;
+    // My Code End
     // Loop over process table looking for process to run.
     acquire(&ptable.lock);
     for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
@@ -349,10 +383,38 @@ scheduler(void)
       // Switch to chosen process.  It is the process's job
       // to release ptable.lock and then reacquire it
       // before jumping back to us.
+ 
+      // My Code
+      // 1. Pick the lowest vruntime Process in for loop
+      // 2. Set Weight, Timeslice of next process
+      // 3. Reset runtime, starttime of next process
+      // cprintf("scheduler entered\n");
+      low_vruntime_p = p;
+      for(p1=ptable.proc; p1< &ptable.proc[NPROC];p1++){ // Traverse All P-Table
+	if(p1->state!=RUNNABLE)				// Select RUNNABLE Only
+		continue;
+	if(low_vruntime_p->vruntime > p1->vruntime) // Lower vruntime, Highter Real-Priority
+		low_vruntime_p=p1;
+      }
+      // cprintf("process name == %s\n", p->name);
+      p=low_vruntime_p;
+      p->weight=nice2weight(p->priority);
+//      p->starttime=ticks;
+//      p->runtime=0;
+      p->runtime_interval=0;
+      uint total_weight = total_weight_of_runnable_process();
+      uint weight_by_10 = 10*(p->weight);
+      int time_slice = (1000*weight_by_10 + total_weight - 1) / (total_weight); // Ceil(10*1000*W/sum(W))
+      p->timeslice=time_slice; // Get Time Slice
+
+      // My Code End
+
+      // Routine to select The Next Process
       c->proc = p;
       switchuvm(p);
       p->state = RUNNING;
 
+      // Call swtch to change context of CPU from Scheduler to the context of NEXT PROCESS 
       swtch(&(c->scheduler), p->context);
       switchkvm();
 
@@ -374,7 +436,7 @@ scheduler(void)
 // there's no process.
 void
 sched(void)
-{
+{// Invoking Dispatcher
   int intena;
   struct proc *p = myproc();
 
@@ -461,17 +523,57 @@ sleep(void *chan, struct spinlock *lk)
   }
 }
 
-//PAGEBREAK!
 // Wake up all processes sleeping on chan.
 // The ptable lock must be held.
 static void
 wakeup1(void *chan)
 {
-  struct proc *p;
-
-  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if(p->state == SLEEPING && p->chan == chan)
+  struct proc *p, *p1;
+  // My Code
+  int min_vruntime = 0;
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+	  if(p->state == RUNNING || p-> state == RUNNABLE){
+		  if(min_vruntime>p->vruntime){
+		//	      cprintf("541th: min_vruntime %d <- %d\n", min_vruntime, p->vruntime);
+			  min_vruntime=p->vruntime;
+		  }
+	  }
+  }
+  int notempty=0; // 0 means All Processes are Sleeping
+  for(p = ptable.proc; p < &ptable.proc[NPROC]; p++){
+    if(p->state == SLEEPING && p->chan == chan){
       p->state = RUNNABLE;
+      //cprintf("Process %s woken up\n",p->name);
+      for(p1 = ptable.proc; p1<&ptable.proc[NPROC];p1++){	// Update min_vruntime
+        if(p->pid == p1->pid)     // Piazza Notice: Don't count self-vruntime at minimum
+          continue;
+        if (p1->state == RUNNING || p1->state == RUNNABLE)
+        {
+          notempty=1; // At least one process is NOT sleeping
+		      if(min_vruntime>p1->vruntime){
+		//	      cprintf("557th: min_vruntime %d <- %d\n", min_vruntime, p1->vruntime);
+			      min_vruntime=p1->vruntime;
+		      }
+        }
+      }
+      if(notempty){
+      		int one_tick_vruntime = (1000*1024)/nice2weight(p->priority);
+		//cprintf("min_vruntime(%d) VS -1*one_tick_vruntime(%d)\n",min_vruntime,-1*one_tick_vruntime);
+          if(is_overflow(min_vruntime, -1*one_tick_vruntime)){
+		  //cprintf("proc.c 564th: OVERFLOW HAPPENED\n");
+            p->vruntime = MINIMUM_INT;
+          }
+          else{
+		 // cprintf("proc.c 568th: OVERFLOW NOT HAPPENED\n");
+            p->vruntime=min_vruntime-one_tick_vruntime;
+          }
+      }
+      else{
+		    p->vruntime=0;
+      }
+    }
+  }
+  // My Code End
 }
 
 // Wake up all processes sleeping on chan.
@@ -506,7 +608,6 @@ kill(int pid)
   return -1;
 }
 
-//PAGEBREAK: 36
 // Print a process listing to console.  For debugging.
 // Runs when user types ^P on console.
 // No lock to avoid wedging a stuck machine further.
@@ -544,10 +645,10 @@ procdump(void)
 }
 
 // My code
-int setnice(int pid, int nice){
+int setnice(int pid, int nice){ // Set Process Priority, Args: PID, Nice, Return val: fail->-1 success->0
 	struct proc* p;
 	int success=0;
-	if(pid<0||pid>10) return -1;
+	if(nice<-5 || nice>5) return -1;
 	acquire(&ptable.lock);
 	for(p=ptable.proc;p<&ptable.proc[NPROC];p++){
 		if(p->pid==pid){
@@ -562,7 +663,7 @@ int setnice(int pid, int nice){
 	else return -1;
 }
 
-int getnice(int pid){
+int getnice(int pid){ // Return Process Priority, Args: PID, Return value: Can't find PID -> -1, else nice
 	struct proc* p;
 	int ret=0;
 	int success=0;
@@ -579,34 +680,152 @@ int getnice(int pid){
 	else return -1;
 }
 
+void str_align_print(char* str){ // print %10s
+	const int width = 15;
+	int length=0;
+	while(str[length]!=0){
+		length++;
+	}
+	int diff = width - length;
+	cprintf("%s",str);
+	while(diff--){
+		cprintf(" ");
+	}
+}
+
+void int_align_print(int num){ // print %10d
+	const int width = 15;
+	int maxdigit=0;
+	int tmp = num;
+	while(tmp!=0){
+		tmp/=10;
+		maxdigit++;
+	}
+	if(num==0)
+		maxdigit=1;
+	int diff = width - maxdigit;
+	cprintf("%d",num);
+	while(diff--){
+		cprintf(" ");
+	}
+}
+
+void align_print(struct proc* p, char* status){
+	str_align_print(p->name);
+	cprintf(" ");
+	int_align_print(p->pid);
+	cprintf(" ");
+	str_align_print(status);
+	cprintf(" ");
+	int_align_print(p->priority);
+	cprintf(" ");
+	int_align_print(p->runtime / nice2weight(p->priority));
+	cprintf(" ");
+	int_align_print(p->runtime);
+	cprintf(" ");
+	int_align_print(p->vruntime);
+	cprintf("\n");
+}
+void align_print_init(){
+	str_align_print("name");
+	cprintf(" ");
+	str_align_print("pid");
+	cprintf(" ");
+	str_align_print("state");
+	cprintf(" ");
+	str_align_print("priority");
+	cprintf(" ");
+	str_align_print("runtime/weight");
+	cprintf(" ");
+	str_align_print("runtime");
+	cprintf(" ");
+	str_align_print("vruntime");
+	cprintf(" ");
+	cprintf("tick: %d \n", ticks);
+}
+
+
+
+int is_overflow(int a, int b){ // Does a+b OVERFLOWS? => 1 == true, 0 == false
+  if (b > 0){ // a + |b|
+    if(a>MAXIMUM_INT-b){
+      return 1;
+    }
+  }
+  else if(b<0){ // a - |b|
+    if(a<MINIMUM_INT-b){
+      return 1;
+    }
+  }
+  return 0;
+}
+
+void overflow_handler(int i){ // if i == 1, UP OVFL, i == -1, DOWN OVFL
+	struct proc* p;
+  //cprintf("OVERFLOW HANDLING\n");
+  if (i > 0){ // SOMEONE OVERED MAX
+    for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
+			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
+          int diff = (int)0x0FFFFFFF*-1;
+          if(is_overflow(p->vruntime, diff)){ // during minus, overflow detected, saturate it
+            p->vruntime = MINIMUM_INT;
+          }
+          else{
+            p->vruntime += diff;
+          }
+		  }
+	  }
+  }
+  else if(i<0){ // SOMEONE UNDERED MIN
+  	for(p=ptable.proc; p<&ptable.proc[NPROC];p++){
+			if(p->state == RUNNABLE || p->state == RUNNING || p->state == SLEEPING){
+        int diff = (int)0x0FFFFFFF;
+        if(is_overflow(p->vruntime, diff)){ // during plus, OVERFLOW detected, Saturate it
+          p->vruntime = MAXIMUM_INT;
+        }
+        else{
+          p->vruntime += diff;	// Else, Simply Add them
+        }
+			}
+		}
+	}
+	else{
+		//cprintf("VRUNTIME_OVERFLOW_HANDLER'S ARGUMENT Can't be 0\n");
+    return;
+  }
+  return;
+}
+
 void ps(){
 	struct proc* p;
 	sti();
 	acquire(&ptable.lock);
 	p=ptable.proc;
-	cprintf("name \t pid \t state \t\t priority \t runtime \t tick: %d \n",ticks);
+/*	cprintf("name \t\t pid \t\t state \t\t priority \t\t runtime/weight \t\t \
+			runtime \t\t vruntime \t\t tick: %d \n",ticks * 1000);
+*/
+	align_print_init();
 	for(;p<&ptable.proc[NPROC];p++){
 		if(p->state==SLEEPING){
-			cprintf("%s \t %d \t SLEEPING \t %d \t\t %d\n ", p->name, p->pid, p->priority, p->runtime);
+			align_print(p,"SLEEPING");
 		}
 		else if(p->state==RUNNING){
-			cprintf("%s \t %d \t RUNNING \t %d \t\t %d\n ", p->name, p->pid, p->priority, p->runtime);
+			align_print(p,"RUNNING");
 		}
 		else if(p->state==RUNNABLE){
-			cprintf("%s \t %d \t RUNNABLE \t %d \t\t %d\n ", p->name, p->pid, p->priority, p->runtime);
+			align_print(p,"RUNNABLE");
 		}
 //		else if(p->state==UNUSED){
 //			cprintf("%s \t %d \t UNUSED \t %d \t\t %d\n ", p->name, p->pid, p->priority, p->runtime);
 //		}
-		else if(p->state==EMBRYO){
-			cprintf("%s \t %d \t EMBRYO \t %d \t\t %d\n ", p->name, p->pid, p->priority, p->runtime);
-		}
+//		else if(p->state==EMBRYO){
+//			align_print(p,"EMBRYO");
+//		}
 		else if(p->state==ZOMBIE){
-			cprintf("%s \t %d \t ZOMBIE \t %d \t\t %d\n ", p->name, p->pid, p->priority, p->runtime);
+			align_print(p,"ZOMBIE");
 		}
 	}
 //	cprintf("ps command ENDED\n");
 	release(&ptable.lock);
 	return;
 }
-

@@ -219,8 +219,7 @@ QEMUGDB = $(shell if $(QEMU) -help | grep -q '^-gdb'; \
 	then echo "-gdb tcp::$(GDBPORT)"; \
 	else echo "-s -p $(GDBPORT)"; fi)
 ifndef CPUS
-# CPUS := 2
-CPUS := 1
+CPUS := 2
 endif
 QEMUOPTS = -drive file=fs.img,index=1,media=disk,format=raw -drive file=xv6.img,index=0,media=disk,format=raw -smp $(CPUS) -m 512 $(QEMUEXTRA)
 
@@ -244,10 +243,13 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 	@echo "*** Now run 'gdb'." 1>&2
 	$(QEMU) -nographic $(QEMUOPTS) -S $(QEMUGDB)
 
+# CUT HERE
+# prepare dist for students
+# after running make dist, probably want to
+# rename it to rev0 or rev1 or so on and then
+# check in that version.
 
-
-
-
+# My code
 EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
@@ -263,3 +265,27 @@ dist:
 	do \
 		grep -v PAGEBREAK $$i >dist/$$i; \
 	done
+	sed '/CUT HERE/,$$d' Makefile >dist/Makefile
+	echo >dist/runoff.spec
+	cp $(EXTRA) dist
+	chmod +x dist/vectors.pl
+
+dist-test:
+	rm -rf dist
+	make dist
+	rm -rf dist-test
+	mkdir dist-test
+	cp dist/* dist-test
+	cd dist-test; $(MAKE) print
+	#cd dist-test; $(MAKE) bochs || true
+	cd dist-test; $(MAKE) qemu-nox
+
+# update this rule (change rev#) when it is time to
+# make a new revision.
+tar:
+	rm -rf /tmp/xv6
+	mkdir -p /tmp/xv6
+	cp dist/* dist/.gdbinit.tmpl /tmp/xv6
+	(cd /tmp; tar cf - xv6) | gzip >xv6-rev10.tar.gz  # the next one will be 10 (9/17)
+
+.PHONY: dist-test dist

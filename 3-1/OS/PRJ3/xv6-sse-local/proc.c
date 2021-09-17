@@ -267,6 +267,48 @@ exit(void)
   if(curproc == initproc)
     panic("init exiting");
 
+  // my code // lcr3(V2P(p->pgdir)); 넣을 것
+  struct mmap_region *mm_region;
+  for (int i = 0; i < 100;i++){
+    if(curproc->mm_arr[i].fd==0)
+      continue;
+    mm_region = &(curproc->mm_arr[i]);
+    uint start_va = (uint)mm_region->start_va;
+    uint end_va = (uint)mm_region->end_va;
+    uint va;
+    pte_t *pte;
+    mm_region->f->off = mm_region->offset; // for rewind
+    for (va = start_va; va < end_va; va += PGSIZE){
+      pte = walkpgdir(curproc->pgdir, (char *)va, 0);
+      if (pte==0) continue;
+      if((*pte&PTE_P)==0) continue;
+      uint pa = PTE_ADDR(*pte);
+      if ((*pte & PTE_D) != 0){ // write back if page is  dirty
+        if(mm_region->fd>0){
+          // begin_op();
+          // ilock(mm_region->f->ip);
+          int delta = (end_va - va > PGSIZE ? PGSIZE : end_va - va);// smaller one
+          int written_size;
+          if ((written_size = writei(mm_region->f->ip, (char *)P2V(pa), (char *)P2V(pa) - mm_region->start_va, delta)) < 0)
+          {
+            // iunlock(mm_region->f->ip);
+            // end_op();
+            // cprintf(">>>munmap: writei FAILED, delta = %d, written_size = %d\n",delta, written_size);
+            // return;
+          }
+          mm_region->f->off += written_size;
+          // iunlock(mm_region->f->ip);
+          // end_op();
+          // filewrite(mm_region->f, (char *)va, PGSIZE);
+        }
+      }
+      // cprintf("kfree: P2V(pa) is %x\n", P2V(pa));
+      kfree((char*)P2V(pa));
+      *pte = 0; // initialize pte to zero
+      lcr3(V2P(curproc->pgdir)); // when pte changed, flush tlb
+    }
+
+    
   // Close all open files.
   for(fd = 0; fd < NOFILE; fd++){
     if(curproc->ofile[fd]){
@@ -275,38 +317,10 @@ exit(void)
     }
   }
 
-  // // my code // lcr3(V2P(p->pgdir)); 넣을 것
-  // struct mmap_region *mm_region;
-  // for (int i = 0; i < 100;i++){
-  //   if(curproc->mm_arr[i].fd==0)
-  //     continue;
-  //   mm_region = &(curproc->mm_arr[i]);
-  //   uint start_va = (uint)mm_region->start_va;
-  //   uint end_va = (uint)mm_region->end_va;
-  //   uint va;
-  //   pte_t *pte;
-  //   mm_region->f->off = 0; // for rewind
-  //   for (va = start_va; va < end_va; va += PGSIZE){
-  //     cprintf("walking: %x\n", va);
-  //     pte = walkpgdir(curproc->pgdir, (char *)va, 0);
-  //     if (pte==0) continue;
-  //     if((*pte&PTE_P)==0) continue;
-  //     uint pa = PTE_ADDR(*pte);
-  //     if ((*pte & PTE_D) != 0){ // write back if page is  dirty
-  //       cprintf("page is dirty\n");
-  //       if(mm_region->fd>0){
-  //         cprintf("filewrite: P2V(pa) is %x\n", P2V(pa));
-  //         filewrite(mm_region->f, (char*)P2V(pa), PGSIZE);
-  //       }
-  //     }
-  //     cprintf("kfree: P2V(pa) is %x\n", P2V(pa));
-  //     kfree((char*)P2V(pa));
-  //     *pte = 0; // initialize pte to zero
-  //   }
-  //   mm_region->fd = 0;
-  //   curproc->mm_cnt--;
-  // }
-  // // my code end
+    mm_region->fd = 0;
+    curproc->mm_cnt--;
+  }
+  // my code end
 
   begin_op();
   iput(curproc->cwd);
@@ -623,15 +637,15 @@ int get_valid_mmarr(struct proc* cp){ // return -1 when fail
 
 void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
   pde_t *pgdir = cp->pgdir;
-  char *mem;
-  uint old_start = cp->sz + cp->mm_sz;
-  uint new_start = cp->sz + cp->mm_sz + length;
-  uint tmp = PGROUNDUP(old_start);
+  uint old_start = cp->sz + cp->mm_sz + MARGIN;
+  uint new_start = cp->sz + cp->mm_sz + MARGIN + length;
+  cprintf("cp->sz + cp->mm_sz + length %x %x %d\n", cp->sz, cp->mm_sz, length);
+  uint tmp = PGROUNDDOWN(old_start);
   uint delta_start = old_start; // 삭제해도 무방할듯?
 
   int mmarr_idx = get_valid_mmarr(cp);
   if(mmarr_idx == -1){
-    cprintf(">>>get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
+    // cprintf(">>>get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
     return MAP_FAILED;
   }
 
@@ -639,10 +653,12 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
   fp->off = offset;
   for (; tmp < new_start; tmp += PGSIZE, delta_start += PGSIZE)
   {
+    char *mem;
     mem = kalloc();
     cprintf(">>>mem = kalloc() => mem = %x, *mem = %x\n", mem, *mem);
+    cprintf(">>>tmp(virtual address) = %x, %x~%x\n", tmp, old_start, new_start);
     if(mem==0){
-      cprintf(">>>mmap: mmap out of memory\n");
+      // cprintf(">>>mmap: mmap out of memory\n");
       return MAP_FAILED;
     }
     memset(mem, 0, PGSIZE);
@@ -666,7 +682,7 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
   cp->mm_arr[mmarr_idx].f = fp;
   cp->mm_arr[mmarr_idx].flags = flags;
   // cp->mm_arr[mmarr_idx].f.ref++;
-  cprintf(">>>munmap: current file offset is %d\n", cp->mm_arr[mmarr_idx].f->off);  
+  // cprintf(">>>munmap: current file offset is %d\n", cp->mm_arr[mmarr_idx].f->off);  
   cprintf(">>>mmap_eager: return %x\n", old_start);
   return (void*)old_start;
 }
@@ -674,11 +690,11 @@ void* mmap_eager(int fd, int offset, int length, int flags, struct proc* cp, str
 void* mmap_lazy(int fd, int offset, int length, int flags, struct proc* cp, struct file* fp){
   int mmarr_idx = get_valid_mmarr(cp);
   if(mmarr_idx == -1){
-    cprintf(">>>get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
+    // cprintf(">>>get_valid_mmarr: NO VALID curproc->mm_arr[0~99]\n");
     return MAP_FAILED;
   }
-  uint old_start = cp->sz + cp->mm_sz;
-  uint new_start = cp->sz + cp->mm_sz + length;
+  uint old_start = cp->sz + cp->mm_sz + MARGIN;
+  uint new_start = cp->sz + cp->mm_sz + MARGIN + length;
   cp->mm_cnt++;
   cp->mm_sz += length;
   cp->mm_arr[mmarr_idx].fd = fd;
@@ -698,7 +714,7 @@ void* mmap(int fd, int offset, int length, int flags){
   struct proc *cp = myproc(); // current proc
   struct file *fp = cp->ofile[fd];
   if(is_mmap_available(fd,offset,length,flags,fp)==-1){
-    cprintf(">>>mmap(): Invalid Argument\n");
+    // cprintf(">>>mmap(): Invalid Argument\n");
     return MAP_FAILED;
   }
   if(flags&MAP_POPULATE){
@@ -709,8 +725,27 @@ void* mmap(int fd, int offset, int length, int flags){
   return MAP_FAILED;
 }
 
+
+// void writeback(struct mmap_region *mm_region, char* addr, int n){
+//   struct file *f = mm_region->f;
+//   int max = ((MAXOPBLOCKS - 1 - 1 - 2) / 2) * BSIZE;
+//   int i = 0;
+//   while(i<n){
+//     int n1 = n - i;
+//     if(n1>max)
+//       n1 = max;
+//     begin_op();
+//     ilock(f->ip);
+//     cprintf("%p %d %d\n", addr + i, mm_region->offset + mm_region->start_va - addr, n1);
+//     int r = writei(f->ip, (addr + i), mm_region->offset + mm_region->start_va - addr + i, n1);
+//     iunlock(f->ip);
+//     end_op();
+//     i += r;
+//   }
+// }
+
 int munmap(void* addr, int length){
-  cprintf(">>>munmap: addr is %x\n", addr);  
+  // cprintf(">>>munmap: addr is %x\n", addr);  
   if((uint)addr%4096!=0) return -1;
   if(length%4096!=0) return -1;
   // unmap 에서 pte 정보 삭제할 때 tlb 에 삭제
@@ -727,10 +762,10 @@ int munmap(void* addr, int length){
     }
   }
   if(mm_region==0){
-    cprintf(">>>munmap: can't find appropriate mmap region\n");
+    // cprintf(">>>munmap: can't find appropriate mmap region\n");
     return 0;
   }
-  cprintf(">>>munmap: current file offset is %d\n", mm_region->f->off);  
+  // cprintf(">>>munmap: current file offset is %d\n", mm_region->f->off);  
 
   pte_t *pte;
   // mm_region->f->off = 0; // for rewind
@@ -738,39 +773,53 @@ int munmap(void* addr, int length){
   uint saved_offset = fp->off;
   fp->off = mm_region->offset; // for rewind
   for (uint va = start_va; va < end_va; va += PGSIZE){
-    cprintf(">>>munmap: va = %x\n", va);    
+    // cprintf(">>>munmap: va = %x\n", va);    
     pte = walkpgdir(cp->pgdir, (char *)va, 0);
     if (pte==0) return -1;
     if((*pte&PTE_P)==0) return -1;
-    uint pa = PTE_ADDR(*pte);
+    // uint pa = PTE_ADDR(*pte);
     if ((*pte & PTE_D) != 0){ // write back if page is  dirty
-      cprintf(">>>page is dirty\n");
+      // cprintf(">>>page is dirty\n");
       if(mm_region->fd>0){
-        cprintf(">>>here?\n");
-        cprintf(">>>before filewrite(mm_region->f, P2V(pa), PGSIZE): fp is %x, P2V(pa) is %x\n", fp, P2V(pa));
-        cprintf(">>>before filewrite: file offset is %d\n", fp->off);
-        // filewrite(fp, (char*)P2V(pa), PGSIZE); // 왜 지워야 돌아가지?
+        // cprintf(">>>here?\n");
+        // cprintf(">>>before filewrite: file offset is %d\n", fp->off);
+        
 
-        begin_op();
-        ilock(mm_region->f->ip);
-        int delta = (end_va - va > PGSIZE ? PGSIZE : end_va - va);// smaller one
-        if(writei(mm_region->f->ip, (char*)P2V(pa), (char*)P2V(pa) - mm_region->start_va, delta) > 0){
-          iunlock(mm_region->f->ip);
-          end_op();
-          cprintf(">>>munmap: writei FAILED\n");
-          return -1;
-        }
-        iunlock(mm_region->f->ip);
-        end_op();
-        cprintf(">>>munmap: writei SUCCESSFUL\n");
+        // writeback(mm_region, (char*)va, PGSIZE);
+        // writeback(mm_region, (char*)P2V(pa), PGSIZE);
+
+        // begin_op();
+        // ilock(mm_region->f->ip);
+        // int delta = (end_va - va > PGSIZE ? PGSIZE : end_va - va);// smaller one
+        // int written_size;
+        // if ((written_size = writei(mm_region->f->ip, (char *)P2V(pa), (char *)P2V(pa) - mm_region->start_va, delta)) < 0)
+        // {
+        //   iunlock(mm_region->f->ip);
+        //   end_op();
+        //   // cprintf(">>>munmap: writei FAILED, delta = %d, written_size = %d\n",delta, written_size);
+        //   return -1;
+        // }
+        // mm_region->f->off += written_size;
+        // iunlock(mm_region->f->ip);
+        // end_op();
+
+        // filewrite(fp, (char*)P2V(pa), PGSIZE); // 왜 지워야 돌아가지?
+        cprintf(">>>pte=%x, *pte=%x, PTE_ADDR(*pte)=%x\n", pte, *pte, PTE_ADDR(*pte));
+        cprintf(">>>before filewrite(fp, P2V(pa), PGSIZE): fp is %x, P2V(pa) is %x\n", fp, P2V((PTE_ADDR(*pte))));
+        int write_size = (PGSIZE < fp->ip->size) ? PGSIZE : fp->ip->size;
+        cprintf(">>>writesize = %x\n", write_size);
+        // filewrite(cp->mm_arr[i].f, (char *)P2V(PTE_ADDR(*pte)), write_size); // 왜 지워야 돌아가지?
+        // cprintf(">>>munmap: writei SUCCESSFUL\n");
         // filewrite(mm_region->f, (char*)va, PGSIZE); // 왜 지워야 돌아가지?
       }
     }
-    cprintf(">>>kfree: P2V(pa) is %x\n", P2V(pa));
-    kfree((char*)P2V(pa));
+    // cprintf(">>>kfree: P2V(pa) is %x\n", P2V(pa));
+    // kfree((char*)P2V(pa));
+    kfree((char*)P2V(PTE_ADDR(*pte)));
+    // kfree((char*)va);
     // cprintf(">>>kfree: va is %x\n", va);
-    // kfree((char*)P2V(va));
-    *pte = 0; // initialize pte to zero
+    // kfree((char*)P2V(PTE_ADDR(*pte)));
+    // *pte = 0; // initialize pte to zero
     lcr3(V2P(cp->pgdir)); // when pte changed, flush tlb
   }
   mm_region->f->off = saved_offset;

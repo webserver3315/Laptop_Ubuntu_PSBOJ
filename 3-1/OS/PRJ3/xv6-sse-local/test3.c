@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
 	int size = 4096;
 	int fd = open("README", O_RDWR);
 	char* text = mmap(fd, 0, size, MAP_PROT_READ | MAP_PROT_WRITE);			      //File example
+    // char* text = mmap(fd, 0, size, MAP_PROT_READ | MAP_PROT_WRITE | MAP_POPULATE);
     text[0] = 'V';
     text[1] = 'W';
     text[2] = 'X';
@@ -21,7 +22,7 @@ int main(int argc, char** argv) {
         printf(1, "%c", text[i]);
     }
 	printf(1,"\n============ file mmap end ==========\n");
-    // munmap(text, size);
+    munmap(text, size);
     printf(1, "========== END ==========\n");
     t++;
     exit();

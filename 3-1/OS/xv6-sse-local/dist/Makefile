@@ -182,12 +182,15 @@ UPROGS=\
 	_usertests\
 	_wc\
 	_zombie\
-	_swaptest\
 	_ps\
 	_setnice\
 	_getnice\
 	_test1\
 	_test2\
+	_testcfs1\
+	_testcfs2\
+	_testcfs3\
+	_testcfs4\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)

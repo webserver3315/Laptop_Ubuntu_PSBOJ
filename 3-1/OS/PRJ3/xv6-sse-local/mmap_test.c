@@ -23,10 +23,17 @@ int main(int argc, char** argv) {
 		printf(1, "%c", text2[i]);
 	printf(1,"\n============anonymous mmap end==========\n");
 
-	printf(1, "1st munmap\n");
+
+	text[0] = 'A';
+
+	// printf(1, "1st munmap\n");
 	munmap(text, size);
-	printf(1, "2nd munmap\n");
+	// printf(1, "2nd munmap\n");
 	munmap(text2, size);
 	printf(1, "complete\n");
+	for (i = 0; i < size; i++) 
+		printf(1, "%c", text[i]);
+	for (i = 0; i < size; i++) 
+		printf(1, "%c", text2[i]);
 	exit();
 }

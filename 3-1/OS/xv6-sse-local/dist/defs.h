@@ -120,6 +120,12 @@ int             wait(void);
 void            wakeup(void*);
 void            yield(void);
 
+// My Code
+//long long	ceil(long long, long long);
+int		nice2weight(int);
+int	     	is_overflow(int, int);
+void    	overflow_handler(int);
+
 // swtch.S
 void            swtch(struct context**, struct context*);
 

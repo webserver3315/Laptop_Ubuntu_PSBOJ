@@ -30,7 +30,7 @@ void quick_sort(long long int arr[], int low, int high) {
 int binary_search(long long int* point, int size, long long int target){
     // Sort 전제
     int start = 0;
-    int end = 48;
+    int end = size-1;
     int mid = (start + end) / 2;
     while(start<=end){
         printf("mid = %d\n", mid);

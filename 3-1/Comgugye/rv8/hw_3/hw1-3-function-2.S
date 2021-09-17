@@ -32,14 +32,14 @@ binary_search:
     # a0 <- point, a1 <- size, a2 <- target
     # s0 <- start, s1 <- mid, s2 <- end
     # t1 <- &point[mid], t2 <- (mid<<3), t3 <- point[mid]
-    addi sp, sp, -32
+    addi sp, sp, -32    # save all Callee-Saved Registor before start
     sd ra, 24(sp)
     sd s0, 16(sp)
     sd s1, 8(sp)
     sd s2, 0(sp)
 
     addi s0, zero, 0    # start <- 0
-    addi s2, zero, 48   # end <- 48
+    addi s2, a1, -1   # end <- size-1
     add s1, s0, s2      # mid <- (start+end)
     srli s1, s1, 1      # mid /= 2
 
@@ -68,7 +68,7 @@ _binary_search_exit_false:
     addi a0, zero, -1   # if NOT FOUND, return -1
     jal zero, _binary_search_exit
 _binary_search_exit:
-    ld s2, 0(sp)
+    ld s2, 0(sp)    # restore all Callee-Saved Registor before end it
     ld s1, 8(sp)
     ld s0, 16(sp)
     ld ra, 24(sp)

@@ -386,7 +386,6 @@ bmap(struct inode *ip, uint bn)
   bn -= NDIRECT;
 
   if(bn < NINDIRECT){
-    // Load indirect block, allocating if necessary.
     if((addr = ip->addrs[NDIRECT]) == 0)
       ip->addrs[NDIRECT] = addr = balloc(ip->dev);
     bp = bread(ip->dev, addr);
@@ -431,21 +430,75 @@ bmap(struct inode *ip, uint bn)
   panic("bmap: out of range");
 }
 
+static uint
+bmap2(struct inode *ip, uint bn)
+{
+  uint addr, *a;
+  struct buf *bp;
+
+  if(bn < NDIRECT){
+    if((addr = ip->addrs[bn]) == 0)
+      return -1;
+    return addr;
+  }
+  bn -= NDIRECT;
+
+  if(bn < NINDIRECT){
+    if((addr = ip->addrs[NDIRECT]) == 0)
+      return -1;
+    bp = bread(ip->dev, addr);
+    a = (uint*)bp->data;
+    if((addr = a[bn]) == 0){
+      return -1;
+    }
+    brelse(bp);
+    return addr;
+  }
+
+  // my code
+  // NDIRECT == 11
+  // NINDIRECT == 128
+  // DINDIRECT == 128*128
+  bn -= NINDIRECT;
+  if(bn < DINDIRECT){
+    if((addr = ip->addrs[NDIRECT+1]) == 0)
+      return -1;
+
+    bp = bread(ip->dev, addr);
+    a = (uint*)bp->data; // 1차 테이블 접근
+
+    int entry = bn / 128;
+    int offset = bn % 128;
+    if((addr = a[entry]) == 0){
+      return -1;
+    }
+    brelse(bp);
+
+    bp = bread(ip->dev, addr);
+    a = (uint*) bp->data; // 2차 테이블 접근
+    if((addr = a[offset])==0){
+      return -1;
+    }
+    brelse(bp);
+    return addr; // 2차테이블에서 읽은 최종주소
+  }
+  panic("bmap: out of range");
+}
 
 uint baddr(int fd, int offset){
-  struct inode *ip;
   struct file *f;
+  struct inode *ip;
   f = myproc()->ofile[fd]; // if f == 0, return -1 왜냐하면 오류이기 때문
   ip = f->ip;
 
-  int block_number;
-  if(offset%512!=0){
+  int block_number; // 1블럭당 512바이트
+  if(offset%512!=0){ // Ceil(offset/512)
     block_number = (offset / 512) + 1; // block 당 512 바이트이기 때문
   }
   else{
     block_number = offset / 512;
   }
-  return bmap(ip, block_number);
+  return bmap2(ip, block_number);
 }
 
 

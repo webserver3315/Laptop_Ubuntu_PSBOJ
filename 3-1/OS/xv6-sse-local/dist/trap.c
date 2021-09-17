@@ -32,7 +32,7 @@ idtinit(void)
   lidt(idt, sizeof(idt));
 }
 
-//PAGEBREAK: 41
+
 void
 trap(struct trapframe *tf)
 {
@@ -48,19 +48,26 @@ trap(struct trapframe *tf)
 
   // My Code
   // cprintf("default: %d\n",tf->trapno);
-  switch(tf->trapno){
-  case T_IRQ0 + IRQ_TIMER:
+  switch(tf->trapno){ 
+  case T_IRQ0 + IRQ_TIMER:	// When trap cause is for ++tick
     if(cpuid() == 0){
-      acquire(&tickslock);
-      //cprintf("tcks++\n"); // My code
-      ticks++;
-      
-      //My Code
-     if(myproc()!=0 && myproc()->state == RUNNING)
-	     myproc()->runtime++;
-
-      wakeup(&ticks);
-      release(&tickslock);
+     	acquire(&tickslock);
+     	// My Code
+    	ticks+=1000;		// tick unit is mili-tick
+     	if(myproc()!=0 && myproc()->state == RUNNING){
+	     myproc()->runtime+=1000;
+	     myproc()->runtime_interval+=1000;
+	     //myproc()->vruntime += ceil(1000*1024,myproc()->weight);
+	     int delta_vruntime = (1000*1024+nice2weight(myproc()->priority)-1)/nice2weight(myproc()->priority);
+       while(is_overflow(myproc()->vruntime, delta_vruntime)){
+         overflow_handler(delta_vruntime);
+       }
+	//cprintf("TRAP: %d + %d == %d\n", myproc()->vruntime, delta_vruntime, myproc()->vruntime+delta_vruntime);
+       myproc()->vruntime += delta_vruntime;
+      }
+      // My Code End
+      	wakeup(&ticks);
+      	release(&tickslock);
     }
     lapiceoi();
     break;
@@ -90,7 +97,6 @@ trap(struct trapframe *tf)
     lapiceoi();
     break;
 
-  //PAGEBREAK: 13
   default:
     if(myproc() == 0 || (tf->cs&3) == 0){
       // In kernel, it must be our mistake.
@@ -114,10 +120,18 @@ trap(struct trapframe *tf)
 
   // Force process to give up CPU on clock tick.
   // If interrupts were on while locks held, would need to check nlock.
- /* if(myproc() && myproc()->state == RUNNING &&
-     tf->trapno == T_IRQ0+IRQ_TIMER)
-    yield();
-*/
+  // My Code: PRJ1, Commented. PRJ2, Not Commented.
+  if(myproc() && myproc()->state == RUNNING && tf->trapno == T_IRQ0+IRQ_TIMER){
+	  // If process's runtime more than timeslice, yield it.
+	  if(myproc()->runtime_interval >= myproc()->timeslice){
+		  //myproc()->runtime=0;
+		  //myproc()->endtime=ticks;
+		  myproc()->runtime_interval=0;
+		  yield();
+	  }
+  }
+  // My Code End
+
   // Check if the process has been killed since we yielded
   if(myproc() && myproc()->killed && (tf->cs&3) == DPL_USER)
     exit();

@@ -37,24 +37,24 @@ fibonacci:
         jal zero, END
 
 ELSE:
-        addi s0, s0, -1                 # n<-n-1
+        addi s0, s0, -1                 # n <- n-1
 
-        addi sp, sp, -8
-        sd s0, 0(sp)
-        addi a0, s0, 0
+        addi sp, sp, -8                 # make stack room for 2
+        sd s0, 0(sp)                    # store s0
+        addi a0, s0, 0                  # set argument to s0
         jal ra, fibonacci               # call fibo(n-1)
-        ld s0, 0(sp)
-        addi sp, sp, 8
+        ld s0, 0(sp)                    # load s0, for restoring
+        addi sp, sp, 8                  # pop stack room for 2
 
-        addi s5, a0, 0
-        addi s0, s0, -1
+        addi s5, a0, 0                  # save return value to s5
+        addi s0, s0, -1                 # x-2
 
-        addi sp, sp, -8
-        sd s5, 0(sp)
-        addi a0, s0, 0
-        jal ra, fibonacci
-        ld s5, 0(sp)
-        addi sp, sp, 8
+        addi sp, sp, -8                 # make stack room for 2
+        sd s5, 0(sp)                    # store s5 for saving
+        addi a0, s0, 0                  # set argument to a0
+        jal ra, fibonacci               # jump with return address saved, calling fibonacci
+        ld s5, 0(sp)                    # restore s5
+        addi sp, sp, 8                  # pop 2 element from stack
 
         add a0, a0, s5                  # s5 <- f(n-1), a0 <- f(n-2)
 

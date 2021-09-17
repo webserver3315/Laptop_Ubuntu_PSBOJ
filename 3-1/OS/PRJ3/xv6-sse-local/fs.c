@@ -491,12 +491,21 @@ writei(struct inode *ip, char *src, uint off, uint n)
     return devsw[ip->major].write(ip, src, n);
   }
 
-  if(off > ip->size || off + n < off)
+  if(off + n < off){
+    // cprintf("writei: here1\n");
     return -1;
-  if(off + n > MAXFILE*BSIZE)
+  }
+  if(off > ip->size){
+    // cprintf("writei: here2: off(%x) > ip->size(%d)\n",off,ip->size);
     return -1;
+  }
+  if(off + n > MAXFILE*BSIZE){
+    // cprintf("writei: here3\n");
+    return -1;
+  }
 
-  for(tot=0; tot<n; tot+=m, off+=m, src+=m){
+  for (tot = 0; tot < n; tot += m, off += m, src += m)
+  {
     bp = bread(ip->dev, bmap(ip, off/BSIZE));
     m = min(n - tot, BSIZE - off%BSIZE);
     memmove(bp->data + off%BSIZE, src, m);

@@ -62,16 +62,16 @@ int page_fault_handler(char* addr, struct trapframe* tf){
     }
   }
   if(valid==0){
-    cprintf("page_fault_handler: unvalid mapped region\n");
+    // cprintf("page_fault_handler: unvalid mapped region\n");
     return -1; // kill process
   }
 
-  // if(((tf->err)&0x02)!=0){ // when access is WRITE
-  //   if((cp->mm_arr[i].flags&0x02)==0){ // and when mapped region is READONLY
-  //     cprintf("page_fault_handler: write access at readonly file\n");
-  //     return -1;
-  //   }
-  // }
+  if(((tf->err)&0x02)!=0){ // when access is WRITE
+    if((cp->mm_arr[i].flags&0x02)==0){ // and when mapped region is READONLY
+      // cprintf("page_fault_handler: write access at readonly file\n");
+      return -1;
+    }
+  }
   struct file *fp = cp->mm_arr[i].f;
   uint offset = cp->mm_arr[i].offset;
   fp->off = offset;
@@ -80,15 +80,15 @@ int page_fault_handler(char* addr, struct trapframe* tf){
   uint old_start = PGROUNDDOWN((uint)addr);
   char *mem = kalloc();
   if(mem==0){
-    cprintf("page_fault_handler: kalloc failed");
+    // cprintf("page_fault_handler: kalloc failed");
     return -1;
   }
   memset(mem, 0, PGSIZE);
   if(cp->mm_arr[i].fd != -1){
-    cprintf("pgflthandler: fileread: mem is %x\n", mem);
+    // cprintf("pgflthandler: fileread: mem is %x\n", mem);
     fileread(fp, mem, PGSIZE);
   }
-  cprintf("pgflthandler: mappages: V2P(mem) is %x\n", V2P(mem));
+  // cprintf("pgflthandler: mappages: V2P(mem) is %x\n", V2P(mem));
   uint new_flag = 0;
   if(cp->mm_arr[i].flags & MAP_PROT_WRITE)
     new_flag |= MAP_PROT_WRITE;

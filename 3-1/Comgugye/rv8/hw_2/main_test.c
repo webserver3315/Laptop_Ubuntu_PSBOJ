@@ -3,14 +3,14 @@
 // extern void spiral ();
 
 /*
-s1: 
-s2: 
-s3: 
-s4: 
-s5: 
-s6: 
-s7: 
-s8: 
+s1: p
+s2: len
+s3: i
+s4: x
+s5: y
+s6: cnt
+s7: turn
+s8: 15
 s9: 
 s10: 
 */
