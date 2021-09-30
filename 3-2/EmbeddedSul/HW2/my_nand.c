@@ -45,12 +45,7 @@ typedef struct Block{
 typedef struct Bank{
 	Block _block[MAX_NBLOCK]; // 4 Blocks per Bank
 } Bank;
-
-typedef struct Page_Map_Table{
-    int _page_map_entry[MAX_NBANK][(MAX_NBLOCK-1)*MAX_NPAGE]; // 1 block is for swapping
-} Page_Map_Table;
 Bank Nand_Flash[MAX_NBANK];
-Page_Map_Table Page_Map;
 
 /*
  * initialize the NAND flash memory
@@ -74,8 +69,6 @@ int nand_init(int nbanks, int nblks, int npages)
 	NBLOCK = nblks;
 	NPAGE = npages;
 	for(int bank_idx=0;bank_idx<NBANK;bank_idx++){
-		for(int ppn=0;ppn<(NBLOCK-1)*NPAGE;ppn++)
-			Page_Map._page_map_entry[bank_idx][ppn] = -1; // initialize PAGE MAP
 		for(int block_idx=0;block_idx<NBLOCK;block_idx++){
 			for(int page_idx=0;page_idx<NPAGE;page_idx++){
 				Page* tmp_page = &(Nand_Flash[bank_idx]._block[block_idx]._page[page_idx]);	
