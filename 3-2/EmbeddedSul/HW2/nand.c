@@ -67,8 +67,13 @@ int nand_write(int bank, int blk, int page, void *data, void *spare) {
 	if (iswritten[page_idx] != 0) return NAND_ERR_OVERWRITE;
 	blk_index[blk_idx]++;
 	iswritten[page_idx] = 1;
-	for (int i = 0; i < 8; i++) nand[page_idx].data[i] = *((u32*)data + i);
+	printf("NAND_WRITE: bank:%d, blk:%d, page:%d\n",bank,blk,page);
+	for (int i = 0; i < 8; i++) {
+		printf("nand[%d].data[%d] := %d\n",page_idx,i, *((u32*)data + i));
+		nand[page_idx].data[i] = *((u32*)data + i);
+	}
 	nand[page_idx].spare = *(u32*)spare;
+	printf("nand[%d].spare := %d\n",page_idx,*(u32*)spare);
 	return NAND_SUCCESS;
 }
 
@@ -85,8 +90,14 @@ int nand_read(int bank, int blk, int page, void *data, void *spare) {
 	if (bank >= NBANKS || blk >= NBLKS || page >= NPAGES || bank < 0 || blk < 0 || page < 0) return NAND_ERR_INVALID;
 	int page_idx = bank * (NBLKS * NPAGES) + blk * (NPAGES) + page;
 	if (iswritten[page_idx] == 0) return NAND_ERR_EMPTY;
-	for (int i = 0; i < 8; i++)  *((u32*)data + i) = nand[page_idx].data[i];
+	printf("NAND_READ: bank:%d, blk:%d, page:%d\n",bank,blk,page);
+	for (int i = 0; i < 8; i++) {
+		printf("nand[%d].data[%d] == %d\n",page_idx, i, nand[page_idx].data[i]);
+		*((u32*)data + i) = nand[page_idx].data[i];
+	}
+	printf("spare == %d\n",nand[page_idx].spare);
 	*(u32*)spare = nand[page_idx].spare;
+	printf("spare == %d\n",nand[page_idx].spare);
 	return NAND_SUCCESS;
 }
 

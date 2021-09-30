@@ -98,23 +98,28 @@ void ftl_open() {
 
 void ftl_read(u32 lba, u32 nsect, u32 *read_buffer) {
 	int* current_read_buffer = read_buffer;
-	printf("HERE0\n");
+	printf("Here0\n");
 	
 	int first_lba=lba;
 	int first_lba_offset = first_lba % SECTORS_PER_PAGE;
 	int first_page_first_lba = first_lba - first_lba_offset;
-	int last_lba = first_lba+nsect;
+	int last_lba = first_lba+nsect-1;
 	int last_lba_offset = (last_lba % SECTORS_PER_PAGE);
 	int last_page_first_lba = last_lba-last_lba_offset;
 
 	int sector_transferred=0;
 	
-	int send_kazu = (last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE;
+	int send_kazu = 1+((last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE);
+
+	printf("first_lba = %d\n first_lba_offset = %d\n first_page_first_lba = %d\n",first_lba,first_lba_offset,first_page_first_lba);
+	printf("last_lba = %d\n last_lba_offset = %d\n last_page_first_lba = %d\n",last_lba,last_lba_offset,last_page_first_lba);
+	printf("send_kazu = %d\n",send_kazu);
+
 	int bank, lpn, halved_lpn, spare;
 	int data[8];
-	printf("HERE1\n");
+	printf("Here1\n");
 	if(send_kazu==0){
-		printf("HERE2\n");
+		printf("Here2\n");
 		lpn = first_page_first_lba/SECTORS_PER_PAGE;
 		bank = lpn % N_BANKS;
 		halved_lpn = lpn/N_BANKS;
@@ -123,45 +128,49 @@ void ftl_read(u32 lba, u32 nsect, u32 *read_buffer) {
 				current_read_buffer[i]=0xFFFFFFFF;
 			}
 		}else{
-			nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,spare); sector_transferred+=8;
-			for(int i=first_lba_offset;i<last_lba_offset;i++){
+			nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
+			for(int i=first_lba_offset;i<=last_lba_offset;i++){
 				current_read_buffer[i-first_lba_offset]=data[i];
 			}
 		}
 	}
 	else{
-		printf("HERE3\n");
+		printf("Here3\n");
 		for(int pp=0;pp<send_kazu;pp++){ // 각각의 읽을 페이지에 대하여
 			lpn = pp + first_page_first_lba/SECTORS_PER_PAGE;
 			bank = lpn % N_BANKS;
 			halved_lpn = lpn/N_BANKS;
 			int sector_kazu = 0; // 해당 lpn으로부터 read_buffer 로 적어야 하는 sector 수
 			if(pp==0){
-				printf("HERE4\n");
+				printf("Here4_sector_kazu = %d\n",sector_kazu);
 				sector_kazu = 8 - first_lba_offset;
 				if(L2P[bank][halved_lpn]==-1){ // Empty
+					printf("Here9\n");
 					for(int i=0;i<sector_kazu;i++){
 						current_read_buffer[i]=0xFFFFFFFF;
 					}
 				}else{
-					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,spare); sector_transferred+=8;
+					printf("Here10\n");
+					printf("nand_read bank:%d\n blk:%d\n page=%d\n",bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK);
+					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
+					printf("Here11\n");
 					for(int i=first_lba_offset;i<8;i++){
 						current_read_buffer[i-first_lba_offset] = data[i];
 					}
 				}
 			}else if(pp==send_kazu-1){
-				printf("HERE5\n");
+				printf("Here5\n");
 				sector_kazu = last_lba_offset;
 				if(L2P[bank][halved_lpn]==-1){ // Empty
-					printf("HERE6\n");
+					printf("Here6\n");
 					for(int i=0;i<sector_kazu;i++){
 						current_read_buffer[i]=0xFFFFFFFF;
 					}
 				}else{
-					printf("HERE7\n");//여기로
-					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,spare); sector_transferred+=8;
-					printf("HERE8\n");//여기로
-					for(int i=0;i<last_lba_offset;i++){
+					printf("Here7\n");//여기로
+					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
+					printf("Here8\n");//여기로
+					for(int i=0;i<=last_lba_offset;i++){
 						current_read_buffer[i] = data[i];
 					}
 				}
@@ -172,9 +181,10 @@ void ftl_read(u32 lba, u32 nsect, u32 *read_buffer) {
 						data[i]=0xFFFFFFFF;
 					}
 				}else{
-					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,spare); sector_transferred+=8;
+					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
 				}
 			}
+			
 			current_read_buffer+=sector_kazu;
 		}
 	}
@@ -191,6 +201,7 @@ void write_through_lpn(int bank, u32 halved_lpn, int* data){ // integer
 		isValid[bank][L2P[bank][halved_lpn]]=0;
 	}
 	L2P[bank][halved_lpn]=next_ppn[bank];
+	printf("nand_write bank:%d\n blk:%d\n page=%d\n",bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK);
 	nand_write(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &halved_lpn); stats.nand_write++; // memcpy 32Byte && 4Byte
 	update_next_ppn(bank);
 }
@@ -216,80 +227,88 @@ that you issue in this function
 	int first_lba=lba;
 	int first_lba_offset = first_lba % SECTORS_PER_PAGE;
 	int first_page_first_lba = first_lba - first_lba_offset;
-	int last_lba = first_lba+nsect;
+	int last_lba = first_lba+nsect-1;
 	int last_lba_offset = (last_lba % SECTORS_PER_PAGE);
 	int last_page_first_lba = last_lba-last_lba_offset;
-	
-	int sector_transferred = 0;
-	
-	int send_kazu = (last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE;
+
+	int send_kazu = 1 + ((last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE);
+	printf("first_lba = %d\n first_lba_offset = %d\n first_page_first_lba = %d\n",first_lba,first_lba_offset,first_page_first_lba);
+	printf("last_lba = %d\n last_lba_offset = %d\n last_page_first_lba = %d\n",last_lba,last_lba_offset,last_page_first_lba);
+	printf("send_kazu = %d\n",send_kazu);
+
 	int bank, lpn, halved_lpn, spare;
 	int data[8];
-	printf("Here1\n");
+	printf("This1\n");
 	if(send_kazu == 0){ // 한 페이지도 채 안되는 포장
 		// 대가리도 0xff가, 끄트머리도 0xff가 될 가능성이 있음
-		printf("Here2\n");
+		printf("This2\n");
+		int sector_transferred = 0;
 		lpn = first_page_first_lba/SECTORS_PER_PAGE;
 		bank = lpn % N_BANKS;
 		halved_lpn = lpn / N_BANKS; 
 		if(L2P[bank][halved_lpn] == -1){ // Empty
-			printf("Here3\n");
+			printf("This3\n");
 			for(int i=0;i<first_lba_offset;i++){
 				data[i]=0xffffffff;
 			}
-			for(int i=last_lba_offset;i<8;i++){
+			for(int i=last_lba_offset+1;i<8;i++){
 				data[i]=0xffffffff;
 			}
 		}else{
-			printf("Here4\n");
+			printf("This4\n");
 			nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare);
 		}
-		for(int i=0;i<last_lba_offset-first_lba_offset;i++){
+		for(int i=0;i<last_lba_offset-first_lba_offset+1;i++){
 			data[first_lba_offset+i]=current_write_buffer[i]; sector_transferred++;
 		}// 한페이지 포장완료
 		write_through_lpn(bank, halved_lpn, data);//포장한놈 배송
+		current_write_buffer+=sector_transferred;
 	}
 	else{ // 여러 페이지 포장
-		printf("Here5\n");
+		printf("This5\n");
 		for(int pp=0; pp<send_kazu; pp++){ // 한 페이지 포장
+			int sector_transferred = 0;
 			lpn = pp + first_page_first_lba/SECTORS_PER_PAGE;
 			bank = lpn % N_BANKS;
 			halved_lpn = lpn / N_BANKS; 
 			// 만약 한 블록도 채 안되는 용량이라면?
 			if(pp==0){ // 32B씩 포장하되, 대가리가 0xff 될 가능성 있음
-				printf("Here6\n");
+				printf("This6\n");
 				if(L2P[bank][halved_lpn] == -1){ // Empty
-					printf("Here9\n");
+					printf("This9_first_lba_offset = %d\n",first_lba_offset);
 					for(int i=0;i<first_lba_offset;i++){
 						data[i]=0xffffffff;
 					}
 				}else{ // Not Empty, 즉 기존 데이터 보존
-					printf("Here10\n");
+					printf("This10\n");
 					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare);
-					printf("Here11\n");
+					printf("This11\n");
 				}
 				for(int i=0;i<8-first_lba_offset;i++){
 					data[first_lba_offset+i]=current_write_buffer[i]; sector_transferred++;
+					printf("data[%d] = current_write_buffer[%d](==%d)\n",first_lba_offset+i,i,current_write_buffer[i]);
 				}
 			}
 			else if(pp==send_kazu-1){ // 32B씩 포장하되, 끄트머리가 0xff 될 가능성 있음
-				printf("Here7\n");
+				printf("This7\n");
 				if(L2P[bank][halved_lpn] == -1){ // Empty
-					printf("Here12\n");
-					for(int i=last_lba_offset;i<8;i++){
+					printf("This12\n");
+					for(int i=last_lba_offset+1;i<8;i++){
 						data[i]=0xffffffff;
 					}
 				}else{ // Not Empty, 즉 기존 데이터 보존
-					printf("Here13\n");
+					printf("This13\n");
 					nand_read(bank,halved_lpn/PAGES_PER_BLK,halved_lpn%PAGES_PER_BLK,data,&spare);
-					printf("Here14\n");
+					printf("This14\n");
 				}
-				for(int i=0;i<last_lba_offset;i++){
-					data[i]=current_write_buffer[i]; sector_transferred++;					
+				printf("last_lba_offset = %d\n",last_lba_offset);
+				for(int i=0;i<=last_lba_offset;i++){
+					data[i]=current_write_buffer[i]; sector_transferred++;
+					printf("data[%d] = current_write_buffer[%d](==%d)\n",i,i,current_write_buffer[i]);
 				}
 			}
 			else{ // 아다리 맞춰서 32B씩 무지성으로 포장하면 됨. 생존데이터 없음.
-				printf("Here8\n");
+				printf("This8\n");
 				for(int i=0;i<8;i++){
 					data[i] = current_write_buffer[i]; sector_transferred++;
 				}
@@ -307,5 +326,5 @@ that you issue in this function
 OP블록이 1개가 아니라 2개라는 점?
 if(pp=1) 실수했는지 체크
 Valid 처리 누락여부 확인
-lastoffset 실수여부 확인. lastoffset 은 마지막 lba 다음 lba이다.
+lastoffset 실수여부 확인. lastoffset 은 마지막 lba 다음 lba이다. => 아니다!!!! 정정한다. 그러면 구현상 문제가 생긴다.
 */
