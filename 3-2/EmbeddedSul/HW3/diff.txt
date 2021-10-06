@@ -1,0 +1,14 @@
+142,147c142,147
+< NAND reads: 0
+< NAND writes: 880
+< GC writes: 72
+< Number of GCs: 16
+< Valid pages per GC: 0.56 pages
+< WAF: 1.26
+---
+> NAND reads: 144
+> NAND writes: 680
+> GC writes: 0
+> Number of GCs: 8
+> Valid pages per GC: 0.00 pages
+> WAF: 0.90
