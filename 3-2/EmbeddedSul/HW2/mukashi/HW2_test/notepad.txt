@@ -1,0 +1,4 @@
+
+	printf("spare_first_ppn == %d, immigrants_cnt == %d\n",spare_first_ppn, immigrants_cnt);
+	printf("next_ppn[%d] := %d\n",bank,spare_first_ppn + immigrants_cnt);
+	printf("erase victim_pblk == %d\n",victim_pblk);

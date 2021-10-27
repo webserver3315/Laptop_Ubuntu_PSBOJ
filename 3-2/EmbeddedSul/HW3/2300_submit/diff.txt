@@ -1,0 +1,4 @@
+142c142
+< NAND reads: 0
+---
+> NAND reads: 176
