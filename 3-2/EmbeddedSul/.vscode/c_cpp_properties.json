@@ -3,10 +3,8 @@
         {
             "name": "Mac",
             "includePath": [
-                "/Library/Developer/CommandLineTools/usr/include/**",
-                "/Library/Developer/CommandLineTools/usr/bin/**",
-                "${workspaceFolder}/**",
-                "/usr/local/bin/gcc-10"
+                "${default}",
+                "${workspaceFolder}/**"
             ],
             "defines": [],
             "macFrameworkPath": [

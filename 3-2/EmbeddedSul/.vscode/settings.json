@@ -1,5 +1,5 @@
 {
     "files.associations": {
-        "ftl.h": "c"
+        "cstdlib": "c"
     }
 }

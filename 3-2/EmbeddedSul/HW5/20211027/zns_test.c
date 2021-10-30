@@ -32,6 +32,7 @@ int main(int argc, char **argv)
 		perror("freopen out");
 		return EXIT_FAILURE;
 	}
+
 	int seed, nbank, nblk, npage, dzone, max_open_zone;
 	if (scanf("I %d %d %d %d %d %d", &seed, &nbank, &nblk, &npage, &dzone, &max_open_zone) < 6) {
 		fprintf(stderr, "wrong input format\n");
@@ -39,6 +40,7 @@ int main(int argc, char **argv)
 	}
 	srand(seed);
 	zns_init(nbank, nblk, npage, dzone, max_open_zone);
+
 	// print info
 	puts("=================Setup==================");
 	printf("Banks: %d\n", NBANK);
@@ -53,9 +55,7 @@ int main(int argc, char **argv)
 	puts("");
 
 	puts("================Simulator==============");
-	int line = 2;
 	while (1) {
-		printf("====================%d th Line=====================\n",line++);
 		int i;
 		char op;
 		u32 lba;
@@ -85,12 +85,8 @@ int main(int argc, char **argv)
 			assert(lba_to_zone(lba) == lba_to_zone(lba + nsect - 1));
 			buf = malloc(SECT_SIZE * nsect);
 			assert(buf);
-			// printf("WRITE(%d, %d, {",lba,nsect);
-			for (i = 0; i < nsect; i++){
+			for (i = 0; i < nsect; i++)
 				buf[i] = get_data();
-				// printf(" %2x",buf[i]);
-			}
-			// printf("})\n");
 			if (zns_write(lba, nsect, buf) == 0) {
 				printf("Write(%u,%u): [ ", lba, nsect);
 				for (i = 0; i < nsect; i++)
