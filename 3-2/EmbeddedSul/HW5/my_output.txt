@@ -10,6 +10,7 @@ Degree of Zone: 2
 Max Open Zones: 4
 
 ================Simulator==============
+<<<<<<< HEAD
 Write(64,16): [ 17 ab ac 97 8c 81 b2 56 1a 58 ce 72 2f a9 e1 15 ]
 Write(80,16): [ 70 bd 5c ed 2e 41 a2 34 b2 6b 75 c3 fd b6 16 14 ]
 Write(96,16): [ 62 c2 ab ee 43 5d 45 5d b5 13 d0 e4 bc b1 fa 2c ]
@@ -38,4 +39,34 @@ Write(36,4): [ 8c d0 18 6d ]
 Write(40,8): [ 68 c3 10 62 4e bf e7 fe ]
 Write(48,8): [ 86 1b d0 89 37 22 ab 1e ]
 Write(56,6): [ 3f 14 12 ba 49  a ]
+=======
+Write(64,16): [ df df ec de 2f b2 bc fd 6a 8b 81 90 71  c 74 1a ]
+Write(80,16): [ d8 9e 81 27 eb ae 5e ff a9 36  a 82  b 5f 24 72 ]
+Write(96,16): [ 53 ef ad 48 76 c0 3d 28 16 ab 8a 51 4f a1 56 52 ]
+Write(112,16): [ e5 30 54 fc 5c 4d cb 33 f6  d ec ce 38 a2 9e 7f ]
+Read(64,16): [ df df ec de 2f b2 bc fd 6a 8b 81 90 71  c 74 1a ]
+Read(80,16): [ d8 9e 81 27 eb ae 5e ff a9 36  a 82  b 5f 24 72 ]
+Read(96,16): [ 53 ef ad 48 76 c0 3d 28 16 ab 8a 51 4f a1 56 52 ]
+Read(112,16): [ e5 30 54 fc 5c 4d cb 33 f6  d ec ce 38 a2 9e 7f ]
+Internal Zone Compaction(1, 0)
+Read(0,16): [ df 6a d8 a9 53 16 df ec de 2f b2 ffffffff ffffffff ffffffff ffffffff ffffffff ]
+Read(64,16): [ ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ffffffff ]
+Write(11,5): [ 2f 6c 47 76 c4 ]
+Write(16,16): [ f6 5f 37 4a 7b 9c  e 8a 4e f8 83 ee 4f 61 e3 1f ]
+Write(32,16): [ 74 dd 37 3b 7c 81 c9 e9 80 eb af ac 76  7 9a 76 ]
+Write(48,16): [ d4 d6 5e 20 ca 50 fe 85 53 17 b4 37 bb c0 98 8a ]
+Read(0,16): [ df 6a d8 a9 53 16 df ec de 2f b2 2f 6c 47 76 c4 ]
+Read(16,16): [ f6 5f 37 4a 7b 9c  e 8a 4e f8 83 ee 4f 61 e3 1f ]
+Read(32,16): [ 74 dd 37 3b 7c 81 c9 e9 80 eb af ac 76  7 9a 76 ]
+Read(48,16): [ d4 d6 5e 20 ca 50 fe 85 53 17 b4 37 bb c0 98 8a ]
+TL Open(0)
+Write(4,4): [ 2c eb f1 aa ]
+Write(8,8): [ d2 4c 49 17 f7 e9 fc 5a ]
+Write(16,8): [ 38 57 57 66 bd f2 f2 1b ]
+Write(32,2): [ 3a 67 ]
+Write(36,4): [ 36  8 fd 32 ]
+Write(40,8): [ dc fc 3b a6  5 12 f9 3c ]
+Write(48,8): [ 5c a0 2a 46 67  b 12 54 ]
+Write(56,6): [ 6d f3 24 cb  f 8c ]
+>>>>>>> fa84f8cf66a745c179ebf545454fc50a9a96225f
 Get Zone Desc(0, 1): [ 0:2,0,64 ]

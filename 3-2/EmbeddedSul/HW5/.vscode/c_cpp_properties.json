@@ -1,10 +1,17 @@
 {
     "configurations": [
         {
+<<<<<<< HEAD
             "name": "Linux",
             "includePath": [
                 "${default}",
                 "${workspaceFolder}/**"
+=======
+            "name": "Mac",
+            "includePath": [
+                "${default}",
+                "${workspaceFolder}"
+>>>>>>> fa84f8cf66a745c179ebf545454fc50a9a96225f
             ],
             "defines": [],
             "macFrameworkPath": [
