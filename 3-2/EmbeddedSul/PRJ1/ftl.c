@@ -135,7 +135,10 @@ int get_victim_pblk(int bank){
 			max_invalid_cnt = pblk_invalid_cnt;
 			ret_pblk = pblk;
 		}
+		
 	}
+	
+	
 	// // printf("victim block is %d\n",ret_pblk);
 	return ret_pblk;
 }

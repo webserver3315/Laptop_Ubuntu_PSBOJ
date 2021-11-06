@@ -1,0 +1,27 @@
+Here1
+Here2
+Here3
+=================Setup==================
+Banks: 4
+Blocks per Bank: 8
+Pages per Block: 4
+Sectors per Page: 8
+Max Zones: 8 zones
+Max LBA: 512 sectors
+Zone Size: 64 sectors
+Degree of Zone: 2
+Max Open Zones: 4
+
+================Simulator==============
+====================2 th Line=====================
+Here
+fbg = 0
+Here
+Write(0,3): [ 3b a8 40 ]
+====================3 th Line=====================
+Here
+Write(3,2): [ 3a cb ]
+====================4 th Line=====================
+Here
+Write(2,2): failed
+====================5 th Line=====================

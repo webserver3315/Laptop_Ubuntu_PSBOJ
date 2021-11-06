@@ -14,7 +14,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 
 #define FOR(i,n) for(int i=0;i<(n);++i)
 /************ constants ************/
@@ -105,7 +104,6 @@ static inline int lba_to_page(int lba){ return (lba/(DEG_ZONE*NSECT))%NPAGE; }
 //fbg는 0,1,2,3.. 처럼 어떤 fcg더라도 0부터 1간격으로 커짐!
 
 void buffer_flush(int zone){
-    assert(ZD[zone].wp%NSECT==0);
     int start_lba = ZD[zone].wp-NSECT;
     int bank = lba_to_bank(zone_to_fcg(zone),start_lba);
     int fbg = (ZD[zone].state==ZONE_TLOPEN) ? Z2LogFBG[zone] : zone_to_fbg(zone); 
@@ -131,19 +129,17 @@ void zns_init(int nbank, int nblk, int npage, int dzone, int max_open_zone)
 	nand_init(nbank, nblk, npage);
     Queue_init();
     Global_init();
-
-    assert(NSECT==PAGE_DATA_SIZE/sizeof(int));
 }
 
 int zns_write(int start_lba, int nsect, u32 *data)
 {
-    int zone = lba_to_zone(start_lba);
+    int zone = lba_to_zone(start_lba); 
     int fbg = zone_to_fbg(zone); int fcg = zone_to_fcg(zone);
     // printf("ZD3[%d].wp==%d\n",zone,ZD[zone].wp);
     if(ZD[zone].state==ZONE_EMPTY){
         if(start_lba!=ZD[zone].slba || Open_Zone_Cnt>=MAX_OPEN_ZONE) return -1;
         // 새 FBG 할당받기
-        int fbg = Queue_Pop(fcg); Open_Zone_Cnt++; assert(fbg!=-1);
+        int fbg = Queue_Pop(fcg); Open_Zone_Cnt++;
         Z2FBG[zone]=fbg; ZD[zone].state=ZONE_OPEN; ZD[zone].wp=ZD[zone].slba;
         return zns_write(start_lba, nsect, data);//goto OPEN
     }else if(ZD[zone].state==ZONE_OPEN){
@@ -194,59 +190,83 @@ void zns_read(int start_lba, int nsect, u32 *data)
     int tmp_spare;
     if(ZD[zone].state==ZONE_EMPTY){
         FOR(idx,nsect) { data[idx]=0xFFFFFFFF; cpy_cnt++;}
-        assert(cpy_cnt==nsect);
         return;
     }else if(ZD[zone].state==ZONE_OPEN){
-        int lba_offset;
-        for(lba_offset = 0; lba_offset<nsect; lba_offset++){
-            int lba = start_lba + lba_offset;
-            if(lba<ZD[zone].wp){//already writen
-                if((lba/NSECT)*NSECT<(ZD[zone].wp/NSECT)*NSECT){// ON FLASH
-                    int bank = lba_to_bank(fcg,lba); int page = lba_to_page(lba);
+        // not written sector면 0xFF 쓰기. 이것은 wp와 start_lba 비교로 판별가능
+        // 마지막 한 페이지는 buffer에서 읽어야 함을 주의
+        for(int lba_offset = 0; lba_offset < nsect;){
+            int lba = start_lba + lba_offset;         
+            if(lba<ZD[zone].wp){ // Written
+                // printf("HERE3\n");
+                if(lba+NSECT-1<ZD[zone].wp){ // Page 한입 크게 베어먹기 ㄱㄴ?
+                    // printf("HERE4\n");
+                    // (x>>y) == (x/(2^y))
+                    int bank = lba_to_bank(fcg,lba);
+                    int page = lba_to_page(lba);
                     nand_read(bank,fbg,page,tmp_data,&tmp_spare);
-                    data[lba_offset]=tmp_data[lba%NSECT];
-                }else{// ON BUFFER
-                    data[lba_offset]=buffer[zone][lba%NSECT];
+                    FOR(i,NSECT) data[i]=tmp_data[i];
+                    data+=NSECT; cpy_cnt+=NSECT; lba_offset+=NSECT; continue;
+                }else{ // 한 입 크게 베어먹기 ㅂㄱㄴ? => 버퍼 찔끔찔끔
+                    // printf("HERE5\n");
+                    for(int i=lba%NSECT;i<(ZD[zone].wp)%NSECT;i++){
+                        if(cpy_cnt==nsect) return;
+                        data[0]=buffer[zone][i];
+                        data++; cpy_cnt++; lba_offset++; continue;
+                    }
                 }
-            }else{
-                data[lba_offset]=0xFFFFFFFF;
+            }else{ // Unwritten
+                // printf("HERE6\n");
+                while(cpy_cnt<nsect){
+                    data[0]=0xFFFFFFFF; cpy_cnt++; data++; lba_offset++;
+                } continue;
             }
         }
-        assert(lba_offset==nsect);
     }else if(ZD[zone].state==ZONE_FULL){ 
         // fbg 알고리즘 다시 짜야함.
-        int lba_offset;
-        for(lba_offset=0;lba_offset<nsect;lba_offset++){
+        for(int lba_offset=0;lba_offset<nsect;){
             int lba = start_lba+lba_offset;
             int bank = lba_to_bank(fcg,lba); int page = lba_to_page(lba);
-            nand_read(bank,fbg,page,tmp_data,&tmp_spare); assert(tmp_spare==(lba/NSECT)*NSECT);
-            data[lba_offset]=tmp_data[lba%NSECT];
+            nand_read(bank,fbg,page,tmp_data,&tmp_spare);
+            FOR(i,NSECT){
+                if(cpy_cnt==nsect) return;
+                data[i]=tmp_data[i];
+                cpy_cnt++;
+            }
+            lba_offset+=NSECT; data+=NSECT;
         }
-        assert(lba_offset==nsect);
+        // for(int bank = fcg*DEG_ZONE; bank < (fcg+1)*DEG_ZONE; bank++){
+        //     for(int page=0;page<NPAGE;page++){
+        //         nand_read(bank, fbg, page, tmp_data, tmp_spare);
+        //         int local_cpy_cnt=0;
+        //         FOR(i, NSECT){
+        //             data[i]=tmp_data[i]; cpy_cnt++; local_cpy_cnt++;
+        //             if(cpy_cnt==nsect) return;
+        //         }
+        //         data+=local_cpy_cnt;
+        //     }
+        // }// 무지성으로 64비트 전부 쓰는 문제가 있다.
+        // assert(cpy_cnt==nsect);
     }else if(ZD[zone].state==ZONE_TLOPEN){ 
-        assert(Z2FBG[zone]!=-1);
         int fbg = zone_to_fbg(zone); int logfbg = Z2LogFBG[zone];
-        int lba_offset;
-        for(lba_offset=0; lba_offset<nsect; lba_offset++){
+        for(int lba_offset=0; lba_offset<nsect; lba_offset++){
             int lba = start_lba+lba_offset;
             int bank = lba_to_bank(fcg,lba); int page = lba_to_page(lba);
             if(lba<ZD[zone].wp){ // DST zone 에서 읽기
-                if((lba/NSECT)*NSECT < (ZD[zone].wp/NSECT)*NSECT){ // FLASH에서 읽기
+                if((lba/NSECT)*NSECT+NSECT-1 < ZD[zone].wp){ // FLASH에서 읽기
                     nand_read(bank,fbg,page,tmp_data,&tmp_spare);
-                    data[lba_offset] = tmp_data[lba%NSECT];
+                    data[0] = tmp_data[lba%NSECT]; data++;
                 }else{ // Buffer에서 읽기
-                    data[lba_offset] = buffer[zone][lba%NSECT];
+                    data[0] = buffer[zone][lba%NSECT]; data++;
                 }
             }else{ // Src Zone에서 읽기
                 if(zone_valid_map[zone][lba%ZONE_SIZE]==1){ // 베낄 권리가 있는 섹터
                     nand_read(bank,logfbg,page,tmp_data,&tmp_spare);
-                    data[lba_offset] = tmp_data[lba%NSECT];
+                    data[0] = tmp_data[lba%NSECT]; data++;
                 }else{ // 베낄 권리가 없는 섹터
-                    data[lba_offset] = 0xFFFFFFFF;
+                    data[0] = 0xFFFFFFFF;
                 }
             }
         }
-        assert(lba_offset==nsect);
     }else return;
 }
 
@@ -292,7 +312,7 @@ int zns_izc(int src_zone, int dest_zone, int copy_len, int *copy_list)
     // dest_zone open하기
     int fcg = zone_to_fcg(src_zone); int fbg = zone_to_fbg(src_zone);
     int dest_fcg  = zone_to_fcg(dest_zone); 
-    int dest_fbg = Queue_Pop(dest_fcg); Open_Zone_Cnt++; assert(dest_fbg!=-1);
+    int dest_fbg = Queue_Pop(dest_fcg); Open_Zone_Cnt++; 
     Z2FBG[dest_zone]=dest_fbg; Z2LogFBG[dest_zone]=-1;
     ZD[dest_zone].state=ZONE_OPEN; ZD[dest_zone].wp = ZD[dest_zone].slba;
 
@@ -305,12 +325,10 @@ int zns_izc(int src_zone, int dest_zone, int copy_len, int *copy_list)
         buffer[dest_zone][ZD[dest_zone].wp%NSECT]=tmp_data[copy_list[cpy_cnt]%NSECT]; ZD[dest_zone].wp++;
         cpy_cnt++; buffer_offset++;
         if(ZD[dest_zone].wp%NSECT==0){ // buffer flush
-            assert(cpy_cnt%NSECT==0);
             buffer_flush(dest_zone);
         }
     }
-    zns_reset(src_zone*ZONE_SIZE); 
-    return 0;
+    zns_reset(src_zone*ZONE_SIZE); return 0;
 }
 
 int zns_tl_open(int zone, u8 *valid_arr)//성공시 return 뭐임?
@@ -318,7 +336,7 @@ int zns_tl_open(int zone, u8 *valid_arr)//성공시 return 뭐임?
     if(Open_Zone_Cnt==MAX_OPEN_ZONE || ZD[zone].state!=ZONE_FULL) return -1;
     int fcg = zone_to_fcg(zone);
     int src_fbg = zone_to_fbg(zone);
-    int log_fbg = Queue_Pop(fcg); Open_Zone_Cnt++; assert(log_fbg!=-1);
+    int log_fbg = Queue_Pop(fcg); Open_Zone_Cnt++; 
     // 주의: 마지막 invalid sector에 write되었을 때 마저 쓰고 open_zone_cnt--시키기.
     Z2LogFBG[zone]=log_fbg;
     ZD[zone].state=ZONE_TLOPEN; ZD[zone].wp=ZD[zone].slba;
@@ -332,7 +350,7 @@ int zns_tl_open(int zone, u8 *valid_arr)//성공시 return 뭐임?
         }
         int lba = zone*ZONE_SIZE + i;
         int bank = lba_to_bank(fcg,lba); int page = lba_to_page(lba);
-        nand_read(bank,src_fbg,page,tmp_data,&tmp_spare); assert(tmp_spare==(lba/NSECT)*NSECT);
+        nand_read(bank,src_fbg,page,tmp_data,&tmp_spare);
         buffer[zone][ZD[zone].wp%NSECT]=tmp_data[i%NSECT]; ZD[zone].wp++;
         if(ZD[zone].wp%NSECT==0) {
             buffer_flush(zone);

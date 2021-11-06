@@ -39,5 +39,3 @@ Write(40,8): [ 68 c3 10 62 4e bf e7 fe ]
 Write(48,8): [ 86 1b d0 89 37 22 ab 1e ]
 Write(56,6): [ 3f 14 12 ba 49  a ]
 Get Zone Desc(0, 1): [ 0:2,0,64 ]
-
-&& write_cnt<nsect
