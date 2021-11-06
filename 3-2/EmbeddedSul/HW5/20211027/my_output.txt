@@ -1,0 +1,49 @@
+=================PRINT CONSTANT==================
+NBANK = 4
+NBLK = 8
+NPAGE = 4
+NSECT = 8
+SECT_SIZE = 4
+DEG_ZONE = 2
+MAX_OPEN_ZONE = 4
+MAX_ZONE = 8
+ZONE_SIZE = 64
+MAX_LBA = 512
+=================Setup==================
+Banks: 4
+Blocks per Bank: 8
+Pages per Block: 4
+Sectors per Page: 8
+Max Zones: 8 zones
+Max LBA: 512 sectors
+Zone Size: 64 sectors
+Degree of Zone: 2
+Max Open Zones: 4
+
+================Simulator==============
+Write(0,3): failed
+Write(3,2): failed
+Write(2,2): failed
+Read(0,2): [ 70  7 ]
+Read(2,2): [ 70  7 ]
+Read(0,4): [ 70  7 40  0 ]
+Read(2,2): [ 70  7 ]
+Write(5,3): failed
+Read(0,8): [  0  0  0  0  0  0  0  0 ]
+Write(32,16): failed
+Write(64,16): failed
+Read(64,32): [  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 ]
+Write(128,10): failed
+Read(128,16): [  0 70000000  0 70000000  c e7 ff 66 6f fa e9 e4 d1 5a e5 400b7 ]
+Write(192,16): failed
+Read(192,16): [  3 b3 7b f1 8e 4e 40  f cf 6a 8c 12 5d e5 d5  e ]
+Write(256,16): failed
+Write(80,16): failed
+Write(96,16): failed
+Write(112,16): failed
+Write(256,16): failed
+Read(64,64): [  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 ]
+Get Zone Desc(0, 8): [ 0:0,1879048192,0 1:1879048192,24,0 2:0,0,0 3:0,0,0 4:0,0,0 5:0,0,0 6:0,0,0 7:0,0,0 ]
+Reset(64): failed
+Read(64,64): [  0 70000000  0 70000000 12  0  0 80000  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 ]
+Get Zone Desc(0, 8): [ 0:0,1879048192,0 1:1879048192,24,0 2:0,0,0 3:0,0,0 4:0,0,0 5:0,0,0 6:0,0,0 7:0,0,0 ]

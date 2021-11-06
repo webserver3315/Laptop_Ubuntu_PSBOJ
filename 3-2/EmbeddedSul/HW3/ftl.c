@@ -30,11 +30,31 @@ int next_ppn[N_BANKS];
 int gc_trigger_ppn[N_BANKS]; // 해당 ppn 접근시 GC 발동
 int free_pblk[N_BANKS]; // 현재 비어있는 pblk
 
+int age[N_BANKS][BLKS_PER_BANK]; // ppn 들어감.
+int erase_count[N_BANKS][BLKS_PER_BANK]; // ppn 들어감
+
 int buffer_L2P [N_BANKS][N_LPNS_PB]; // lpn -> buffer 링크드 여부
 int buffer_pblk[N_BUFFERS][SECTORS_PER_PAGE]; // 1섹터==int, 각 버퍼는 페이지크기.
-int buffer_isValid[N_BUFFERS][SECTORS_PER_PAGE]; // halved_lpn이 아니라 ㄹㅇ lpn이 저장됨에 유의
+int buffer_isValid[N_BUFFERS][SECTORS_PER_PAGE]; // halved_lpn이 아니라 ㄹㅇ lpn이 저장됨에 유의, isValid와 달리 1 0이 아니라 1 -1 임에 유의
 // int buffer_next_ppn;
 
+
+int frontend_buffer_page_calculate();
+
+//0번 페이지가 써질 때 발동
+void age_update(int bank, int target_pblk){ // make targetblk age to 1, the others ++
+	if(target_pblk>=BLKS_PER_BANK) {
+		// printf("return - ERROR !!!!!!!!!! -> target_pblk: %d must in range\n",target_pblk);
+		return;
+	}
+	// else printf("age_update -> bank=%d, target_pblk: %d\n",bank,target_pblk);
+	for(int blk=0;blk<BLKS_PER_BANK;blk++){
+		if( (age[bank][blk]==-1) || (age[bank][blk]==free_pblk[bank])) continue;
+		else age[bank][blk]++;
+	}
+	age[bank][target_pblk]=1; // rewind target_pblk's age
+	return;
+}
 //void  print_constant(){
 	// printf("N_BANKS = %d\n",N_BANKS);
 	// printf("BLKS_PER_BANK = %d\n",BLKS_PER_BANK);
@@ -59,61 +79,68 @@ int buffer_isValid[N_BUFFERS][SECTORS_PER_PAGE]; // halved_lpn이 아니라 ㄹ�
 	// printf("\n\n\n");
 //}
 
-extern struct Page {
-	u32 data[8]; //32byte
-	u32 spare; //4byte
-};
-extern struct Page* nand;
-extern char* iswritten; 
-extern int* blk_index;
-extern int NBANKS, NBLKS, NPAGES;
-extern void print_page();
+// extern struct Page {
+// 	u32 data[8]; //32byte
+// 	u32 spare; //4byte
+// };
+// extern struct Page* nand;
+// extern char* iswritten; 
+// extern int* blk_index;
+// extern int NBANKS, NBLKS, NPAGES;
+// extern void print_page();
 
 
-int frontend_buffer_page_calculate();
+// void show_whole_buffer(){
+// 	printf("SHOW_WHOLE_BUFFER\n");
+// 	printf("frontend_buffer_page_calculate = %d\n",frontend_buffer_page_calculate());
+// 	for(int buff=0;buff<N_BUFFERS;buff++){
+// 		printf("buffer_pblk[%d] = [ ",buff);
+// 		for(int sect=0;sect<SECTORS_PER_PAGE;sect++){
+// 			if(sect!=SECTORS_PER_PAGE-1) 
+// 				printf("%2x|%d ",buffer_pblk[buff][sect], buffer_isValid[buff][sect]);
+// 			else
+// 				printf("%2x|%d ]\n",buffer_pblk[buff][sect], buffer_isValid[buff][sect]);
+// 		}
+// 	}
+// }
 
-void show_whole_buffer(){
-	printf("SHOW_WHOLE_BUFFER\n");
-	printf("frontend_buffer_page_calculate = %d\n",frontend_buffer_page_calculate());
-	for(int buff=0;buff<N_BUFFERS;buff++){
-		printf("buffer_pblk[%d] = [ ",buff);
-		for(int sect=0;sect<SECTORS_PER_PAGE;sect++){
-			if(sect!=SECTORS_PER_PAGE-1) 
-				printf("%2x|%d ",buffer_pblk[buff][sect], buffer_isValid[buff][sect]);
-			else
-				printf("%2x|%d ]\n",buffer_pblk[buff][sect], buffer_isValid[buff][sect]);
-		}
+// void show_whole_nand(){
+// 	printf("SHOW_WHOLE_NAND\n");
+// 	for(int bb=0;bb<NBANKS;bb++) printf("<Bank%d>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb);
+// 	printf("\n");
+// 	for(int bb=0;bb<NBANKS;bb++) printf("next_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,next_ppn[bb]);
+// 	printf("\n");
+// 	for(int bb=0;bb<NBANKS;bb++) printf("gc_trigger_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,gc_trigger_ppn[bb]);
+// 	printf("\n");
+// 	for(int bb=0;bb<NBANKS;bb++) printf("free_pblk[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,free_pblk[bb]);
+// 	printf("\n");
+// 	for(int halved_ppn=0; halved_ppn<NBLKS*NPAGES;halved_ppn++){
+// 		for(int bb=0;bb<N_BANKS;bb++){
+// 			int ppn = bb*NBLKS*NPAGES + halved_ppn;
+// 			if(halved_ppn<N_LPNS_PB) printf("L2P[%d][%d] == %d | %d\t\t",bb, halved_ppn, L2P[bb][halved_ppn], buffer_L2P[bb][halved_ppn]);
+// 			else printf("\t\t\t\t\t\t\t");
+// 			printf("ppn[%d].data[0:7] == [ %d | ",ppn, nand[ppn].spare);
+// 			for (int i = 0; i < 7; i++) {
+// 				printf("%x, ", nand[ppn].data[i]);
+// 			}
+// 			printf("%x | %d | %d] \t\t", nand[ppn].data[7], isValid[bb][halved_ppn], age[bb][halved_ppn/PAGES_PER_BLK]);
+// 		}
+// 		printf("\n");
+// 	}
+// 	show_whole_buffer();
+// }
+
+
+double get_u(int bank, int pblk){
+	double valid_pages=0;
+	for(int offset=0;offset<PAGES_PER_BLK;offset++){
+		if(isValid[bank][pblk*PAGES_PER_BLK+offset]!=0) valid_pages = valid_pages+1;
 	}
+	if(valid_pages==0) return 0;
+	else return valid_pages/PAGES_PER_BLK;
 }
 
-void show_whole_nand(){
-	// printf("SHOW_WHOLE_NAND\n");
-	// for(int bb=0;bb<NBANKS;bb++) printf("<Bank%d>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb);
-	// printf("\n");
-	// for(int bb=0;bb<NBANKS;bb++) printf("next_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,next_ppn[bb]);
-	// printf("\n");
-	// for(int bb=0;bb<NBANKS;bb++) printf("gc_trigger_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,gc_trigger_ppn[bb]);
-	// printf("\n");
-	// for(int bb=0;bb<NBANKS;bb++) printf("free_pblk[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,free_pblk[bb]);
-	// printf("\n");
-	// for(int halved_ppn=0; halved_ppn<NBLKS*NPAGES;halved_ppn++){
-	// 	for(int bb=0;bb<N_BANKS;bb++){
-	// 		int ppn = bb*NBLKS*NPAGES + halved_ppn;
-	// 		if(halved_ppn<N_LPNS_PB) printf("L2P[%d][%d] == %d | %d\t\t",bb, halved_ppn, L2P[bb][halved_ppn], buffer_L2P[bb][halved_ppn]);
-	// 		else printf("\t\t\t\t");
-	// 		printf("ppn[%d].data[0:7] == [ %d | ",ppn, nand[ppn].spare);
-	// 		for (int i = 0; i < 7; i++) {
-	// 			printf("%x, ", nand[ppn].data[i]);
-	// 		}
-	// 		printf("%x | %d] \t\t", nand[ppn].data[7], isValid[bb][halved_ppn]);
-	// 	}
-	// 	printf("\n");
-	// }
-	show_whole_buffer();
-}
-
-
-int get_victim_pblk(int bank){
+int get_victim_pblk_greedy(int bank){
 	int max_invalid_cnt=0;
 	int victim_blk=-1; // -1 이 리턴되면 뭔가 문제가 있는거.
 	int ret_pblk;
@@ -130,7 +157,50 @@ int get_victim_pblk(int bank){
 			ret_pblk = pblk;
 		}
 	}
-	// // printf("victim block is %d\n",ret_pblk);
+	// if(ret_pblk != free_pblk[bank])
+	// 	printf("greedy: victim block is %d\n",ret_pblk);
+	// else
+	// 	printf("return - ERROR: victim block can't be free block\n");
+	return ret_pblk;
+}
+
+int get_victim_pblk_cb(u32 bank){
+	int ret_pblk;
+	double max_score = 0;
+	for(int pblk=BLKS_PER_BANK-1;pblk>=0;pblk--){
+		if((age[bank][pblk]==-1) || (pblk==free_pblk[bank])) continue; // free block 은 victim 이 될 수 없다.
+		double u = get_u(bank,pblk);
+		int score = ((1-u)*age[bank][pblk])/(2*u);
+		if(score>=max_score){
+			max_score=score;
+			ret_pblk=pblk;
+		}
+	}
+	// if(ret_pblk != free_pblk[bank])
+	// 	printf("cb: victim block is %d\n",ret_pblk);
+	// else
+	// 	printf("return - ERROR: victim block can't be free block\n");
+	return ret_pblk;
+}
+
+int get_victim_pblk_cat(u32 bank){
+	int ret_pblk;
+	double min_score = 1.79769e+308;
+	for(int pblk=BLKS_PER_BANK-1;pblk>=0;pblk--){
+		if((age[bank][pblk]==-1) || (pblk==free_pblk[bank])) continue; // free block 은 victim 이 될 수 없다.
+		double u = get_u(bank,pblk);
+		int score;
+		if(u==(double)1) score = 1.79769e+308;
+		else score = (u*erase_count[bank][pblk])/((1-u)*age[bank][pblk]);
+		if(score<=min_score){
+			min_score=score;
+			ret_pblk=pblk;
+		}
+	}
+	// if(ret_pblk != free_pblk[bank])
+	// 	printf("cat: victim block is %d\n",ret_pblk);
+	// else
+	// 	printf("return - ERROR: victim block can't be free block\n");
 	return ret_pblk;
 }
 
@@ -145,52 +215,62 @@ stats.gc_write++;
 for every nand_write call (every valid page copy)
 that you issue in this function
 ***************************************/
-	printf("GC Time!\n");
+	// printf("GC Time!\n");
+
+	int victim_pblk;
 	if(GC_POLICY == gc_greedy){
-		int victim_pblk = get_victim_pblk(bank); // 새로운 Spare Block 이 된다.
-		int victim_first_ppn = victim_pblk*PAGES_PER_BLK;
-
-		int free_first_ppn = free_pblk[bank]*PAGES_PER_BLK;
-
-		int immigrants_cnt = 0;
-		for(int i=0;i<PAGES_PER_BLK;i++){
-			int victim_ppn = victim_first_ppn+i;
-			if(isValid[bank][victim_ppn] == 1){ // 이민 시작
-				int tmp_data[8];
-				int tmp_lpn;
-				nand_read(bank, victim_pblk, i, tmp_data, &tmp_lpn);
-				nand_write(bank, free_pblk[bank], immigrants_cnt, tmp_data, &tmp_lpn); stats.gc_write++;
-				L2P[bank][tmp_lpn] = free_first_ppn+immigrants_cnt;
-				immigrants_cnt++;
-			}
-		}
-		for(int i=0;i<PAGES_PER_BLK;i++){
-			isValid[bank][victim_first_ppn + i] = 1;
-		}
-
-		next_ppn[bank] = free_first_ppn + immigrants_cnt;
-		gc_trigger_ppn[bank] = free_first_ppn + PAGES_PER_BLK;
-		int result = nand_erase(bank,victim_pblk);
-		// printf("erase_result = %d\n",result);
-		free_pblk[bank] = victim_pblk;
-		return;
+		victim_pblk = get_victim_pblk_greedy(bank); // 새로운 Spare Block 이 된다.
 	}else if(GC_POLICY == gc_cb){ // COST BENEFIT
-
+		victim_pblk = get_victim_pblk_cb(bank); // 새로운 Spare Block 이 된다.
 	}else{// COST AGE TIMES policy
-
+		victim_pblk = get_victim_pblk_cat(bank); // 새로운 Spare Block 이 된다.
 	}
+	int victim_first_ppn = victim_pblk*PAGES_PER_BLK;
+	int free_first_ppn = free_pblk[bank]*PAGES_PER_BLK;
+
+	int immigrants_cnt = 0;
+	for(int i=0;i<PAGES_PER_BLK;i++){
+		int victim_ppn = victim_first_ppn+i;
+		if(isValid[bank][victim_ppn] == 1){ // 이민 시작
+			int tmp_data[8];
+			int tmp_lpn;
+			nand_read(bank, victim_pblk, i, tmp_data, &tmp_lpn);
+			if(immigrants_cnt==0){// 0번 페이지를 write 할 때만 발동.
+				age_update(bank,free_pblk[bank]);
+			}
+			nand_write(bank, free_pblk[bank], immigrants_cnt, tmp_data, &tmp_lpn); stats.gc_write++;
+			L2P[bank][tmp_lpn] = free_first_ppn+immigrants_cnt;
+			immigrants_cnt++;
+		}
+	}
+	for(int i=0;i<PAGES_PER_BLK;i++){
+		isValid[bank][victim_first_ppn + i] = 1;
+	}
+
+	next_ppn[bank] = free_first_ppn + immigrants_cnt;
+	gc_trigger_ppn[bank] = free_first_ppn + PAGES_PER_BLK;
+	age[bank][victim_pblk] = -1;
+	erase_count[bank][victim_pblk]++;
+	int result = nand_erase(bank,victim_pblk);
+	// printf("erase_result = %d\n",result);
+	free_pblk[bank] = victim_pblk;
+	return;
 }
 
 void ftl_open() {
 	nand_init(N_BANKS, BLKS_PER_BANK, PAGES_PER_BLK);
 	for(int bank=0; bank<N_BANKS; bank++){
 		free_pblk[bank] = BLKS_PER_BANK-1; // 6th 블럭 == 0~세면 7번째. // 7th 블럭
-		for(int lpn=0;lpn<N_LPNS_PB;lpn++){
-			L2P[bank][lpn]=-1;
-			buffer_L2P[bank][lpn]=-1;
+		for(int halved_lpn=0;halved_lpn<N_LPNS_PB;halved_lpn++){
+			L2P[bank][halved_lpn]=-1;
+			buffer_L2P[bank][halved_lpn]=-1;
 		}
 		for(int ppn=0;ppn<PAGES_PER_BLK*BLKS_PER_BANK;ppn++){
 			isValid[bank][ppn]=1;
+		}
+		for(int blk=0;blk<BLKS_PER_BANK;blk++){
+			age[bank][blk]=-1;
+			erase_count[bank][blk]=0;
 		}
 		next_ppn[bank] = 0;
 		gc_trigger_ppn[bank]=free_pblk[bank] * PAGES_PER_BLK;
@@ -345,8 +425,22 @@ void write_through_lpn(int bank, u32 halved_lpn, int* data){ // integer
 		isValid[bank][L2P[bank][halved_lpn]]=0;
 	}
 	L2P[bank][halved_lpn]=next_ppn[bank];
+	if(next_ppn[bank]%PAGES_PER_BLK==0){
+		age_update(bank,next_ppn[bank]/PAGES_PER_BLK);
+	}
 	int result = nand_write(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &halved_lpn); stats.nand_write++; // memcpy 32Byte && 4Byte
 	next_ppn[bank]++;
+}
+
+void write_directly_nand_buffer_check(int bank, int halved_lpn, int* data){
+	for(int i=0;i<8;i++){
+		if(buffer_isValid[buffer_L2P[bank][halved_lpn]][i]!=-1){
+			data[i]=buffer_pblk[buffer_L2P[bank][halved_lpn]][i];
+			buffer_isValid[buffer_L2P[bank][halved_lpn]][i]=-1;
+		}
+	}
+	buffer_L2P[bank][halved_lpn]=-1;
+	return;
 }
 
 void write_directly_nand(u32 lba, u32 nsect, u32 *write_buffer){
@@ -383,6 +477,10 @@ void write_directly_nand(u32 lba, u32 nsect, u32 *write_buffer){
 			ppn = L2P[bank][halved_lpn];
 			nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare);
 		}
+		if(buffer_L2P[bank][halved_lpn]!=-1){
+			write_directly_nand_buffer_check(bank,halved_lpn,data);
+		}
+
 		for(int i=0;i<last_lba_offset-first_lba_offset+1;i++){
 			data[first_lba_offset+i]=current_write_buffer[i]; sector_transferred++;
 		}// 한페이지 포장완료
@@ -405,6 +503,10 @@ void write_directly_nand(u32 lba, u32 nsect, u32 *write_buffer){
 					ppn = L2P[bank][halved_lpn];
 					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare);
 				}
+				if(buffer_L2P[bank][halved_lpn]!=-1){
+					write_directly_nand_buffer_check(bank,halved_lpn,data);
+				}
+
 				for(int i=0;i<8-first_lba_offset;i++){
 					data[first_lba_offset+i]=current_write_buffer[i]; sector_transferred++;
 				}
@@ -418,11 +520,19 @@ void write_directly_nand(u32 lba, u32 nsect, u32 *write_buffer){
 					ppn = L2P[bank][halved_lpn];
 					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare);
 				}
+				if(buffer_L2P[bank][halved_lpn]!=-1){
+					write_directly_nand_buffer_check(bank,halved_lpn,data);
+				}
+
 				for(int i=0;i<=last_lba_offset;i++){
 					data[i]=current_write_buffer[i]; sector_transferred++;
 				}
 			}
 			else{ // 아다리 맞춰서 32B씩 무지성으로 포장하면 됨. 생존데이터 없음.
+				if(buffer_L2P[bank][halved_lpn]!=-1){
+					write_directly_nand_buffer_check(bank,halved_lpn,data);
+				}
+
 				for(int i=0;i<8;i++){
 					data[i] = current_write_buffer[i]; sector_transferred++;
 				}
@@ -512,7 +622,7 @@ void write_to_buffer(u32 lba, u32 nsect, u32 *write_buffer){
 		int buffer_next_ppn = frontend_buffer_page_calculate();
 		if(buffer_L2P[bank][halved_lpn] == -1){ // not buffered yet, 새로 할당받음
 			if(buffer_next_ppn==__INT32_MAX__){
-				printf("ERROR CAPTURED\n");
+				// printf("ERROR CAPTURED\n");
 				return;
 			}
 			buffer_L2P[bank][halved_lpn] = buffer_next_ppn;
@@ -573,7 +683,17 @@ stats.nand_write++;
 for every nand_write call (every valid page copy)
 that you issue in this function
 ***************************************/
-	if(nsect>BUFFER_SIZE){ // 애초에 총 버퍼보다 클 경우
+	int first_lba=lba;
+	int first_lba_offset = first_lba % SECTORS_PER_PAGE;
+	int first_page_first_lba = first_lba - first_lba_offset;
+	int last_lba = first_lba+nsect-1;
+	int last_lba_offset = (last_lba % SECTORS_PER_PAGE);
+	int last_page_first_lba = last_lba-last_lba_offset;
+	int send_kazu = 1 + ((last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE);
+
+	// printf("send_kazu = %d\n",send_kazu);
+	if(nsect>BUFFER_SIZE || send_kazu>N_BUFFERS){ // 애초에 총 버퍼보다 클 경우
+		// 80sector인데 11페이지일 수 있다. 애매하게 걸치면.
 		write_directly_nand(lba,nsect,write_buffer);
 	}
 	else{
@@ -583,20 +703,20 @@ that you issue in this function
 }
 
 void ftl_flush(){
-	/*
-	
-	*/
-	printf("Flush Time!\n");
+	// printf("Flush Time!\n");
 	for(int buffer_ppn=0;buffer_ppn<N_BUFFERS;buffer_ppn++){
 		int buff[8]; // tmp
-		int lpn;
+		int lpn=-1;
 		for(int sect=0;sect<SECTORS_PER_PAGE;sect++){
 			if(buffer_isValid[buffer_ppn][sect]!=-1){
 				lpn = buffer_isValid[buffer_ppn][sect];
 				break;
 			}
 		}
-		if(lpn==-1) printf("return - ERROR: ftl_flush target lpn can't be -1\n");
+		if(lpn==-1) {
+			// printf("return - ERROR: ftl_flush target lpn can't be -1\n");
+			continue;
+		}
 
 		if(L2P[lpn%N_BANKS][lpn/N_BANKS]!=-1){ // NOT EMPTY => 보존
 			ftl_read(lpn*SECTORS_PER_PAGE, SECTORS_PER_PAGE, buff);
@@ -627,11 +747,11 @@ void ftl_trim(u32 lpn, u32 npage) {
 	/*
 	lpn부터 npage만큼의 페이지를 버퍼에서도 없애고 nand와의 연결도 끊는다.
 	*/	
-	printf("Trim Time!\n");
+	// printf("Trim Time!\n");
 	for(int ll=lpn;ll<lpn+npage;ll++){
 		int halved_lpn = ll/N_BANKS;
 		int bank = ll%N_BANKS;
-		isValid[bank][L2P[bank][halved_lpn]]=-1;
+		isValid[bank][L2P[bank][halved_lpn]]=0;
 		if(buffer_L2P[bank][L2P[bank][halved_lpn]]!=-1){ // buffer도 연결되어있을경우
 			for(int i=0;i<SECTORS_PER_PAGE;i++){
 				buffer_isValid[buffer_L2P[bank][L2P[bank][halved_lpn]]][i]=-1;

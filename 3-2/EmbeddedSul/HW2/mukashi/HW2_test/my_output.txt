@@ -1,0 +1,424 @@
+Bank: 1
+Blocks / Bank: 4 blocks
+Pages / Block: 4 pages
+Sectors per Page: 8
+OP ratio: 7%
+Physical Blocks: 4
+User Blocks: 3
+OP Blocks: 1
+PPNs: 16
+LPNs: 12
+
+
+PUT a
+Write_Through_LPN: bank 0, halved_lpn 0
+Exitted
+next_ppn[0] == 0
+data = '1'
+result = 0
+Write(0,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	0			a	0	0	1
+1	-1			`	0	1	1
+2	-1			`	0	2	1
+3	-1			`	0	3	1
+4	-1			`	0	4	1
+5	-1			`	0	5	1
+6	-1			`	0	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	-1			`	0	10	1
+11	-1			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT b
+Write_Through_LPN: bank 0, halved_lpn 1
+Exitted
+next_ppn[0] == 1
+data = '2'
+result = 0
+Write(8,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	0			a	0	0	1
+1	1			b	1	1	1
+2	-1			`	0	2	1
+3	-1			`	0	3	1
+4	-1			`	0	4	1
+5	-1			`	0	5	1
+6	-1			`	0	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	-1			`	0	10	1
+11	-1			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT c
+Write_Through_LPN: bank 0, halved_lpn 0
+Exitted
+Invalidated! L2P[0][0] == 0
+next_ppn[0] == 2
+data = '3'
+result = 0
+Write(0,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	1			b	1	1	1
+2	-1			c	0	2	1
+3	-1			`	0	3	1
+4	-1			`	0	4	1
+5	-1			`	0	5	1
+6	-1			`	0	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	-1			`	0	10	1
+11	-1			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT d
+Write_Through_LPN: bank 0, halved_lpn 1
+Exitted
+Invalidated! L2P[0][1] == 1
+next_ppn[0] == 3
+data = '4'
+result = 0
+Write(8,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	-1			d	1	3	1
+4	-1			`	0	4	1
+5	-1			`	0	5	1
+6	-1			`	0	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	-1			`	0	10	1
+11	-1			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT e
+Write_Through_LPN: bank 0, halved_lpn 3
+Exitted
+next_ppn[0] == 4
+data = '5'
+result = 0
+Write(24,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			`	0	5	1
+6	-1			`	0	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	-1			`	0	10	1
+11	-1			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT f
+Write_Through_LPN: bank 0, halved_lpn 11
+Exitted
+next_ppn[0] == 5
+data = '6'
+result = 0
+Write(88,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			f	11	5	1
+6	-1			`	0	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	-1			`	0	10	1
+11	5			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT g
+Write_Through_LPN: bank 0, halved_lpn 10
+Exitted
+next_ppn[0] == 6
+data = '7'
+result = 0
+Write(80,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			f	11	5	1
+6	-1			g	10	6	1
+7	-1			`	0	7	1
+8	-1			`	0	8	1
+9	-1			`	0	9	1
+10	6			`	0	10	1
+11	5			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT h
+Write_Through_LPN: bank 0, halved_lpn 9
+Exitted
+next_ppn[0] == 7
+data = '8'
+result = 0
+Write(72,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			f	11	5	1
+6	-1			g	10	6	1
+7	-1			h	9	7	1
+8	-1			`	0	8	1
+9	7			`	0	9	1
+10	6			`	0	10	1
+11	5			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT i
+Write_Through_LPN: bank 0, halved_lpn 8
+Exitted
+next_ppn[0] == 8
+data = '9'
+result = 0
+Write(64,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			f	11	5	1
+6	-1			g	10	6	1
+7	-1			h	9	7	1
+8	8			i	8	8	1
+9	7			`	0	9	1
+10	6			`	0	10	1
+11	5			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT j
+Write_Through_LPN: bank 0, halved_lpn 7
+Exitted
+next_ppn[0] == 9
+data = '10'
+result = 0
+Write(56,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			f	11	5	1
+6	-1			g	10	6	1
+7	9			h	9	7	1
+8	8			i	8	8	1
+9	7			j	7	9	1
+10	6			`	0	10	1
+11	5			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT k
+Write_Through_LPN: bank 0, halved_lpn 6
+Exitted
+next_ppn[0] == 10
+data = '11'
+result = 0
+Write(48,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	-1			f	11	5	1
+6	10			g	10	6	1
+7	9			h	9	7	1
+8	8			i	8	8	1
+9	7			j	7	9	1
+10	6			k	6	10	1
+11	5			`	0	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT l
+Write_Through_LPN: bank 0, halved_lpn 5
+Exitted
+next_ppn[0] == 11
+data = '12'
+result = 0
+Write(40,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	2			a	0	0	0
+1	3			b	1	1	0
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	11			f	11	5	1
+6	10			g	10	6	1
+7	9			h	9	7	1
+8	8			i	8	8	1
+9	7			j	7	9	1
+10	6			k	6	10	1
+11	5			l	5	11	1
+				`	0	12	1
+				`	0	13	1
+				`	0	14	1
+				`	0	15	1
+
+PUT m
+Write_Through_LPN: bank 0, halved_lpn 5
+GC Time!
+maximum invalid is 0 / block 3's invalid no is 0
+so update
+maximum invalid is 0 / block 2's invalid no is 0
+so update
+maximum invalid is 0 / block 1's invalid no is 0
+so update
+maximum invalid is 0 / block 0's invalid no is 2
+so update
+victim block is 0
+next_ppn[0] := 14 / gc_trigger_ppn[0] := 16
+erase victim_pblk == 0
+erase_result = 0
+Exitted
+Invalidated! L2P[0][5] == 11
+next_ppn[0] == 14
+data = '13'
+result = 0
+Write(40,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	12			a	0	0	1
+1	13			b	1	1	1
+2	-1			c	0	2	1
+3	4			d	1	3	1
+4	-1			e	3	4	1
+5	14			f	11	5	1
+6	10			g	10	6	1
+7	9			h	9	7	1
+8	8			i	8	8	1
+9	7			j	7	9	1
+10	6			k	6	10	1
+11	5			l	5	11	0
+				c	0	12	1
+				d	1	13	1
+				m	5	14	1
+				`	0	15	1
+
+PUT n
+Write_Through_LPN: bank 0, halved_lpn 3
+Exitted
+Invalidated! L2P[0][3] == 4
+next_ppn[0] == 15
+data = '14'
+result = 0
+Write(24,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	12			a	0	0	1
+1	13			b	1	1	1
+2	-1			c	0	2	1
+3	15			d	1	3	1
+4	-1			e	3	4	0
+5	14			f	11	5	1
+6	10			g	10	6	1
+7	9			h	9	7	1
+8	8			i	8	8	1
+9	7			j	7	9	1
+10	6			k	6	10	1
+11	5			l	5	11	0
+				c	0	12	1
+				d	1	13	1
+				m	5	14	1
+				n	3	15	1
+
+PUT o
+Write_Through_LPN: bank 0, halved_lpn 2
+GC Time!
+maximum invalid is 0 / block 3's invalid no is 0
+so update
+maximum invalid is 0 / block 2's invalid no is 1
+so update
+maximum invalid is 1 / block 1's invalid no is 1
+so update
+maximum invalid is 1 / block 0's invalid no is 0
+victim block is 1
+next_ppn[0] := 3 / gc_trigger_ppn[0] := 4
+erase victim_pblk == 1
+erase_result = 0
+Exitted
+next_ppn[0] == 3
+data = '15'
+result = 0
+Write(16,8)
+LPN	TO		DATA	LPN	PPN	VALID
+0	12			f	11	0	1
+1	13			g	10	1	1
+2	3			h	9	2	1
+3	15			o	2	3	1
+4	-1			e	3	4	1
+5	14			f	11	5	1
+6	10			g	10	6	1
+7	9			h	9	7	1
+8	8			i	8	8	1
+9	2			j	7	9	1
+10	1			k	6	10	1
+11	0			l	5	11	0
+				c	0	12	1
+				d	1	13	1
+				m	5	14	1
+				n	3	15	1
+
+PUT p
+
+Results ------
+Host writes: 120
+GC writes: 5
+Number of GCs: 2
+Valid pages per GC: 2.50 pages
+WAF: 1.04

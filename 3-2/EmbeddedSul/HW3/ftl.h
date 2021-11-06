@@ -16,11 +16,11 @@
 
 typedef unsigned int u32;
 
-#define N_BANKS			2
-#define BLKS_PER_BANK		8
-#define PAGES_PER_BLK		4
+#define N_BANKS			8
+#define BLKS_PER_BANK		32
+#define PAGES_PER_BLK		16
 
-#define N_BUFFERS		10
+#define N_BUFFERS		32
 #define BUFFER_SIZE		(N_BUFFERS * SECTORS_PER_PAGE * SECTOR_SIZE)
 
 #define SECTOR_SIZE		sizeof(u32)

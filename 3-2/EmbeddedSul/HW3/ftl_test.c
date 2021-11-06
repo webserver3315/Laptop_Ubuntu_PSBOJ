@@ -123,11 +123,11 @@ int main(int argc, char **argv)
 			fprintf(stderr, "Wrong op type\n");
 			return EXIT_FAILURE;
 		}
-		// if(line<=100){
-		// 	show_whole_nand();
+		// if(line>=12410){
+			// show_whole_nand();
 		// }
 		// else{
-		// 	return 0;
+			// return 0;
 		// }
 		// printf("------------------------------------------------------Turn END------------------------------------------------------\n");
 	}

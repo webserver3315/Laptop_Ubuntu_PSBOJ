@@ -1,0 +1,12 @@
+491535c491535
+< NAND reads: 0
+---
+> NAND reads: 29774792
+491537,491539c491537,491539
+< GC writes: 20986488
+< Number of GCs: 103790
+< Valid pages per GC: 25.28 pages
+---
+> GC writes: 20954944
+> Number of GCs: 103667
+> Valid pages per GC: 25.27 pages
