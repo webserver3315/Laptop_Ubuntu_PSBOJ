@@ -19,7 +19,6 @@
 
 #include "ftl.h"
 
-extern void show_whole_nand();
 
 struct ftl_stats stats;
 
@@ -81,14 +80,12 @@ int main(int argc, char **argv)
 	ftl_open();
 	show_info();
 
-	int line = 2;
 	while (1) {
 		int i;
 		char op;
 		u32 lba;
 		u32 nsect;
 		u32 *buf;
-		printf("------------------------------------------------------ %d th Line ------------------------------------------------------\n", line++);
 		if (scanf(" %c", &op) < 1)
 			break;
 		switch (op) {
@@ -120,13 +117,6 @@ int main(int argc, char **argv)
 			fprintf(stderr, "Wrong op type\n");
 			return EXIT_FAILURE;
 		}
-		// if(line>=12410){
-			show_whole_nand();
-		// }
-		// else{
-			// return 0;
-		// }
-		printf("------------------------------------------------------Turn END------------------------------------------------------\n");
 	}
 
 	show_stat();

@@ -14,10 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-<<<<<<< HEAD
-=======
 #include <assert.h>
->>>>>>> fa84f8cf66a745c179ebf545454fc50a9a96225f
 
 #define FOR(i,n) for(int i=0;i<(n);++i)
 /************ constants ************/

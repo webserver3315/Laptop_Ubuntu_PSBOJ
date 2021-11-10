@@ -11,424 +11,397 @@
  * http://nyx.skku.ac.kr
  */
 
+/*
+일단 대충 다 구현함.
+테스트는 안해봄.
+1. LPN 함수를 무지성 DRAM으로 바꾼 뒤, 테스트 싹 돌려서 무결성 확인
+2. LPN 함수를 DFTL 버전으로 바꾼 뒤, 테스트 싹 돌려서 무결성 확인
+3. I/O Buffer 의 경우, 간단히 바꾸면 될 듯 하니 두 번째 결과물 기반으로 계속 츄라이.
+그리고, CMT Aging 아직 구현안됨.
+=> 1. 직전.에 세이브함. 일단 CMT 비적용상태에서 알고리즘 무결성부터 테스트하자.
+*/
+
 #include "ftl.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 
-/* DFTL simulator
- * you must make CMT, GTD to use L2P cache
- * you must increase stats.cache_hit value when L2P is in CMT
- * when you can not find L2P in CMT, you must flush cache 
- * and load target L2P in NAND through GTD and increase stats.cache_miss value
- */
-
-#define INVALID 0
-#define VALID 1
-
-#define FREE 0
+#define N_SLOT_PB N_CACHED_MAP_PAGE_PB
+#define CMT_NSECT N_MAP_ENTRIES_PER_PAGE
+#define EMPTY 0
 #define DATA 1
-#define MAPPING 2
+#define MAP 2
 
 int L2P [N_BANKS][N_LPNS_PB]; // lpn 이 쓰인다.
-int isValid [N_BANKS][BLKS_PER_BANK * PAGES_PER_BLK]; // 실제 ppn이 쓰인다.
-int next_ppn[N_BANKS]; 
-int gc_trigger_ppn[N_BANKS]; // 해당 ppn 접근시 GC 발동
 
-int pbn_type[N_BANKS][BLKS_PER_BANK]; // FREE/DATA/MAP
-int mapping_next_ppn[N_BANKS];
-int mapping_gc_trigger_ppn[N_BANKS];
+int CMT_vpn[N_BANKS][N_SLOT_PB]; // -1 == FREE CMT SLOT
+int CMT_dirty[N_BANKS][N_SLOT_PB];
+int CMT_age[N_BANKS][N_SLOT_PB];
+int CMT_Data[N_BANKS][N_SLOT_PB][N_MAP_ENTRIES_PER_PAGE];
 
-struct CMT_Entry{
-	int map_page;
-	int sectors[8];
-	int isDirty;
-};
+int GTD[N_BANKS][N_MAP_PAGES_PB]; // lpn2ppn for Mapping Block
+int Next_Data_PPN[N_BANKS];
+int Next_Map_PPN[N_BANKS];
+int GC_Trigger_Data_PPN[N_BANKS];
+int GC_Trigger_Map_PPN[N_BANKS];
 
-struct CMT_Entry CMT[N_BANKS][N_CACHED_MAP_PAGE_PB];
-int GTD[N_BANKS][N_MAP_PAGES_PB];
+int Block_Status[N_BANKS][BLKS_PER_BANK];
+int isValid[N_BANKS][BLKS_PER_BANK*PAGES_PER_BLK]; // ppn임에 유의. 꼽표치고 딴데쓰면 invalid됨. 즉, invalid는 읽거나 복사하지 말라는 뜻.
 
-// 어떻게 data_block과 map_block 을 구분할 것인가?
-
-// 기존의 L2P[bank][halved_lpn] 과 동치
-int L2P_read(int bank, int halved_lpn){
-
+int get_LRU_slot(int bank){ // 무지성으로 해당 bank에서 Most LRU Slot을 반환함.
+	int biggest_age = -1;
+	int ret = -1;
+	FOR(slot, N_SLOT_PB){
+		if(biggest_age<CMT_age[bank][slot]) {
+			biggest_age = CMT_age[bank][slot]; ret = slot;
+		}
+	}
+	return ret;
 }
-
-int L2P_write(int bank, int halved_lpn){
-
+int get_free_slot(int bank){
+	FOR(slot, N_SLOT_PB) if(CMT_vpn[bank][slot] == -1) return slot;
+	return -1;
 }
-
-int get_free_pbn(int bank){ // return -1 when THERE IS NO FREE BLOCK
-	for(int pbn=0;pbn<BLKS_PER_BANK;pbn++){
-		if(pbn_type[pbn]==FREE) return pbn;
+int greedy_data_blk(int bank){ // 무지성으로 greedy victim을 선정함
+	int biggest_invalid = -1;
+	int victim = -1;
+	FOR(pblk, BLKS_PER_BANK){
+		if(Block_Status[bank][pblk]!=DATA) continue;
+		int invalid_cnt=0;
+		FOR(pg, PAGES_PER_BLK){
+			if(isValid[bank][pblk*PAGES_PER_BLK+pg]==1) invalid_cnt++;
+		}
+		if(biggest_invalid<invalid_cnt) victim = pblk;
+	}
+	return victim;
+}
+int greedy_map_blk(int bank){ // 무지성으로 greedy victim을 선정함
+	int biggest_invalid = -1;
+	int victim = -1;
+	FOR(pblk, BLKS_PER_BANK){
+		if(Block_Status[bank][pblk]!=MAP) continue;
+		int invalid_cnt=0;
+		FOR(pg, PAGES_PER_BLK){
+			if(isValid[bank][pblk*PAGES_PER_BLK+pg]==1) invalid_cnt++;
+		}
+		if(biggest_invalid<invalid_cnt) victim = pblk;
+	}
+	return victim;
+}
+int get_free_blk_map(int bank){ // 역방향으로 검사
+	for(int blk = BLKS_PER_BANK-1; blk >= 0; blk--){
+		if(Block_Status[bank][blk]==EMPTY) return ret;
 	}
 	return -1;
 }
-
-void print_constant(){
-	printf("N_BANKS = %d\n",N_BANKS);
-	printf("BLKS_PER_BANK = %d\n",BLKS_PER_BANK);
-	printf("PAGES_PER_BLK = %d\n",PAGES_PER_BLK);
-	printf("SECTOR_SIZE = %d\n",SECTOR_SIZE);
-	printf("SECTORS_PER_PAGE = %d\n",SECTORS_PER_PAGE);
-	// printf("N_GC_BLOCKS = %d\n",N_GC_BLOCKS);
-
-	printf("N_PPNS_PB = %d\n",N_PPNS_PB);
-	printf("N_USER_BLOCKS_PB = %d\n",N_USER_BLOCKS_PB);
-	printf("N_OP_BLOCKS_PB = %d\n",N_OP_BLOCKS_PB);
-	printf("N_LPNS_PB = %d\n",N_LPNS_PB);
-	printf("N_PPNS = %d\n",N_PPNS);
-	printf("N_BLOCKS = %d\n",N_BLOCKS);
-	printf("N_USER_BLOCKS = %d\n",N_USER_BLOCKS);
-	printf("N_OP_BLOCKS = %d\n",N_OP_BLOCKS);
-	printf("N_LPNS = %d\n",N_LPNS);
-	printf("L2p[%d][%d]\n",N_BANKS,N_LPNS_PB);
-	printf("isValid[%d][%d]\n",N_BANKS,BLKS_PER_BANK * PAGES_PER_BLK);
-	printf("next_ppn[%d]\n",N_BANKS);
-	printf("gc_trigger_ppn[%d]\n",N_BANKS);
-
-	printf("\n");
-	printf("N_MAP_ENTRIES_PER_PAGE = %d\n",N_MAP_ENTRIES_PER_PAGE);
-	printf("N_MAP_PAGES_PB = GTD size = %d\n",N_MAP_PAGES_PB);
-	printf("N_CACHED_MAP_PAGE_PB = CMT size = %d\n",N_CACHED_MAP_PAGE_PB);
-	printf("BLKS_PER_BANK = %d\n",BLKS_PER_BANK);
-	printf("N_MAP_BLOCKS_PB = %d\n",N_MAP_BLOCKS_PB);
-	printf("N_USER_BLOCKS_PB = %d\n",N_USER_BLOCKS_PB);
-	printf("N_OP_BLOCKS_PB = %d\n",N_OP_BLOCKS_PB);
-	printf("N_USER_OP_BLOCKS_PB = %d\n",N_USER_OP_BLOCKS_PB);
-	printf("N_MAP_OP_BLOCKS_PB = %d\n",N_MAP_OP_BLOCKS_PB);
-	// printf("N_MAP_BLOCKS = %d\n",N_MAP_BLOCKS)
-	// printf("N_USER_BLOCKS = %d\n",N_USER_BLOCKS)
-
-	printf("\n\n\n");
-}
-
-extern struct Page {
-	u32 data[8]; //32byte
-	u32 spare; //4byte
-};
-extern struct Page* nand;
-extern char* iswritten; 
-extern int* blk_index;
-extern int NBANKS, NBLKS, NPAGES;
-extern void print_page();
-
-void show_whole_nand(){
-	printf("SHOW_WHOLE_NAND\n");
-	for(int bb=0;bb<NBANKS;bb++) printf("<Bank%d>\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb);
-	printf("\n");
-	for(int bb=0;bb<NBANKS;bb++) printf("next_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,next_ppn[bb]);
-	printf("\n");
-	for(int bb=0;bb<NBANKS;bb++) printf("gc_trigger_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,gc_trigger_ppn[bb]);
-	printf("\n");
-	for(int bb=0;bb<NBANKS;bb++) printf("mapping_next_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,mapping_next_ppn[bb]);
-	printf("\n");
-	for(int bb=0;bb<NBANKS;bb++) printf("mapping_gc_trigger_ppn[%d] = %d\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",bb,mapping_gc_trigger_ppn[bb]);
-
-	for(int bb=0; bb<N_BANKS;bb++){
-		for(int blk=0;blk<BLKS_PER_BANK;blk++){
-			if(pbn_type[bb][blk]==DATA) printf("pbn_type[%d][%d] == U\n",bb,blk);
-			if(pbn_type[bb][blk]==MAPPING) printf("pbn_type[%d][%d] == M\n",bb,blk);
-			if(pbn_type[bb][blk]==FREE) printf("pbn_type[%d][%d] == F\n",bb,blk);
-		}
+int get_free_blk_data(int bank){ // 순방향으로 검사
+	FOR(blk, BLKS_PER_BANK){
+		if(Block_Status[bank][blk]==EMPTY) return ret;
 	}
+	return -1;
+}
+int is_vpn_cached(int bank, int vpn){
+	FOR(offset, N_SLOT_PB){	if(CMT_vpn[bank][offset]==vpn) return offset; }
+	return 0;
+}
+inline int lpn2vpn(int lpn){
+	return lpn/N_MAP_ENTRIES_PER_PAGE;
+}
 
-	for(int bb=0;bb<N_BANKS;bb++){
-		
+static void map_write(u32 bank, u32 vpn, u32 victim_slot)
+{// bank, victim_slot 을 NAND에 FLUSH한다. map GC가 발생한다면 처리한다.
+	if(CMT_dirty[bank][victim_slot]==1){// Dirty하면 nand에 써줘야함
+		if(Next_Map_PPN[bank] == GC_Trigger_Map_PPN[bank]){ map_garbage_collection(bank); } // Trigger 건드림
+		isValid[bank][GTD[bank][CMT_vpn[bank][victim_slot]]]=0; // 이전 ppn invalid 처리
+		GTD[bank][CMT_vpn[bank][victim_slot]] = Next_Map_PPN[bank];
+		nand_write(bank, Next_Map_PPN[bank]/PAGES_PER_BLK, Next_Map_PPN[bank]%PAGES_PER_BLK, CMT_Data[bank][victim_slot], &CMT_vpn[bank][victim_slot]);
 	}
+	CMT_vpn[bank][victim_slot] = -1; CMT_age[bank][victim_slot] = 0;
+}
+static void map_read(u32 bank, u32 vpn, u32 free_slot)
+{// vpn에 해당하는 ppn을 GTD로 구하고, 그 ppn에 있는 데이터를 CMT의 free_slot에 무지성으로 적어줌.
+	assert(CMT_vpn[bank][free_slot] == -1);
+	int ppn = GTD[bank][vpn]; int tmp_data[8]; int tmp_spare;
+	nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, tmp_spare, &tmp_spare);
+	memcpy(CMT_Data[bank][free_slot], tmp_data, SECTORS_PER_PAGE);
+	CMT_vpn[bank][free_slot] = vpn; CMT_age[bank][free_slot] = 0; CMT_dirty[bank][free_slot] = 0;
+}
+static void my_map_write(int bank, int cache_slot){
+	map_write(bank, CMT_vpn[bank][cache_slot], cache_slot);
+}
 
-	for(int halved_ppn=0; halved_ppn<NBLKS*NPAGES;halved_ppn++){
-		for(int bb=0;bb<N_BANKS;bb++){
-			int ppn = bb*NBLKS*NPAGES + halved_ppn;
-			if(halved_ppn<N_LPNS_PB) printf("L2P[%d][%d] == %d \t\t",bb, halved_ppn, L2P[bb][halved_ppn]);
-			else printf("\t\t\t\t");
-			printf("ppn[%d].data[0:7] == [ %d | ",ppn, nand[ppn].spare);
-			for (int i = 0; i < 7; i++) {
-				printf("%x, ", nand[ppn].data[i]);
-			}
-			printf("%x | %d] \t\t", nand[ppn].data[7], isValid[bb][halved_ppn]);
+/*
+L2P 사양
+0. lpn으로 vpn 구하기
+1. vpn에 해당하는 CMT 체크 => 캐시히트면 그냥 CMT에 적힌 값 리턴
+2. vpn이 CMT에 없다면, GTD 체크
+3. GTD에도 값이 안적혀있다면, 아다임. => 대안 강구할 것 => GTD는 -1이 될 수 없도록 초기화를 시켜둠.
+4. GTD에 있다면, map_block의 해당 ppn 페이지를 잠시 copy
+5. CMT에 복사해줘야함. CMT 빈공간 확인
+7. CMT에 빈공간 없으면, evict 해서라도 만들어야 한다. evict하자.
+8. evict 대상은 LRU로 정하고, evict 도 함수를 따로 만들었으니 그대로 쓰자.
+9. 이 evcit 과정 중에 map_gc 가 발생할 수 있음에 유의하자.
+*/
+int lpn2ppn(int bank, int lpn){ // L2P[bank][lpn], 캐싱 안되어있으면 캐싱까지 해줌.
+	/*
+	int vpn = lpn2vpn(lpn);
+	int offset = is_vpn_cached(bank, vpn);
+	if(offset == -1){// Cache Miss
+		if(get_free_slot(bank) == -1){ my_map_write(bank, get_LRU_slot(bank)); } // FLUSH TO NAND, 여유공간 만들기
+		int free_slot = get_free_slot(bank); assert(free_slot != -1); // 빈 슬롯 찾기
+		map_read(bank, vpn, free_slot); // 빈 슬롯에 쓰기
+		offset = is_vpn_cached(bank, vpn); assert(offset==free_slot); // 이젠 반드시 CMT에 있어야 함
+	}// ELSE: Cache HIT
+	return CMT_Data[bank][offset][lpn%CMT_NSECT];
+	*/
+	return L2P[bank][lpn];
+}
+void update_L2P(int bank, int lpn, int ppn){ // L2P[bank][lpn] = ppn;
+	/*
+	lpn-ppn 쌍을 연결지어줌. 만약 이미 등록되어있다면 기존의 것을 OVERWRITE함.
+	L2P 업데이트 알고리즘 (Data 용) 
+	1. CMT에 캐싱여부 확인
+	2. CMT에 캐싱되어있다면, 해당 lpn만 정정해주고 dirty 켜주기
+	3. CMT에 캐싱안되어있다면, CMT 빈공간 체크 후 빈공간 없으면 evict해서라도 caching 시켜주기
+	4. CMT 수정, dirty 켜주기. NAND에 반영은 나중에 evict 될 때 되겠지.
+	*/
+	/*
+	int vpn = lpn2vpn(lpn);
+	int offset = is_vpn_cached(bank, vpn);
+	if(offset == -1){ // Cache Miss
+		if(get_free_slot(bank) == -1){ my_map_write(bank, get_LRU_slot(bank)); } // FLUSH TO NAND, 여유공간 만들기
+		int free_slot = get_free_slot(bank); assert(free_slot != -1); // 빈 슬롯 찾기
+		map_read(bank, vpn, free_slot); // 빈 슬롯에 쓰기
+		offset = is_vpn_cached(bank, vpn); assert(offset==free_slot); // 이젠 반드시 CMT에 있어야 함
+	}// ELSE: Cache Hit
+	CMT_Data[bank][offset][lpn%CMT_NSECT] = ppn;
+	int slot; for(slot=0; slot<N_SLOT_PB; slot++) if(CMT_vpn[bank][slot]==vpn) break;
+	CMT_dirty[bank][slot] = 1;
+	return;
+	*/
+	L2P[bank][lpn] = ppn;
+}
+
+static void map_garbage_collection(u32 bank){ // data gc 도중 map gc가 일어날 수 있음에 유의
+	assert(Next_Map_PPN[bank]==GC_Trigger_Map_PPN[bank]);
+	int victim_blk, free_blk, offset;
+	int tmp_data[8]; int vpn;
+	int copy_cnt = 0;
+	victim_blk = greedy_map_blk(bank); free_blk = get_free_blk_map(bank);
+	FOR(pg, PAGES_PER_BLK){ // Victim의 Valid Page 노아의 방주 탈출
+		if(isValid[bank][victim_blk*PAGES_PER_BLK + pg]==0) continue;
+		nand_read(bank, victim_blk, pg, tmp_data, &vpn); assert(vpn!=-1);
+		offset = is_vpn_cached(bank, vpn);
+		if(offset!=-1){ // copy from cache, not nand -> UNDIRTY라도 Valid인 이상 일단 이민시켜야하기때문에 write는 불가피함
+			nand_write(bank, free_blk, copy_cnt, CMT_Data[bank][offset], vpn);
+		}else{// NOT CACHED: copy from nand
+			nand_write(bank, free_blk, copy_cnt, tmp_data, vpn);
 		}
-		printf("\n");
+		GTD[bank][vpn] = free_blk*PAGES_PER_BLK + copy_cnt; // CMT는 건드릴 필요 없음.
+		copy_cnt++;
 	}
-}
-
-int get_victim_pblk(int bank){
-	int max_invalid_cnt=0;
-	int victim_blk=-1; // -1 이 리턴되면 뭔가 문제가 있는거.
-	int ret_pblk;
-	for(int pblk=BLKS_PER_BANK-1;pblk>=0;pblk--){
-		int pblk_invalid_cnt = 0;
-		for(int i=0;i<PAGES_PER_BLK;i++){
-			int cur_ppn = pblk*PAGES_PER_BLK + i;
-			if(isValid[bank][cur_ppn] == INVALID){
-				pblk_invalid_cnt++;
-			}
-		}
-		if(pblk_invalid_cnt>=max_invalid_cnt){
-			max_invalid_cnt = pblk_invalid_cnt;
-			ret_pblk = pblk;
-		}
+	Next_Map_PPN[bank] = free_blk*PAGES_PER_BLK + copy_cnt;  GC_Trigger_Map_PPN[bank] = (free_blk+1)*PAGES_PER_BLK;
+	FOR(pg, PAGES_PER_BLK){ // victim 싹 원상복귀
+		isValid[bank][victim_blk*PAGES_PER_BLK + pg] = 1;
 	}
-	// // printf("victim block is %d\n",ret_pblk);
-	return ret_pblk;
+	Block_Status[bank][victim_blk] = EMPTY;
+	Block_Status[bank][free_blk] = MAP;
 }
+/* 
+map_garbage_collection 사양
+발동조건: 쓰면 안되는 ppn에 드디어 next_map_ppn이 접근했다.
+대처법: 1. map block 중 victim을 선정한 뒤, 처음 포착된 free block에 victim의 valid한 page를 전부 copy-off해주고
+2. next_map_ppn을 마지막으로 copy-off된 free-block의 page 바로다음으로 설정
+3. gc_trigger_ppn을 free block 직후 block의 0번째 page로 설정
+4. 신/구블럭 isValid, 신/구블럭 Block Status 수정
+5. copy-off된 page들에 대하여 GTD의 ppn값을 정정해줌.
+*/
 
-static void map_write(u32 bank, u32 map_page, u32 cache_slot)
-{
-	/* you use this function when you must flush
-	 * cache from CMT to NAND MAP area
-	 * flush cache with LRU policy and fix GTD!!
-	 */
 
-}
-static void map_read(u32 bank, u32 map_page, u32 cache_slot)
-{
-	/* you use this function when you must load 
-	 * L2P from NAND MAP area to CMT
-	 * find L2P MAP with GTD and fill CMT!!
-	 */
 
-}
-
-static void map_garbage_collection(u32 bank)
-{
-	/*stats.map_gc_cnt++ every map_garbage_collection call*/
-	/*stats.map_gc_write++ every nand_write call*/
-
-}
 static void garbage_collection(u32 bank)
 {
-	/* stats.gc_cnt++ every garbage_collection call*/
-	stats.gc_cnt++;
-	/* stats.gc_write++ every nand_write call*/
-	int victim_pblk = get_victim_pblk(bank); // 새로운 Spare Block 이 된다.
-	int victim_first_ppn = victim_pblk*PAGES_PER_BLK;
-	int free_pbn = get_free_pbn(bank);
-	if(free_pbn==-1) printf("return - ERROR: NO FREE BLOCK\n");
-	int free_first_ppn = free_pbn*PAGES_PER_BLK;
+	assert(Next_Data_PPN[bank]==GC_Trigger_Data_PPN[bank]);
+	int victim_pblk = greedy_data_blk(bank); int free_pblk = get_free_blk_data(bank); assert(victim_pblk!=-1 && free_pblk != -1);
+	int victim_first_ppn = victim_pblk * PAGES_PER_BLK; int free_first_ppn = free_pblk * PAGES_PER_BLK;
+	int tmp_data[8]; int lpn, vpn;
 	int immigrants_cnt = 0;
-	for(int i=0;i<PAGES_PER_BLK;i++){
-		int victim_ppn = victim_first_ppn+i;
-		if(isValid[bank][victim_ppn] == VALID){ // 이민 시작
-			int tmp_data[8];
-			int tmp_lpn;
-			nand_read(bank, victim_pblk, i, tmp_data, &tmp_lpn); // page 단위 read, write
-			nand_write(bank, free_pbn, immigrants_cnt, tmp_data, &tmp_lpn); stats.gc_write++;
-			L2P[bank][tmp_lpn] = free_first_ppn+immigrants_cnt;
-			immigrants_cnt++;
-		}
+	int victim_ppn;
+	FOR(page_offset, PAGES_PER_BLK){
+		victim_ppn = victim_first_ppn + page_offset;
+		if(isValid[bank][victim_ppn] == 0) continue;
+		nand_read(bank, victim_pblk, page_offset, tmp_data, &lpn); // 아직 버퍼 미구현이므로 tmp_spare 볼 필요 없음. 
+		nand_write(bank, free_pblk, immigrants_cnt, tmp_data, &lpn);
+		update_L2P(bank, lpn, free_first_ppn + immigrants_cnt); immigrants_cnt++;
+		// Data Page 위치가 바뀌니까, GTD와 CMT도 바꿔줘야 함
+		/*
+		1. 동일한 lpn에 매핑된 ppn이 victim_blk*PGPBLK+pg 에서 free_pblk*PGPBLK+immigrants_cnt 로 이동함.
+		2. 기존 매핑블럭 FLASH에 Invalid 처리를 함. 그 뒤, CMT를 수정해야 함. NAND에 반영은 FLUSH할때 되겠지.
+		3. CMT의 공간이 꽉 차면, evict 해서라도 올려야 함.
+		4. GDT도 바꿔야 함.
+		*/
 	}
-	for(int i=0;i<PAGES_PER_BLK;i++){
-		isValid[bank][victim_first_ppn + i] = VALID;
-	}
-	next_ppn[bank] = free_first_ppn + immigrants_cnt;
-	gc_trigger_ppn[bank] = free_first_ppn + PAGES_PER_BLK;
-	int result = nand_erase(bank,victim_pblk);
-	// printf("erase_result = %d\n",result);
-	pbn_type[bank][victim_pblk]=FREE;
+	FOR(i, PAGES_PER_BLK) isValid[bank][victim_first_ppn + i] = 1;
+	Next_Data_PPN[bank] = free_first_ppn + immigrants_cnt;
+	GC_Trigger_Data_PPN[bank] = free_first_ppn + PAGES_PER_BLK;
+	nand_erase(bank, victim_pblk); Block_Status[bank][victim_pblk] = EMPTY;
 	return;
 }
-
-void ftl_open() {
-	print_constant();
-	nand_init(N_BANKS, BLKS_PER_BANK, PAGES_PER_BLK);
-	for(int bank=0; bank<N_BANKS; bank++){
-		for(int lpn=0;lpn<N_LPNS_PB;lpn++){
-			L2P[bank][lpn]=-1;
+void ftl_open()
+{
+	FOR(bank, N_BANKS){
+		FOR(slot,CMT_NSECT){
+			CMT_vpn[bank][slot] = -1; CMT_dirty[bank][slot]=0; CMT_age[bank][slot]=0;
+			FOR(e,CMT_NSECT) CMT_Data[bank][slot][e]=-1;
 		}
-		for(int ppn=0;ppn<PAGES_PER_BLK*BLKS_PER_BANK;ppn++){
-			isValid[bank][ppn]=VALID;
+		FOR(vpn, N_MAP_PAGES_PB){
+			GTD[bank][vpn]=PAGES_PER_BLK*(N_USER_BLOCKS + N_USER_OP_BLOCKS_PB) + vpn;
 		}
-
-		for(int blk=0;blk<BLKS_PER_BANK;blk++){
-			pbn_type[bank][blk]=FREE;
-		}
-		pbn_type[bank][0]=DATA;
-		pbn_type[bank][N_USER_BLOCKS_PB]=MAPPING; // 33th == for mapping
-
-		next_ppn[bank] = 0*PAGES_PER_BLK;
-		mapping_next_ppn[bank]=(N_USER_BLOCKS_PB+N_USER_OP_BLOCKS_PB)*PAGES_PER_BLK;
-		gc_trigger_ppn[bank]=(N_USER_BLOCKS_PB+N_USER_OP_BLOCKS_PB)*PAGES_PER_BLK;
-		mapping_gc_trigger_ppn[bank]=(BLKS_PER_BANK-1)*PAGES_PER_BLK;
+		GC_Trigger_Map_PPN[bank] = PAGES_PER_BLK*(N_USER_BLOCKS+N_USER_OP_BLOCKS_PB+N_MAP_BLOCKS_PB+N_MAP_OP_BLOCKS_PB-1);
+		Next_Data_PPN[bank] = 0;
+		GC_Trigger_Data_PPN[bank] = PAGES_PER_BLK*(N_USER_BLOCKS+N_USER_OP_BLOCKS_PB-1);
+		Next_Map_PPN[bank] = PAGES_PER_BLK*(N_USER_BLOCKS_PB+N_USER_OP_BLOCKS_PB);
+		FOR(ppn,BLKS_PER_BANK*PAGES_PER_BLK) isValid[bank][ppn]=1;
+		FOR(blk, BLKS_PER_BANK) Block_Status[bank][blk]=EMPTY;
 	}
 }
 
-void ftl_read(u32 lba, u32 nsect, u32 *read_buffer){	
-	int* current_read_buffer = read_buffer;	
-	int first_lba=lba;
+void ftl_read(u32 lba, u32 nsect, u32 *read_buffer) // 0th lba, 8 nsect 라면 0~7이다.
+{	
+	assert(nsect > 0);
+	int* current_read_buffer = read_buffer;
+	int first_lba = lba;
 	int first_lba_offset = first_lba % SECTORS_PER_PAGE;
 	int first_page_first_lba = first_lba - first_lba_offset;
-	int last_lba = first_lba+nsect-1;
-	int last_lba_offset = (last_lba % SECTORS_PER_PAGE);
-	int last_page_first_lba = last_lba-last_lba_offset;
+	int last_lba = lba + nsect - 1; // 이 lba까지 쓰는거임. 즉, write와 다름.
+	int last_lba_offset = last_lba % SECTORS_PER_PAGE;
+	int last_page_first_lba = last_lba - last_lba_offset;
+	int send_kazu = 1 + (last_page_first_lba - first_page_first_lba) / SECTORS_PER_PAGE; // 보낼 페이지 횟수
 
-	int sector_transferred=0;
-	
-	int send_kazu = 1+((last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE);
-
-	int bank, lpn, halved_lpn, spare;
-	int data[8];
-	if(send_kazu==0){
-		lpn = first_page_first_lba/SECTORS_PER_PAGE;
-		bank = lpn % N_BANKS;
-		halved_lpn = lpn/N_BANKS;
-		if(L2P[bank][halved_lpn]==-1){// Empty
-			for(int i=0;i<nsect;i++){
-				current_read_buffer[i]=0xFFFFFFFF;
-			}
+	// lba0, nsect8 일 때 send_kazu must be 1
+	int data[8]; int bank, lpn, spare; // 여기서 lpn은 halved_lpn 을 의미한다. 
+	if(send_kazu == 1){
+		int ppn = lpn2ppn(bank, lpn);
+		bank = (first_page_first_lba / SECTORS_PER_PAGE) % N_BANKS;
+		lpn = (first_page_first_lba / SECTORS_PER_PAGE) / N_BANKS;
+		if(ppn == -1){ // EMPTY여부를 확인하는건데, 이거 문제있음. 처음 ppn을 캐싱하면 -1이 아니라 쓰레기값임
+			FOR(i, nsect) current_read_buffer[i] = 0xFFFFFFFFF;
 		}else{
-			int ppn = L2P[bank][halved_lpn];
-			nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
-			for(int i=first_lba_offset;i<=last_lba_offset;i++){
-				current_read_buffer[i-first_lba_offset]=data[i];
-			}
+			nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
+			FOR(i, nsect) current_read_buffer[i] = data[first_lba_offset + i];
 		}
 	}
 	else{
-		for(int pp=0;pp<send_kazu;pp++){ // 각각의 읽을 페이지에 대하여
-			lpn = pp + first_page_first_lba/SECTORS_PER_PAGE;
-			bank = lpn % N_BANKS;
-			halved_lpn = lpn/N_BANKS;
-			int sector_kazu = 0; // 해당 lpn으로부터 read_buffer 로 적어야 하는 sector 수
-			if(pp==0){
+		int ppn, sector_kazu;
+		FOR(page_offset, send_kazu){
+			ppn = lpn2ppn(bank, lpn); sector_kazu = 0;
+			lpn = (page_offset + (first_page_first_lba/SECTORS_PER_PAGE)) / N_BANKS;
+			bank = (page_offset + (first_page_first_lba/SECTORS_PER_PAGE)) % N_BANKS;
+			if(page_offset == 0){ // 첫타
 				sector_kazu = 8 - first_lba_offset;
-				if(L2P[bank][halved_lpn]==-1){ // Empty
-					for(int i=0;i<sector_kazu;i++){
-						current_read_buffer[i]=0xFFFFFFFF;
-					}
+				if(ppn == -1){ // Empty
+					FOR(i, sector_kazu) current_read_buffer[i] = 0xFFFFFFFFF;
 				}else{
-					int ppn = L2P[bank][halved_lpn];
-					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
-					for(int i=first_lba_offset;i<8;i++){
-						current_read_buffer[i-first_lba_offset] = data[i];
-					}
+					nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
+					FOR(i, sector_kazu) current_read_buffer[i] = data[first_lba_offset + i];
 				}
-			}else if(pp==send_kazu-1){
-				sector_kazu = last_lba_offset;
-				if(L2P[bank][halved_lpn]==-1){ // Empty
-					for(int i=0;i<sector_kazu;i++){
-						current_read_buffer[i]=0xFFFFFFFF;
-					}
+			}else if(page_offset == send_kazu - 1){ // 막타
+				sector_kazu = last_lba_offset + 1;
+				if(ppn == -1){
+					FOR(i, 8 - sector_kazu) current_read_buffer[last_lba_offset + 1 + i] = 0xFFFFFFFF;
 				}else{
-					int ppn = L2P[bank][halved_lpn];
-					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
-					for(int i=0;i<=last_lba_offset;i++){
-						current_read_buffer[i] = data[i];
-					}
+					nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
+					FOR(i, sector_kazu) current_read_buffer[i] = data[i];
 				}
-			}else{
+			}else{ // 중간타
 				sector_kazu = 8;
-				if(L2P[bank][halved_lpn] == -1){ // Empty
-					for(int i=0;i<8;i++){
-						current_read_buffer[i]=0xFFFFFFFF;
-					}
+				if(ppn == -1){
+					FOR(i, sector_kazu) current_read_buffer[i] = 0xFFFFFFFF;
 				}else{
-					int ppn = L2P[bank][halved_lpn];
-					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare); sector_transferred+=8;
-					sector_transferred+=8;
-					for(int i=0;i<8;i++){
-						current_read_buffer[i] = data[i];
-					}
+					nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
+					FOR(i, sector_kazu) current_read_buffer[i] = data[i];
 				}
 			}
-			current_read_buffer+=sector_kazu;
+			current_read_buffer += sector_kazu;
 		}
 	}
 }
 
-
-void write_through_lpn(int bank, u32 halved_lpn, int* data){ // integer
-	if(next_ppn[bank]==gc_trigger_ppn[bank]){ // GC 발동
-		garbage_collection(bank); // Free a Block, update next_ppn, gc_trigger_ppn
-	}
-	int ppn = next_ppn[bank];
-	if(L2P[bank][halved_lpn]!=-1){
-		isValid[bank][L2P[bank][halved_lpn]]=INVALID;
-	}
-	L2P[bank][halved_lpn]=next_ppn[bank];
-	int result = nand_write(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &halved_lpn); stats.nand_write++; 
-	// printf("nand_write result = %d\n",result);
-	next_ppn[bank]++;
+void write_through_lpn(int bank, int lpn, int* data){
+	if(Next_Data_PPN[bank] == GC_Trigger_Data_PPN[bank]) garbage_collection(bank);
+	int ppn = Next_Data_PPN[bank];
+	int before_ppn = lpn2ppn(bank, lpn);
+	if(before_ppn != -1) isValid[bank][before_ppn]=0; // 덮어쓰기라면 기존 L2P invalid해줘야함. 근데 이거 OP블럭도 isValid 0때리는 문제발생할수있다는듯?
+	update_L2P(bank, lpn, Next_Data_PPN[bank]);
+	nand_write(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &lpn);
+	Next_Data_PPN[bank]++;
 }
 
-void ftl_write(u32 lba, u32 nsect, u32 *write_buffer)
+void ftl_write(u32 lba, u32 nsect, u32 *write_buffer) // 0th lba ~ 8 sect => 0~7th lba
 {
-	/* stats.nand_write++ every nand_write call*/
 	int* current_write_buffer = write_buffer;
 	int first_lba=lba;
 	int first_lba_offset = first_lba % SECTORS_PER_PAGE;
 	int first_page_first_lba = first_lba - first_lba_offset;
-	int last_lba = first_lba+nsect-1;
+	int last_lba = first_lba+nsect; // 여기까지는 쓰면 안됨
 	int last_lba_offset = (last_lba % SECTORS_PER_PAGE);
 	int last_page_first_lba = last_lba-last_lba_offset;
+	int send_kazu = 1 + ((last_page_first_lba - first_page_first_lba) / SECTORS_PER_PAGE);
+	if(last_lba_offset == 0) send_kazu--;
+	// lba0, nsect8 일 때 send_kazu must be 1
 
-	int send_kazu = 1 + ((last_page_first_lba-first_page_first_lba) / SECTORS_PER_PAGE);
-
-	int bank, lpn, ppn, halved_lpn, spare;
-	int data[8];
-	if(send_kazu == 0){ // 한 페이지도 채 안되는 포장
-		// 대가리도 0xff가, 끄트머리도 0xff가 될 가능성이 있음
-		int sector_transferred = 0;
-		lpn = first_page_first_lba/SECTORS_PER_PAGE;
-		bank = lpn % N_BANKS;
-		halved_lpn = lpn / N_BANKS; 
-		if(L2P[bank][halved_lpn] == -1){ // Empty
-			for(int i=0;i<first_lba_offset;i++){
-				data[i]=0xffffffff;
-			}
-			for(int i=last_lba_offset+1;i<8;i++){
-				data[i]=0xffffffff;
-			}
+	int data[SECTORS_PER_PAGE]; int bank, lpn, ppn, spare;
+	int sector_kazu = 0;
+	if(send_kazu == 1){
+		sector_kazu = nsect;
+		lpn = (first_page_first_lba / SECTORS_PER_PAGE) / N_BANKS;
+		bank = (first_page_first_lba / SECTORS_PER_PAGE) % N_BANKS;
+		ppn = lpn2ppn(bank, lpn);
+		if(ppn == -1){ // Empty
+			FOR(i, first_lba_offset) data[i] = 0xFFFFFFFF;
+			FOR(i, 8 - last_lba_offset) data[i + last_lba_offset] = 0xFFFFFFFF;
 		}else{
-			ppn = L2P[bank][halved_lpn];
-			nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare);
+			nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
 		}
-		for(int i=0;i<last_lba_offset-first_lba_offset+1;i++){
-			data[first_lba_offset+i]=current_write_buffer[i]; sector_transferred++;
-		}// 한페이지 포장완료
-		write_through_lpn(bank, halved_lpn, data);//포장한놈 배송
-		current_write_buffer+=sector_transferred;
-	}
-	else{ // 여러 페이지 포장
-		for(int pp=0; pp<send_kazu; pp++){ // 한 페이지 포장
-			int sector_transferred = 0;
-			lpn = pp + first_page_first_lba/SECTORS_PER_PAGE;
-			bank = lpn % N_BANKS;
-			halved_lpn = lpn / N_BANKS; 
-			// 만약 한 블록도 채 안되는 용량이라면?
-			if(pp==0){ // 32B씩 포장하되, 대가리가 0xff 될 가능성 있음
-				if(L2P[bank][halved_lpn] == -1){ // Empty
-					for(int i=0;i<first_lba_offset;i++){
-						data[i]=0xffffffff;
-					}
-				}else{ // Not Empty, 즉 기존 데이터 보존
-					ppn = L2P[bank][halved_lpn];
-					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare);
+		FOR(i, sector_kazu) data[first_lba_offset + i] = current_write_buffer[i];
+		write_through_lpn(bank, lpn, data); current_write_buffer += sector_kazu;
+	}else{
+		int page_offset;// 제거할 것
+		FOR(page_offset, send_kazu){
+			lpn = (first_page_first_lba / SECTORS_PER_PAGE) / N_BANKS;
+			bank = (first_page_first_lba / SECTORS_PER_PAGE) % N_BANKS;
+			ppn = lpn2ppn(bank, lpn);
+			if(page_offset == 0){ // 첫타
+				sector_kazu = 8 - first_lba_offset;
+				if(ppn == -1){ // Empty
+					FOR(i, first_lba_offset) data[i] = 0xFFFFFFFF;
+				}else{
+					nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
 				}
-				for(int i=0;i<8-first_lba_offset;i++){
-					data[first_lba_offset+i]=current_write_buffer[i]; sector_transferred++;
+				FOR(i, sector_kazu) data[first_lba_offset + i] = current_write_buffer[i];
+			}else if(page_offset == send_kazu - 1){ // 막타
+				sector_kazu = last_lba_offset + 1;
+				if(ppn == -1){
+					FOR(i, 7 - last_lba_offset) data[last_lba_offset + 1 + i] = 0xFFFFFFFF;
+				}else{
+					nand_read(bank, ppn/PAGES_PER_BLK, ppn%PAGES_PER_BLK, data, &spare);
 				}
+				FOR(i, sector_kazu) data[i] = current_write_buffer[i]; current_write_buffer += sector_kazu;
+			}else{
+				FOR(i, SECTORS_PER_PAGE) data[i] = current_write_buffer[i]; current_write_buffer += sector_kazu;
 			}
-			else if(pp==send_kazu-1){ // 32B씩 포장하되, 끄트머리가 0xff 될 가능성 있음
-				if(L2P[bank][halved_lpn] == -1){ // Empty
-					for(int i=last_lba_offset+1;i<8;i++){
-						data[i]=0xffffffff;
-					}
-				}else{ // Not Empty, 즉 기존 데이터 보존
-					ppn = L2P[bank][halved_lpn];
-					nand_read(bank,ppn/PAGES_PER_BLK,ppn%PAGES_PER_BLK,data,&spare);
-				}
-				for(int i=0;i<=last_lba_offset;i++){
-					data[i]=current_write_buffer[i]; sector_transferred++;
-				}
-			}
-			else{ // 아다리 맞춰서 32B씩 무지성으로 포장하면 됨. 생존데이터 없음.
-				for(int i=0;i<8;i++){
-					data[i] = current_write_buffer[i]; sector_transferred++;
-				}
-			}// data 포장 완료
-			write_through_lpn(bank, halved_lpn, data);//포장한놈 배송
-			current_write_buffer+=sector_transferred;//해당 페이지에 실제로 들어간 섹터 수만큼 전진
+			write_through_lpn(bank, lpn, data); current_write_buffer += sector_kazu;
 		}
 	}
 	stats.host_write += nsect;
 	return;
 }
+/*
+CMT_Age 건드려줘야함
+CMT도 새거고 GDT도 새거인, 처음 쓸때는 어떻게 메커니즘이 작동하는거지?
+CMT Dirty 등등도 일괄적으로 걍 때려버리기.
+배열차원검사
+
+GTD는 오로지 cache evict가 될 때만 수정된다.
+CMT_vpn의 2번째 차원을 vpn으로 넣지 말도록 유의. slot이나 offset이 들어가야한다.
+*/
