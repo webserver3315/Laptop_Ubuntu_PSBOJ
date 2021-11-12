@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#define FOR(x,n) for(int x=0;x<(n);x++)
 #define N_SLOT_PB N_CACHED_MAP_PAGE_PB
 #define CMT_NSECT N_MAP_ENTRIES_PER_PAGE
 #define EMPTY 0
