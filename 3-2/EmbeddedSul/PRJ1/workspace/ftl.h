@@ -18,6 +18,8 @@
 //#define NO_CACHE
 typedef unsigned int 		u32;
 
+#define N_BUFFERS		10
+
 #define SECTOR_SIZE					sizeof(u32)
 #define N_BANKS						8
 #define BLKS_PER_BANK				40
@@ -25,9 +27,6 @@ typedef unsigned int 		u32;
 #define SECTORS_PER_PAGE			(PAGE_DATA_SIZE / sizeof(u32))
 
 #define OP_RATIO					7
-
-#define N_BUFFERS		10
-#define BUFFER_SIZE		(N_BUFFERS * SECTORS_PER_PAGE * SECTOR_SIZE)
 
 #define MAP_ENTRY_SIZE				(sizeof(u32))
 #define N_MAP_ENTRIES_PER_PAGE		(PAGE_DATA_SIZE / MAP_ENTRY_SIZE)
@@ -37,10 +36,10 @@ typedef unsigned int 		u32;
 #define CMT_SIZE_PB					(BLKS_PER_BANK * PAGES_PER_BLK * sizeof(u32) * CMT_RATIO / 100) // 5% of total map table
 
 #define N_CACHED_MAP_PAGE_PB_TEMP	((const int)(CMT_SIZE_PB / (MAP_ENTRY_SIZE * N_MAP_ENTRIES_PER_PAGE)))
-#define N_CACHED_MAP_PAGE_PB		((0<N_CACHED_MAP_PAGE_PB_TEMP)?(N_CACHED_MAP_PAGE_PB_TEMP):(1)) // 뱅크별 캐시슬롯 개수
+#define N_CACHED_MAP_PAGE_PB		((0<N_CACHED_MAP_PAGE_PB_TEMP)?(N_CACHED_MAP_PAGE_PB_TEMP):(1))
 
 #define N_PPNS_PB					(BLKS_PER_BANK * PAGES_PER_BLK)
-#define N_MAP_PAGES_PB				(N_PPNS_PB / N_MAP_ENTRIES_PER_PAGE) // 실제로는 N_LPNS_PB를 나눠야 함
+#define N_MAP_PAGES_PB				(N_PPNS_PB / N_MAP_ENTRIES_PER_PAGE)
 
 #define N_MAP_BLOCKS_PB				(N_MAP_PAGES_PB / PAGES_PER_BLK)
 #define N_USER_BLOCKS_PB			(((BLKS_PER_BANK - N_MAP_BLOCKS_PB) * 100) / (100 + OP_RATIO))
@@ -76,7 +75,10 @@ struct ftl_stats {
 	long map_gc_write;
 	long cache_hit;
 	long cache_miss;
+	long CMT_hit;
+	long CMT_miss;
 };
+
 
 extern struct ftl_stats stats;
 

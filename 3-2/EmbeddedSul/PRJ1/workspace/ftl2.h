@@ -18,10 +18,12 @@
 //#define NO_CACHE
 typedef unsigned int 		u32;
 
+#define N_BUFFERS		10
+
 #define SECTOR_SIZE					sizeof(u32)
-#define N_BANKS						8
-#define BLKS_PER_BANK				40
-#define PAGES_PER_BLK				32
+#define N_BANKS						2
+#define BLKS_PER_BANK				10
+#define PAGES_PER_BLK				8
 #define SECTORS_PER_PAGE			(PAGE_DATA_SIZE / sizeof(u32))
 
 #define OP_RATIO					7
@@ -63,6 +65,7 @@ typedef unsigned int 		u32;
 #define N_LPNS						(N_LPNS_PB * N_BANKS)
 #define N_LBAS						(N_LPNS * SECTORS_PER_PAGE)
 
+
 struct ftl_stats {
 	int gc_cnt;
 	int map_gc_cnt;
@@ -73,7 +76,10 @@ struct ftl_stats {
 	long map_gc_write;
 	long cache_hit;
 	long cache_miss;
+	long CMT_hit;
+	long CMT_miss;
 };
+
 
 extern struct ftl_stats stats;
 

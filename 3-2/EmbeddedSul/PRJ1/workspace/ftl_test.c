@@ -12,13 +12,11 @@
  */
 
 
+#include "ftl.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <assert.h>
-
-#include "ftl.h"
-
+#include <time.h>
 
 struct ftl_stats stats;
 
@@ -30,10 +28,11 @@ static void show_info(void)
 	printf("Sectors per Page: %lu\n", SECTORS_PER_PAGE);
 	printf("OP ratio: %d%%\n", OP_RATIO);
 	printf("Physical Blocks: %d\n", N_BLOCKS);
-	printf("User Blocks: %d\n", (int)N_USER_BLOCKS);
-	printf("OP Blocks: %d\n", (int)N_OP_BLOCKS);
+	printf("User Blocks: %lu\n", N_USER_BLOCKS);
+	printf("Map Blocks: %lu\n", N_MAP_BLOCKS);
+	printf("OP Blocks: %lu\n", N_OP_BLOCKS);
 	printf("PPNs: %d\n", N_PPNS);
-	printf("LPNs: %d\n", (int)N_LPNS);
+	printf("LPNs: %lu\n", N_LPNS);
 	printf("\n");
 }
 
@@ -42,22 +41,10 @@ static u32 get_data()
 	return rand() & 0xff;
 }
 
-static void show_stat(void)
-{
-	printf("\nResults ------\n");
-	printf("Host writes: %ld\n", stats.host_write);
-	printf("GC writes: %ld\n", stats.gc_write);
-	printf("Number of GCs: %d\n", stats.gc_cnt);
-	printf("MAP writes : %ld\n", stats.map_write);
-	printf("Number of MAP GCs : %d\n", stats.map_gc_cnt);
-	printf("Number of MAP GC write : %ld\n", stats.map_gc_write);
-
-	printf("Valid pages per GC: %.2f pages\n", (double)stats.gc_write / stats.gc_cnt);
-	printf("Valid pages per Map GC: %.2f pages\n", (double)stats.map_gc_write / stats.map_gc_cnt);
-
-	printf("Cache hit rate : %.2f %%\n", (double)(stats.cache_hit*100. / (stats.cache_hit + stats.cache_miss)));
-	printf("WAF: %.2f\n", (double)((stats.nand_write + stats.gc_write+stats.map_write + stats.map_gc_write) * 8.0 / stats.host_write));
-}
+extern void show_whole_nand();
+extern void show_score();
+int line = 2;
+int debug = 0;
 
 int main(int argc, char **argv)
 {
@@ -75,12 +62,14 @@ int main(int argc, char **argv)
 		fprintf(stderr, "wrong input format\n");
 		return EXIT_FAILURE;
 	}
-	srand(seed);
+	srand(time(NULL));
+	// srand(seed);
 
 	ftl_open();
 	show_info();
 
 	while (1) {
+		if(debug) printf("=============================LINE %d===========================\n", line);
 		int i;
 		char op;
 		u32 lba;
@@ -99,6 +88,10 @@ int main(int argc, char **argv)
 				printf("%2x ", buf[i]);
 			printf("]\n");
                         free(buf);
+			if(debug){
+				show_whole_nand();
+			}
+			line++;
 			break;
 		case 'W':
 			scanf("%d %d", &lba, &nsect);
@@ -112,13 +105,16 @@ int main(int argc, char **argv)
 				printf("%2x ", buf[i]);
 			printf("]\n");
                         free(buf);
+			if(debug){
+				show_whole_nand();
+			}
+			line++;
 			break;
 		default:
 			fprintf(stderr, "Wrong op type\n");
 			return EXIT_FAILURE;
 		}
 	}
-
-	show_stat();
+	show_score();
 	return 0;
 }

@@ -1,9 +1,9 @@
 #----------------------------------------------------------
 #
-# Lab #2 : NAND Simulator
+# Lab #3 : NAND Simulator
 #  - Embedded Systems Design, ICE3028 (Fall, 2021)
 #
-# Sep. 23, 2021.
+# Sep. 30, 2021.
 #
 # TA: Youngjae Lee, Jeeyoon Jung
 # Prof: Dongkun Shin
@@ -13,7 +13,7 @@
 #
 #----------------------------------------------------------
 
-STUDENT_ID = 2021000000
+STUDENT_ID = 2017313213
 
 CC	= gcc
 CFLAGS	= -g -O2 -Wall -std=c99

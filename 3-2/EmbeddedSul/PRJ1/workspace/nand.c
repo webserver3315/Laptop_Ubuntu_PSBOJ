@@ -77,7 +77,9 @@ int nand_write(int bank, int blk, int page, void *data, void *spare) {
     blk_index[blk_idx]++;
     iswritten[page_idx] = 1;
     for (int i = 0; i < 8; i++) {
-        // printf("nand[%d].data[%d] := %x\n",page_idx,i, *((u32*)data + i));
+        // if(i==0) printf("nand[%d].data[0:7] := [%2x, ",page_idx, *((u32*)data + i));
+        // else if(i==7) printf("%2x]\n",*((u32*)data + i));
+        // else printf("%2x, ",nand[page_idx].data[i]);
         nand[page_idx].data[i] = *((u32*)data + i);
     }
     nand[page_idx].spare = *(u32*)spare;
