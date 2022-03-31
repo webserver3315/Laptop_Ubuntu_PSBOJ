@@ -1,0 +1,22 @@
+===================예시 input===========================
+func(){
+	char ret;
+	ret = 'a';
+	EXIT test;
+}
+
+===================예시 output===========================
+<identifier, func>
+<lparen, (>
+<rparen, )>
+<lbrace, {>
+<type, char>
+<identifier, ret>
+<semicolon, ;>
+<identifier, ret>
+<char, 'a'>
+<semicolon, ;>
+<keyidentifier, EXIT>
+<identifier, test>
+<semicolon, ;>
+<rbrace, }>

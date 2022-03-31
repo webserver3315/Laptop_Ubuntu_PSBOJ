@@ -1,0 +1,19 @@
+main(){
+int g;
+int a;
+int b;
+int c;
+int e;
+g = 100000000;
+a = 0;
+b = 1;
+c = 0;
+e = 1;
+
+WHILE g > c {
+c = a + b;
+a = b;
+b = c;
+e = e + 1;
+}
+}

@@ -1,0 +1,78 @@
+===================예시 input===========================
+foo(){
+	int alpha;
+	int bravo;
+	int charlie;
+	alpha = 12;
+	bravo = 30;
+	charlie = alpha;
+	charlie = charlie + bravo;
+	alpha = alpha + bravo + charlie;
+	IF alpha < 5
+	THEN {
+		EXIT 0;
+	}
+	ELSE {
+		EXIT alpha;
+	}
+}
+===================예시 output===========================
+//whitespace는 출력X
+//과제: word랑 word, keyword 구분해야함
+
+<word, foo>
+<lparen, (>
+<rparen, )>
+<lbrace, {>
+<type, int>
+<word, alpha>
+<semicolon, ;>
+<type, int>
+<word, bravo>
+<semicolon, ;>
+<type, int>
+<word, charlie>
+<semicolon, ;>
+<word, alpha>
+<assignment, =>
+<num, 12>
+<semicolon, ;>
+<word, bravo>
+<assignment, =>
+<num, 30>
+<semicolon, ;>
+<word, charlie>
+<assignment, =>
+<word, alpha>
+<semicolon, ;>
+<word, charlie>
+<assignment, =>
+<word, charlie>
+<operator, +>
+<word, bravo>
+<semicolon, ;>
+<word, alpha>
+<assignment, =>
+<word, alpha>
+<operator, +>
+<word, bravo>
+<operator, +>
+<word, charlie>
+<semicolon, ;>
+<keyword, IF>
+<word, alpha>
+<comparison, <>
+<num, 5>
+<keyword, THEN>
+<lbrace, {>
+<keyword, EXIT>
+<num, 0>
+<semicolon, ;>
+<rbrace, }>
+<keyword, ELSE>
+<lbrace, {>
+<keyword, EXIT>
+<word, alpha>
+<semicolon, ;>
+<rbrace, }>
+<rbrace, }>

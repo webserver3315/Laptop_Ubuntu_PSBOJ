@@ -1,0 +1,64 @@
+Lexical Analyzer는 input을 읽고 토큰으로 분류를 해서 Symbol Table을 만들어야 합니다.
+
+<구현요소>
+Token들의 Pattern
+그 Pattern들을 인식하는 코드
+Symbol Table
+
+word = {a-z or A-Z} 0개 이상?!??!
+num = 0-9 0개 이상?!?!
+
+factor == num or word
+
+expression == expr + fact or expr * fact or 
+
+지원 statement: empty, assignment, if-then-else, exit => return과 동일한듯?
+
+반환형은 오로지 int만.
+
+DFA를 어케 만들어야하나...
+
+
+
+======================내 Token Name======================
+<type>
+int | char
+<word>
+(a-z|A-Z)+
+<num>
+(0-9)+
+<operator>
++ | *
+<assignment>
+=
+<comparison>
+<
+<semicolon>
+;
+<lbrace>
+{
+<rbrace>
+}
+<lparen>
+(
+<rparen>
+)
+<keyword>
+IF THEN ELSE EXIT => EXIT 은 어따쓰는거..?
+<whitespace>
+\t \n ' '
+
+변수명(==identifier)에는 숫자가 들어갈수없음. 이건개꿀.
+
+statement 는 무엇인가? 선언?
+word 는 문자들을 의미하고
+expr는 ㄹㅇ 값을 의미하고, 식이 오는 것이다.
+
+======================언어 명세======================
+기본적으로 C와 동일.
+포인터 지원 안함.
+{}를 통한 block scoping 지원.
+연산은 *, + 만 지원.
+자료형은 int, string 만 지원.
+return 없음. 전역변수 로컬변수 썼다 지웠다만 지원.
+int k; k = -5; 지원 안함. 오로지 양수만 지원.

@@ -1,0 +1,409 @@
+"C:\Users\LG gram\anaconda3\envs\201207_AI_HW2\python.exe" "C:/Users/LG gram/Desktop/Final/compiler2020.py"
+================Tokens==================
+['word : ', 'main']
+['bracket : ', '(']
+['bracket : ', ')']
+['bracket : ', '{']
+['type : ', 'int']
+['word : ', 'g']
+['comma, semicolon : ', ';']
+['type : ', 'int']
+['word : ', 'a']
+['comma, semicolon : ', ';']
+['type : ', 'int']
+['word : ', 'b']
+['comma, semicolon : ', ';']
+['type : ', 'int']
+['word : ', 'c']
+['comma, semicolon : ', ';']
+['type : ', 'int']
+['word : ', 'e']
+['comma, semicolon : ', ';']
+['word : ', 'g']
+['operator : ', '=']
+['number', '100000000']
+['comma, semicolon : ', ';']
+['word : ', 'a']
+['operator : ', '=']
+['number', '0']
+['comma, semicolon : ', ';']
+['word : ', 'b']
+['operator : ', '=']
+['number', '1']
+['comma, semicolon : ', ';']
+['word : ', 'c']
+['operator : ', '=']
+['number', '0']
+['comma, semicolon : ', ';']
+['word : ', 'e']
+['operator : ', '=']
+['number', '1']
+['comma, semicolon : ', ';']
+['statement : ', 'WHILE']
+['word : ', 'g']
+['operator : ', '>']
+['word : ', 'c']
+['bracket : ', '{']
+['word : ', 'c']
+['operator : ', '=']
+['word : ', 'a']
+['operator : ', '+']
+['word : ', 'b']
+['comma, semicolon : ', ';']
+['word : ', 'a']
+['operator : ', '=']
+['word : ', 'b']
+['comma, semicolon : ', ';']
+['word : ', 'b']
+['operator : ', '=']
+['word : ', 'c']
+['comma, semicolon : ', ';']
+['word : ', 'e']
+['operator : ', '=']
+['word : ', 'e']
+['operator : ', '+']
+['number', '1']
+['comma, semicolon : ', ';']
+['bracket : ', '}']
+['bracket : ', '}']
+
+================LL grammar==================
+prog [['word', '(', ')', 'block']]
+decl [['vtype', 'word', ';']]
+vtype [['int'], ['char']]
+block [['{', 'decls', 'slist', '}'], ['']]
+stat [['IF', 'cond', 'THEN', 'block', 'ELSE', 'block'], ['WHILE', 'cond', 'block'], ['word', '=', 'expr', ';'], ['EXIT', 'expr', ';']]
+fact [['num'], ['word']]
+word [['([a-z] | [A-Z])*']]
+num [['[0-9]*']]
+decls [["decls'"]]
+decls' [['decl', "decls'"], ['']]
+slist [["slist'"]]
+slist' [['stat', "slist'"], ['']]
+cond [['expr', "cond'"]]
+cond' [['>', 'expr'], ['==', 'expr']]
+expr [['term', "expr'"]]
+expr' [['+', 'term'], ['']]
+term [['fact', "term'"]]
+term' [['*', 'fact'], ['']]
+
+================Non-terminal==================
+['prog', 'decl', 'vtype', 'block', 'stat', 'fact', 'word', 'num', 'decls', "decls'", 'slist', "slist'", 'cond', "cond'", 'expr', "expr'", 'term', "term'"]
+
+================Terminal==================
+['EXIT', ')', '{', 'IF', '([a-z] | [A-Z])*', 'char', '+', '==', 'int', '=', '}', 'WHILE', '[0-9]*', ';', '*', '>', 'ELSE', 'THEN', '(', '$']
+
+================First==================
+prog {'([a-z] | [A-Z])*'}
+decl {'char', 'int'}
+vtype {'char', 'int'}
+block {'', '{'}
+stat {'([a-z] | [A-Z])*', 'EXIT', 'WHILE', 'IF'}
+fact {'([a-z] | [A-Z])*', '[0-9]*'}
+word {'([a-z] | [A-Z])*'}
+num {'[0-9]*'}
+decls {'', 'char', 'int'}
+decls' {'', 'char', 'int'}
+slist {'([a-z] | [A-Z])*', '', 'EXIT', 'WHILE', 'IF'}
+slist' {'([a-z] | [A-Z])*', '', 'EXIT', 'WHILE', 'IF'}
+cond {'([a-z] | [A-Z])*', '[0-9]*'}
+cond' {'==', '>'}
+expr {'([a-z] | [A-Z])*', '[0-9]*'}
+expr' {'', '+'}
+term {'([a-z] | [A-Z])*', '[0-9]*'}
+term' {'', '*'}
+
+================Follow==============
+prog {'$'}
+decl {'([a-z] | [A-Z])*', 'EXIT', 'char', '$', 'ELSE', '}', 'WHILE', 'int', 'IF'}
+vtype {'([a-z] | [A-Z])*'}
+block {'([a-z] | [A-Z])*', '$', 'EXIT', 'ELSE', '}', 'WHILE', 'IF'}
+stat {'([a-z] | [A-Z])*', 'EXIT', '}', 'WHILE', 'IF'}
+fact {'([a-z] | [A-Z])*', 'EXIT', '*', '>', '}', '+', 'THEN', '==', 'WHILE', '{', ';', 'IF'}
+word {'([a-z] | [A-Z])*', 'EXIT', '=', '*', '>', '}', '+', 'THEN', 'IF', '==', 'WHILE', '{', ';', '('}
+num {'([a-z] | [A-Z])*', 'EXIT', '*', '>', '}', '+', 'THEN', '==', 'WHILE', '{', ';', 'IF'}
+decls {'([a-z] | [A-Z])*', 'EXIT', '$', 'ELSE', '}', 'WHILE', 'IF'}
+decls' {'([a-z] | [A-Z])*', 'EXIT', '$', 'ELSE', '}', 'WHILE', 'IF'}
+slist {'}'}
+slist' {'}'}
+cond {'([a-z] | [A-Z])*', 'EXIT', '}', 'THEN', 'WHILE', '{', 'IF'}
+cond' {'([a-z] | [A-Z])*', 'EXIT', '}', 'THEN', 'WHILE', '{', 'IF'}
+expr {'([a-z] | [A-Z])*', 'EXIT', '>', '}', 'THEN', '==', 'WHILE', '{', ';', 'IF'}
+expr' {'([a-z] | [A-Z])*', 'EXIT', '>', '}', 'THEN', '==', 'WHILE', '{', ';', 'IF'}
+term {'([a-z] | [A-Z])*', 'EXIT', '>', '}', 'THEN', '+', '==', 'WHILE', '{', ';', 'IF'}
+term' {'([a-z] | [A-Z])*', 'EXIT', '>', '}', 'THEN', '+', '==', 'WHILE', '{', ';', 'IF'}
+
+================Table==============
+0 EXIT ) { IF ([a-z] | [A-Z])* char + == int = } WHILE [0-9]* ; * > ELSE THEN ( $ 
+prog 0 0 0 0 ['word', '(', ')', 'block'] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+decl 0 0 0 0 0 ['vtype', 'word', ';'] 0 0 ['vtype', 'word', ';'] 0 0 0 0 0 0 0 0 0 0 0 
+vtype 0 0 0 0 0 ['char'] 0 0 ['int'] 0 0 0 0 0 0 0 0 0 0 0 
+block [''] 0 ['{', 'decls', 'slist', '}'] [''] [''] 0 0 0 0 0 [''] [''] 0 0 0 0 [''] 0 0 [''] 
+stat ['EXIT', 'expr', ';'] 0 0 ['IF', 'cond', 'THEN', 'block', 'ELSE', 'block'] ['word', '=', 'expr', ';'] 0 0 0 0 0 0 ['WHILE', 'cond', 'block'] 0 0 0 0 0 0 0 0 
+fact 0 0 0 0 ['word'] 0 0 0 0 0 0 0 ['num'] 0 0 0 0 0 0 0 
+word 0 0 0 0 ['([a-z] | [A-Z])*'] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+num 0 0 0 0 0 0 0 0 0 0 0 0 ['[0-9]*'] 0 0 0 0 0 0 0 
+decls [''] 0 0 [''] [''] ["decls'"] 0 0 ["decls'"] 0 [''] [''] 0 0 0 0 [''] 0 0 [''] 
+decls' [''] 0 0 [''] [''] ['decl', "decls'"] 0 0 ['decl', "decls'"] 0 [''] [''] 0 0 0 0 [''] 0 0 [''] 
+slist ["slist'"] 0 0 ["slist'"] ["slist'"] 0 0 0 0 0 [''] ["slist'"] 0 0 0 0 0 0 0 0 
+slist' ['stat', "slist'"] 0 0 ['stat', "slist'"] ['stat', "slist'"] 0 0 0 0 0 [''] ['stat', "slist'"] 0 0 0 0 0 0 0 0 
+cond 0 0 0 0 ['expr', "cond'"] 0 0 0 0 0 0 0 ['expr', "cond'"] 0 0 0 0 0 0 0 
+cond' 0 0 0 0 0 0 0 ['==', 'expr'] 0 0 0 0 0 0 0 ['>', 'expr'] 0 0 0 0 
+expr 0 0 0 0 ['term', "expr'"] 0 0 0 0 0 0 0 ['term', "expr'"] 0 0 0 0 0 0 0 
+expr' [''] 0 [''] [''] [''] 0 ['+', 'term'] [''] 0 0 [''] [''] 0 [''] 0 [''] 0 [''] 0 0 
+term 0 0 0 0 ['fact', "term'"] 0 0 0 0 0 0 0 ['fact', "term'"] 0 0 0 0 0 0 0 
+term' [''] 0 [''] [''] [''] 0 [''] [''] 0 0 [''] [''] 0 [''] ['*', 'fact'] [''] 0 [''] 0 0 
+================Table Ends==============
+
+============Parsing tree============
+0|'prog'
+1|	'word'
+2|		'([a-z] | [A-Z])*'
+1|	'('
+1|	')'
+1|	'block'
+2|		'{'
+2|		'decls'
+3|			"decls'"
+4|				'decl'
+5|					'vtype'
+6|						'int'
+5|					'word'
+6|						'([a-z] | [A-Z])*'
+5|					';'
+4|				"decls'"
+5|					'decl'
+6|						'vtype'
+7|							'int'
+6|						'word'
+7|							'([a-z] | [A-Z])*'
+6|						';'
+5|					"decls'"
+6|						'decl'
+7|							'vtype'
+8|								'int'
+7|							'word'
+8|								'([a-z] | [A-Z])*'
+7|							';'
+6|						"decls'"
+7|							'decl'
+8|								'vtype'
+9|									'int'
+8|								'word'
+9|									'([a-z] | [A-Z])*'
+8|								';'
+7|							"decls'"
+8|								'decl'
+9|									'vtype'
+10|										'int'
+9|									'word'
+10|										'([a-z] | [A-Z])*'
+9|									';'
+8|								"decls'"
+9|									''
+2|		'slist'
+3|			"slist'"
+4|				'stat'
+5|					'word'
+6|						'([a-z] | [A-Z])*'
+5|					'='
+5|					'expr'
+6|						'term'
+7|							'fact'
+8|								'num'
+9|									'[0-9]*'
+7|							"term'"
+8|								''
+6|						"expr'"
+7|							''
+5|					';'
+4|				"slist'"
+5|					'stat'
+6|						'word'
+7|							'([a-z] | [A-Z])*'
+6|						'='
+6|						'expr'
+7|							'term'
+8|								'fact'
+9|									'num'
+10|										'[0-9]*'
+8|								"term'"
+9|									''
+7|							"expr'"
+8|								''
+6|						';'
+5|					"slist'"
+6|						'stat'
+7|							'word'
+8|								'([a-z] | [A-Z])*'
+7|							'='
+7|							'expr'
+8|								'term'
+9|									'fact'
+10|										'num'
+11|											'[0-9]*'
+9|									"term'"
+10|										''
+8|								"expr'"
+9|									''
+7|							';'
+6|						"slist'"
+7|							'stat'
+8|								'word'
+9|									'([a-z] | [A-Z])*'
+8|								'='
+8|								'expr'
+9|									'term'
+10|										'fact'
+11|											'num'
+12|												'[0-9]*'
+10|										"term'"
+11|											''
+9|									"expr'"
+10|										''
+8|								';'
+7|							"slist'"
+8|								'stat'
+9|									'word'
+10|										'([a-z] | [A-Z])*'
+9|									'='
+9|									'expr'
+10|										'term'
+11|											'fact'
+12|												'num'
+13|													'[0-9]*'
+11|											"term'"
+12|												''
+10|										"expr'"
+11|											''
+9|									';'
+8|								"slist'"
+9|									'stat'
+10|										'WHILE'
+10|										'cond'
+11|											'expr'
+12|												'term'
+13|													'fact'
+14|														'word'
+15|															'([a-z] | [A-Z])*'
+13|													"term'"
+14|														''
+12|												"expr'"
+13|													''
+11|											"cond'"
+12|												'>'
+12|												'expr'
+13|													'term'
+14|														'fact'
+15|															'word'
+16|																'([a-z] | [A-Z])*'
+14|														"term'"
+15|															''
+13|													"expr'"
+14|														''
+10|										'block'
+11|											'{'
+11|											'decls'
+12|												''
+11|											'slist'
+12|												"slist'"
+13|													'stat'
+14|														'word'
+15|															'([a-z] | [A-Z])*'
+14|														'='
+14|														'expr'
+15|															'term'
+16|																'fact'
+17|																	'word'
+18|																		'([a-z] | [A-Z])*'
+16|																"term'"
+17|																	''
+15|															"expr'"
+16|																'+'
+16|																'term'
+17|																	'fact'
+18|																		'word'
+19|																			'([a-z] | [A-Z])*'
+17|																	"term'"
+18|																		''
+14|														';'
+13|													"slist'"
+14|														'stat'
+15|															'word'
+16|																'([a-z] | [A-Z])*'
+15|															'='
+15|															'expr'
+16|																'term'
+17|																	'fact'
+18|																		'word'
+19|																			'([a-z] | [A-Z])*'
+17|																	"term'"
+18|																		''
+16|																"expr'"
+17|																	''
+15|															';'
+14|														"slist'"
+15|															'stat'
+16|																'word'
+17|																	'([a-z] | [A-Z])*'
+16|																'='
+16|																'expr'
+17|																	'term'
+18|																		'fact'
+19|																			'word'
+20|																				'([a-z] | [A-Z])*'
+18|																		"term'"
+19|																			''
+17|																	"expr'"
+18|																		''
+16|																';'
+15|															"slist'"
+16|																'stat'
+17|																	'word'
+18|																		'([a-z] | [A-Z])*'
+17|																	'='
+17|																	'expr'
+18|																		'term'
+19|																			'fact'
+20|																				'word'
+21|																					'([a-z] | [A-Z])*'
+19|																			"term'"
+20|																				''
+18|																		"expr'"
+19|																			'+'
+19|																			'term'
+20|																				'fact'
+21|																					'num'
+22|																						'[0-9]*'
+20|																				"term'"
+21|																					''
+17|																	';'
+16|																"slist'"
+17|																	''
+11|											'}'
+9|									"slist'"
+10|										''
+2|		'}'
+
+======Printing nodes of the syntax tree======
+main ( ) { int g ; int a ; int b ; int c ; int e ;  g = 100000000   ; a = 0   ; b = 1   ; c = 0   ; e = 1   ; WHILE g   > c   {  c = a  + b  ; a = b   ; b = c   ; e = e  + 1  ;  }  }
+
+=======Intermediate representation========
+0. BEGIN main
+1. g = 100000000  
+2. a = 0  
+3. b = 1  
+4. c = 0  
+5. e = 1  
+6. goto L2
+7. L1
+8. c = a  + b 
+9. a = b  
+10. b = c  
+11. e = e  + 1 
+12. L2
+13. if g > c goto L1
+14. END main
+
+
+Process finished with exit code 0

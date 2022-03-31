@@ -1,0 +1,23 @@
+prog -> word "(" ")" block ;
+decls -> decls decl
+| ;
+decl -> vtype word ";" ;
+vtype -> int | char ;
+block -> "{" decls slist "}"
+| ;
+slist -> slist stat
+| ;
+stat -> IF cond THEN block ELSE block
+| WHILE cond block
+| word "=" expr ";"
+| EXIT expr ";" ;
+cond -> expr ">" expr
+| expr "==" expr ;
+expr -> term
+| term "+" term ;
+term -> fact
+| fact "*" fact ;
+fact -> num
+| word ;
+word -> ([a-z] | [A-Z])* ;
+num -> [0-9]*

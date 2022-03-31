@@ -1,0 +1,21 @@
+Symbol Table, testfile2
+name : main
+{	type : function
+	scope : global }
+
+name : apple
+{	type : int
+	scope : global -> main }
+
+name : bread
+{	type : int
+	scope : global -> main }
+
+name : chocolate
+{	type : int
+	scope : global -> main }
+
+name : dimsum
+{	type : int
+	scope : global -> main -> WHILE }
+

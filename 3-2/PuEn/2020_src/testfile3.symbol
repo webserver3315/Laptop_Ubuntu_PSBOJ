@@ -1,0 +1,25 @@
+Symbol Table, testfile3
+name : main
+{	type : function
+	scope : global }
+
+name : g
+{	type : int
+	scope : global -> main }
+
+name : a
+{	type : int
+	scope : global -> main }
+
+name : b
+{	type : int
+	scope : global -> main }
+
+name : c
+{	type : int
+	scope : global -> main }
+
+name : e
+{	type : int
+	scope : global -> main }
+

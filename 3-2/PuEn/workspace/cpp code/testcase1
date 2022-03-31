@@ -1,0 +1,27 @@
+===================예시 input===========================
+func(){
+	char test;
+	int alpha;
+	alpha = 500;
+	EXIT alpha;
+}
+
+===================예시 output===========================
+<identifier, func>
+<lparen, (>
+<rparen, )>
+<lbrace, {>
+<type, char>
+<identifier, test>
+<semicolon, ;>
+<type, int>
+<identifier, alpha>
+<semicolon, ;>
+<identifier, alpha>
+<assignment, =>
+<num, 500>
+<semicolon, ;>
+<keyword, EXIT>
+<identifier,alpha>
+<semicolon, ;>
+<rbrace, }>

@@ -1,0 +1,42 @@
+Generating codes, testfile2
+BEGIN main
+  LD    Reg#1,   0
+  ST    Reg#1,   apple
+  LD    Reg#1,   1
+  ST    Reg#1,   bread
+  LD    Reg#1,   100
+  ST    Reg#1,   chocolate
+  JUMP           L2
+L1
+  LD    Reg#1,   bread
+  LD    Reg#2,   bread
+  MUL   Reg#1,   Reg#1,   Reg#2
+  ST    Reg#1,   dimsum
+  LD    Reg#1,   apple
+  LD    Reg#2,   dimsum
+  ADD   Reg#1,   Reg#1,   Reg#2
+  ST    Reg#1,   apple
+  LD    Reg#1,   bread
+  LD    Reg#2,   1
+  ADD   Reg#1,   Reg#1,   Reg#2
+  ST    Reg#1,   bread
+L2
+  LD    Reg#2,   chocolate
+  LD    Reg#1,   apple
+  LD    Reg#2,   bread
+  ADD   Reg#1,   Reg#1,   Reg#2
+  LT    Reg#1,   Reg#2,   Reg#1
+  JUMPT Reg#1,   L1
+  LD    Reg#1,   apple
+  LD    Reg#2,   100
+  LT    Reg#1,   Reg#1,   Reg#2
+  JUMPT Reg#1,   L3
+  LD    rax,   -1
+  JUMP           L4
+L3
+  LD    Reg#1,   100
+  ST    Reg#1,   apple
+L4
+END main
+
+Number of Used Register (except rax) :2

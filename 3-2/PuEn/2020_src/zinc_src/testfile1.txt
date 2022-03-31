@@ -1,0 +1,20 @@
+main(){
+int a;
+int b;
+int c;
+char d;
+char e;
+
+b = 3;
+a = b + 14;
+d = 4 * 3 + 2 * 1;
+
+IF a + 1 < c  THEN {
+e = 5;
+}
+ELSE {
+e = 3;
+}
+
+EXIT 0;
+}

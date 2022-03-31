@@ -1,0 +1,20 @@
+main(){
+int alpha;
+int bravo;
+int charlie;
+char delta;
+char echo;
+
+bravo = 3;
+alpha = bravo + 14;
+delta = 4 * 3 + 2 * 1;
+
+IF alpha + 1 < charlie  THEN {
+echo = 5;
+}
+ELSE {
+echo = 3;
+}
+
+EXIT 0;
+}

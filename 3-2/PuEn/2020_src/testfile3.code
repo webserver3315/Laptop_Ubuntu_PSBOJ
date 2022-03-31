@@ -1,0 +1,34 @@
+Generating codes, testfile3
+BEGIN main
+  LD    Reg#1,   100000000
+  ST    Reg#1,   g
+  LD    Reg#1,   0
+  ST    Reg#1,   a
+  LD    Reg#1,   1
+  ST    Reg#1,   b
+  LD    Reg#1,   0
+  ST    Reg#1,   c
+  LD    Reg#1,   1
+  ST    Reg#1,   e
+  JUMP           L2
+L1
+  LD    Reg#1,   a
+  LD    Reg#2,   b
+  ADD   Reg#1,   Reg#1,   Reg#2
+  ST    Reg#1,   c
+  LD    Reg#1,   b
+  ST    Reg#1,   a
+  LD    Reg#1,   c
+  ST    Reg#1,   b
+  LD    Reg#1,   e
+  LD    Reg#2,   1
+  ADD   Reg#1,   Reg#1,   Reg#2
+  ST    Reg#1,   e
+L2
+  LD    Reg#1,   g
+  LD    Reg#2,   c
+  LT    Reg#1,   Reg#1,   Reg#2
+  JUMPT Reg#1,   L1
+END main
+
+Number of Used Register (except rax) :2
